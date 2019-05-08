@@ -29,4 +29,13 @@ class Log {
       length: json["length"],
       names:new Map.from(json["names"])
           .map((k, v) => new MapEntry<String, String>(k, v)),);
+
+
+  String getPlayerName(String steamId){
+    if (names.containsKey(steamId)){
+      return names[steamId];
+    } else {
+      return "???";
+    }
+  }
 }

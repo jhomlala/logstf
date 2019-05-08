@@ -1,7 +1,12 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:logstf/manager/stats_manager.dart';
+import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/view/log_player_detailed_view.dart';
 
 class LogPlayersStatsView extends StatefulWidget {
   LogPlayersStatsView(this.log);
@@ -16,46 +21,81 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   String _filterName = "Kills";
+  HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;
+
 
   @override
   void initState() {
     super.initState();
     _players = widget.log.players;
     _playerNames = widget.log.names;
+    _averagePlayerStatsMap = HashMap();
+    _averagePlayerStatsMap["ALL"] =
+        StatsManager.getAveragePlayerStatsForAllPlayers(
+            _players.values.toList());
+    _averagePlayerStatsMap["Red"] = StatsManager.getAveragePlayerStatsForTeam(
+        _players.values.toList(), "Red");
+    _averagePlayerStatsMap["Blue"] = StatsManager.getAveragePlayerStatsForTeam(
+        _players.values.toList(), "Blue");
   }
 
   @override
   Widget build(BuildContext context) {
-    var _playersSteamIds = _players.keys.toList();
-    var _playersList = _players.values.toList();
+    return SingleChildScrollView(
+        child: Column(children: <Widget>[
+      _getFilterDropdownWidget(),
+      Table(
+        border: TableBorder(
+            left: BorderSide(
+              color: Colors.black,
+            ),
+            right: BorderSide(
+              color: Colors.black,
+            ),
+            top: BorderSide(
+              color: Colors.black,
+            )),
+        children: _getTableRows(),
+      )
+    ]));
+  }
 
-    /*return ListView.builder(
-        itemCount: _players.length,
-        itemBuilder: (buildContext, position) {
-          var player = _playersList[position];
-          return  Row(children: [
-            _getTeamWidget(player),
-            Container(width: 100, padding:EdgeInsets.only(left:5),child: Text(_getPlayerName(_playersSteamIds[position])))
-          ]);
-        });*/
-
-    return Column(children: <Widget>[
-       DropdownButton<String>(value: _filterName,
-        items: <String>['Kills', 'Assists', 'Deaths', 'Suicides', 'KA/D', 'K/D'].map((String value) {
+  Widget _getFilterDropdownWidget() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text("Metric: "),
+      Padding(
+        padding: EdgeInsets.only(left: 5),
+      ),
+      DropdownButton<String>(
+        value: _filterName,
+        style: TextStyle(color: Colors.black),
+        items: <String>[
+          "Kills",
+          "Assists",
+          "Deaths",
+          "DA",
+          "DA/M",
+          "KA/D",
+          "K/D",
+          "DT",
+          "DT/M",
+          "HP",
+          "HS",
+          "AS",
+          "CAP"
+        ].map((String value) {
           return new DropdownMenuItem<String>(
             value: value,
             child: new Text(value),
           );
         }).toList(),
         onChanged: (value) {
-         setState((){
-           _filterName = value;
-         });
+          setState(() {
+            _filterName = value;
+          });
         },
-      ),
-      Table(
-      children: _getTableRows(),
-    )]);
+      )
+    ]);
   }
 
   List<TableRow> _getTableRows() {
@@ -68,60 +108,132 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
       var player = playersListOrdered[index];
       var name = _playerNames[player.steamId];
 
-      var tableRow = TableRow(decoration: BoxDecoration(border:Border(bottom: BorderSide(color: Colors.black))),children: [
-        _getTeamWidget(player),
-       _getPlayerNameWidget(name),
-        _getPlayerClassesWidget(player),
-       _getCurrentStatWidget(player)
-      ]);
+      var tableRow = TableRow(
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black))),
+          children: [
+            _getTeamWidget(player),
+            _getPlayerNameWidget(player, name),
+            _getPlayerClassesWidget(player),
+            _getCurrentStatWidget(player),
+          ]);
       tableRowsList.add(tableRow);
     }
     return tableRowsList;
   }
 
+  void onPlayerClicked(Player player) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LogPlayerDetailedView(
+                widget.log, player, _averagePlayerStatsMap)));
+  }
 
-
-  List<Player> orderPlayersByField(List<Player> players){
+  List<Player> orderPlayersByField(List<Player> players) {
     List<Player> playersCopy = List();
     playersCopy.addAll(players);
-    switch(_filterName){
+    switch (_filterName) {
       case "Kills":
-        playersCopy.sort((player1,player2) => player2.kills.compareTo(player1.kills));
+        playersCopy
+            .sort((player1, player2) => player2.kills.compareTo(player1.kills));
         break;
       case "Deaths":
-        playersCopy.sort((player1,player2) => player2.deaths.compareTo(player1.deaths));
+        playersCopy.sort(
+            (player1, player2) => player2.deaths.compareTo(player1.deaths));
         break;
       case "Assists":
-        playersCopy.sort((player1, player2) =>
-            player2.assists.compareTo(player1.assists));
+        playersCopy.sort(
+            (player1, player2) => player2.assists.compareTo(player1.assists));
         break;
-      case "Suicides":
-        playersCopy.sort((player1,player2) => player2.suicides.compareTo(player1.suicides));
+      case "DA":
+        playersCopy
+            .sort((player1, player2) => player2.dmg.compareTo(player1.dmg));
+        break;
+
+      case "DA/M":
+        playersCopy
+            .sort((player1, player2) => player2.dapm.compareTo(player1.dapm));
         break;
       case "KA/D":
-        playersCopy.sort((player1,player2) => double.parse(player2.kapd).compareTo(double.parse(player1.kapd)));
+        playersCopy.sort((player1, player2) =>
+            double.parse(player2.kapd).compareTo(double.parse(player1.kapd)));
         break;
       case "K/D":
-        playersCopy.sort((player1,player2) => double.parse(player2.kpd).compareTo(double.parse(player1.kpd)));
+        playersCopy.sort((player1, player2) =>
+            double.parse(player2.kpd).compareTo(double.parse(player1.kpd)));
         break;
-
+      case "DT":
+        playersCopy
+            .sort((player1, player2) => player2.dt.compareTo(player1.dt));
+        break;
+      case "DT/M":
+        playersCopy.sort((player1, player2) =>
+            _calculateDamageTakenPerMinute(player2.dt)
+                .compareTo(_calculateDamageTakenPerMinute(player1.dt)));
+        break;
+      case "HP":
+        playersCopy.sort((player1, player2) =>
+            player2.medkitsHp.compareTo(player1.medkitsHp));
+        break;
+      case "HS":
+        playersCopy.sort((player1, player2) =>
+            player2.headshots.compareTo(player1.headshots));
+        break;
+      case "AS":
+        playersCopy
+            .sort((player1, player2) => player2.as.compareTo(player1.as));
+        break;
+      case "CAP":
+        playersCopy
+            .sort((player1, player2) => player2.as.compareTo(player1.as));
+        break;
     }
-
     return playersCopy;
   }
 
-  TableRow getHeaderTableRow(){
-    return TableRow(children: [_getHeaderWidget("TEAM"),_getHeaderWidget("PLAYER"), _getHeaderWidget("CLASSES"), _getHeaderWidget(_filterName)]);
+  double _calculateDamageTakenPerMinute(int damgeTaken) {
+    var length = widget.log.length / 60;
+    return damgeTaken / length;
   }
 
-
-  Widget _getHeaderWidget(String headerName){
-    return Container(height: 30,decoration: BoxDecoration(color: AppUtils.darkBlueColor,), child: Center(child:Text(headerName, style: TextStyle(color:Colors.white),)),);
+  TableRow getHeaderTableRow() {
+    return TableRow(children: [
+      _getHeaderWidget("TEAM"),
+      _getHeaderWidget("PLAYER"),
+      _getHeaderWidget("CLASSES"),
+      _getHeaderWidget(_filterName),
+    ]);
   }
 
-  Widget _getPlayerNameWidget(String name){
+  Widget _getHeaderWidget(String headerName) {
     return Container(
-      height:30,  padding: EdgeInsets.only(left: 5), child: Center(child: Text(name, overflow: TextOverflow.ellipsis,)),);
+      height: 30,
+      decoration: BoxDecoration(
+        color: AppUtils.darkBlueColor,
+      ),
+      child: Center(
+          child: Text(
+        headerName,
+        style: TextStyle(color: Colors.white),
+      )),
+    );
+  }
+
+  Widget _getPlayerNameWidget(Player player, String name) {
+    return InkWell(
+      onTap: () {
+        onPlayerClicked(player);
+      },
+      child: Container(
+          height: 30,
+          padding: EdgeInsets.only(left: 5),
+          child: Center(
+              child: Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+          ))),
+    );
   }
 
   Widget _getPlayerClassesWidget(Player player) {
@@ -170,7 +282,12 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
         );
       }
     });
-    return Center(child: Container(height:30,child:Row(mainAxisAlignment:MainAxisAlignment.center,children: classIcons)));
+    return Center(
+        child: Container(
+            height: 30,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: classIcons)));
   }
 
   String _getPlayerName(String steamId) {
@@ -189,18 +306,24 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
       teamName = "BLU";
     }
 
-    return Container(
-      height:30,
-
-        decoration: BoxDecoration(color: teamColor, border: Border(bottom: BorderSide(color: Colors.black))),
-        child: Center(
-          child: Text(teamName, style: TextStyle(color: Colors.white)),
-        ));
+    return InkWell(
+        onTap: () {
+          onPlayerClicked(player);
+        },
+        child: Container(
+            height: 30,
+            width: 50,
+            decoration: BoxDecoration(
+                color: teamColor,
+                border: Border(bottom: BorderSide(color: Colors.black))),
+            child: Center(
+              child: Text(teamName, style: TextStyle(color: Colors.white)),
+            )));
   }
 
   _getCurrentStatWidget(Player player) {
     String value = "";
-    switch (_filterName){
+    switch (_filterName) {
       case "Kills":
         value = "${player.kills}";
         break;
@@ -210,8 +333,11 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
       case "Assists":
         value = "${player.assists}";
         break;
-      case "Suicides":
-        value = "${player.suicides}";
+      case "DA":
+        value = "${player.dmg}";
+        break;
+      case "DA/M":
+        value = "${player.dapm}";
         break;
       case "KA/D":
         value = "${player.kapd}";
@@ -219,13 +345,31 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
       case "K/D":
         value = "${player.kpd}";
         break;
+      case "DT":
+        value = "${player.dt}";
+        break;
+      case "DT/M":
+        value = "${_calculateDamageTakenPerMinute(player.dt)}";
+        break;
+      case "HP":
+        value = "${player.heal}";
+        break;
+      case "HS":
+        value = "${player.headshots}";
+        break;
+      case "AS":
+        value = "${player.as}";
+        break;
+      case "CAP":
+        value = "${player.as}";
+        break;
     }
 
     return Container(
-      height:30,
-      width: 100, padding: EdgeInsets.only(left: 5), child: Center(child: Text(value)),);
+      height: 30,
+      width: 100,
+      padding: EdgeInsets.only(left: 5),
+      child: Center(child: Text(value)),
+    );
   }
-
-
-
 }
