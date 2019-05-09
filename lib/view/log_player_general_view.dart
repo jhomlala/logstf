@@ -3,12 +3,14 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayerGeneralView extends StatefulWidget {
   final Player player;
   final HashMap<String, AveragePlayerStats> averagePlayersStatsMap;
+  final int length;
 
-  const LogPlayerGeneralView(this.player, this.averagePlayersStatsMap);
+  const LogPlayerGeneralView(this.player, this.averagePlayersStatsMap, this.length);
 
   @override
   _LogPlayerGeneralViewState createState() => _LogPlayerGeneralViewState();
@@ -18,6 +20,8 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
   @override
   Widget build(BuildContext context) {
     return Table(
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      border: TableBorder.all(color: Colors.black),
       children: _getTableRows(),
     );
   }
@@ -33,54 +37,64 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
     } else {
       opponent = widget.averagePlayersStatsMap["Red"];
     }
-    rows.add(TableRow(children: [Text("Metric"), Text("Value"), Text("Global avg"), Text("Team avg"), Text("Oppo. avg") ]));
-    rows.add(getStatRow("Kills:", player.kills.toString(), all.averageKills,
+    rows.add(TableRow(children: [
+      TableHeaderWidget("METRIC"),
+      TableHeaderWidget("VALUE"),
+      TableHeaderWidget("GLOB. AVG"),
+      TableHeaderWidget("TEAM AVG"),
+      TableHeaderWidget("OPPO. AVG")
+    ]));
+    rows.add(getStatRow("Kills", player.kills.toDouble(), all.averageKills,
         team.averageKills, opponent.averageKills));
-    rows.add(getStatRow("Deaths:", player.deaths.toString(), all.averageDeaths,
+    rows.add(getStatRow("Deaths", player.deaths.toDouble(), all.averageDeaths,
         team.averageDeaths, opponent.averageDeaths));
-    rows.add(getStatRow("Assists:", player.assists.toString(),
+    rows.add(getStatRow("Assists", player.assists.toDouble(),
         all.averageAssists, team.averageAssists, opponent.averageAssists));
-    rows.add(getStatRow("Damage:", player.dmg.toString(), 0, 0, 0));
-    rows.add(getStatRow("Damage per minute:", player.dapm.toString(), 0, 0, 0));
-    rows.add(getStatRow(
-        "Kills & assists per death:", player.kapd.toString(), 0, 0, 0));
-    rows.add(getStatRow("Kills per death:", player.kpd.toString(), 0, 0, 0));
-    rows.add(getStatRow("Damage taken:", player.dt.toString(), 0, 0, 0));
-    rows.add(
-        getStatRow("Damage taken per minute:", player.dt.toString(), 0, 0, 0));
-    rows.add(getStatRow("Health packs:", player.medkits.toString(), 0, 0, 0));
-    rows.add(getStatRow("Headshots:", player.headshots.toString(), 0, 0, 0));
-    rows.add(getStatRow("Airshots:", player.as.toString(), 0, 0, 0));
+    rows.add(getStatRow("DA", player.dmg.toDouble(), all.averageDmg,
+        team.averageDmg, opponent.averageDmg));
+    rows.add(getStatRow("DAPM", player.dapm.toDouble(), all.averageDapm, team.averageDapm, opponent.averageDapm));
+    rows.add(getStatRow("KAPD", double.parse(player.kapd), all.averageKapd, team.averageKapd, opponent.averageKapd));
+    rows.add(getStatRow("KPD", double.parse(player.kpd), all.averageKpd, team.averageKpd, opponent.averageKpd));
+    rows.add(getStatRow("DT", player.dt.toDouble(), all.averageDt, team.averageDt, opponent.averageDt));
+    rows.add(getStatRow("DTPM", player.dt.toDouble()/(widget.length/60), all.averageDtpm, team.averageDtpm, opponent.averageDtpm));
+    rows.add(getStatRow("HP", player.medkits.toDouble(), all.averageMedkits, team.averageMedkits, opponent.averageMedkits));
+
     return rows;
   }
 
   TableRow getStatRow(
     String name,
-    String value,
-    double averageValueAll,
+    double value,
+    double allAverageValue,
     double teamAverageValue,
     double opponentAverageValue,
   ) {
     return TableRow(
       children: <Widget>[
-        Text(
+        Center(
+            child: Text(
           name,
+          style: TextStyle(fontSize: 16),
+        )),
+        Center(
+            child: Text(
+          value.toStringAsFixed(2),
           style: TextStyle(fontSize: 14),
-        ),
-        Text(value, style: TextStyle(fontSize: 14)),
-        Text(
-          averageValueAll.toStringAsFixed(2),
-          style: TextStyle(fontSize: 14),
-        ),
-        Text(
-          teamAverageValue.toStringAsFixed(2),
-          style: TextStyle(fontSize: 14),
-        ),
-        Text(
-          opponentAverageValue.toStringAsFixed(2),
-          style: TextStyle(fontSize: 14),
-        )
+        )),
+        _getAverageWidgetRow(allAverageValue, value >= allAverageValue),
+        _getAverageWidgetRow(teamAverageValue, value >= teamAverageValue),
+        _getAverageWidgetRow(
+            opponentAverageValue, value >= opponentAverageValue),
       ],
     );
+  }
+
+  Widget _getAverageWidgetRow(double value, bool arrowUp) {
+    var arrow = Icon(Icons.keyboard_arrow_up, color: Colors.green);
+    if (!arrowUp) {
+      arrow = Icon(Icons.keyboard_arrow_down, color: Colors.red);
+    }
+    return Center(
+        child: Row(children: [arrow, Text(value.toStringAsFixed(2))]));
   }
 }

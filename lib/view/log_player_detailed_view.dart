@@ -10,9 +10,10 @@ import 'package:logstf/view/log_player_general_view.dart';
 class LogPlayerDetailedView extends StatefulWidget {
   final Log log;
   final Player player;
-  final HashMap<String,AveragePlayerStats> averagePlayersStatsMap;
+  final HashMap<String, AveragePlayerStats> averagePlayersStatsMap;
 
-  const LogPlayerDetailedView(this.log, this.player, this.averagePlayersStatsMap);
+  const LogPlayerDetailedView(
+      this.log, this.player, this.averagePlayersStatsMap);
 
   @override
   _LogPlayerDetailedViewState createState() => _LogPlayerDetailedViewState();
@@ -41,13 +42,19 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
           Tab(
             text: "Class compare",
             icon: Icon(Icons.info_outline),
+          ),
+          Tab(
+            text: "Awards",
+            icon: Icon(Icons.report),
           )
         ]),
       ),
       body: Container(
-          child: TabBarView(
-              controller: tabController,
-              children: [LogPlayerGeneralView(widget.player, widget.averagePlayersStatsMap), LogPlayerClassCompareView()])),
+          child: TabBarView(controller: tabController, children: [
+        LogPlayerGeneralView(
+            widget.player, widget.averagePlayersStatsMap, widget.log.length),
+        LogPlayerClassCompareView()
+      ])),
     );
   }
 }

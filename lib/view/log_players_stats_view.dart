@@ -7,6 +7,7 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/log_player_detailed_view.dart';
+import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayersStatsView extends StatefulWidget {
   LogPlayersStatsView(this.log);
@@ -29,14 +30,15 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
     super.initState();
     _players = widget.log.players;
     _playerNames = widget.log.names;
+    var length = widget.log.length;
     _averagePlayerStatsMap = HashMap();
     _averagePlayerStatsMap["ALL"] =
         StatsManager.getAveragePlayerStatsForAllPlayers(
-            _players.values.toList());
+            _players.values.toList(), length);
     _averagePlayerStatsMap["Red"] = StatsManager.getAveragePlayerStatsForTeam(
-        _players.values.toList(), "Red");
+        _players.values.toList(), length, "Red");
     _averagePlayerStatsMap["Blue"] = StatsManager.getAveragePlayerStatsForTeam(
-        _players.values.toList(), "Blue");
+        _players.values.toList(),length, "Blue");
   }
 
   @override
@@ -199,26 +201,15 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
 
   TableRow getHeaderTableRow() {
     return TableRow(children: [
-      _getHeaderWidget("TEAM"),
-      _getHeaderWidget("PLAYER"),
-      _getHeaderWidget("CLASSES"),
-      _getHeaderWidget(_filterName),
+      TableHeaderWidget("TEAM"),
+      TableHeaderWidget("PLAYER"),
+      TableHeaderWidget("CLASSES"),
+      TableHeaderWidget(_filterName),
     ]);
   }
 
-  Widget _getHeaderWidget(String headerName) {
-    return Container(
-      height: 30,
-      decoration: BoxDecoration(
-        color: AppUtils.darkBlueColor,
-      ),
-      child: Center(
-          child: Text(
-        headerName,
-        style: TextStyle(color: Colors.white),
-      )),
-    );
-  }
+
+
 
   Widget _getPlayerNameWidget(Player player, String name) {
     return InkWell(
@@ -252,7 +243,7 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
         case "pyro":
           asset = "assets/pyro.png";
           break;
-        case "heavy":
+        case "heavyweapons":
           asset = "assets/heavy.png";
           break;
         case "engineer":

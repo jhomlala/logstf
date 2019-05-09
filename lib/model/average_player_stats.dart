@@ -3,29 +3,30 @@ class AveragePlayerStats {
   final double averageKills;
   final double averageDeaths;
   final double averageAssists;
-  final int averageSuicides;
+  final double averageSuicides;
   final double averageKapd;
   final double averageKpd;
-  final int averageDmg;
-  final int averageDmgReal;
-  final int averageDt;
-  final int averageDtReal;
-  final int averageHr;
-  final int averageLks;
-  final int averageAs;
-  final int averageDapd;
-  final int averageDapm;
-  final int averageUbers;
-  final int averageDrops;
-  final int averageMedkits;
-  final int averageMedkitsHp;
-  final int averageBackstabs;
-  final int averageHeadshots;
-  final int averageHeadshotsHit;
-  final int averageSentries;
-  final int averageHeal;
-  final int averageCpc;
-  final int averageIc;
+  final double averageDmg;
+  final double averageDmgReal;
+  final double averageDt;
+  final double averageDtpm;
+  final double averageDtReal;
+  final double averageHr;
+  final double averageLks;
+  final double averageAs;
+  final double averageDapd;
+  final double averageDapm;
+  final double averageUbers;
+  final double averageDrops;
+  final double averageMedkits;
+  final double averageMedkitsHp;
+  final double averageBackstabs;
+  final double averageHeadshots;
+  final double averageHeadshotsHit;
+  final double averageSentries;
+  final double averageHeal;
+  final double averageCpc;
+  final double averageIc;
 
   const AveragePlayerStats(
       {this.type,
@@ -38,6 +39,7 @@ class AveragePlayerStats {
       this.averageDmg,
       this.averageDmgReal,
       this.averageDt,
+      this.averageDtpm,
       this.averageDtReal,
       this.averageHr,
       this.averageLks,
