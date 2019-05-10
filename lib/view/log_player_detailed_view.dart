@@ -25,7 +25,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length:3, vsync: this);
     super.initState();
   }
 
@@ -53,7 +53,8 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
           child: TabBarView(controller: tabController, children: [
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
-        LogPlayerClassCompareView()
+        LogPlayerClassCompareView(widget.log, widget.player),
+            Container(),
       ])),
     );
   }
