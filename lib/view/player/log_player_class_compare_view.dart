@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/comparison_card.dart';
 
 class LogPlayerClassCompareView extends StatefulWidget {
@@ -28,7 +30,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     _classes = _getPlayerClasses();
     print("Classes: " + _classes.toString());
     _selectedClass = _classes[0];
-    _otherPlayersWithSelectedClass = _getOtherPlayersWithClass(_selectedClass);
+    _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
+        widget.log, _selectedClass, widget.player.steamId);
     _selectedPlayer = _otherPlayersWithSelectedClass[0];
     _playerName = widget.log.getPlayerName(widget.player.steamId);
     _selectedPlayerName = widget.log.getPlayerName(_selectedPlayer.steamId);
@@ -37,8 +40,11 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Container(child: Column(children: _getMainColumnWidgets())));
+    return Container(
+        decoration: BoxDecoration(color: AppUtils.seashellColor),
+        child: SingleChildScrollView(
+            child:
+                Container(child: Column(children: _getMainColumnWidgets()))));
   }
 
   List<Widget> _getMainColumnWidgets() {
@@ -163,6 +169,4 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     return widgets;
   }
-
-  
 }

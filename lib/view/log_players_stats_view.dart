@@ -1,12 +1,13 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/manager/stats_manager.dart';
+import 'package:logstf/helper/stats_manager.dart';
+
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
-import 'package:logstf/view/log_player_detailed_view.dart';
+import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayersStatsView extends StatefulWidget {

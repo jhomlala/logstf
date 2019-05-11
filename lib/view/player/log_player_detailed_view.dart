@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/view/log_player_class_compare_view.dart';
-import 'package:logstf/view/log_player_general_view.dart';
+import 'package:logstf/view/player/log_player_class_compare_view.dart';
+import 'package:logstf/view/player/log_player_general_view.dart';
+
+import 'log_player_kills_view.dart';
 
 class LogPlayerDetailedView extends StatefulWidget {
   final Log log;
@@ -25,7 +27,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
 
   @override
   void initState() {
-    tabController = TabController(length:3, vsync: this);
+    tabController = TabController(length:4, vsync: this);
     super.initState();
   }
 
@@ -44,6 +46,10 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
             icon: Icon(Icons.info_outline),
           ),
           Tab(
+            text: "Kills",
+            icon: Icon(Icons.report),
+          ),
+          Tab(
             text: "Awards",
             icon: Icon(Icons.report),
           )
@@ -54,6 +60,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
         LogPlayerClassCompareView(widget.log, widget.player),
+            LogPlayerKillsView(widget.log, widget.player),
             Container(),
       ])),
     );
