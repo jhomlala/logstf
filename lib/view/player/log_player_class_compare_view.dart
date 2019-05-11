@@ -28,7 +28,6 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   @override
   void initState() {
     _classes = _getPlayerClasses();
-    print("Classes: " + _classes.toString());
     _selectedClass = _classes[0];
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
         widget.log, _selectedClass, widget.player.steamId);
@@ -82,28 +81,6 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     return widget.player.classStats.map((ClassStats classStats) {
       return classStats.type;
     }).toList();
-  }
-
-  List<Player> _getOtherPlayersWithClass(String className) {
-    List<Player> allPlayers = widget.log.players.values.toList();
-    return allPlayers
-        .where((player) =>
-            widget.player.steamId != player.steamId &&
-            _isClassPlayedByPlayer(player, className))
-        .toList();
-  }
-
-  bool _isClassPlayedByPlayer(Player player, String className) {
-    return player.classStats
-            .where((classStats) => classStats.type == className)
-            .length >
-        0;
-  }
-
-  List<String> getPlayersNames(List<Player> players) {
-    return players
-        .map((player) => widget.log.getPlayerName(player.steamId))
-        .toList();
   }
 
   Widget _getClassesDropdown() {
@@ -167,6 +144,98 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
+    widgets.add(ComparisonCard(
+        title: "Damage per minute",
+        playerValue: widget.player.dapm.toDouble(),
+        comparedPlayerValue: _selectedPlayer.dapm.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+      title: "Kill & assists per death",
+      playerValue: double.parse(widget.player.kapd),
+      comparedPlayerValue: double.parse(_selectedPlayer.kapd),
+      playerName: _playerName,
+      comparedPlayerName: _selectedPlayerName,
+      decimalPlaces: 2,
+    ));
+
+    widgets.add(ComparisonCard(
+      title: "Kill per death",
+      playerValue: double.parse(widget.player.kpd),
+      comparedPlayerValue: double.parse(_selectedPlayer.kpd),
+      playerName: _playerName,
+      comparedPlayerName: _selectedPlayerName,
+      decimalPlaces: 2,
+    ));
+
+    widgets.add(ComparisonCard(
+        title: "Damage taken",
+        playerValue: widget.player.dt.toDouble(),
+        comparedPlayerValue: _selectedPlayer.dt.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Captured points",
+        playerValue: widget.player.cpc.toDouble(),
+        comparedPlayerValue: _selectedPlayer.cpc.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Inter captures",
+        playerValue: widget.player.ic.toDouble(),
+        comparedPlayerValue: _selectedPlayer.ic.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Longest kill streak",
+        playerValue: widget.player.lks.toDouble(),
+        comparedPlayerValue: _selectedPlayer.lks.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Medkits picked",
+        playerValue: widget.player.medkits.toDouble(),
+        comparedPlayerValue: _selectedPlayer.medkits.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Restored HP from medkits",
+        playerValue: widget.player.medkitsHp.toDouble(),
+        comparedPlayerValue: _selectedPlayer.medkitsHp.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+
+    if (_selectedClass == "sniper") {
+      widgets.addAll(_getSniperComparisonCards());
+    }
+
+
+
+    return widgets;
+  }
+
+  List<Widget> _getSniperComparisonCards() {
+    List<Widget> widgets = List();
+    widgets.add(ComparisonCard(
+        title: "Headshots",
+        playerValue: widget.player.headshots.toDouble(),
+        comparedPlayerValue: _selectedPlayer.headshots.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+        title: "Headshots hit",
+        playerValue: widget.player.headshotsHit.toDouble(),
+        comparedPlayerValue: _selectedPlayer.headshotsHit.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
     return widgets;
   }
 }

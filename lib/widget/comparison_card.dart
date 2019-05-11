@@ -8,6 +8,7 @@ class ComparisonCard extends StatelessWidget {
   final String playerName;
   final String comparedPlayerName;
   final bool reversed;
+  final int decimalPlaces;
 
   ComparisonCard(
       {Key key,
@@ -16,7 +17,8 @@ class ComparisonCard extends StatelessWidget {
       this.comparedPlayerValue,
       this.playerName,
       this.comparedPlayerName,
-      this.reversed = false})
+      this.reversed = false,
+      this.decimalPlaces = 0})
       : super(key: key);
 
   @override
@@ -78,7 +80,7 @@ class ComparisonCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 5),
               ),
-              Text(playerValue.toStringAsFixed(0),
+              Text(playerValue.toStringAsFixed(decimalPlaces),
                   style: TextStyle(fontSize: 30, color: playerColor))
             ]),
             Column(children: [
@@ -90,7 +92,7 @@ class ComparisonCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 5),
               ),
-              Text(comparedPlayerValue.toStringAsFixed(0),
+              Text(comparedPlayerValue.toStringAsFixed(decimalPlaces),
                   style: TextStyle(fontSize: 30, color: comparedPlayerColor))
             ]),
           ],

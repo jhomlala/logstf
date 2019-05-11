@@ -88,7 +88,7 @@ class Player {
       medkits: json["medkits"],
       medkitsHp: json["medkits_hp"],
       backstabs: json["backstabs"],
-      headshots: json["headshosts"],
+      headshots: json["headshots"],
       headshotsHit: json["headshots_hit"],
       sentries: json["sentries"],
       heal: json["heal"],
