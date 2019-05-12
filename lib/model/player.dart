@@ -1,4 +1,7 @@
 import 'package:logstf/model/class_stats.dart';
+import 'package:logstf/model/ubertypes.dart';
+
+import 'medic_stats.dart';
 
 class Player {
   final String steamId;
@@ -30,6 +33,8 @@ class Player {
   final int heal;
   final int cpc;
   final int ic;
+  final MedicStats medicStats;
+  final Ubertypes ubertypes;
 
   Player(
       {this.steamId,
@@ -60,7 +65,9 @@ class Player {
       this.sentries,
       this.heal,
       this.cpc,
-      this.ic});
+      this.ic,
+      this.medicStats,
+      this.ubertypes});
 
   factory Player.fromJson(Map<String, dynamic> json, String steamId) => Player(
       steamId: steamId,
@@ -93,5 +100,9 @@ class Player {
       sentries: json["sentries"],
       heal: json["heal"],
       cpc: json["cpc"],
-      ic: json["ic"]);
+      ic: json["ic"],
+      medicStats: json.containsKey("medicstats")
+          ? MedicStats.fromJson(json["medicstats"])
+          : null,
+      ubertypes: Ubertypes.fromJson(json["ubertypes"]));
 }

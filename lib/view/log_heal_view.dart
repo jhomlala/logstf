@@ -6,6 +6,7 @@ import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:logstf/model/player.dart';
+import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/heal_spread_pie_chart.dart';
 
 class LogHealView extends StatefulWidget {
@@ -35,7 +36,6 @@ class _LogHealViewState extends State<LogHealView> {
     //return HealSpreadPieChart(healSpreadList: _healSpreadMap.values.first);
     return SingleChildScrollView(
       child: Column(
-
         children: getHealSpreadWidgets(),
       ),
     );
@@ -43,10 +43,12 @@ class _LogHealViewState extends State<LogHealView> {
 
   List<Widget> getHealSpreadWidgets() {
     List<Widget> widgets = List();
-    _healSpreadMap.values.forEach(
-            (list) => widgets.add(HealSpreadPieChart(healSpreadList: list)));
+
+    _healSpreadMap.forEach((player, list) {
+      widgets.add(Row(mainAxisAlignment:MainAxisAlignment.center,children: [ClassIcon(playerClass: "medic",), Text(_log.getPlayerName(player.steamId), style: TextStyle(fontSize: 24),)]));
+      widgets.add(HealSpreadPieChart(healSpreadList: list));
+    });
 
     return widgets;
   }
-
 }
