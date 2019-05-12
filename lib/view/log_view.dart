@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/log_bloc_provider.dart';
 import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log_general_stats_view.dart';
@@ -26,45 +27,48 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: Text("Log"),
-            bottom: TabBar(controller: tabController, tabs: [
-              Tab(
-                text: "General",
-                icon: Icon(Icons.info_outline),
-              ),
-              Tab(
-                text: "Teams",
-                icon: Icon(Icons.swap_horiz),
-              ),
-              Tab(
-                text: "Players",
-                icon: Icon(Icons.people),
-              ),
-              Tab(
-                text: "Kills",
-                icon: Icon(Icons.album),
-              ),
-              Tab(
-                text: "Heal",
-                icon: Icon(Icons.add),
-              )
-            ])),
-        body: StreamBuilder<Log>(
-            stream: logsBloc.logSubject,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return TabBarView(controller: tabController, children: [
-                  LogGeneralStatsView(snapshot.data),
-                  LogTeamStatsView(),
-                  LogPlayersStatsView(snapshot.data),
-                  LogPlayersKillsView(),
-                  LogHealSpreadView()
-                ]);
-              } else {
-                return Text("No data... Loading..");
-              }
-            }));
+    return LogBlocProvider(
+        child: Scaffold(
+            appBar: AppBar(
+                title: Text("Log"),
+                bottom: TabBar(controller: tabController, tabs: [
+                  Tab(
+                    text: "General",
+                    icon: Icon(Icons.info_outline),
+                  ),
+                  Tab(
+                    text: "Teams",
+                    icon: Icon(Icons.swap_horiz),
+                  ),
+                  Tab(
+                    text: "Players",
+                    icon: Icon(Icons.people),
+                  ),
+                  Tab(
+                    text: "Kills",
+                    icon: Icon(Icons.album),
+                  ),
+                  Tab(
+                    text: "Heal",
+                    icon: Icon(Icons.add),
+                  )
+                ])),
+            body: StreamBuilder<Log>(
+                stream: logsBloc.logSubject,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var bloc = LogBlocProvider.of(context);
+                    bloc.setLog(snapshot.data);
+                    return TabBarView(controller: tabController, children: [
+                      LogGeneralStatsView(),
+                      LogTeamStatsView(),
+                      LogPlayersStatsView(),
+                      LogPlayersKillsView(),
+                      LogHealSpreadView()
+                    ]);
+                  } else {
+                    return Text("No data... Loading..");
+                  }
+                })));
   }
 }

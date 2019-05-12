@@ -1,37 +1,37 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/log_bloc.dart';
+import 'package:logstf/bloc/log_bloc_provider.dart';
 import 'package:logstf/helper/stats_manager.dart';
 
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayersStatsView extends StatefulWidget {
-  LogPlayersStatsView(this.log);
-
-  final Log log;
 
   @override
   _LogPlayersStatsViewState createState() => _LogPlayersStatsViewState();
 }
 
 class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
+  LogBloc _bloc;
+  Log _log;
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   String _filterName = "Kills";
   HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;
 
 
-  @override
-  void initState() {
-    super.initState();
-    _players = widget.log.players;
-    _playerNames = widget.log.names;
-    var length = widget.log.length;
+  void init(BuildContext context) {
+    _bloc = LogBlocProvider.of(context);
+    _log = _bloc.logSubject.value;
+    _players = _log.players;
+    _playerNames = _log.names;
+    var length =_log.length;
     _averagePlayerStatsMap = HashMap();
     _averagePlayerStatsMap["ALL"] =
         StatsManager.getAveragePlayerStatsForAllPlayers(
@@ -44,6 +44,7 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
 
   @override
   Widget build(BuildContext context) {
+    init(context);
     return SingleChildScrollView(
         child: Column(children: <Widget>[
       _getFilterDropdownWidget(),
@@ -130,7 +131,7 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
         context,
         MaterialPageRoute(
             builder: (context) => LogPlayerDetailedView(
-                widget.log, player, _averagePlayerStatsMap)));
+                _log, player, _averagePlayerStatsMap)));
   }
 
   List<Player> orderPlayersByField(List<Player> players) {
@@ -196,7 +197,7 @@ class _LogPlayersStatsViewState extends State<LogPlayersStatsView> {
   }
 
   double _calculateDamageTakenPerMinute(int damgeTaken) {
-    var length = widget.log.length / 60;
+    var length = _log.length / 60;
     return damgeTaken / length;
   }
 

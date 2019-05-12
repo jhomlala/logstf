@@ -144,6 +144,16 @@ class ComparisonCard extends StatelessWidget {
   }
 
   String _getWinnerText() {
+    if (reversed){
+      if (playerValue < comparedPlayerValue) {
+        return "$playerName wins!";
+      } else if (playerValue > comparedPlayerValue) {
+        return "$comparedPlayerName wins!";
+      } else {
+        return "It's a tie!";
+      }
+    }
+
 
     if (playerValue > comparedPlayerValue) {
       return "$playerName wins!";

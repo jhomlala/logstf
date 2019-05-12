@@ -211,12 +211,13 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
-
     if (_selectedClass == "sniper") {
       widgets.addAll(_getSniperComparisonCards());
     }
 
-
+    if (_selectedClass == "medic") {
+      widgets.addAll(_getMedicComparisonCards());
+    }
 
     return widgets;
   }
@@ -236,6 +237,27 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         comparedPlayerValue: _selectedPlayer.headshotsHit.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
+    return widgets;
+  }
+
+  List<Widget> _getMedicComparisonCards() {
+    List<Widget> widgets = List();
+    widgets.add(ComparisonCard(
+        title: "Ubers",
+        playerValue: widget.player.ubers.toDouble(),
+        comparedPlayerValue: _selectedPlayer.ubers.toDouble(),
+        playerName: _playerName,
+        comparedPlayerName: _selectedPlayerName));
+
+    widgets.add(ComparisonCard(
+      title: "Drops",
+      playerValue: widget.player.drops.toDouble(),
+      comparedPlayerValue: _selectedPlayer.drops.toDouble(),
+      playerName: _playerName,
+      comparedPlayerName: _selectedPlayerName,
+      reversed: true,
+    ));
+
     return widgets;
   }
 }

@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/team.dart';
-import 'package:path/path.dart';
+import 'package:logstf/bloc/log_bloc.dart';
+import 'package:logstf/bloc/log_bloc_provider.dart';
+
 import 'package:intl/intl.dart';
+import 'package:logstf/model/log.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
-  LogGeneralStatsView(this.log);
 
-  final Log log;
 
   @override
   _LogGeneralStatsViewState createState() => _LogGeneralStatsViewState();
 }
 
 class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
+  LogBloc _bloc;
+  Log _log;
+
   @override
   Widget build(BuildContext context) {
+    _bloc = LogBlocProvider.of(context);
+    _log = _bloc.logSubject.value;
+
     return Container(
         child: Column(children: [
       _getOverallResultWidget(),
@@ -65,11 +70,11 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   }
 
   int getRoundsWonByTeam(String team) {
-    return widget.log.rounds.where((round) => round.winner == team).length;
+    return _log.rounds.where((round) => round.winner == team).length;
   }
 
   Widget _getTitleWidget(BuildContext context) {
-    return Text(widget.log.info.title,
+    return Text(_log.info.title,
         style: Theme.of(context).textTheme.title);
   }
 
@@ -81,14 +86,14 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         height: 20,
       ),
       Text(
-        " ${widget.log.info.map}",
+        " ${_log.info.map}",
         style: TextStyle(fontSize: 16),
       )
     ]);
   }
 
   Widget _getTimeWidget(BuildContext context) {
-    var length = widget.log.length;
+    var length = _log.length;
     var lengthHours = (length / 3600).floor();
     var lengthMinutes = ((length - lengthHours * 3600) / 60).floor();
     var lengthSeconds = length - lengthHours * 3600 - lengthMinutes * 60;
@@ -123,7 +128,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
 
   Widget _getTimestampWidget() {
     var dateTime =
-        DateTime.fromMillisecondsSinceEpoch(widget.log.info.date * 1000);
+        DateTime.fromMillisecondsSinceEpoch(_log.info.date * 1000);
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Image.asset(
         "assets/calendar.png",
@@ -139,7 +144,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
 
   Widget _getMatchTypeWidget() {
     var matchType = "???";
-    var playersCount = widget.log.players.length;
+    var playersCount = _log.players.length;
     print("Players: " + playersCount.toString());
     if (playersCount >= 12 && playersCount < 18) {
       matchType = "6v6";
@@ -159,7 +164,10 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     ]);
   }
 
-  Widget _getUploaderWidget(){
-    return Text("Uploaded by: ${widget.log.info.uploader.name} (${widget.log.info.uploader.info})", style: TextStyle(fontSize: 16),);
+  Widget _getUploaderWidget() {
+    return Text(
+      "Uploaded by: ${_log.info.uploader.name} (${_log.info.uploader.info})",
+      style: TextStyle(fontSize: 16),
+    );
   }
 }
