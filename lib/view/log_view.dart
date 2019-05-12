@@ -3,7 +3,7 @@ import 'package:logstf/bloc/log_bloc_provider.dart';
 import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log_general_stats_view.dart';
-import 'package:logstf/view/log_heal_spread_view.dart';
+import 'package:logstf/view/log_heal_view.dart';
 import 'package:logstf/view/log_players_kills_view.dart';
 import 'package:logstf/view/log_players_stats_view.dart';
 import 'package:logstf/view/log_team_stats_view.dart';
@@ -64,7 +64,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                       LogTeamStatsView(),
                       LogPlayersStatsView(),
                       LogPlayersKillsView(),
-                      LogHealSpreadView()
+                      LogHealView()
                     ]);
                   } else {
                     return Text("No data... Loading..");

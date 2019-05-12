@@ -1,4 +1,5 @@
 import 'package:logstf/model/class_kill.dart';
+import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 
@@ -30,7 +31,8 @@ class LogHelper {
         allPlayers.where((player) => player.team == teamName).toList();
     if (className != null) {
       teamPlayers = teamPlayers
-          .where((player) => isClassPlayedByPlayer(player, className)).toList();
+          .where((player) => isClassPlayedByPlayer(player, className))
+          .toList();
     }
     return teamPlayers;
   }
@@ -39,5 +41,36 @@ class LogHelper {
     int deaths = 0;
     players.forEach((player) => deaths += player.deaths);
     return deaths;
+  }
+
+  static List<HealSpread> getHealSpread(Log log, String steamId) {
+    List<HealSpread> healSpreadList = List();
+    var healSpreadMap = log.healspread[steamId];
+    int sum = _getSumOfMap(healSpreadMap);
+    healSpreadMap.forEach((steamId, value) {
+      var player = log.players[steamId];
+      healSpreadList
+          .add(HealSpread(log.getPlayerName(steamId), getPlayerClasses(player), (value / sum) * 100));
+    });
+    healSpreadList.sort((healSpread1, healSpread2) =>
+        healSpread2.percentage.compareTo(healSpread1.percentage));
+    return healSpreadList;
+  }
+
+  static int _getSumOfMap(Map<String, int> map) {
+    int sum = 0;
+    map.values.forEach((value) => sum += value);
+    return sum;
+  }
+
+  static List<Player> getPlayersWithClass(Log log, String className) {
+    List<Player> allPlayers = log.players.values.toList();
+    return allPlayers
+        .where((player) => isClassPlayedByPlayer(player, className))
+        .toList();
+  }
+
+  static List<String> getPlayerClasses(Player player){
+    return player.classStats.map((classStat) => classStat.type).toList();
   }
 }

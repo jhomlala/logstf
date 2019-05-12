@@ -12,6 +12,7 @@ class Log {
   final int length;
   final Map<String, String> names;
   final Map<String, ClassKill> classKills;
+  final Map<String, Map<String, int>> healspread;
 
   Log(
       {this.teams,
@@ -20,7 +21,8 @@ class Log {
       this.info,
       this.length,
       this.names,
-      this.classKills});
+      this.classKills,
+      this.healspread});
 
   factory Log.fromJson(Map<String, dynamic> json) => Log(
         teams: Teams.fromJson(json["teams"]),
@@ -34,6 +36,11 @@ class Log {
             .map((k, v) => new MapEntry<String, String>(k, v)),
         classKills: new Map.from(json["classkills"]).map((k, v) =>
             new MapEntry<String, ClassKill>(k, ClassKill.fromJson(v))),
+        healspread: new Map.from(json["healspread"]).map((k, v) =>
+            new MapEntry<String, Map<String, int>>(
+                k,
+                new Map.from(v)
+                    .map((k, v) => new MapEntry<String, int>(k, v)))),
       );
 
   String getPlayerName(String steamId) {

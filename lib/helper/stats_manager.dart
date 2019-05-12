@@ -1,4 +1,5 @@
 import 'package:logstf/model/average_player_stats.dart';
+import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/player.dart';
 
 class StatsManager {
@@ -127,4 +128,5 @@ class StatsManager {
     values.forEach((value) => {valuesSum += value});
     return valuesSum / values.length;
   }
+
 }
