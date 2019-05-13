@@ -8,6 +8,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/heal_spread_pie_chart.dart';
+import 'package:logstf/widget/medic_stats_widget.dart';
 
 class LogHealView extends StatefulWidget {
   @override
@@ -47,6 +48,7 @@ class _LogHealViewState extends State<LogHealView> {
     _healSpreadMap.forEach((player, list) {
       widgets.add(Row(mainAxisAlignment:MainAxisAlignment.center,children: [ClassIcon(playerClass: "medic",), Text(_log.getPlayerName(player.steamId), style: TextStyle(fontSize: 24),)]));
       widgets.add(HealSpreadPieChart(healSpreadList: list));
+      widgets.add(MedicStatsWidget(medicStats: player.medicStats, ubertypes: player.ubertypes,));
     });
 
     return widgets;
