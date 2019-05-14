@@ -79,4 +79,68 @@ class LogHelper {
     return healSpreadMap
         .map((steamId, heal) => MapEntry(log.getPlayerName(steamId), heal));
   }
+
+  static int getKillsSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.kills;
+    });
+    return sum;
+  }
+
+  static int getDeathsSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.deaths;
+    });
+    return sum;
+  }
+
+  static int getAssistsSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.assists;
+    });
+    return sum;
+  }
+
+  static int getDamageSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.dmg;
+    });
+    return sum;
+  }
+
+  static int getDamageTakenSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.dt;
+    });
+    return sum;
+  }
+
+  static int getCapSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.cpc;
+    });
+    return sum;
+  }
+
+  static int getChargeSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.ubers;
+    });
+    return sum;
+  }
+
+  static int getDropSum(Log log, String team) {
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.drops;
+    });
+    return sum;
+  }
 }

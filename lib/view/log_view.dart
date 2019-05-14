@@ -61,7 +61,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     bloc.setLog(snapshot.data);
                     return TabBarView(controller: tabController, children: [
                       LogGeneralStatsView(),
-                      LogTeamStatsView(),
+                      LogTeamStatsView(log: snapshot.data),
                       LogPlayersStatsView(),
                       LogPlayersKillsView(),
                       LogHealView()
