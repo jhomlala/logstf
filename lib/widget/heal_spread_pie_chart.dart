@@ -96,7 +96,7 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
             Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "${healSpread.percentage.toStringAsFixed(1)}%",
+                  "${healSpread.percentage.toStringAsFixed(1)}% (${healSpread.health} HP)",
                   overflow: TextOverflow.ellipsis,
                 )),
 

@@ -47,8 +47,9 @@ class _LogHealViewState extends State<LogHealView> {
 
     _healSpreadMap.forEach((player, list) {
       widgets.add(Row(mainAxisAlignment:MainAxisAlignment.center,children: [ClassIcon(playerClass: "medic",), Text(_log.getPlayerName(player.steamId), style: TextStyle(fontSize: 24),)]));
+      widgets.add(MedicStatsWidget(player: player));
       widgets.add(HealSpreadPieChart(healSpreadList: list));
-      widgets.add(MedicStatsWidget(medicStats: player.medicStats, ubertypes: player.ubertypes,));
+      widgets.add(Padding(padding: EdgeInsets.only(top:30),));
     });
 
     return widgets;

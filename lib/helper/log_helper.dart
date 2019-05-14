@@ -49,8 +49,8 @@ class LogHelper {
     int sum = _getSumOfMap(healSpreadMap);
     healSpreadMap.forEach((steamId, value) {
       var player = log.players[steamId];
-      healSpreadList
-          .add(HealSpread(log.getPlayerName(steamId), getPlayerClasses(player), (value / sum) * 100));
+      healSpreadList.add(HealSpread(log.getPlayerName(steamId),
+          getPlayerClasses(player), (value / sum) * 100, value));
     });
     healSpreadList.sort((healSpread1, healSpread2) =>
         healSpread2.percentage.compareTo(healSpread1.percentage));
@@ -70,7 +70,13 @@ class LogHelper {
         .toList();
   }
 
-  static List<String> getPlayerClasses(Player player){
+  static List<String> getPlayerClasses(Player player) {
     return player.classStats.map((classStat) => classStat.type).toList();
+  }
+
+  static Map<String, int> getHealSpreadMapWithNames(Log log, String steamId) {
+    var healSpreadMap = log.healspread[steamId];
+    return healSpreadMap
+        .map((steamId, heal) => MapEntry(log.getPlayerName(steamId), heal));
   }
 }
