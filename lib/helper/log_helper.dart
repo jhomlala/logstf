@@ -143,4 +143,68 @@ class LogHelper {
     });
     return sum;
   }
+
+  static double getTeamKAPD(Log log, String team) {
+    var kills = getKillsSum(log,team);
+    var assists = getAssistsSum(log, team);
+    var deaths = getDeathsSum(log, team);
+    return (kills+assists)/deaths;
+  }
+
+  static double getTeamDamagePerMinute(Log log, String team){
+    var damage = getDamageSum(log, team);
+    return damage/(log.length/60);
+  }
+
+  static double getTeamKillsPerDeaths(Log log, String team){
+    var kills = getKillsSum(log, team);
+    var deaths = getDeathsSum(log, team);
+    return kills/deaths;
+  }
+
+  static double getTeamDamageTakenPerMinute(Log log, String team){
+    var damageTaken = getDamageTakenSum(log, team);
+    return damageTaken/(log.length/60);
+  }
+
+  static int getMedkitsSum(Log log, String team){
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.medkits;
+    });
+    return sum;
+  }
+
+  static int getMedkitsHPSum(Log log, String team){
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.medkitsHp;
+    });
+    return sum;
+  }
+
+  static int getHeadshotsSum(Log log, String team){
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.headshots;
+    });
+    return sum;
+  }
+
+  static int getSentriesSum(Log log, String team){
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.sentries;
+    });
+    return sum;
+  }
+
+  static int getBackstabsSum(Log log, String team){
+    var sum = 0;
+    log.players.values.where((player) => player.team == team).forEach((player) {
+      sum += player.backstabs;
+    });
+    return sum;
+  }
+
 }
