@@ -207,4 +207,10 @@ class LogHelper {
     return sum;
   }
 
+  static List<String> getPlayerNames(Log log){
+    List<Player> allPlayers = log.players.values.toList();
+    return allPlayers.map((player) => log.getPlayerName(player.steamId)).toList();
+  }
+
+
 }

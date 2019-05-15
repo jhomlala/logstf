@@ -4,8 +4,8 @@ import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log_general_stats_view.dart';
 import 'package:logstf/view/log_heal_view.dart';
-import 'package:logstf/view/log_players_kills_view.dart';
 import 'package:logstf/view/log_players_stats_view.dart';
+import 'package:logstf/view/log_players_view.dart';
 import 'package:logstf/view/log_team_stats_view.dart';
 
 class LogView extends StatefulWidget {
@@ -45,8 +45,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     icon: Icon(Icons.people),
                   ),
                   Tab(
-                    text: "Kills",
-                    icon: Icon(Icons.album),
+                    text: "Stats",
+                    icon: Icon(Icons.insert_chart),
                   ),
                   Tab(
                     text: "Heal",
@@ -62,8 +62,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     return TabBarView(controller: tabController, children: [
                       LogGeneralStatsView(),
                       LogTeamStatsView(log: snapshot.data),
-                      LogPlayersStatsView(),
-                      LogPlayersKillsView(),
+                      LogPlayersView(),
+                      LogPlayersStatsView(log: snapshot.data),
                       LogHealView()
                     ]);
                   } else {
