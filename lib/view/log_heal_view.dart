@@ -6,6 +6,7 @@ import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/heal_spread_pie_chart.dart';
 import 'package:logstf/widget/medic_stats_widget.dart';
@@ -35,31 +36,48 @@ class _LogHealViewState extends State<LogHealView> {
   Widget build(BuildContext context) {
     init(context);
     //return HealSpreadPieChart(healSpreadList: _healSpreadMap.values.first);
-    return SingleChildScrollView(
-      child: Column(
-        children: getHealSpreadWidgets(),
-      ),
-    );
+    return Container(
+        color: Colors.deepPurple,
+        child: SingleChildScrollView(
+          child: Column(
+            children: getHealSpreadWidgets(),
+          ),
+        ));
   }
 
   List<Widget> getHealSpreadWidgets() {
     List<Widget> widgets = List();
 
     _healSpreadMap.forEach((player, list) {
-      widgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        ClassIcon(
-          playerClass: "medic",
-        ),
-        Text(
-          _log.getPlayerName(player.steamId),
-          style: TextStyle(fontSize: 24),
-        )
-      ]));
-      widgets.add(MedicStatsWidget(player: player));
-      widgets.add(HealSpreadPieChart(healSpreadList: list));
-      widgets.add(Padding(
-        padding: EdgeInsets.only(top: 30),
-      ));
+      widgets.add(Card(
+          margin: EdgeInsets.all(10),
+          child: Column(children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ClassIcon(
+                playerClass: "medic",
+              ),
+              Text(
+                _log.getPlayerName(player.steamId),
+                style: TextStyle(fontSize: 24),
+              )
+            ]),
+            Container(
+                margin: EdgeInsets.only(top: 5, bottom: 5),
+                height: 1,
+                color: AppUtils.lightGreyColor),
+            MedicStatsWidget(player: player),
+            Container(
+                margin: EdgeInsets.only(top: 5, bottom: 5),
+                height: 1,
+                color: AppUtils.lightGreyColor),
+            HealSpreadPieChart(healSpreadList: list),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            )
+          ])));
     });
 
     return widgets;
