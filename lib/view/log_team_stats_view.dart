@@ -15,9 +15,14 @@ class LogTeamStatsView extends StatefulWidget {
 class _LogTeamStatsViewState extends State<LogTeamStatsView> {
   @override
   Widget build(BuildContext context) {
-    return Table(
-      children: _getTableRows(),
-    );
+    return Container(
+        decoration: BoxDecoration(color: Colors.deepPurple),
+        padding: EdgeInsets.all(10),
+        child: Align(alignment: Alignment.topCenter,child: Card(
+            elevation: 10.0,
+            child: Container(padding: EdgeInsets.only(bottom: 5),child: Table(
+              children: _getTableRows(),
+            )))));
   }
 
   List<TableRow> _getTableRows() {
@@ -97,11 +102,15 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
   TableRow _getHeaderRow() {
     return TableRow(children: [
       Container(
-          decoration: BoxDecoration(color: AppUtils.darkBlueColor),
-          height: 30,
-          child: Center(
-              child: Text("METRIC",
-                  style: TextStyle(color: Colors.white, fontSize: 16)))),
+          color: Colors.deepPurple,
+          child: Container(
+              decoration: BoxDecoration(
+                  color: AppUtils.darkBlueColor,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8))),
+              height: 30,
+              child: Center(
+                  child: Text("METRIC",
+                      style: TextStyle(color: Colors.white, fontSize: 16))))),
       Container(
           decoration: BoxDecoration(color: Colors.red),
           height: 30,
@@ -109,26 +118,40 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
               child: Text("RED",
                   style: TextStyle(color: Colors.white, fontSize: 16)))),
       Container(
-          decoration: BoxDecoration(color: Colors.blue),
-          height: 30,
-          child: Center(
-              child: Text("BLUE",
-                  style: TextStyle(color: Colors.white, fontSize: 16))))
+          color: Colors.deepPurple,
+          child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius:
+                      BorderRadius.only(topRight: Radius.circular(8))),
+              height: 30,
+              child: Center(
+                  child: Text("BLUE",
+                      style: TextStyle(color: Colors.white, fontSize: 16)))))
     ]);
   }
 
   TableRow _getRow(
       String metricName, String redTeamValue, String blueTeamValue) {
-    return TableRow(children: [
-      Container(
-        height: 20,
-          child: Center(
-              child: Text(
-        metricName,
-        style: TextStyle(fontSize: 16),
-      ))),
-      Container(height: 20, child:Center(child: Text(redTeamValue, style: TextStyle(fontSize: 16)))),
-      Container(height: 20, child: Center(child: Text(blueTeamValue, style: TextStyle(fontSize: 16))))
-    ]);
+    return TableRow(
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
+        children: [
+          Container(
+              height: 20,
+              child: Center(
+                  child: Text(
+                metricName,
+                style: TextStyle(fontSize: 16),
+              ))),
+          Container(
+              height: 20,
+              child: Center(
+                  child: Text(redTeamValue, style: TextStyle(fontSize: 16)))),
+          Container(
+              height: 20,
+              child: Center(
+                  child: Text(blueTeamValue, style: TextStyle(fontSize: 16))))
+        ]);
   }
 }

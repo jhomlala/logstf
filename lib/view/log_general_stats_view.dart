@@ -5,10 +5,9 @@ import 'package:logstf/bloc/log_bloc_provider.dart';
 
 import 'package:intl/intl.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
-
-
   @override
   _LogGeneralStatsViewState createState() => _LogGeneralStatsViewState();
 }
@@ -21,12 +20,38 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   Widget build(BuildContext context) {
     _bloc = LogBlocProvider.of(context);
     _log = _bloc.logSubject.value;
-
     return Container(
+        decoration: BoxDecoration(color: Colors.deepPurple),
         child: Column(children: [
-      _getOverallResultWidget(),
-      Padding(padding: EdgeInsets.only(top: 20)),
-      _getTitleWidget(context),
+          Container(
+              margin: EdgeInsets.all(10),
+              child: Card(
+                  elevation: 10.0,
+                  child: Column(children: [
+                    Padding(padding: EdgeInsets.only(top: 20)),
+                    _getTitleWidget(context),
+                    Padding(padding: EdgeInsets.only(top: 20)),
+                    TeamsScoreTableWidget(
+                      bluTeamScore: _log.teams.blue.score,
+                      redTeamScore: _log.teams.red.score,
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 20)),
+                  ]))),
+          Container(
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              child: Card(
+                  elevation: 10.0,
+                  child: Column(
+                    children: [
+                      _getMapWidget(context),
+                      _getMatchTypeWidget(),
+                      _getTimestampWidget(),
+                      _getTimeWidget(context),
+                      _getUploaderWidget()
+                    ],
+                  )))
+
+          /*Padding(padding: EdgeInsets.only(top: 20)),
       Padding(padding: EdgeInsets.only(top: 10)),
       _getMapWidget(context),
       Padding(padding: EdgeInsets.only(top: 10)),
@@ -36,37 +61,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
       Padding(padding: EdgeInsets.only(top: 10)),
       _getTimeWidget(context),
       Padding(padding: EdgeInsets.only(top: 10)),
-      _getUploaderWidget()
-    ]));
-  }
-
-  Widget _getOverallResultWidget() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-            child: Container(
-          height: 100,
-          decoration: BoxDecoration(color: Colors.blue),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text("BLU", style: TextStyle(fontSize: 30, color: Colors.white)),
-            Text("${getRoundsWonByTeam("Blue")}",
-                style: TextStyle(fontSize: 30, color: Colors.white))
-          ]),
-        )),
-        Expanded(
-            child: Container(
-          height: 100,
-          decoration: BoxDecoration(color: Colors.red),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text("RED", style: TextStyle(fontSize: 30, color: Colors.white)),
-            Text("${getRoundsWonByTeam("Red")}",
-                style: TextStyle(fontSize: 30, color: Colors.white))
-          ]),
-        )),
-      ],
-    );
+      _getUploaderWidget()*/
+        ]));
   }
 
   int getRoundsWonByTeam(String team) {
@@ -74,22 +70,27 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   }
 
   Widget _getTitleWidget(BuildContext context) {
-    return Text(_log.info.title,
-        style: Theme.of(context).textTheme.title);
+    return Text(
+      _log.info.title,
+      style: Theme.of(context).textTheme.title,
+    );
   }
 
   Widget _getMapWidget(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Image.asset(
-        "assets/map.png",
-        width: 20,
-        height: 20,
-      ),
-      Text(
-        " ${_log.info.map}",
-        style: TextStyle(fontSize: 16),
-      )
-    ]);
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Image.asset(
+            "assets/map.png",
+            width: 20,
+            height: 20,
+          ),
+          Text(" Map: "),
+          Text(
+            "${_log.info.map}",
+            style: TextStyle(fontSize: 18),
+          )
+        ]));
   }
 
   Widget _getTimeWidget(BuildContext context) {
@@ -105,7 +106,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         lengthSeconds.toString());
     var lengthText = "";
     if (lengthHours > 0) {
-      lengthText += "$lengthHours m";
+      lengthText += "$lengthHours h";
     }
     if (lengthMinutes > 0) {
       lengthText += " $lengthMinutes m";
@@ -113,33 +114,38 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     if (lengthSeconds > 0) {
       lengthText += " $lengthSeconds s";
     }
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Image.asset(
-        "assets/timer.png",
-        width: 20,
-        height: 20,
-      ),
-      Text(
-        lengthText,
-        style: TextStyle(fontSize: 16),
-      )
-    ]);
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Image.asset(
+            "assets/timer.png",
+            width: 20,
+            height: 20,
+          ),
+          Text("Played:"),
+          Text(
+            lengthText,
+            style: TextStyle(fontSize: 18),
+          )
+        ]));
   }
 
   Widget _getTimestampWidget() {
-    var dateTime =
-        DateTime.fromMillisecondsSinceEpoch(_log.info.date * 1000);
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Image.asset(
-        "assets/calendar.png",
-        width: 20,
-        height: 20,
-      ),
-      Text(
-        DateFormat('yyyy-MM-dd kk:mm:ss').format(dateTime),
-        style: TextStyle(fontSize: 16),
-      )
-    ]);
+    var dateTime = DateTime.fromMillisecondsSinceEpoch(_log.info.date * 1000);
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Image.asset(
+            "assets/calendar.png",
+            width: 20,
+            height: 20,
+          ),
+          Text("Played at: "),
+          Text(
+            DateFormat('yyyy-MM-dd kk:mm:ss').format(dateTime),
+            style: TextStyle(fontSize: 18),
+          )
+        ]));
   }
 
   Widget _getMatchTypeWidget() {
@@ -151,23 +157,38 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     } else if (playersCount >= 18) {
       matchType = "Highlander";
     }
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Image.asset(
-        "assets/battle.png",
-        width: 20,
-        height: 20,
-      ),
-      Text(
-        matchType,
-        style: TextStyle(fontSize: 16),
-      )
-    ]);
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Image.asset(
+            "assets/battle.png",
+            width: 20,
+            height: 20,
+          ),
+          Text("Type: "),
+          Text(
+            matchType,
+            style: TextStyle(fontSize: 18),
+          )
+        ]));
   }
 
   Widget _getUploaderWidget() {
-    return Text(
-      "Uploaded by: ${_log.info.uploader.name} (${_log.info.uploader.info})",
-      style: TextStyle(fontSize: 16),
-    );
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Image.asset(
+            "assets/upload.png",
+            width: 20,
+            height: 20,
+          ),
+          Text(" Uploaded by: "),
+          Flexible(child: Container(
+            child: Text(
+                "${_log.info.uploader.name} (${_log.info.uploader.info})",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 18)),
+          ))
+        ]));
   }
 }

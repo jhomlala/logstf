@@ -7,6 +7,7 @@ import 'package:logstf/view/log_heal_view.dart';
 import 'package:logstf/view/log_players_stats_view.dart';
 import 'package:logstf/view/log_players_view.dart';
 import 'package:logstf/view/log_team_stats_view.dart';
+import 'package:logstf/widget/progress_bar.dart';
 
 class LogView extends StatefulWidget {
   @override
@@ -16,13 +17,41 @@ class LogView extends StatefulWidget {
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   LogsBloc logsBloc;
   TabController tabController;
+  String _appBarTitle = "General stats";
 
   @override
   void initState() {
     super.initState();
     logsBloc = LogsBloc();
     tabController = TabController(length: 5, vsync: this);
+    tabController.addListener(_onTabChanged);
     logsBloc.getLog(2275803);
+  }
+
+  void _onTabChanged() {
+    print("Tab changed");
+    var index = tabController.index;
+    var tabName = "";
+    switch (index) {
+      case 0:
+        tabName = "General stats";
+        break;
+      case 1:
+        tabName = "Team stats";
+        break;
+      case 2:
+        tabName = "Player stats";
+        break;
+      case 3:
+        tabName = "Heal stats";
+        break;
+      case 4:
+        tabName = "Awards stats";
+        break;
+    }
+    setState(() {
+      _appBarTitle = tabName;
+    });
   }
 
   @override
@@ -30,27 +59,23 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     return LogBlocProvider(
         child: Scaffold(
             appBar: AppBar(
-                title: Text("Log"),
-                bottom: TabBar(controller: tabController, tabs: [
+                title: Text(_appBarTitle),
+                elevation: 0.0,
+                bottom: TabBar(controller: tabController, indicatorColor: Colors.white, tabs: [
                   Tab(
-                    text: "General",
                     icon: Icon(Icons.info_outline),
                   ),
                   Tab(
-                    text: "Teams",
                     icon: Icon(Icons.swap_horiz),
                   ),
                   Tab(
-                    text: "Players",
                     icon: Icon(Icons.people),
                   ),
                   Tab(
-                    text: "Stats",
-                    icon: Icon(Icons.insert_chart),
+                    icon: Icon(Icons.add),
                   ),
                   Tab(
-                    text: "Heal",
-                    icon: Icon(Icons.add),
+                    icon: Icon(Icons.flash_on),
                   )
                 ])),
             body: StreamBuilder<Log>(
@@ -63,11 +88,15 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                       LogGeneralStatsView(),
                       LogTeamStatsView(log: snapshot.data),
                       LogPlayersView(),
-                      LogPlayersStatsView(log: snapshot.data),
-                      LogHealView()
+                      LogHealView(),
+                      Container()
                     ]);
                   } else {
-                    return Text("No data... Loading..");
+                    return Container(
+                        decoration: BoxDecoration(color: Colors.deepPurple),
+                        child: Center(
+                            child:
+                                Container(height: 40, child: ProgressBar())));
                   }
                 })));
   }
