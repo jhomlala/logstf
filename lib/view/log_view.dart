@@ -8,6 +8,8 @@ import 'package:logstf/view/log_players_view.dart';
 import 'package:logstf/view/log_team_stats_view.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
+import 'log_awards_view.dart';
+
 class LogView extends StatefulWidget {
   @override
   _LogViewState createState() => _LogViewState();
@@ -88,7 +90,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                       LogTeamStatsView(log: snapshot.data),
                       LogPlayersView(),
                       LogHealView(),
-                      Container()
+                      LogAwardsView(log: snapshot.data)
                     ]);
                   } else {
                     return Container(
