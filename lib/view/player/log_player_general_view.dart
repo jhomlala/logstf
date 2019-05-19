@@ -38,11 +38,11 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
       opponent = widget.averagePlayersStatsMap["Red"];
     }
     rows.add(TableRow(children: [
-      TableHeaderWidget("METRIC"),
-      TableHeaderWidget("VALUE"),
-      TableHeaderWidget("GLOB. AVG"),
-      TableHeaderWidget("TEAM AVG"),
-      TableHeaderWidget("OPPO. AVG")
+      TableHeaderWidget("METRIC",1),
+      TableHeaderWidget("VALUE",0),
+      TableHeaderWidget("GLOB. AVG",0),
+      TableHeaderWidget("TEAM AVG",0),
+      TableHeaderWidget("OPPO. AVG",2)
     ]));
     rows.add(getStatRow("Kills", player.kills.toDouble(), all.averageKills,
         team.averageKills, opponent.averageKills));

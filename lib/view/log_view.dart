@@ -4,7 +4,6 @@ import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log_general_stats_view.dart';
 import 'package:logstf/view/log_heal_view.dart';
-import 'package:logstf/view/log_players_stats_view.dart';
 import 'package:logstf/view/log_players_view.dart';
 import 'package:logstf/view/log_team_stats_view.dart';
 import 'package:logstf/widget/progress_bar.dart';

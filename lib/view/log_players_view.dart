@@ -8,11 +8,11 @@ import 'package:logstf/helper/stats_manager.dart';
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayersView extends StatefulWidget {
-
   @override
   _LogPlayersViewState createState() => _LogPlayersViewState();
 }
@@ -25,13 +25,12 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   String _filterName = "Kills";
   HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;
 
-
   void init(BuildContext context) {
     _bloc = LogBlocProvider.of(context);
     _log = _bloc.logSubject.value;
     _players = _log.players;
     _playerNames = _log.names;
-    var length =_log.length;
+    var length = _log.length;
     _averagePlayerStatsMap = HashMap();
     _averagePlayerStatsMap["ALL"] =
         StatsManager.getAveragePlayerStatsForAllPlayers(
@@ -39,67 +38,67 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     _averagePlayerStatsMap["Red"] = StatsManager.getAveragePlayerStatsForTeam(
         _players.values.toList(), length, "Red");
     _averagePlayerStatsMap["Blue"] = StatsManager.getAveragePlayerStatsForTeam(
-        _players.values.toList(),length, "Blue");
+        _players.values.toList(), length, "Blue");
   }
 
   @override
   Widget build(BuildContext context) {
     init(context);
-    return SingleChildScrollView(
-        child: Column(children: <Widget>[
-      _getFilterDropdownWidget(),
-      Table(
-        border: TableBorder(
-            left: BorderSide(
-              color: Colors.black,
-            ),
-            right: BorderSide(
-              color: Colors.black,
-            ),
-            top: BorderSide(
-              color: Colors.black,
-            )),
-        children: _getTableRows(),
-      )
-    ]));
+    return Container(
+        color: Colors.deepPurple,
+        child: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          _getFilterDropdownWidget(),
+          Card(
+              elevation: 10,
+              margin: EdgeInsets.all(10),
+              child: Column(children: [
+                Table(
+                  children: _getTableRows(),
+                ),
+                Padding(padding: EdgeInsets.only(bottom: 5),)
+              ]))
+        ])));
   }
 
   Widget _getFilterDropdownWidget() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text("Metric: "),
-      Padding(
-        padding: EdgeInsets.only(left: 5),
-      ),
-      DropdownButton<String>(
-        value: _filterName,
-        style: TextStyle(color: Colors.black),
-        items: <String>[
-          "Kills",
-          "Assists",
-          "Deaths",
-          "DA",
-          "DA/M",
-          "KA/D",
-          "K/D",
-          "DT",
-          "DT/M",
-          "HP",
-          "HS",
-          "AS",
-          "CAP"
-        ].map((String value) {
-          return new DropdownMenuItem<String>(
-            value: value,
-            child: new Text(value),
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            _filterName = value;
-          });
-        },
-      )
-    ]);
+    return Card(
+        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text("Metric: "),
+          Padding(
+            padding: EdgeInsets.only(left: 5),
+          ),
+          DropdownButton<String>(
+            value: _filterName,
+            style: TextStyle(color: Colors.black),
+            items: <String>[
+              "Kills",
+              "Assists",
+              "Deaths",
+              "DA",
+              "DA/M",
+              "KA/D",
+              "K/D",
+              "DT",
+              "DT/M",
+              "HP",
+              "HS",
+              "AS",
+              "CAP"
+            ].map((String value) {
+              return new DropdownMenuItem<String>(
+                value: value,
+                child: new Text(value),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                _filterName = value;
+              });
+            },
+          )
+        ]));
   }
 
   List<TableRow> _getTableRows() {
@@ -114,7 +113,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
       var tableRow = TableRow(
           decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black))),
+              border:
+                  Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
           children: [
             _getTeamWidget(player),
             _getPlayerNameWidget(player, name),
@@ -130,8 +130,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => LogPlayerDetailedView(
-                _log, player, _averagePlayerStatsMap)));
+            builder: (context) =>
+                LogPlayerDetailedView(_log, player, _averagePlayerStatsMap)));
   }
 
   List<Player> orderPlayersByField(List<Player> players) {
@@ -203,15 +203,12 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
   TableRow getHeaderTableRow() {
     return TableRow(children: [
-      TableHeaderWidget("TEAM"),
-      TableHeaderWidget("PLAYER"),
-      TableHeaderWidget("CLASSES"),
-      TableHeaderWidget(_filterName),
+      TableHeaderWidget("TEAM", 1),
+      TableHeaderWidget("PLAYER", 0),
+      TableHeaderWidget("CLASSES", 0),
+      TableHeaderWidget(_filterName, 2),
     ]);
   }
-
-
-
 
   Widget _getPlayerNameWidget(Player player, String name) {
     return InkWell(
@@ -308,7 +305,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
             width: 50,
             decoration: BoxDecoration(
                 color: teamColor,
-                border: Border(bottom: BorderSide(color: Colors.black))),
+                border:
+                    Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
             child: Center(
               child: Text(teamName, style: TextStyle(color: Colors.white)),
             )));
