@@ -212,5 +212,12 @@ class LogHelper {
     return allPlayers.map((player) => log.getPlayerName(player.steamId)).toList();
   }
 
+  static List<Player> getPlayersSortedByKills(Log log){
+    List<Player> players = log.players.values.toList();
+    players.sort((player1,player2) => player2.kills.compareTo(player1.kills));
+    return players;
+  }
+
+
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/award_card.dart';
@@ -21,14 +22,25 @@ class _LogAwardsViewState extends State<LogAwardsView> {
         color: Colors.deepPurple,
         child: SingleChildScrollView(
             child: Column(
-          children: <Widget>[AwardCard(awardName: "Most valuable kills", player: getMVPPlayer(), log: widget.log, description: "Had most kills!",)],
-        )));
+              children: <Widget>[AwardCard(awardName: "Most kills",
+                players: getTopKillPlayers(),
+                log: widget.log,
+                description: "Players which had most kills overall",)
+              ],
+            )));
   }
 
-  Player getMVPPlayer(){
-    List<Player> players = widget.log.players.values.toList();
-    players.sort((player1,player2) => player2.kills.compareTo(player1.kills));
-    return players[0];
+  List<Player> getTopKillPlayers() {
+    return LogHelper.getPlayersSortedByKills(_getLog()).sublist(0,3);
+  }
 
+  Log _getLog() {
+    return widget.log;
+  }
+
+  Player getMVPPlayer() {
+    List<Player> players = widget.log.players.values.toList();
+    players.sort((player1, player2) => player2.kills.compareTo(player1.kills));
+    return players[0];
   }
 }
