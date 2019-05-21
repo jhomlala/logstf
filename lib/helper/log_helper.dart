@@ -145,29 +145,29 @@ class LogHelper {
   }
 
   static double getTeamKAPD(Log log, String team) {
-    var kills = getKillsSum(log,team);
+    var kills = getKillsSum(log, team);
     var assists = getAssistsSum(log, team);
     var deaths = getDeathsSum(log, team);
-    return (kills+assists)/deaths;
+    return (kills + assists) / deaths;
   }
 
-  static double getTeamDamagePerMinute(Log log, String team){
+  static double getTeamDamagePerMinute(Log log, String team) {
     var damage = getDamageSum(log, team);
-    return damage/(log.length/60);
+    return damage / (log.length / 60);
   }
 
-  static double getTeamKillsPerDeaths(Log log, String team){
+  static double getTeamKillsPerDeaths(Log log, String team) {
     var kills = getKillsSum(log, team);
     var deaths = getDeathsSum(log, team);
-    return kills/deaths;
+    return kills / deaths;
   }
 
-  static double getTeamDamageTakenPerMinute(Log log, String team){
+  static double getTeamDamageTakenPerMinute(Log log, String team) {
     var damageTaken = getDamageTakenSum(log, team);
-    return damageTaken/(log.length/60);
+    return damageTaken / (log.length / 60);
   }
 
-  static int getMedkitsSum(Log log, String team){
+  static int getMedkitsSum(Log log, String team) {
     var sum = 0;
     log.players.values.where((player) => player.team == team).forEach((player) {
       sum += player.medkits;
@@ -175,7 +175,7 @@ class LogHelper {
     return sum;
   }
 
-  static int getMedkitsHPSum(Log log, String team){
+  static int getMedkitsHPSum(Log log, String team) {
     var sum = 0;
     log.players.values.where((player) => player.team == team).forEach((player) {
       sum += player.medkitsHp;
@@ -183,7 +183,7 @@ class LogHelper {
     return sum;
   }
 
-  static int getHeadshotsSum(Log log, String team){
+  static int getHeadshotsSum(Log log, String team) {
     var sum = 0;
     log.players.values.where((player) => player.team == team).forEach((player) {
       sum += player.headshots;
@@ -191,7 +191,7 @@ class LogHelper {
     return sum;
   }
 
-  static int getSentriesSum(Log log, String team){
+  static int getSentriesSum(Log log, String team) {
     var sum = 0;
     log.players.values.where((player) => player.team == team).forEach((player) {
       sum += player.sentries;
@@ -199,7 +199,7 @@ class LogHelper {
     return sum;
   }
 
-  static int getBackstabsSum(Log log, String team){
+  static int getBackstabsSum(Log log, String team) {
     var sum = 0;
     log.players.values.where((player) => player.team == team).forEach((player) {
       sum += player.backstabs;
@@ -207,17 +207,66 @@ class LogHelper {
     return sum;
   }
 
-  static List<String> getPlayerNames(Log log){
+  static List<String> getPlayerNames(Log log) {
     List<Player> allPlayers = log.players.values.toList();
-    return allPlayers.map((player) => log.getPlayerName(player.steamId)).toList();
+    return allPlayers
+        .map((player) => log.getPlayerName(player.steamId))
+        .toList();
   }
 
-  static List<Player> getPlayersSortedByKills(Log log){
+  static List<Player> getPlayersSortedByKills(Log log) {
     List<Player> players = log.players.values.toList();
-    players.sort((player1,player2) => player2.kills.compareTo(player1.kills));
+    players.sort((player1, player2) => player2.kills.compareTo(player1.kills));
     return players;
   }
 
+  static List<Player> getPlayersSortedByAssistsWithoutMedic(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) => !getPlayerClasses(player).contains("medic"))
+        .toList();
+    players
+        .sort((player1, player2) => player2.assists.compareTo(player1.assists));
+    return players;
+  }
 
+  static List<Player> getPlayersSortedByDamage(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.dmg.compareTo(player1.dmg));
+    return players;
+  }
 
+  static List<Player> getPlayersSortedByMedicKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => log.classKills[player2.steamId].medic
+        .compareTo(log.classKills[player1.steamId].medic));
+    return players;
+  }
+
+  static List<Player> getPlayerSortedByMVPScore(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => getPlayerMVPScore(player2, log)
+        .compareTo(getPlayerMVPScore(player1, log)));
+    return players;
+  }
+
+  static double getPlayerMVPScore(Player player, Log log) {
+    var kills = player.kills;
+    var assists = player.assists;
+    var damage = player.dmg;
+    var caps = player.cpc;
+    var medicKills = 0;
+    if (log.classKills.containsKey(player.steamId)) {
+      medicKills = log.classKills[player.steamId].medic;
+      if (medicKills == null){
+        medicKills = 0;
+      }
+    }
+
+    return kills * 0.39 +
+        assists * 0.2 +
+        damage * 0.01 +
+        caps * 0.2 +
+        medicKills * 0.2;
+  }
 }
