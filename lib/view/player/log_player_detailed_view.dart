@@ -47,16 +47,16 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
                 icon: Icon(Icons.info_outline),
               ),
               Tab(
-                text: "Class compare",
-                icon: Icon(Icons.info_outline),
+                text: "Class",
+                icon: Icon(Icons.swap_horiz),
               ),
               Tab(
                 text: "Kills",
-                icon: Icon(Icons.report),
+                icon: Icon(Icons.location_searching),
               ),
               Tab(
                 text: "Awards",
-                icon: Icon(Icons.report),
+                icon: Icon(Icons.flash_on),
               )
             ]),
       ),

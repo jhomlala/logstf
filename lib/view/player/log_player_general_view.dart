@@ -121,7 +121,7 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
             name,
             style: TextStyle(fontSize: 16),
           ),
-          Text(value.toStringAsFixed(2)),
+          Text(value.toStringAsFixed(2), style: TextStyle(fontWeight: FontWeight.bold),),
           arrow
         ]));
   }
