@@ -85,11 +85,19 @@ class LogPlayerAwardsView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 5),
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text(
-            "Position: $position",
-            style: TextStyle(fontSize: 16),
-          ),
-          Image.asset(placeImage, height: 20, width: 20,),]),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+              "Position: $position",
+              style: TextStyle(fontSize: 16),
+            ),
+            placeImage == ""
+                ? Image.asset(
+                    placeImage,
+                    height: 20,
+                    width: 20,
+                  )
+                : null,
+          ]),
           Padding(
             padding: EdgeInsets.only(top: 5),
           ),

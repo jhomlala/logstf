@@ -11,8 +11,13 @@ import 'package:logstf/widget/progress_bar.dart';
 import 'log_awards_view.dart';
 
 class LogView extends StatefulWidget {
+  final int logId;
+
+  const LogView({Key key, this.logId}) : super(key: key);
+
   @override
   _LogViewState createState() => _LogViewState();
+
 }
 
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
