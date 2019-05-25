@@ -15,12 +15,15 @@ class KillsCard extends StatelessWidget {
     if (killsValue == null) {
       killsValue = 0;
     }
-    var percentage = (killsValue / totalClassDeaths) * 100;
+    double percentage = 0;
+    if (killsValue != 0) {
+      percentage = (killsValue / totalClassDeaths) * 100;
+    }
+
     var opacity = killsValue == 0 ? 0.5 : 1.0;
-    return Opacity(
-        opacity: opacity,
-        child: Card(
-            child: Container(
+
+        return Card(
+            child: Opacity(opacity: opacity,child: Container(
           padding: EdgeInsets.all(10),
           child: Column(children: <Widget>[
             Image.asset(

@@ -3,7 +3,6 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/comparison_card.dart';
 
 class LogPlayerClassCompareView extends StatefulWidget {
@@ -38,7 +37,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     super.initState();
   }
 
-  _onClassSelected(String className){
+  _onClassSelected(String className) {
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
         widget.log, className, widget.player.steamId);
     if (_otherPlayersWithSelectedClass.isNotEmpty) {
@@ -56,7 +55,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         decoration: BoxDecoration(color: Colors.deepPurple),
         child: SingleChildScrollView(
             child:
-                Container(child: Column(children: _getMainColumnWidgets()))));
+            Container(child: Column(children: _getMainColumnWidgets()))));
   }
 
   List<Widget> _getMainColumnWidgets() {
@@ -70,8 +69,13 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     return widgets;
   }
 
-  Widget _getNoPlayersWithClassCard(){
-    return Card(child:Container(padding: EdgeInsets.all(10),child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("There is no other player with same class to compare")])));
+  Widget _getNoPlayersWithClassCard() {
+    return Card(
+        child: Container(
+            padding: EdgeInsets.all(10),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text("There is no other player with same class to compare")
+            ])));
   }
 
   Widget _getClassAndPlayerSelectionRow() {
@@ -80,6 +84,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
+                Padding(padding: EdgeInsets.only(top: 5),),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
                     "Class:",
@@ -119,16 +124,15 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         isDense: true,
         iconSize: 20.0,
         value: _selectedClass,
-
         items: _classes.map((String value) {
           return new DropdownMenuItem<String>(
             value: value,
-            child: new Text(value, style: TextStyle(fontSize: 16)),
+            child: new Text(_formatClassName(value), style: TextStyle(fontSize: 16)),
           );
         }).toList(),
         onChanged: (value) {
           _onClassSelected(value);
-          setState((){
+          setState(() {
             _selectedClass = value;
           });
         });
@@ -140,7 +144,6 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
       isDense: true,
       iconSize: 20.0,
       value: _selectedPlayer,
-
       items: _otherPlayersWithSelectedClass.map((Player player) {
         return new DropdownMenuItem<Player>(
           value: player,
@@ -153,11 +156,10 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
       }).toList(),
       onChanged: (value) {
         print("Selected.");
-        setState((){
+        setState(() {
           _selectedPlayer = value;
           print("selected: " + value.toString());
         });
-
       },
     );
   }
@@ -311,4 +313,14 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     return widgets;
   }
+
+  String _formatClassName(String rawClassName) {
+    if (rawClassName == "heavyweapons") {
+      return "Heavy";
+    } else {
+      return rawClassName.substring(0, 1).toUpperCase() +
+          rawClassName.substring(1, rawClassName.length);
+    }
+  }
+  
 }

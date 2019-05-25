@@ -27,7 +27,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
 
   @override
   void initState() {
-    tabController = TabController(length:4, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -36,32 +36,36 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.log.getPlayerName(widget.player.steamId)),
-        bottom: TabBar(controller: tabController, tabs: [
-          Tab(
-            text: "General",
-            icon: Icon(Icons.info_outline),
-          ),
-          Tab(
-            text: "Class compare",
-            icon: Icon(Icons.info_outline),
-          ),
-          Tab(
-            text: "Kills",
-            icon: Icon(Icons.report),
-          ),
-          Tab(
-            text: "Awards",
-            icon: Icon(Icons.report),
-          )
-        ]),
+        elevation: 0.0,
+        bottom: TabBar(
+            controller: tabController,
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(
+                text: "General",
+                icon: Icon(Icons.info_outline),
+              ),
+              Tab(
+                text: "Class compare",
+                icon: Icon(Icons.info_outline),
+              ),
+              Tab(
+                text: "Kills",
+                icon: Icon(Icons.report),
+              ),
+              Tab(
+                text: "Awards",
+                icon: Icon(Icons.report),
+              )
+            ]),
       ),
       body: Container(
           child: TabBarView(controller: tabController, children: [
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
         LogPlayerClassCompareView(widget.log, widget.player),
-            LogPlayerKillsView(widget.log, widget.player),
-            Container(),
+        LogPlayerKillsView(widget.log, widget.player),
+        Container(),
       ])),
     );
   }
