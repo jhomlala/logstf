@@ -322,5 +322,5 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
           rawClassName.substring(1, rawClassName.length);
     }
   }
-  
+
 }

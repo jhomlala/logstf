@@ -7,6 +7,7 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/view/player/log_player_class_compare_view.dart';
 import 'package:logstf/view/player/log_player_general_view.dart';
 
+import 'log_player_awards_view.dart';
 import 'log_player_kills_view.dart';
 
 class LogPlayerDetailedView extends StatefulWidget {
@@ -65,7 +66,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
         LogPlayerClassCompareView(widget.log, widget.player),
         LogPlayerKillsView(widget.log, widget.player),
-        Container(),
+        LogPlayerAwardsView(widget.log, widget.player)
       ])),
     );
   }

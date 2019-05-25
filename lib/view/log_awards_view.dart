@@ -76,7 +76,7 @@ class _LogAwardsViewState extends State<LogAwardsView> {
   }
 
   List<Player> getTopAssistsPlayers() {
-    return LogHelper.getPlayersSortedByAssistsWithoutMedic(_getLog())
+    return LogHelper.getPlayersSortedByAssists(_getLog(), false)
         .sublist(0, 3);
   }
 

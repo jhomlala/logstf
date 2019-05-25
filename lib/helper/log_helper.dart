@@ -220,11 +220,13 @@ class LogHelper {
     return players;
   }
 
-  static List<Player> getPlayersSortedByAssistsWithoutMedic(Log log) {
+  static List<Player> getPlayersSortedByAssists(Log log, bool medicsIncluded) {
     List<Player> players = log.players.values.toList();
-    players = players
-        .where((player) => !getPlayerClasses(player).contains("medic"))
-        .toList();
+    if (!medicsIncluded) {
+      players = players
+          .where((player) => !getPlayerClasses(player).contains("medic"))
+          .toList();
+    }
     players
         .sort((player1, player2) => player2.assists.compareTo(player1.assists));
     return players;

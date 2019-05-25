@@ -21,15 +21,15 @@ class ClassKill {
       this.medic});
 
   factory ClassKill.fromJson(Map<String, dynamic> json) => ClassKill(
-      engineer: json["engineer"],
-      spy: json["spy"],
-      scout: json["scout"],
-      heavyweapons: json["heavyweapons"],
-      pyro: json["pyro"],
-      demoman: json["demoman"],
-      sniper: json["sniper"],
-      soldier: json["soldier"],
-      medic: json["medic"]);
+      engineer: json.containsKey("engineer") ? json["engineer"] : 0,
+      spy: json.containsKey("spy") ? json["spy"] : 0,
+      scout: json.containsKey("scout") ? json["scout"] : 0,
+      heavyweapons: json.containsKey("heavyweapons") ? json["heavyweapons"] : 0,
+      pyro: json.containsKey("pyro") ? json["pyro"] : 0,
+      demoman: json.containsKey("demoman") ? json["demoman"] : 0,
+      sniper: json.containsKey("sniper") ? json["sniper"] : 0,
+      soldier: json.containsKey("soldier") ? json["soldier"] : 0,
+      medic: json.containsKey("medic") ? json["medic"] : 0);
 
   @override
   String toString() {
