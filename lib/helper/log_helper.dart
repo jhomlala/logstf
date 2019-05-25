@@ -284,4 +284,29 @@ class LogHelper {
     return players;
   }
 
+  static String getGameType(int playersCount, String mapName){
+    String matchType = "";
+    if (playersCount % 2 == 0){
+      double half = playersCount / 2;
+      matchType = "${half.toStringAsFixed(0)}v${half.toStringAsFixed(0)}";
+    } else {
+      matchType = "$playersCount players";
+    }
+
+    if (playersCount == 4){
+      if (mapName.contains("ultiduo")){
+        matchType = "Ultiduo";
+      } else {
+        matchType = "BBall";
+      }
+    }
+    if (playersCount >= 12 && playersCount < 18) {
+      matchType = "6v6";
+    } else if (playersCount >= 18) {
+      matchType = "Highlander";
+    }
+
+    return "$matchType match";
+  }
+
 }

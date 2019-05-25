@@ -4,6 +4,8 @@ import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/widget/log_searched_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
+import 'logs_search_view.dart';
+
 class LogsListView extends StatefulWidget {
   @override
   _LogsListViewState createState() => _LogsListViewState();
@@ -23,9 +25,20 @@ class _LogsListViewState extends State<LogsListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text("Logs TF"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LogsSearchView()));
+              },
+            )
+          ],
         ),
-        body: StreamBuilder<LogsSearchResponse>(
+        body:
+        Container(color: Colors.deepPurple, child: StreamBuilder<LogsSearchResponse>(
             stream: logsSearchBloc.logsSearchSubject.stream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -41,6 +54,6 @@ class _LogsListViewState extends State<LogsListView> {
                     child: Center(
                         child: Container(height: 40, child: ProgressBar())));
               }
-            }));
+            })));
   }
 }

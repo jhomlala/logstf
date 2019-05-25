@@ -1,4 +1,4 @@
-class LogSearch {
+class LogSearched {
   int id;
   String title;
   String map;
@@ -6,7 +6,7 @@ class LogSearch {
   int views;
   int players;
 
-  LogSearch({
+  LogSearched({
     this.id,
     this.title,
     this.map,
@@ -15,7 +15,7 @@ class LogSearch {
     this.players,
   });
 
-  factory LogSearch.fromJson(Map<String, dynamic> json) => new LogSearch(
+  factory LogSearched.fromJson(Map<String, dynamic> json) => new LogSearched(
         id: json["id"],
         title: json["title"],
         map: json["map"],

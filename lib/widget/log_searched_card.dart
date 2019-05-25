@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/log_search.dart';
+import 'package:logstf/helper/log_helper.dart';
+import 'package:logstf/model/log_searched.dart';
 import 'package:logstf/view/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogSearchedCard extends StatelessWidget {
-  final LogSearch logSearch;
+  final LogSearched logSearch;
 
   const LogSearchedCard({Key key, this.logSearch}) : super(key: key);
 
@@ -54,7 +55,8 @@ class LogSearchedCard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 2),
                     ),
-                    Text("${logSearch.views}", style: TextStyle(fontSize: 14))
+                    Text("${logSearch.views}", style: TextStyle(fontSize: 14)),
+
                   ]),
                   Row(children: [
                     Icon(
@@ -66,6 +68,21 @@ class LogSearchedCard extends StatelessWidget {
                       padding: EdgeInsets.only(left: 2),
                     ),
                     Text(logSearch.map, style: TextStyle(fontSize: 14))
+                  ]),
+                  Row(children: [
+                    Image.asset(
+                      "assets/battle.png",
+                      width: 14,
+                      height: 14,
+                      color: Colors.grey,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 2),
+                    ),
+                    Text(
+                      LogHelper.getGameType(logSearch.players, logSearch.map),
+                      style: TextStyle(fontSize: 14),
+                    )
                   ]),
                 ]))));
   }
