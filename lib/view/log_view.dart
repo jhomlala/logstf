@@ -26,7 +26,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logsBloc = LogsBloc();
     tabController = TabController(length: 5, vsync: this);
     tabController.addListener(_onTabChanged);
-    logsBloc.getLog(2287808);
+    logsBloc.getLog(2290040);
   }
 
   void _onTabChanged() {

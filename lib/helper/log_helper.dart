@@ -269,4 +269,17 @@ class LogHelper {
         caps * 0.2 +
         medicKills * 0.2;
   }
+
+  static List<Player> getPlayersSortedByKPD(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.kpd.compareTo(player1.kpd));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByKAPD(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.kapd.compareTo(player1.kapd));
+    return players;
+  }
+
 }

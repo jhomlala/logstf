@@ -27,6 +27,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
   @override
   void initState() {
+    print("init state");
     _classes = _getPlayerClasses();
     _selectedClass = _classes[0];
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
@@ -37,10 +38,22 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     super.initState();
   }
 
+  _onClassSelected(String className){
+    _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
+        widget.log, className, widget.player.steamId);
+    if (_otherPlayersWithSelectedClass.isNotEmpty) {
+      _selectedPlayer = _otherPlayersWithSelectedClass[0];
+      _selectedPlayerName = widget.log.getPlayerName(_selectedPlayer.steamId);
+    } else {
+      _selectedPlayer = null;
+      _selectedPlayerName = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: AppUtils.seashellColor),
+        decoration: BoxDecoration(color: Colors.deepPurple),
         child: SingleChildScrollView(
             child:
                 Container(child: Column(children: _getMainColumnWidgets()))));
@@ -49,32 +62,49 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   List<Widget> _getMainColumnWidgets() {
     List<Widget> widgets = List();
     widgets.add(_getClassAndPlayerSelectionRow());
-    widgets.addAll(_getComparisonWidgets());
+    if (_otherPlayersWithSelectedClass.isNotEmpty) {
+      widgets.addAll(_getComparisonWidgets());
+    } else {
+      widgets.add(_getNoPlayersWithClassCard());
+    }
     return widgets;
   }
 
-  Row _getClassAndPlayerSelectionRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Class:",
-          style: TextStyle(fontSize: 16),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 5),
-        ),
-        _getClassesDropdown(),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-        ),
-        Text("Compare:", style: TextStyle(fontSize: 16)),
-        Padding(
-          padding: EdgeInsets.only(left: 5),
-        ),
-        _getPlayersDropdown()
-      ],
-    );
+  Widget _getNoPlayersWithClassCard(){
+    return Card(child:Container(padding: EdgeInsets.all(10),child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [Text("There is no other player with same class to compare")])));
+  }
+
+  Widget _getClassAndPlayerSelectionRow() {
+    return Card(
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    "Class:",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5),
+                  ),
+                  _getClassesDropdown(),
+                ]),
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text("Compare to:", style: TextStyle(fontSize: 16)),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5),
+                  ),
+                  _getPlayersDropdown()
+                ]),
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
+                ),
+              ],
+            )));
   }
 
   List<String> _getPlayerClasses() {
@@ -85,29 +115,50 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
   Widget _getClassesDropdown() {
     return DropdownButton<String>(
+        elevation: 2,
+        isDense: true,
+        iconSize: 20.0,
         value: _selectedClass,
-        style: TextStyle(color: Colors.black),
+
         items: _classes.map((String value) {
           return new DropdownMenuItem<String>(
             value: value,
             child: new Text(value, style: TextStyle(fontSize: 16)),
           );
         }).toList(),
-        onChanged: (value) {});
+        onChanged: (value) {
+          _onClassSelected(value);
+          setState((){
+            _selectedClass = value;
+          });
+        });
   }
 
   Widget _getPlayersDropdown() {
     return DropdownButton<Player>(
+      elevation: 2,
+      isDense: true,
+      iconSize: 20.0,
       value: _selectedPlayer,
-      style: TextStyle(color: Colors.black),
+
       items: _otherPlayersWithSelectedClass.map((Player player) {
         return new DropdownMenuItem<Player>(
           value: player,
-          child: new Text(widget.log.getPlayerName(player.steamId),
-              style: TextStyle(fontSize: 16)),
+          child: Text(widget.log.getPlayerName(player.steamId),
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 16,
+              )),
         );
       }).toList(),
-      onChanged: (value) {},
+      onChanged: (value) {
+        print("Selected.");
+        setState((){
+          _selectedPlayer = value;
+          print("selected: " + value.toString());
+        });
+
+      },
     );
   }
 

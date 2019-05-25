@@ -23,8 +23,8 @@ class MedicStats {
       advantagesLost: json["advantages_lost"],
       biggestAdvantageLost: json["biggest_advantage_lost"],
       deathsWithin20sAfterUber: json["deaths_within_20s_after_uber"],
-      avgTimeBeforeHealing: json["avg_time_before_healing"].toDouble(),
-      avgTimeToBuild: json ["avg_time_to_build"].toDouble(),
-      avgTimeBeforeUsing: json["avg_time_before_using"].toDouble(),
-      avgUberLength: json["avg_uber_length"].toDouble());
+      avgTimeBeforeHealing: json.containsKey("avg_time_before_healing") ? json["avg_time_before_healing"].toDouble(): null,
+      avgTimeToBuild: json.containsKey("avg_time_to_build") ? json ["avg_time_to_build"].toDouble(): null,
+      avgTimeBeforeUsing: json.containsKey("avg_time_before_using") ? json["avg_time_before_using"].toDouble(): null,
+      avgUberLength: json.containsKey("avg_uber_length") ? json["avg_uber_length"].toDouble(): null);
 }

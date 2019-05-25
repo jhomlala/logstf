@@ -53,6 +53,19 @@ class _LogAwardsViewState extends State<LogAwardsView> {
               players: getTopDamagePlayers(),
               log: widget.log,
               description: "Players which killed most medics",
+            ),
+            AwardCard(
+              awardName: "Top kills per deaths",
+              players: getTopKPDPlayers(),
+              log: widget.log,
+              description: "Players which had best kills per deaths",
+            ),
+
+            AwardCard(
+              awardName: "Top kills & assists per deaths",
+              players: getTopKPDPlayers(),
+              log: widget.log,
+              description: "Players which had best kills & assists per deaths",
             )
           ],
         )));
@@ -76,11 +89,15 @@ class _LogAwardsViewState extends State<LogAwardsView> {
   }
 
   List<Player> getTopMVPPlayers() {
-    LogHelper.getPlayerSortedByMVPScore(_getLog()).forEach((player) => print(
-        _getLog().getPlayerName(player.steamId) +
-            " score: " +
-            LogHelper.getPlayerMVPScore(player, _getLog()).toString()));
     return LogHelper.getPlayerSortedByMVPScore(_getLog()).sublist(0, 3);
+  }
+
+  List<Player> getTopKPDPlayers(){
+    return LogHelper.getPlayersSortedByKPD(_getLog()).sublist(0,3);
+  }
+
+  List<Player> getTopKAPDPlayers(){
+    return LogHelper.getPlayersSortedByKAPD(_getLog()).sublist(0,3);
   }
 
   Log _getLog() {

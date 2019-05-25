@@ -64,7 +64,8 @@ class AwardCard extends StatelessWidget {
           child: Text(
             log.getPlayerName(player.steamId),
             style: TextStyle(fontSize: fontSize, color: color),
-          ))
+          )),
+
     ]);
   }
 }
