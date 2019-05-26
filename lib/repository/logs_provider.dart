@@ -9,7 +9,7 @@ class LogsProvider{
     return logsRepository.getLog(logId);
   }
 
-  Future<LogsSearchResponse> searchLogs(){
-    return logsRepository.searchLogs();
+  Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player){
+    return logsRepository.searchLogs(map,uploader,title,player);
   }
 }

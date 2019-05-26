@@ -12,9 +12,25 @@ class LogsRepository{
     return Log.fromJson(response.data);
   }
 
-  Future<LogsSearchResponse> searchLogs() async {
-    Uri uri = Uri.parse("http://logs.tf/api/v1/log");
+  Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player) async {
+    String url = "http://logs.tf/api/v1/log?";
+    if (map != null){
+      url+="map=$map&";
+    }
+    if (uploader != null){
+      url+="map=$uploader&";
+    }
+    if (title != null){
+      url+="map=$title&";
+    }
+    if (player != null){
+      url+="map=$player&";
+    }
+
+    Uri uri = Uri.parse(url);
+
     Response response = await dio.request(uri.toString());
+    print("Got response from server: " + response.statusCode.toString());
     return LogsSearchResponse.fromJson(response.data);
   }
 }

@@ -1,8 +1,8 @@
 class LogsSearchParameters {
-  dynamic player;
-  dynamic uploader;
-  dynamic title;
-  dynamic map;
+  String player;
+  String uploader;
+  String title;
+  String map;
   int limit;
   int offset;
 

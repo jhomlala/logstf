@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/view/log_view.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:logstf/view/logslist/logs_list_view.dart';
+import 'package:provider/provider.dart';
 
 /// This "Headless Task" is run when app is terminated.
 void backgroundFetchHeadlessTask() async {
@@ -17,19 +19,16 @@ void main() {
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
 
-
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
   }
-
-
 }
 
 class _MyAppState extends State<MyApp> {
-
   List<DateTime> _events = [];
   int _status = 0;
+
   @override
   void initState() {
     super.initState();
@@ -39,11 +38,11 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     // Configure BackgroundFetch.
-    BackgroundFetch.configure(BackgroundFetchConfig(
-        minimumFetchInterval: 15,
-        stopOnTerminate: false,
-        enableHeadless: true
-    ), () async {
+    BackgroundFetch.configure(
+        BackgroundFetchConfig(
+            minimumFetchInterval: 15,
+            stopOnTerminate: false,
+            enableHeadless: true), () async {
       // This is the fetch-event callback.
       print('[BackgroundFetch] Event received');
       setState(() {
@@ -78,9 +77,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(primaryColor: Colors.deepPurple),
-        home: LogsListView());
+    return ChangeNotifierProvider<LogsSearchBloc>(
+        builder: (_) => LogsSearchBloc(),
+        child: MaterialApp(
+            title: 'Logs TF',
+            theme: ThemeData(primaryColor: Colors.deepPurple),
+            home: LogsListView()));
   }
 }
