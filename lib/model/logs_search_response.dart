@@ -1,4 +1,4 @@
-import 'log_searched.dart';
+import 'log_short.dart';
 import 'logs_search_parameters.dart';
 
 class LogsSearchResponse {
@@ -6,7 +6,7 @@ class LogsSearchResponse {
   int results;
   int total;
   LogsSearchParameters parameters;
-  List<LogSearched> logs;
+  List<LogShort> logs;
 
   LogsSearchResponse({
     this.success,
@@ -21,7 +21,7 @@ class LogsSearchResponse {
     results: json["results"],
     total: json["total"],
     parameters: LogsSearchParameters.fromJson(json["parameters"]),
-    logs: new List<LogSearched>.from(json["logs"].map((x) => LogSearched.fromJson(x))),
+    logs: new List<LogShort>.from(json["logs"].map((x) => LogShort.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

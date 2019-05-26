@@ -1,4 +1,4 @@
-class LogSearched {
+class LogShort {
   int id;
   String title;
   String map;
@@ -6,7 +6,7 @@ class LogSearched {
   int views;
   int players;
 
-  LogSearched({
+  LogShort({
     this.id,
     this.title,
     this.map,
@@ -15,7 +15,7 @@ class LogSearched {
     this.players,
   });
 
-  factory LogSearched.fromJson(Map<String, dynamic> json) => new LogSearched(
+  factory LogShort.fromJson(Map<String, dynamic> json) => new LogShort(
         id: json["id"],
         title: json["title"],
         map: json["map"],

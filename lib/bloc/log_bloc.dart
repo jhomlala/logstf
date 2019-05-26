@@ -20,4 +20,6 @@ class LogBloc {
   void setPlayer(Player player) {
     selectedPlayerSubject.value = player;
   }
+
+
 }

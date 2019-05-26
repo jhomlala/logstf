@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
-import 'package:logstf/model/log_searched.dart';
+import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/widget/log_searched_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -27,7 +27,7 @@ class _LogsListViewState extends State<LogsListView> {
     logsSearchBloc.initLogs();
     return Container(
             color: Colors.deepPurple,
-            child: StreamBuilder<List<LogSearched>>(
+            child: StreamBuilder<List<LogShort>>(
                 stream: logsSearchBloc.logsSearchSubject.stream,
                 builder: (context, snapshot) {
                   if (!logsSearchBloc.loading) {

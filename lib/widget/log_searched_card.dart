@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/log_searched.dart';
+import 'package:logstf/model/log_short.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogSearchedCard extends StatelessWidget {
-  final LogSearched logSearch;
+  final LogShort logSearch;
 
   const LogSearchedCard({Key key, this.logSearch}) : super(key: key);
 
@@ -29,7 +29,8 @@ class LogSearchedCard extends StatelessWidget {
                         style: TextStyle(fontSize: 12, color: Colors.grey))
                   ]),
                   Row(children: [
-                    Text(logSearch.title, style: TextStyle(fontSize: 20))
+                    Text(logSearch.title, style: TextStyle(fontSize: 20)),
+
                   ]),
                   Row(children: [
                     Icon(

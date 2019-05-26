@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/log_searched.dart';
+import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/repository/logs_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 class LogsSearchBloc with ChangeNotifier {
   LogsProvider logsProvider = LogsProvider();
   bool loading = false;
-  final BehaviorSubject<List<LogSearched>> logsSearchSubject =
+  final BehaviorSubject<List<LogShort>> logsSearchSubject =
       BehaviorSubject();
   String map = "";
   String uploader = "";
@@ -37,7 +37,7 @@ class LogsSearchBloc with ChangeNotifier {
     if (response != null) {
       if (logsSearchSubject.value != null) {
         print("added logs 1");
-        var list = List<LogSearched>();
+        var list = List<LogShort>();
         list.addAll(logsSearchSubject.value);
         list.addAll(response.logs);
         logsSearchSubject.value = list;

@@ -67,6 +67,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
             appBar: AppBar(
                 title: Text(_appBarTitle),
                 elevation: 0.0,
+                actions: [
+                  IconButton(icon: Icon(Icons.star_border), onPressed: () {_saveLog(logsBloc.logSubject.value);},)
+                ],
                 bottom: TabBar(controller: tabController, indicatorColor: Colors.white, tabs: [
                   Tab(
                     icon: Icon(Icons.info_outline),
@@ -106,4 +109,16 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                   }
                 })));
   }
+
+  _saveLog(Log log) async {
+    print("click!!");
+    if(log != null) {
+      print("saving log!!");
+      logsBloc.saveLog(log);
+    }
+
+    var logShort = await logsBloc.getSavedLog(log.id);
+    print("log short: "+ logShort.toString());
+  }
+
 }
