@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_searched.dart';
-import 'package:logstf/view/log_view.dart';
+import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogSearchedCard extends StatelessWidget {

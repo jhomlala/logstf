@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
-import 'package:logstf/view/log_view.dart';
+import 'package:logstf/view/log/log_view.dart';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:logstf/view/logslist/logs_list_view.dart';
+import 'package:logstf/view/main_view.dart';
 import 'package:provider/provider.dart';
 
 /// This "Headless Task" is run when app is terminated.
@@ -82,6 +83,6 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
             title: 'Logs TF',
             theme: ThemeData(primaryColor: Colors.deepPurple),
-            home: LogsListView()));
+            home: MainView()));
   }
 }

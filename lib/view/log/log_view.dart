@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_bloc_provider.dart';
 import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
-import 'package:logstf/view/log_general_stats_view.dart';
-import 'package:logstf/view/log_heal_view.dart';
-import 'package:logstf/view/log_players_view.dart';
-import 'package:logstf/view/log_team_stats_view.dart';
+import 'package:logstf/view/log/log_general_stats_view.dart';
+import 'package:logstf/view/log/log_heal_view.dart';
+import 'package:logstf/view/log/log_players_view.dart';
+import 'package:logstf/view/log/log_team_stats_view.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
-import 'log_awards_view.dart';
+import 'package:logstf/view/log/log_awards_view.dart';
 
 class LogView extends StatefulWidget {
   final int logId;

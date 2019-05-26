@@ -25,21 +25,7 @@ class _LogsListViewState extends State<LogsListView> {
   Widget build(BuildContext context) {
     logsSearchBloc = Provider.of<LogsSearchBloc>(context);
     logsSearchBloc.initLogs();
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text("Logs TF"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogsSearchView()));
-              },
-            )
-          ],
-        ),
-        body: Container(
+    return Container(
             color: Colors.deepPurple,
             child: StreamBuilder<List<LogSearched>>(
                 stream: logsSearchBloc.logsSearchSubject.stream,
@@ -64,7 +50,7 @@ class _LogsListViewState extends State<LogsListView> {
                             child:
                                 Container(height: 40, child: ProgressBar())));
                   }
-                })));
+                }));
   }
 
   Widget _getLogsEmptyWidget() {
