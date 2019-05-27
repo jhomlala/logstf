@@ -26,7 +26,8 @@ dependencies:
   background_fetch: ^0.1.0
   timeago: ^2.0.16
   shared_preferences: ^0.5.2+1
-
+  sqflite: ^1.1.5
+  path_provider: any
 
   flutter:
     sdk: flutter

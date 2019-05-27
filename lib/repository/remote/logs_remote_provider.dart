@@ -1,10 +1,10 @@
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
-import 'package:logstf/repository/logs_repository.dart';
+import 'package:logstf/repository/remote/logs_remote_repository.dart';
 
-class LogsProvider{
-  LogsRepository logsRepository = LogsRepository();
+class LogsRemoteProvider{
+  LogsRemoteRepository logsRepository = LogsRemoteRepository();
 
   Future<Log> getLog(int logId){
     return logsRepository.getLog(logId);

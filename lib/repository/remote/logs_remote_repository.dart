@@ -6,7 +6,7 @@ import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LogsRepository{
+class LogsRemoteRepository{
   Dio dio = Dio();
 
 

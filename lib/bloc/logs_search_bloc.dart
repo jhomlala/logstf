@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
-import 'package:logstf/repository/logs_provider.dart';
+import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LogsSearchBloc with ChangeNotifier {
-  LogsProvider logsProvider = LogsProvider();
+  LogsRemoteProvider logsProvider = LogsRemoteProvider();
   bool loading = false;
   final BehaviorSubject<List<LogShort>> logsSearchSubject =
       BehaviorSubject();

@@ -17,13 +17,13 @@ class LogView extends StatefulWidget {
 
   @override
   _LogViewState createState() => _LogViewState();
-
 }
 
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   LogsBloc logsBloc;
   TabController tabController;
   String _appBarTitle = "General stats";
+  bool _saved = false;
 
   @override
   void initState() {
@@ -32,6 +32,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     tabController = TabController(length: 5, vsync: this);
     tabController.addListener(_onTabChanged);
     logsBloc.getLog(widget.logId);
+    logsBloc.getSavedLog(widget.logId).then((logShort) => setState(() {
+          _saved = logShort != null;
+        }));
   }
 
   void _onTabChanged() {
@@ -68,25 +71,33 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 title: Text(_appBarTitle),
                 elevation: 0.0,
                 actions: [
-                  IconButton(icon: Icon(Icons.star_border), onPressed: () {_saveLog(logsBloc.logSubject.value);},)
-                ],
-                bottom: TabBar(controller: tabController, indicatorColor: Colors.white, tabs: [
-                  Tab(
-                    icon: Icon(Icons.info_outline),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.swap_horiz),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.people),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.add),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.flash_on),
+                  IconButton(
+                    icon: Icon(_saved == true ? Icons.star : Icons.star_border),
+                    onPressed: () {
+                      onSaveClicked();
+                    },
                   )
-                ])),
+                ],
+                bottom: TabBar(
+                    controller: tabController,
+                    indicatorColor: Colors.white,
+                    tabs: [
+                      Tab(
+                        icon: Icon(Icons.info_outline),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.swap_horiz),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.people),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.add),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.flash_on),
+                      )
+                    ])),
             body: StreamBuilder<Log>(
                 stream: logsBloc.logSubject,
                 builder: (context, snapshot) {
@@ -110,15 +121,23 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 })));
   }
 
-  _saveLog(Log log) async {
-    print("click!!");
-    if(log != null) {
-      print("saving log!!");
-      logsBloc.saveLog(log);
+  void onSaveClicked() async {
+    print("On save clicked");
+    Log log = logsBloc.logSubject.value;
+    var savedLog = await logsBloc.getSavedLog(logsBloc.logSubject.value.id);
+    if (savedLog == null) {
+      logsBloc.saveLog(log.setupShortLog());
+      print("Saved log");
+      setState(() {
+        _saved = true;
+      });
+    } else {
+      print("Saved log: " + savedLog.toString());
+      logsBloc.deleteSavedLog(log.id);
+      print("Deleted log");
+      setState(() {
+        _saved = false;
+      });
     }
-
-    var logShort = await logsBloc.getSavedLog(log.id);
-    print("log short: "+ logShort.toString());
   }
-
 }
