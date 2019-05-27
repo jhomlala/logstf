@@ -9,6 +9,7 @@ class LogsBloc {
   LogsLocalProvider logsLocalProvider = LogsLocalProvider();
 
   var logSubject = BehaviorSubject<Log>();
+  var savedLogsSubject = BehaviorSubject<List<LogShort>>();
 
   void getLog(int logId) async {
     logSubject.value = await logsProvider.getLog(logId);
@@ -25,5 +26,9 @@ class LogsBloc {
   void deleteSavedLog(int logId) async {
     var res = await logsLocalProvider.deleteLog(logId);
     print("Delete res: " + res.toString());
+  }
+
+  void getSavedLogs() async{
+    savedLogsSubject.value = await logsLocalProvider.getLogs();
   }
 }

@@ -44,12 +44,12 @@ class _MainViewState extends State<MainView>
                     icon: Icon(Icons.people),
                   ),
                   Tab(
-                    text: "Favourites",
-                    icon: Icon(Icons.favorite),
+                    text: "Watchlist",
+                    icon: Icon(Icons.remove_red_eye),
                   ),
                   Tab(
                     text: "Saved",
-                    icon: Icon(Icons.save),
+                    icon: Icon(Icons.favorite),
                   )
                 ])),
         body: TabBarView(
