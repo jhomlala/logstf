@@ -6,6 +6,8 @@ import 'package:logstf/view/logslist/logs_list_view.dart';
 import 'package:logstf/view/main_view.dart';
 import 'package:provider/provider.dart';
 
+import 'bloc/logs_bloc.dart';
+
 /// This "Headless Task" is run when app is terminated.
 void backgroundFetchHeadlessTask() async {
   print('[BackgroundFetch] Headless event received.');
@@ -78,11 +80,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LogsSearchBloc>(
-        builder: (_) => LogsSearchBloc(),
+
+     return MultiProvider(
+        providers: [
+          Provider<LogsSearchBloc>.value(value: LogsSearchBloc()),
+          Provider<LogsBloc>.value(value: LogsBloc()),
+        ],
         child: MaterialApp(
             title: 'Logs TF',
             theme: ThemeData(primaryColor: Colors.deepPurple),
             home: MainView()));
+
+
   }
 }

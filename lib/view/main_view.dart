@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'logs/logs_saved_list_view.dart';
 import 'logslist/logs_list_view.dart';
 import 'logslist/logs_search_view.dart';
 
@@ -53,6 +54,6 @@ class _MainViewState extends State<MainView>
                 ])),
         body: TabBarView(
             controller: tabController,
-            children: [LogsListView(), Container(), Container()]));
+            children: [LogsListView(), Container(), LogsSavedListView()]));
   }
 }
