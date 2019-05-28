@@ -10,6 +10,7 @@ class LogsBloc {
 
   var logSubject = BehaviorSubject<Log>();
   var savedLogsSubject = BehaviorSubject<List<LogShort>>();
+  var savedLogsLoading = false;
 
   void getLog(int logId) async {
     logSubject.value = await logsProvider.getLog(logId);
@@ -29,6 +30,10 @@ class LogsBloc {
   }
 
   void getSavedLogs() async{
+    savedLogsLoading = true;
     savedLogsSubject.value = await logsLocalProvider.getLogs();
+    savedLogsLoading = false;
   }
+
+
 }

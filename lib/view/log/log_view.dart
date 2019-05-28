@@ -35,6 +35,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logsBloc.getSavedLog(widget.logId).then((logShort) => setState(() {
           _saved = logShort != null;
         }));
+    print("logs bloc hashcode: " + logsBloc.hashCode.toString());
   }
 
   void _onTabChanged() {
@@ -127,6 +128,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     var savedLog = await logsBloc.getSavedLog(logsBloc.logSubject.value.id);
     if (savedLog == null) {
       logsBloc.saveLog(log.setupShortLog());
+
       print("Saved log");
       setState(() {
         _saved = true;

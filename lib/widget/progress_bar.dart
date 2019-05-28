@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
@@ -21,9 +20,15 @@ class _ProgressBarState extends State<ProgressBar>
 
   @override
   Widget build(BuildContext context) {
-    return RotationTransition(
-        turns: Tween(begin: 0.0, end: 1.0).animate(rotationController),
-        child: Image.asset("assets/tf2logo.png"));
+    return Container(
+        decoration: BoxDecoration(color: Colors.deepPurple),
+        child: Center(
+            child: Container(
+                height: 40,
+                child: RotationTransition(
+                    turns:
+                        Tween(begin: 0.0, end: 1.0).animate(rotationController),
+                    child: Image.asset("assets/tf2logo.png")))));
   }
 
   @override

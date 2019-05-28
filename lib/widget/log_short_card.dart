@@ -4,10 +4,10 @@ import 'package:logstf/model/log_short.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class LogSearchedCard extends StatelessWidget {
+class LogShortCard extends StatelessWidget {
   final LogShort logSearch;
 
-  const LogSearchedCard({Key key, this.logSearch}) : super(key: key);
+  const LogShortCard({Key key, this.logSearch}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

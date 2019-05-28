@@ -59,6 +59,7 @@ class Log {
         title: info.title,
         map: info.map,
         date: info.date,
-        players: players.length);
+        players: players.length,
+        views: 0);
   }
 }
