@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/model/menu_item.dart';
+import 'package:logstf/view/settings/settings_view.dart';
 
 import 'logs/logs_saved_list_view.dart';
 import 'logslist/logs_list_view.dart';
@@ -33,7 +35,18 @@ class _MainViewState extends State<MainView>
                         context,
                         MaterialPageRoute(
                             builder: (context) => LogsSearchView()));
-                  })
+                  }),
+              PopupMenuButton<MenuItem>(
+                onSelected: _select,
+                itemBuilder: (BuildContext context) {
+                  return _getMenuItems().map((MenuItem menuItem) {
+                    return PopupMenuItem<MenuItem>(
+                      value: menuItem,
+                      child: Text(menuItem.title),
+                    );
+                  }).toList();
+                },
+              ),
             ],
             bottom: TabBar(
                 controller: tabController,
@@ -55,5 +68,18 @@ class _MainViewState extends State<MainView>
         body: TabBarView(
             controller: tabController,
             children: [LogsListView(), Container(), LogsSavedListView()]));
+  }
+
+  List<MenuItem> _getMenuItems() {
+    List<MenuItem> menuItems = List();
+    menuItems.add(MenuItem(title: "Settings", icon: Icons.settings));
+    return menuItems;
+  }
+
+  void _select(MenuItem menuItem) {
+    if (menuItem.title == "Settings") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SettingsView()));
+    }
   }
 }
