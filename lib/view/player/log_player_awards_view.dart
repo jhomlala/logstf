@@ -58,7 +58,7 @@ class LogPlayerAwardsView extends StatelessWidget {
     }
     var position = playerIndex + 1;
 
-    var placeImage = "";
+    String placeImage;
     if (position == 1) {
       placeImage = "assets/first_place.png";
     }
@@ -90,13 +90,13 @@ class LogPlayerAwardsView extends StatelessWidget {
               "Position: $position",
               style: TextStyle(fontSize: 16),
             ),
-            placeImage == ""
+            placeImage != null
                 ? Image.asset(
                     placeImage,
                     height: 20,
                     width: 20,
                   )
-                : null,
+                : Container()
           ]),
           Padding(
             padding: EdgeInsets.only(top: 5),

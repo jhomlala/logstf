@@ -13,25 +13,24 @@ class LogsSavedListView extends StatefulWidget {
 }
 
 class _LogsSavedListViewState extends State<LogsSavedListView> with AutomaticKeepAliveClientMixin<LogsSavedListView> {
-  LogsBloc logsBloc;
+
 
 
   @override
   void didUpdateWidget(LogsSavedListView oldWidget) {
-    print("did update widget");
-    if (logsBloc != null) {
+
       logsBloc.getSavedLogs();
-    }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
+  void initState() {
+    logsBloc.getSavedLogs();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (logsBloc == null) {
-      print("logs bloc is null!");
-      logsBloc = Provider.of<LogsBloc>(context);
-      logsBloc.getSavedLogs();
-    }
 
     return Container(
         color: Colors.deepPurple,

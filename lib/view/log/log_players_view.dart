@@ -1,8 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/log_bloc.dart';
-import 'package:logstf/bloc/log_bloc_provider.dart';
+import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/stats_manager.dart';
 
 import 'package:logstf/model/average_player_stats.dart';
@@ -18,16 +17,14 @@ class LogPlayersView extends StatefulWidget {
 }
 
 class _LogPlayersViewState extends State<LogPlayersView> {
-  LogBloc _bloc;
-  Log _log;
+  Log _log = logDetailsBloc.logSubject.value;
+
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   String _filterName = "Kills";
   HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;
 
   void init(BuildContext context) {
-    _bloc = LogBlocProvider.of(context);
-    _log = _bloc.logSubject.value;
     _players = _log.players;
     _playerNames = _log.names;
     var length = _log.length;

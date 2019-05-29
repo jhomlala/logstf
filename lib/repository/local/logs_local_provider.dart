@@ -22,3 +22,4 @@ class LogsLocalProvider{
   }
 
 }
+final logsLocalProvider = LogsLocalProvider();

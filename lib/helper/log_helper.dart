@@ -242,6 +242,7 @@ class LogHelper {
 
   static List<Player> getPlayersSortedByMedicKills(Log log) {
     List<Player> players = log.players.values.toList();
+    players = players.where((player) => log.classKills[player.steamId] != null && log.classKills[player.steamId].medic != null).toList();
     players.sort((player1, player2) => log.classKills[player2.steamId].medic
         .compareTo(log.classKills[player1.steamId].medic));
     return players;

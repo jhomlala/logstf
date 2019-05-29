@@ -4,8 +4,8 @@ import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LogsSearchBloc with ChangeNotifier {
-  LogsRemoteProvider logsProvider = LogsRemoteProvider();
+class LogsSearchBloc {
+
   bool loading = false;
   final BehaviorSubject<List<LogShort>> logsSearchSubject =
       BehaviorSubject();
@@ -17,7 +17,6 @@ class LogsSearchBloc with ChangeNotifier {
   void dispose() async {
     await logsSearchSubject.drain();
     logsSearchSubject.close();
-    super.dispose();
   }
 
   clearLogs() {
@@ -33,7 +32,7 @@ class LogsSearchBloc with ChangeNotifier {
     this.player = player != null ? player : "";
 
     loading = true;
-    var response = await logsProvider.searchLogs(map, uploader, title, player);
+    var response = await logsRemoteProvider.searchLogs(map, uploader, title, player);
     if (response != null) {
       if (logsSearchSubject.value != null) {
         print("added logs 1");
@@ -62,3 +61,5 @@ class LogsSearchBloc with ChangeNotifier {
     }
   }
 }
+
+final logsSearchBloc = LogsSearchBloc();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/bloc/log_bloc.dart';
-import 'package:logstf/bloc/log_bloc_provider.dart';
+import 'package:logstf/bloc/log_details_bloc.dart';
 
 import 'package:intl/intl.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/widget/teams_score_table_widget.dart';
+import 'package:provider/provider.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
   @override
@@ -13,13 +13,10 @@ class LogGeneralStatsView extends StatefulWidget {
 }
 
 class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
-  LogBloc _bloc;
-  Log _log;
+  Log _log = logDetailsBloc.logSubject.value;
 
   @override
   Widget build(BuildContext context) {
-    _bloc = LogBlocProvider.of(context);
-    _log = _bloc.logSubject.value;
     return Container(
         decoration: BoxDecoration(color: Colors.deepPurple),
         child: Column(children: [

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/util/app_utils.dart';
 
 class LogTeamStatsView extends StatefulWidget {
-  final Log log;
-
-  const LogTeamStatsView({Key key, this.log}) : super(key: key);
 
   @override
   _LogTeamStatsViewState createState() => _LogTeamStatsViewState();
 }
 
 class _LogTeamStatsViewState extends State<LogTeamStatsView> {
+
+  Log _log = logDetailsBloc.logSubject.value;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,72 +30,72 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
     tableRows.add(_getHeaderRow());
     tableRows.add(_getRow(
         "Kills",
-        "${LogHelper.getKillsSum(widget.log, "Red")}",
-        "${LogHelper.getKillsSum(widget.log, "Blue")}"));
+        "${LogHelper.getKillsSum(_log, "Red")}",
+        "${LogHelper.getKillsSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "Deaths",
-        "${LogHelper.getDeathsSum(widget.log, "Red")}",
-        "${LogHelper.getDeathsSum(widget.log, "Blue")}"));
+        "${LogHelper.getDeathsSum(_log, "Red")}",
+        "${LogHelper.getDeathsSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "Assists",
-        "${LogHelper.getAssistsSum(widget.log, "Red")}",
-        "${LogHelper.getAssistsSum(widget.log, "Blue")}"));
+        "${LogHelper.getAssistsSum(_log, "Red")}",
+        "${LogHelper.getAssistsSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "Damage",
-        "${LogHelper.getDamageSum(widget.log, "Red")}",
-        "${LogHelper.getDamageSum(widget.log, "Blue")}"));
+        "${LogHelper.getDamageSum(_log, "Red")}",
+        "${LogHelper.getDamageSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "Damage Taken",
-        "${LogHelper.getDamageTakenSum(widget.log, "Red")}",
-        "${LogHelper.getDamageTakenSum(widget.log, "Blue")}"));
-    tableRows.add(_getRow("Caps", "${LogHelper.getCapSum(widget.log, "Red")}",
-        "${LogHelper.getCapSum(widget.log, "Blue")}"));
+        "${LogHelper.getDamageTakenSum(_log, "Red")}",
+        "${LogHelper.getDamageTakenSum(_log, "Blue")}"));
+    tableRows.add(_getRow("Caps", "${LogHelper.getCapSum(_log, "Red")}",
+        "${LogHelper.getCapSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "Charges",
-        "${LogHelper.getChargeSum(widget.log, "Red")}",
-        "${LogHelper.getChargeSum(widget.log, "Blue")}"));
-    tableRows.add(_getRow("Drops", "${LogHelper.getDropSum(widget.log, "Red")}",
-        "${LogHelper.getDropSum(widget.log, "Blue")}"));
+        "${LogHelper.getChargeSum(_log, "Red")}",
+        "${LogHelper.getChargeSum(_log, "Blue")}"));
+    tableRows.add(_getRow("Drops", "${LogHelper.getDropSum(_log, "Red")}",
+        "${LogHelper.getDropSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "KA/D",
-        "${LogHelper.getTeamKAPD(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getTeamKAPD(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getTeamKAPD(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getTeamKAPD(_log, "Blue").toStringAsFixed(2)}"));
     tableRows.add(_getRow(
         "D/M",
-        "${LogHelper.getTeamDamagePerMinute(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getTeamDamagePerMinute(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getTeamDamagePerMinute(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getTeamDamagePerMinute(_log, "Blue").toStringAsFixed(2)}"));
     tableRows.add(_getRow(
         "K/D",
-        "${LogHelper.getTeamKillsPerDeaths(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getTeamKillsPerDeaths(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getTeamKillsPerDeaths(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getTeamKillsPerDeaths(_log, "Blue").toStringAsFixed(2)}"));
     tableRows.add(_getRow(
         "DT/M",
-        "${LogHelper.getTeamDamageTakenPerMinute(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getTeamDamageTakenPerMinute(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getTeamDamageTakenPerMinute(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getTeamDamageTakenPerMinute(_log, "Blue").toStringAsFixed(2)}"));
     tableRows.add(_getRow(
         "HP pickups",
-        "${LogHelper.getMedkitsSum(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getMedkitsSum(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getMedkitsSum(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getMedkitsSum(_log, "Blue").toStringAsFixed(2)}"));
 
     tableRows.add(_getRow(
         "HP from pickups",
-        "${LogHelper.getMedkitsHPSum(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getMedkitsHPSum(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getMedkitsHPSum(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getMedkitsHPSum(_log, "Blue").toStringAsFixed(2)}"));
 
     tableRows.add(_getRow(
         "Headshots",
-        "${LogHelper.getHeadshotsSum(widget.log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getHeadshotsSum(widget.log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getHeadshotsSum(_log, "Red").toStringAsFixed(2)}",
+        "${LogHelper.getHeadshotsSum(_log, "Blue").toStringAsFixed(2)}"));
 
     tableRows.add(_getRow(
         "Sentries",
-        "${LogHelper.getSentriesSum(widget.log, "Red").toStringAsFixed(0)}",
-        "${LogHelper.getSentriesSum(widget.log, "Blue").toStringAsFixed(0)}"));
+        "${LogHelper.getSentriesSum(_log, "Red").toStringAsFixed(0)}",
+        "${LogHelper.getSentriesSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
         "Backstabs",
-        "${LogHelper.getBackstabsSum(widget.log, "Red").toStringAsFixed(0)}",
-        "${LogHelper.getBackstabsSum(widget.log, "Blue").toStringAsFixed(0)}"));
+        "${LogHelper.getBackstabsSum(_log, "Red").toStringAsFixed(0)}",
+        "${LogHelper.getBackstabsSum(_log, "Blue").toStringAsFixed(0)}"));
     return tableRows;
   }
 

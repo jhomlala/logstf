@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/award_card.dart';
-import 'package:logstf/widget/class_icon.dart';
 
 class LogAwardsView extends StatefulWidget {
-  final Log log;
-
-  const LogAwardsView({Key key, this.log}) : super(key: key);
-
   @override
   _LogAwardsViewState createState() => _LogAwardsViewState();
 }
 
 class _LogAwardsViewState extends State<LogAwardsView> {
+
+  Log _log = logDetailsBloc.logSubject.value;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,45 +26,45 @@ class _LogAwardsViewState extends State<LogAwardsView> {
             AwardCard(
               awardName: "Most valuable players",
               players: getTopMVPPlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which were most valuable in game",
             ),
             AwardCard(
               awardName: "Top kills",
               players: getTopKillPlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which had most kills overall",
             ),
             AwardCard(
               awardName: "Top assists",
               players: getTopAssistsPlayers(),
-              log: widget.log,
+              log: _log,
               description:
                   "Players which had most asissts overall (without medics)",
             ),
             AwardCard(
               awardName: "Top damage",
               players: getTopDamagePlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which dealed the most damage",
             ),
             AwardCard(
               awardName: "Top medic kills",
               players: getTopDamagePlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which killed most medics",
             ),
             AwardCard(
               awardName: "Top kills per deaths",
               players: getTopKPDPlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which had best kills per deaths",
             ),
 
             AwardCard(
               awardName: "Top kills & assists per deaths",
               players: getTopKPDPlayers(),
-              log: widget.log,
+              log: _log,
               description: "Players which had best kills & assists per deaths",
             )
           ],
@@ -72,35 +72,32 @@ class _LogAwardsViewState extends State<LogAwardsView> {
   }
 
   List<Player> getTopKillPlayers() {
-    return LogHelper.getPlayersSortedByKills(_getLog()).sublist(0, 3);
+    return LogHelper.getPlayersSortedByKills(_log).sublist(0, 3);
   }
 
   List<Player> getTopAssistsPlayers() {
-    return LogHelper.getPlayersSortedByAssists(_getLog(), false)
+    return LogHelper.getPlayersSortedByAssists(_log, false)
         .sublist(0, 3);
   }
 
   List<Player> getTopDamagePlayers() {
-    return LogHelper.getPlayersSortedByDamage(_getLog()).sublist(0, 3);
+    return LogHelper.getPlayersSortedByDamage(_log).sublist(0, 3);
   }
 
   List<Player> getTopMedicKillsPlayers() {
-    return LogHelper.getPlayersSortedByMedicKills(_getLog()).sublist(0, 3);
+    return LogHelper.getPlayersSortedByMedicKills(_log).sublist(0, 3);
   }
 
   List<Player> getTopMVPPlayers() {
-    return LogHelper.getPlayerSortedByMVPScore(_getLog()).sublist(0, 3);
+    return LogHelper.getPlayerSortedByMVPScore(_log).sublist(0, 3);
   }
 
   List<Player> getTopKPDPlayers(){
-    return LogHelper.getPlayersSortedByKPD(_getLog()).sublist(0,3);
+    return LogHelper.getPlayersSortedByKPD(_log).sublist(0,3);
   }
 
   List<Player> getTopKAPDPlayers(){
-    return LogHelper.getPlayersSortedByKAPD(_getLog()).sublist(0,3);
+    return LogHelper.getPlayersSortedByKAPD(_log).sublist(0,3);
   }
 
-  Log _getLog() {
-    return widget.log;
-  }
 }

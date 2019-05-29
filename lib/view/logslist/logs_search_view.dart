@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
-import 'package:provider/provider.dart';
 
 class LogsSearchView extends StatefulWidget {
   @override
@@ -19,7 +18,6 @@ class _LogsSearchViewState extends State<LogsSearchView> {
   final _playerController = TextEditingController();
   var _editingControllersInitialized = false;
 
-  LogsSearchBloc logsSearchBloc;
   @override
   void dispose() {
     _mapController.dispose();
@@ -32,15 +30,14 @@ class _LogsSearchViewState extends State<LogsSearchView> {
   @override
   void initState() {
     super.initState();
+    if (!_editingControllersInitialized){
+      _initEditingControllers();
+    }
   }
 
 
   @override
   Widget build(BuildContext context) {
-    logsSearchBloc = Provider.of<LogsSearchBloc>(context);
-    if (!_editingControllersInitialized){
-      _initEditingControllers();
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Search logs"),

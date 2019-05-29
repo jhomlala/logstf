@@ -15,17 +15,15 @@ class LogsListView extends StatefulWidget {
 }
 
 class _LogsListViewState extends State<LogsListView> with AutomaticKeepAliveClientMixin<LogsListView>  {
-  LogsSearchBloc logsSearchBloc;
   int _refresh;
   @override
   void initState() {
+    logsSearchBloc.initLogs();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    logsSearchBloc = Provider.of<LogsSearchBloc>(context);
-    logsSearchBloc.initLogs();
     return Container(
             color: Colors.deepPurple,
             child: StreamBuilder<List<LogShort>>(

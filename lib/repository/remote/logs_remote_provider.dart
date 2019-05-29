@@ -22,3 +22,5 @@ class LogsRemoteProvider{
     return logsRepository.getSavedLog(logId);
   }
 }
+
+final logsRemoteProvider = LogsRemoteProvider();

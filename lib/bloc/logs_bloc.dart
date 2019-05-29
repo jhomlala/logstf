@@ -5,15 +5,13 @@ import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/subjects.dart';
 
 class LogsBloc {
-  LogsRemoteProvider logsProvider = LogsRemoteProvider();
-  LogsLocalProvider logsLocalProvider = LogsLocalProvider();
 
   var logSubject = BehaviorSubject<Log>();
   var savedLogsSubject = BehaviorSubject<List<LogShort>>();
   var savedLogsLoading = false;
 
   void getLog(int logId) async {
-    logSubject.value = await logsProvider.getLog(logId);
+    logSubject.value = await logsRemoteProvider.getLog(logId);
   }
 
   void saveLog(LogShort log){
@@ -37,3 +35,5 @@ class LogsBloc {
 
 
 }
+
+final logsBloc = LogsBloc();
