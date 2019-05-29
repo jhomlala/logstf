@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/model/match_type.dart';
 import 'package:logstf/model/player.dart';
 
 class LogHelper {
@@ -284,8 +286,9 @@ class LogHelper {
     return players;
   }
 
-  static String getGameType(int playersCount, String mapName){
+  static MatchType getMatchType(int playersCount, String mapName){
     String matchType = "";
+    Color color = Colors.lightBlue;
     if (playersCount % 2 == 0){
       double half = playersCount / 2;
       matchType = "${half.toStringAsFixed(0)}v${half.toStringAsFixed(0)}";
@@ -296,17 +299,20 @@ class LogHelper {
     if (playersCount == 4){
       if (mapName.contains("ultiduo")){
         matchType = "Ultiduo";
+        color = Colors.pink;
       } else {
         matchType = "BBall";
+        color = Colors.teal;
       }
     }
     if (playersCount >= 12 && playersCount < 18) {
       matchType = "6v6";
+      color = Colors.green;
     } else if (playersCount >= 18) {
       matchType = "Highlander";
+      color = Colors.orange;
     }
-
-    return "$matchType match";
+    return MatchType(matchType, color);
   }
 
 }

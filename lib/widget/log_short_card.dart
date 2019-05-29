@@ -11,6 +11,7 @@ class LogShortCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map);
     return InkWell(
         onTap: () {
           Navigator.push(
@@ -81,8 +82,8 @@ class LogShortCard extends StatelessWidget {
                       padding: EdgeInsets.only(left: 2),
                     ),
                     Text(
-                      LogHelper.getGameType(logSearch.players, logSearch.map),
-                      style: TextStyle(fontSize: 14),
+                      "${matchType.name} match",
+                      style: TextStyle(fontSize: 14, color: matchType.color, fontWeight: FontWeight.bold),
                     )
                   ]),
                 ]))));

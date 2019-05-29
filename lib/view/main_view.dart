@@ -73,6 +73,7 @@ class _MainViewState extends State<MainView>
   List<MenuItem> _getMenuItems() {
     List<MenuItem> menuItems = List();
     menuItems.add(MenuItem(title: "Settings", icon: Icons.settings));
+    menuItems.add(MenuItem(title: "About", icon: Icons.settings));
     return menuItems;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/log_bloc.dart';
 import 'package:logstf/bloc/log_bloc_provider.dart';
 import 'package:logstf/bloc/logs_bloc.dart';
 import 'package:logstf/model/log.dart';
@@ -20,10 +21,12 @@ class LogView extends StatefulWidget {
 }
 
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
+  LogBloc logBloc = LogBloc();
   LogsBloc logsBloc;
   TabController tabController;
   String _appBarTitle = "General stats";
   bool _saved = false;
+
 
   @override
   void initState() {
@@ -35,7 +38,6 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logsBloc.getSavedLog(widget.logId).then((logShort) => setState(() {
           _saved = logShort != null;
         }));
-    print("logs bloc hashcode: " + logsBloc.hashCode.toString());
   }
 
   void _onTabChanged() {
@@ -123,23 +125,21 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void onSaveClicked() async {
-    print("On save clicked");
     Log log = logsBloc.logSubject.value;
     var savedLog = await logsBloc.getSavedLog(logsBloc.logSubject.value.id);
     if (savedLog == null) {
       logsBloc.saveLog(log.setupShortLog());
-
-      print("Saved log");
       setState(() {
         _saved = true;
       });
     } else {
-      print("Saved log: " + savedLog.toString());
       logsBloc.deleteSavedLog(log.id);
-      print("Deleted log");
-      setState(() {
+            setState(() {
         _saved = false;
       });
     }
+    logsBloc.getSavedLogs();
+
+
   }
 }
