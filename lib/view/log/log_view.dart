@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
-import 'package:logstf/bloc/logs_bloc.dart';
+import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_heal_view.dart';
@@ -9,7 +9,6 @@ import 'package:logstf/view/log/log_team_stats_view.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
 import 'package:logstf/view/log/log_awards_view.dart';
-import 'package:provider/provider.dart';
 
 class LogView extends StatefulWidget {
   final int logId;

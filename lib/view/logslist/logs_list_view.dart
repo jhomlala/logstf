@@ -15,7 +15,6 @@ class LogsListView extends StatefulWidget {
 }
 
 class _LogsListViewState extends State<LogsListView> with AutomaticKeepAliveClientMixin<LogsListView>  {
-  int _refresh;
   @override
   void initState() {
     logsSearchBloc.initLogs();
@@ -24,16 +23,17 @@ class _LogsListViewState extends State<LogsListView> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
             color: Colors.deepPurple,
             child: StreamBuilder<List<LogShort>>(
                 stream: logsSearchBloc.logsSearchSubject.stream,
+                initialData: logsSearchBloc.logsSearchSubject.value,
                 builder: (context, snapshot) {
                   if (!logsSearchBloc.loading) {
-                    print("Building list view!");
                     var data = snapshot.data;
                     if (data == null || data.isEmpty) {
-                      return EmptyCard(description: "There's no logs found");
+                      return EmptyCard(description: "There's no logs found.");
                     } else {
                       return ListView.builder(
                           itemCount: data.length,

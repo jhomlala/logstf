@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/bloc/logs_bloc.dart';
+import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
@@ -12,34 +12,27 @@ class LogsSavedListView extends StatefulWidget {
   _LogsSavedListViewState createState() => _LogsSavedListViewState();
 }
 
-class _LogsSavedListViewState extends State<LogsSavedListView> with AutomaticKeepAliveClientMixin<LogsSavedListView> {
-
-
-
-  @override
-  void didUpdateWidget(LogsSavedListView oldWidget) {
-
-      logsBloc.getSavedLogs();
-    super.didUpdateWidget(oldWidget);
-  }
-
+class _LogsSavedListViewState extends State<LogsSavedListView>
+    with AutomaticKeepAliveClientMixin<LogsSavedListView> {
   @override
   void initState() {
-    logsBloc.getSavedLogs();
+    logsSavedBloc.initLogs();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
+    super.build(context);
+    print("[LOGS_SAVED] Building! " + logsSavedBloc.loading.toString());
     return Container(
         color: Colors.deepPurple,
         child: StreamBuilder<List<LogShort>>(
-            stream: logsBloc.savedLogsSubject,
+            stream: logsSavedBloc.savedLogsSubject,
+            initialData: logsSavedBloc.savedLogsSubject.value,
             builder: (context, snapshot) {
-              if (!logsBloc.savedLogsLoading){
+              if (!logsSavedBloc.loading) {
                 var data = snapshot.data;
-                if (data == null || data.isEmpty){
+                if (data == null || data.isEmpty) {
                   return EmptyCard(
                     description: "There's no saved data. ",
                   );
@@ -53,8 +46,6 @@ class _LogsSavedListViewState extends State<LogsSavedListView> with AutomaticKee
               } else {
                 return ProgressBar();
               }
-
-
             }));
   }
 
