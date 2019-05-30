@@ -3,9 +3,9 @@ import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 
 import 'logs/logs_saved_list_view.dart';
-import 'logslist/logs_list_view.dart';
-import 'logslist/logs_search_view.dart';
-import 'logslist/logs_watch_list_view.dart';
+import 'package:logstf/view/logs/logs_list_view.dart';
+import 'package:logstf/view/logs/search/logs_search_view.dart';
+import 'package:logstf/view/logs/logs_watch_list_view.dart';
 
 class MainView extends StatefulWidget {
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
-import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_heal_view.dart';

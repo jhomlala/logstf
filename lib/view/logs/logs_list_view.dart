@@ -7,7 +7,7 @@ import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:provider/provider.dart';
 
-import 'logs_search_view.dart';
+import 'package:logstf/view/logs/search/logs_search_view.dart';
 
 class LogsListView extends StatefulWidget {
   @override

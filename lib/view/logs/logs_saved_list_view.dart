@@ -5,7 +5,7 @@ import 'package:logstf/model/log_short.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
-import 'package:provider/provider.dart';
+
 
 class LogsSavedListView extends StatefulWidget {
   @override
