@@ -42,6 +42,18 @@ class LogsSavedBloc {
     }
   }
 
+  addLog(LogShort logShort){
+    var savedLogs = savedLogsSubject.value;
+    savedLogs.add(logShort);
+    savedLogsSubject.add(savedLogs);
+  }
+
+  removeLog(LogShort logShortToFind){
+    var savedLogs = savedLogsSubject.value;
+    savedLogs.removeWhere((logShort) => logShort.id == logShortToFind.id);
+    savedLogsSubject.value = savedLogs;
+  }
+
 
 }
 

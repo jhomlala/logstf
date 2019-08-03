@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/view/main_view.dart';
 
+import 'bloc/logs_saved_bloc.dart';
+
 
 
 void main() {
@@ -20,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    logsSavedBloc.initLogs();
   }
 
   @override

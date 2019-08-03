@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
+import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/model/log_short.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_heal_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
@@ -123,13 +125,16 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   void onSaveClicked() async {
     Log log = logDetailsBloc.logSubject.value;
     var savedLog = await logDetailsBloc.getLogFromDatabase(log.id);
+    LogShort logShort = log.setupShortLog();
     if (savedLog == null) {
-      logDetailsBloc.createLogInDatabase(log.setupShortLog());
+      logDetailsBloc.createLogInDatabase(logShort);
+      logsSavedBloc.addLog(logShort);
       setState(() {
         _saved = true;
       });
     } else {
       logDetailsBloc.deleteLogFromDatabase(log.id);
+      logsSavedBloc.removeLog(logShort);
       setState(() {
         _saved = false;
       });
