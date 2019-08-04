@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/navigation_event.dart';
+import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -13,12 +16,17 @@ class LogShortCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map);
     return InkWell(
-        onTap: () {
-          Navigator.push(
+        onTap: () async {
+          NavigationEvent navigationEvent = await Navigator.push<NavigationEvent>(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      LogView(logId: logSearch.id)));
+                  builder: (context) => LogView(logId: logSearch.id)));
+          if (navigationEvent != null && navigationEvent is SearchPlayerMatchesNavigationEvent){
+            logsSearchBloc.clearLogs();
+            logsSearchBloc.searchLogs(player: navigationEvent.steamId);
+          }
+
+
         },
         child: Card(
             margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
@@ -31,7 +39,6 @@ class LogShortCard extends StatelessWidget {
                   ]),
                   Row(children: [
                     Text(logSearch.title, style: TextStyle(fontSize: 20)),
-
                   ]),
                   Row(children: [
                     Icon(
@@ -58,7 +65,6 @@ class LogShortCard extends StatelessWidget {
                       padding: EdgeInsets.only(left: 2),
                     ),
                     Text("${logSearch.views}", style: TextStyle(fontSize: 14)),
-
                   ]),
                   Row(children: [
                     Icon(
@@ -83,7 +89,10 @@ class LogShortCard extends StatelessWidget {
                     ),
                     Text(
                       "${matchType.name} match",
-                      style: TextStyle(fontSize: 14, color: matchType.color, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: matchType.color,
+                          fontWeight: FontWeight.bold),
                     )
                   ]),
                 ]))));

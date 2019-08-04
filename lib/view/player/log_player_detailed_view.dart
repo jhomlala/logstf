@@ -9,6 +9,7 @@ import 'package:logstf/view/player/log_player_general_view.dart';
 
 import 'log_player_awards_view.dart';
 import 'log_player_kills_view.dart';
+import 'log_player_player_view.dart';
 
 class LogPlayerDetailedView extends StatefulWidget {
   final Log log;
@@ -28,7 +29,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
     super.initState();
   }
 
@@ -42,6 +43,8 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
             controller: tabController,
             indicatorColor: Colors.white,
             tabs: [
+              Tab(text: "Player",
+                  icon: Icon(Icons.person)),
               Tab(
                 text: "General",
                 icon: Icon(Icons.info_outline),
@@ -62,6 +65,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
       ),
       body: Container(
           child: TabBarView(controller: tabController, children: [
+            LogPlayerPlayerView(widget.player,widget.log),
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
         LogPlayerClassCompareView(widget.log, widget.player),

@@ -23,16 +23,17 @@ class LogsRemoteRepository{
       url+="map=$map&";
     }
     if (uploader != null){
-      url+="map=$uploader&";
+      url+="uploader=$uploader&";
     }
     if (title != null){
-      url+="map=$title&";
+      url+="title=$title&";
     }
     if (player != null){
-      url+="map=$player&";
+      url+="player=$player&";
     }
 
     Uri uri = Uri.parse(url);
+    print("URI: " + uri.toString());
 
     Response response = await dio.request(uri.toString());
     print("Got response from server: " + response.statusCode.toString());

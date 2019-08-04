@@ -6,7 +6,9 @@ import 'package:logstf/helper/stats_manager.dart';
 
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/table_header_widget.dart';
@@ -53,7 +55,9 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                 Table(
                   children: _getTableRows(),
                 ),
-                Padding(padding: EdgeInsets.only(bottom: 5),)
+                Padding(
+                  padding: EdgeInsets.only(bottom: 5),
+                )
               ]))
         ])));
   }
@@ -123,12 +127,17 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return tableRowsList;
   }
 
-  void onPlayerClicked(Player player) {
-    Navigator.push(
+  void onPlayerClicked(Player player) async {
+    NavigationEvent navigationEvent = await Navigator.push<NavigationEvent>(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 LogPlayerDetailedView(_log, player, _averagePlayerStatsMap)));
+
+    if (navigationEvent != null &&
+        navigationEvent is SearchPlayerMatchesNavigationEvent) {
+      Navigator.pop(context, navigationEvent);
+    }
   }
 
   List<Player> orderPlayersByField(List<Player> players) {

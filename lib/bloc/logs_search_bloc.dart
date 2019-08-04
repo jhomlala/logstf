@@ -5,10 +5,8 @@ import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LogsSearchBloc {
-
   bool loading = false;
-  final BehaviorSubject<List<LogShort>> logsSearchSubject =
-      BehaviorSubject();
+  final BehaviorSubject<List<LogShort>> logsSearchSubject = BehaviorSubject();
   String map = "";
   String uploader = "";
   String title = "";
@@ -23,6 +21,16 @@ class LogsSearchBloc {
     logsSearchSubject.value.clear();
   }
 
+  Future<int> getPlayerMatchesCount(String player) async {
+    print("Selecting matches count for: " + player);
+    var response = await logsRemoteProvider.searchLogs(null,null,null, player);
+    if (response != null) {
+      print("Response is: " + response.toJson().toString());
+      return response.total;
+    } else {
+      return 0;
+    }
+  }
 
   searchLogs({String map, String uploader, String title, String player}) async {
     print("search logs: $map, $uploader, $title, $player");
@@ -32,7 +40,8 @@ class LogsSearchBloc {
     this.player = player != null ? player : "";
 
     loading = true;
-    var response = await logsRemoteProvider.searchLogs(map, uploader, title, player);
+    var response =
+        await logsRemoteProvider.searchLogs(map, uploader, title, player);
     if (response != null) {
       if (logsSearchSubject.value != null) {
         print("added logs 1");

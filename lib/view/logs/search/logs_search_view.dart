@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/widget/logs_button.dart';
 
 class LogsSearchView extends StatefulWidget {
   @override
@@ -30,11 +31,10 @@ class _LogsSearchViewState extends State<LogsSearchView> {
   @override
   void initState() {
     super.initState();
-    if (!_editingControllersInitialized){
+    if (!_editingControllersInitialized) {
       _initEditingControllers();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,6 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     formWidgets.add(
       new TextFormField(
           key: _uploaderKey,
-
           controller: _uploaderController,
           decoration:
               InputDecoration(hintText: 'Uploader', labelText: 'Uploader'),
@@ -84,7 +83,6 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     formWidgets.add(
       new TextFormField(
           key: _titleKey,
-
           controller: _titleController,
           decoration: InputDecoration(hintText: 'Title', labelText: 'Title'),
           validator: (value) {}),
@@ -93,37 +91,31 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     formWidgets.add(
       new TextFormField(
           key: _playerKey,
-
           controller: _playerController,
           decoration: InputDecoration(hintText: 'Player', labelText: 'Player'),
           validator: (value) {}),
     );
-    formWidgets.add(Padding(padding: EdgeInsets.only(top:10),));
+    formWidgets.add(Padding(
+      padding: EdgeInsets.only(top: 10),
+    ));
     formWidgets
         .add(Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      RaisedButton(
-        color: Colors.grey,
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(30.0)),
-        child: Text(
-          "Clear filters",
-          style: TextStyle(color: Colors.white),
-        ),
+      LogsButton(
+        text: "Clear filters",
         onPressed: _onClearFiltersClicked,
+        backgroundColor: Colors.grey,
       ),
-      RaisedButton(
-        color: Colors.deepPurple,
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(30.0)),
-        child: Text("Send", style: TextStyle(color: Colors.white)),
+      LogsButton(
+        text: "Send",
         onPressed: _onSendClicked,
-      )
+        backgroundColor: Colors.deepPurple,
+      ),
     ]));
 
     return formWidgets;
   }
 
-  _onSendClicked(){
+  _onSendClicked() {
     var map = _mapController.text;
     var uploader = _uploaderController.text;
     var title = _titleController.text;
@@ -131,14 +123,12 @@ class _LogsSearchViewState extends State<LogsSearchView> {
 
     print("Searching...");
     logsSearchBloc.clearLogs();
-    logsSearchBloc.searchLogs(map:map, uploader: uploader, title: title, player: player);
+    logsSearchBloc.searchLogs(
+        map: map, uploader: uploader, title: title, player: player);
     Navigator.pop(context);
-
   }
 
-  _onClearFiltersClicked(){
-
-  }
+  _onClearFiltersClicked() {}
 
   void _initEditingControllers() {
     print("Init editing controllers");

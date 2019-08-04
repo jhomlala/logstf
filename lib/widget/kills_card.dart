@@ -22,40 +22,43 @@ class KillsCard extends StatelessWidget {
 
     var opacity = killsValue == 0 ? 0.5 : 1.0;
 
-        return Card(
-            child: Opacity(opacity: opacity,child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(children: <Widget>[
-            Image.asset(
-              _getClassIcon(className),
-              height: 30,
-              width: 30,
-            ),
-            Text(
-              "${_getClassNameFormatted(className)} Kills",
-              style: TextStyle(fontSize: 20),
-            ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "${_getClassNameFormatted(className)}(s)",
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(text: " was killed "),
-                  TextSpan(
-                      text: "$killsValue times",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(text: " which is "),
-                  TextSpan(
-                      text: "${percentage.toStringAsFixed(2)}%",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  TextSpan(
-                      text: " of all $className deaths from opposite team."),
-                ],
-              ),
-            ),
-          ]),
-        )));
+    return Card(
+        child: Opacity(
+            opacity: opacity,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(children: <Widget>[
+                Image.asset(
+                  _getClassIcon(className),
+                  height: 30,
+                  width: 30,
+                ),
+                Text(
+                  "${_getClassNameFormatted(className)} Kills",
+                  style: TextStyle(fontSize: 20),
+                ),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "${_getClassNameFormatted(className)}(s)",
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(text: " was killed "),
+                      TextSpan(
+                          text: "$killsValue times",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(text: " which is "),
+                      TextSpan(
+                          text: "${percentage.toStringAsFixed(2)}%",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(
+                          text:
+                              " of all $className deaths from opposite team."),
+                    ],
+                  ),
+                ),
+              ]),
+            )));
   }
 
   String _getClassIcon(String className) {
