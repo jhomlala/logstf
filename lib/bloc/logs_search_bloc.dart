@@ -76,6 +76,11 @@ class LogsSearchBloc {
       print("Logs are present!!!");
     }
   }
+
+  bool isAnyFilterActive(){
+    return (map != null && map.isNotEmpty) || (uploader != null && uploader.isNotEmpty)
+        || (title != null && title.isNotEmpty) || (player != null && player.isNotEmpty);
+  }
 }
 
 final logsSearchBloc = LogsSearchBloc();
