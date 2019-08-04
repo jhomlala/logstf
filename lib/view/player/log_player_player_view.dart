@@ -9,6 +9,7 @@ import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LogPlayerPlayerView extends StatefulWidget {
   final Player player;
@@ -182,15 +183,35 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView> {
         context, SearchPlayerMatchesNavigationEvent(steamId64.toString()));
   }
 
-  void _onSteamClicked() {}
+  void _onSteamClicked() {
+    _launchWebPage("http://steamcommunity.com/profiles/$steamId64");
+  }
 
-  void _onEtf2lClicked() {}
+  void _onEtf2lClicked() {
+    _launchWebPage("http://etf2l.org/search/$steamId64");
+  }
 
-  void _onUgcClicked() {}
+  void _onUgcClicked() {
+    _launchWebPage("http://www.ugcleague.com/players_page.cfm?player_id=$steamId64");
+  }
 
-  void _onTf2CenterClicked() {}
+  void _onTf2CenterClicked() {
+    _launchWebPage("http://tf2center.com/profile/$steamId64");
+  }
 
-  void _onOzFortressClicked() {}
+  void _onOzFortressClicked() {
+    _launchWebPage("http://warzone.ozfortress.com/users/steam_id/$steamId64");
+  }
 
-  void _onRglClicked() {}
+  void _onRglClicked() {
+    _launchWebPage("http://rgl.gg/Public/PlayerProfile.aspx?p=$steamId64");
+  }
+
+  _launchWebPage(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }

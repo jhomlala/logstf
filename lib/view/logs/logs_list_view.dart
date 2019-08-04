@@ -38,6 +38,11 @@ class _LogsListViewState extends State<LogsListView> with AutomaticKeepAliveClie
                       return ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (context, position) {
+                            if (data[position].id == -1){
+                              return Card(
+                                  margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                                  child: Text("Search filters are on"));
+                            }
                             return LogShortCard(logSearch: data[position]);
                           });
                     }

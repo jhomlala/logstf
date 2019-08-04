@@ -27,6 +27,7 @@ dependencies:
   timeago: ^2.0.16
   shared_preferences: ^0.5.2+1
   sqflite: ^1.1.5
+  url_launcher: ^5.1.2
   path_provider: any
 
   flutter:

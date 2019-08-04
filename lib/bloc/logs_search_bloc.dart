@@ -54,6 +54,13 @@ class LogsSearchBloc {
         logsSearchSubject.value = response.logs;
       }
     }
+
+    var list = logsSearchSubject.value;
+    if (list.length > 0 && list.where((log) => log.id == -1).isEmpty){
+      list.insert(0,LogShort.placeholder());
+    }
+
+
     loading = false;
   }
 
