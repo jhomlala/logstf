@@ -21,7 +21,8 @@ class LogPlayerPlayerView extends StatefulWidget {
   _LogPlayerPlayerViewState createState() => _LogPlayerPlayerViewState();
 }
 
-class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView> {
+class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
+    with AutomaticKeepAliveClientMixin<LogPlayerPlayerView> {
   BehaviorSubject<int> matchesCountSubject;
   int steamId64;
 
@@ -67,115 +68,101 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView> {
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: SingleChildScrollView(
                             child: Column(children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                          ),
-                          ClipOval(
-                            child: Image.network(
-                              steamPlayer.avatarfull,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            "${steamPlayer.personaname}",
-                            style: TextStyle(fontSize: 30.0),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                              "(${widget.log.getPlayerName(widget.player.steamId)})",
-                              textAlign: TextAlign.center),
-                          StreamBuilder<int>(
-                            stream: matchesCountSubject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.data != null) {
-                                return Padding(
-                                    padding:
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                              ),
+                              ClipOval(
+                                child: Image.network(
+                                  steamPlayer.avatarfull,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(
+                                "${steamPlayer.personaname}",
+                                style: TextStyle(fontSize: 30.0),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                  "(${widget.log.getPlayerName(
+                                      widget.player.steamId)})",
+                                  textAlign: TextAlign.center),
+                              StreamBuilder<int>(
+                                stream: matchesCountSubject.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.data != null) {
+                                    return Padding(
+                                        padding:
                                         EdgeInsets.only(top: 10, bottom: 5),
-                                    child: Column(children: [
-                                      Text(
-                                          "Player has ${snapshot.data} matches in history"),
-                                      LogsButton(
-                                        text: "Matches",
-                                        onPressed: _onMatchesClicked,
-                                        backgroundColor: Colors.deepPurple,
-                                      )
-                                    ]));
-                              } else {
-                                return Container(
+                                        child: Column(children: [
+                                        Text(
+                                        "Player has ${snapshot.data} matches in history"),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                        ),
+                                        Row(children: [
+                                            _getPageButton("Matches",
+                                            _onMatchesClicked,
+                                            backgroundColor: Colors.deepPurple)
+                                        ]),
+                                          Row(children: [
+                                            _getPageButton("Observe",
+                                                _observePlayer,
+                                                backgroundColor: Colors.deepPurple)
+                                          ]),
+                                  ]));
+                                  } else {
+                                  return Container(
                                   width: 0.0,
                                   height: 0.0,
-                                );
-                              }
-                            },
-                          ),
-                          Column(children: [
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "Steam",
-                                        onPressed: _onSteamClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "ETF2L",
-                                        onPressed: _onEtf2lClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                ]),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "UGC",
-                                        onPressed: _onUgcClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "TF2Center",
-                                        onPressed: _onTf2CenterClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                ]),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "OzFortress",
-                                        onPressed: _onOzFortressClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: LogsButton(
-                                        text: "RGL",
-                                        onPressed: _onRglClicked,
-                                        backgroundColor: Colors.deepOrange,
-                                      )),
-                                ]),
-                          ])
-                        ]))));
+                                  );
+                                  }
+                                },
+                              ),
+                              Column(children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _getPageButton("Steam", _onSteamClicked),
+                                      _getPageButton("ETF2L", _onEtf2lClicked)
+                                    ]),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _getPageButton("UGC", _onUgcClicked),
+                                      _getPageButton(
+                                          "TF2Center", _onTf2CenterClicked)
+                                    ]),
+                                Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      _getPageButton(
+                                          "OzFortress", _onOzFortressClicked),
+                                      _getPageButton("RGL", _onRglClicked)
+                                    ]),
+                              ])
+                            ]))));
                 //return Text("Player: " + snapshot.data.toString());
               }
             }));
+  }
+
+  Widget _getPageButton(String text, Function action,
+      {Color backgroundColor = Colors.deepOrange}) {
+    return Expanded(
+        child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: LogsButton(
+              text: text,
+              onPressed: action,
+              backgroundColor: backgroundColor,
+            )));
+  }
+  void _observePlayer(){
+
   }
 
   void _onMatchesClicked() {
@@ -192,7 +179,8 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView> {
   }
 
   void _onUgcClicked() {
-    _launchWebPage("http://www.ugcleague.com/players_page.cfm?player_id=$steamId64");
+    _launchWebPage(
+        "http://www.ugcleague.com/players_page.cfm?player_id=$steamId64");
   }
 
   void _onTf2CenterClicked() {
@@ -214,4 +202,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView> {
       throw 'Could not launch $url';
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

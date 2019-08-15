@@ -18,26 +18,31 @@ class LogsRemoteRepository{
   }
 
   Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player) async {
-    String url = "http://logs.tf/api/v1/log?";
-    if (map != null){
-      url+="map=$map&";
-    }
-    if (uploader != null){
-      url+="uploader=$uploader&";
-    }
-    if (title != null){
-      url+="title=$title&";
-    }
-    if (player != null){
-      url+="player=$player&";
-    }
+    try {
+      String url = "http://logs.tf/api/v1/log?";
+      if (map != null) {
+        url += "map=$map&";
+      }
+      if (uploader != null) {
+        url += "uploader=$uploader&";
+      }
+      if (title != null) {
+        url += "title=$title&";
+      }
+      if (player != null) {
+        url += "player=$player&";
+      }
 
-    Uri uri = Uri.parse(url);
-    print("URI: " + uri.toString());
+      Uri uri = Uri.parse(url);
+      print("URI: " + uri.toString());
 
-    Response response = await dio.request(uri.toString());
-    print("Got response from server: " + response.statusCode.toString());
-    return LogsSearchResponse.fromJson(response.data);
+      Response response = await dio.request(uri.toString());
+      print("Got response from server: " + response.statusCode.toString());
+      return LogsSearchResponse.fromJson(response.data);
+    } catch (exc){
+      print(exc);
+      return null;
+    }
   }
 
   saveLog(Log log) async{

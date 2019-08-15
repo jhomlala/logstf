@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/stats_manager.dart';
 
@@ -12,6 +13,7 @@ import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/table_header_widget.dart';
+import 'package:marquee/marquee.dart';
 
 class LogPlayersView extends StatefulWidget {
   @override
@@ -216,19 +218,60 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     ]);
   }
 
+  bool _isPlayerNameFitInColumn(String name) {
+    double width = MediaQuery.of(context).size.width;
+    width = width - 20;
+    double playerNameColumnWidth = width / 4;
+
+    final constraints = BoxConstraints(
+      maxWidth: playerNameColumnWidth,
+      minHeight: 0.0,
+      minWidth: 0.0,
+    );
+
+    double fontSize = 16;
+    RenderParagraph renderParagraph = RenderParagraph(
+        TextSpan(
+          text: name,
+          style: TextStyle(
+            fontSize: fontSize,
+          ),
+        ),
+        maxLines: 1,
+        textDirection: TextDirection.ltr);
+    renderParagraph.layout(constraints);
+    double textWidth =
+        renderParagraph.getMinIntrinsicWidth(fontSize).ceilToDouble();
+    return playerNameColumnWidth > textWidth;
+  }
+
   Widget _getPlayerNameWidget(Player player, String name) {
-    return InkWell(
-      onTap: () {
-        onPlayerClicked(player);
-      },
-      child: Container(
+    Widget widget;
+    if (!_isPlayerNameFitInColumn(name)) {
+      widget = Marquee(
+        text: name,
+        scrollAxis: Axis.horizontal,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        velocity: 20.0,
+        blankSpace: 20.0,
+      );
+    } else {
+      widget = Container(
           height: 30,
           padding: EdgeInsets.only(left: 5),
           child: Center(
               child: Text(
             name,
             overflow: TextOverflow.ellipsis,
-          ))),
+          )));
+    }
+
+    return InkWell(
+      onTap: () {
+        onPlayerClicked(player);
+      },
+      child: Container(
+          height: 30, padding: EdgeInsets.only(left: 5), child: widget),
     );
   }
 

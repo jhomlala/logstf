@@ -19,6 +19,7 @@ class LogsSearchBloc {
 
   clearLogs() {
     logsSearchSubject.value.clear();
+    logsSearchSubject.value = new List<LogShort>();
   }
 
   Future<int> getPlayerMatchesCount(String player) async {
@@ -42,24 +43,21 @@ class LogsSearchBloc {
     loading = true;
     var response =
         await logsRemoteProvider.searchLogs(map, uploader, title, player);
+
+
     if (response != null) {
       if (logsSearchSubject.value != null) {
-        print("added logs 1");
         var list = List<LogShort>();
         list.addAll(logsSearchSubject.value);
         list.addAll(response.logs);
         logsSearchSubject.value = list;
       } else {
-        print("added logs 2");
         logsSearchSubject.value = response.logs;
       }
+    } else {
+      var list = List<LogShort>();
+      logsSearchSubject.value = list;
     }
-
-    var list = logsSearchSubject.value;
-    if (list.length > 0 && list.where((log) => log.id == -1).isEmpty){
-      list.insert(0,LogShort.placeholder());
-    }
-
 
     loading = false;
   }
@@ -81,6 +79,17 @@ class LogsSearchBloc {
     return (map != null && map.isNotEmpty) || (uploader != null && uploader.isNotEmpty)
         || (title != null && title.isNotEmpty) || (player != null && player.isNotEmpty);
   }
+
+  void clearFilters()  {
+    map = "";
+    uploader = "";
+    title = "";
+    player = "";
+    loading = true;
+    clearLogs();
+    searchLogs();
+  }
+
 }
 
 final logsSearchBloc = LogsSearchBloc();
