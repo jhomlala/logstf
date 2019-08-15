@@ -12,6 +12,10 @@ class PlayersObservedLocalProvider {
     return dbProvider.getPlayerObserved(id);
   }
 
+  Future<PlayerObserved> getPlayerObservedWithSteamId64(String steamId64) {
+    return dbProvider.getPlayerObservedWithSteamId64(steamId64);
+  }
+
   Future<List<PlayerObserved>> getPlayersObserved() {
     return dbProvider.getPlayersObserved();
   }

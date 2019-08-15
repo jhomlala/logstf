@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -24,7 +23,8 @@ class LogsSearchBloc {
 
   Future<int> getPlayerMatchesCount(String player) async {
     print("Selecting matches count for: " + player);
-    var response = await logsRemoteProvider.searchLogs(null,null,null, player);
+    var response =
+        await logsRemoteProvider.searchLogs(null, null, null, player);
     if (response != null) {
       print("Response is: " + response.toJson().toString());
       return response.total;
@@ -43,7 +43,6 @@ class LogsSearchBloc {
     loading = true;
     var response =
         await logsRemoteProvider.searchLogs(map, uploader, title, player);
-
 
     if (response != null) {
       if (logsSearchSubject.value != null) {
@@ -75,12 +74,14 @@ class LogsSearchBloc {
     }
   }
 
-  bool isAnyFilterActive(){
-    return (map != null && map.isNotEmpty) || (uploader != null && uploader.isNotEmpty)
-        || (title != null && title.isNotEmpty) || (player != null && player.isNotEmpty);
+  bool isAnyFilterActive() {
+    return (map != null && map.isNotEmpty) ||
+        (uploader != null && uploader.isNotEmpty) ||
+        (title != null && title.isNotEmpty) ||
+        (player != null && player.isNotEmpty);
   }
 
-  void clearFilters()  {
+  void clearFilters() {
     map = "";
     uploader = "";
     title = "";
@@ -89,7 +90,6 @@ class LogsSearchBloc {
     clearLogs();
     searchLogs();
   }
-
 }
 
 final logsSearchBloc = LogsSearchBloc();

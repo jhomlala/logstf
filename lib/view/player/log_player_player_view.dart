@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/bloc/steam_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/util/app_utils.dart';
@@ -161,8 +163,8 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
               backgroundColor: backgroundColor,
             )));
   }
-  void _observePlayer(){
-
+  void _observePlayer()async{
+    PlayerObserved playerObserved = await playersObservedBloc.getPlayerObserved(steamId64.toString());
   }
 
   void _onMatchesClicked() {
