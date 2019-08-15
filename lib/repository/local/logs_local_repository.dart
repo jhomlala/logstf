@@ -15,11 +15,11 @@ class LogsLocalRepository {
     if (_database != null) return _database;
 
     // if _database is null we instantiate it
-    _database = await initDB();
+    _database = await _initDB();
     return _database;
   }
 
-  initDB() async {
+  _initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "logstf.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
