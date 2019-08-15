@@ -46,7 +46,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           color: Colors.deepPurple,
           child: ListView(children: [
             Card(
-                margin: EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
+                margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 child: _getForm())
           ])),
     );
@@ -128,7 +128,10 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     Navigator.pop(context);
   }
 
-  _onClearFiltersClicked() {}
+  _onClearFiltersClicked() {
+    logsSearchBloc.clearFilters();
+    Navigator.pop(context);
+  }
 
   void _initEditingControllers() {
     print("Init editing controllers");
