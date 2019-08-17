@@ -1,7 +1,5 @@
-import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
-import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:rxdart/subjects.dart';
 
 class LogsSavedBloc {
