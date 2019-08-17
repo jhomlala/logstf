@@ -1,9 +1,9 @@
-import 'dart:io';
+
 
 import 'package:logstf/model/player_observed.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'app_database_provider.dart';
 
 class PlayersObservedLocalRepository {
   PlayersObservedLocalRepository._();
@@ -15,22 +15,19 @@ class PlayersObservedLocalRepository {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    _database = await _initDB();
-    return _database;
-  }
-
-  _initDB() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "logstf.db");
-    return await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE PlayerObserved ("
+    _database = await AppDatabase.database;
+    if (_database != null){
+      print("INIT TABLE!");
+      await _database.execute("CREATE TABLE IF NOT EXISTS PlayerObserved ("
           "id INTEGER PRIMARY KEY,"
           "name TEXT,"
           "steamid64 TEXT"
           ")");
-    });
+    }
+
+    return _database;
   }
+
 
   Future<int> createPlayerObserved(PlayerObserved playerObserved) async {
     final db = await database;

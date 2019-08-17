@@ -7,8 +7,10 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
+import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/logs_button.dart';
+import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,83 +72,84 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: SingleChildScrollView(
                             child: Column(children: [
-                              Padding(
-                                padding: EdgeInsets.all(5),
-                              ),
-                              ClipOval(
-                                child: Image.network(
-                                  steamPlayer.avatarfull,
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                "${steamPlayer.personaname}",
-                                style: TextStyle(fontSize: 30.0),
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                  "(${widget.log.getPlayerName(
-                                      widget.player.steamId)})",
-                                  textAlign: TextAlign.center),
-                              StreamBuilder<int>(
-                                stream: matchesCountSubject.stream,
-                                builder: (context, snapshot) {
-                                  if (snapshot.data != null) {
-                                    return Padding(
-                                        padding:
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          ClipOval(
+                            child: Image.network(
+                              steamPlayer.avatarfull,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            "${steamPlayer.personaname}",
+                            style: TextStyle(fontSize: 30.0),
+                            textAlign: TextAlign.center,
+                          ),
+                          Text(
+                              "(${widget.log.getPlayerName(widget.player.steamId)})",
+                              textAlign: TextAlign.center),
+                          StreamBuilder<int>(
+                            stream: matchesCountSubject.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.data != null) {
+                                return Padding(
+                                    padding:
                                         EdgeInsets.only(top: 10, bottom: 5),
-                                        child: Column(children: [
-                                        Text(
-                                        "Player has ${snapshot.data} matches in history"),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                        ),
-                                        Row(children: [
-                                            _getPageButton("Matches",
-                                            _onMatchesClicked,
+                                    child: Column(children: [
+                                      Text(
+                                          "Player has ${snapshot.data} matches in history"),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 10),
+                                      ),
+                                      Row(children: [
+                                        _getPageButton(
+                                            "Matches", _onMatchesClicked,
                                             backgroundColor: Colors.deepPurple)
-                                        ]),
-                                          Row(children: [
-                                            _getPageButton("Observe",
-                                                _observePlayer,
-                                                backgroundColor: Colors.deepPurple)
-                                          ]),
-                                  ]));
-                                  } else {
-                                  return Container(
+                                      ]),
+                                      Row(children: [
+                                        ObservePlayerButton(
+                                          steamId64: steamId64.toString(),
+                                          playerName: widget.log.getPlayerName(
+                                              widget.player.steamId),
+                                        ),
+                                      ]),
+                                    ]));
+                              } else {
+                                return Container(
                                   width: 0.0,
                                   height: 0.0,
-                                  );
-                                  }
-                                },
-                              ),
-                              Column(children: [
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      _getPageButton("Steam", _onSteamClicked),
-                                      _getPageButton("ETF2L", _onEtf2lClicked)
-                                    ]),
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      _getPageButton("UGC", _onUgcClicked),
-                                      _getPageButton(
-                                          "TF2Center", _onTf2CenterClicked)
-                                    ]),
-                                Row(
-                                    mainAxisAlignment:
+                                );
+                              }
+                            },
+                          ),
+                          Column(children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _getPageButton("Steam", _onSteamClicked),
+                                  _getPageButton("ETF2L", _onEtf2lClicked)
+                                ]),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _getPageButton("UGC", _onUgcClicked),
+                                  _getPageButton(
+                                      "TF2Center", _onTf2CenterClicked)
+                                ]),
+                            Row(
+                                mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      _getPageButton(
-                                          "OzFortress", _onOzFortressClicked),
-                                      _getPageButton("RGL", _onRglClicked)
-                                    ]),
-                              ])
-                            ]))));
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  _getPageButton(
+                                      "OzFortress", _onOzFortressClicked),
+                                  _getPageButton("RGL", _onRglClicked)
+                                ]),
+                          ])
+                        ]))));
                 //return Text("Player: " + snapshot.data.toString());
               }
             }));
@@ -163,8 +166,22 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
               backgroundColor: backgroundColor,
             )));
   }
-  void _observePlayer()async{
-    PlayerObserved playerObserved = await playersObservedBloc.getPlayerObserved(steamId64.toString());
+
+  void _observePlayer() async {
+    PlayerObserved playerObserved =
+        await playersObservedBloc.getPlayerObserved(steamId64.toString());
+    if (playerObserved == null) {
+      playerObserved = PlayerObserved(
+          id: DateTime.now().millisecondsSinceEpoch,
+          name: widget.log.getPlayerName(widget.player.steamId),
+          steamid64: steamId64.toString());
+      await playersObservedBloc.addPlayerObserved(playerObserved);
+    }
+  }
+
+  void _removeObservedPlayer() async {
+    PlayerObserved playerObserved =
+        await playersObservedBloc.getPlayerObserved(steamId64.toString());
   }
 
   void _onMatchesClicked() {

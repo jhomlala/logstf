@@ -5,6 +5,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'app_database_provider.dart';
+
 class LogsLocalRepository {
   LogsLocalRepository._();
 
@@ -14,25 +16,16 @@ class LogsLocalRepository {
   Future<Database> get database async {
     if (_database != null) return _database;
 
-    // if _database is null we instantiate it
-    _database = await _initDB();
+    _database = await AppDatabase.database;
+    await _database.execute("CREATE TABLE IF NOT EXISTS LogShort ("
+        "id INTEGER PRIMARY KEY,"
+        "title TEXT,"
+        "map TEXT,"
+        "date INTEGER,"
+        "views INTEGER,"
+        "players INTEGER"
+        ")");
     return _database;
-  }
-
-  _initDB() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "logstf.db");
-    return await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE LogShort ("
-          "id INTEGER PRIMARY KEY,"
-          "title TEXT,"
-          "map TEXT,"
-          "date INTEGER,"
-          "views INTEGER,"
-          "players INTEGER"
-          ")");
-    });
   }
 
   Future<int> createLog(LogShort logShort) async {
