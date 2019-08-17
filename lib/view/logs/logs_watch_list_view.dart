@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_player_observed_bloc.dart';
-import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
@@ -35,7 +34,6 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                   snapshot.connectionState == ConnectionState.waiting) {
                 return Text("Loading");
               } else {
-
                 List<PlayerObserved> observedPlayers = snapshot.data;
                 print("Observed players: " + observedPlayers.toString());
                 if (_selectedPlayer == null && observedPlayers.length > 0) {
@@ -53,7 +51,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                           var data = snapshot.data;
                           if (data == null || data.isEmpty) {
                             return EmptyCard(
-                              description: "There's no saved data. ",
+                              description: "There's no data. ",
                             );
                           } else {
                             return Expanded(
@@ -77,7 +75,10 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
   bool get wantKeepAlive => true;
 
   Widget _getPlayersDropdown(List<PlayerObserved> players) {
-    if (players.where((PlayerObserved player) => player == _selectedPlayer ).length == 0){
+    if (players
+            .where((PlayerObserved player) => player == _selectedPlayer)
+            .length ==
+        0) {
       _selectedPlayer = players[0];
     }
 
@@ -106,18 +107,25 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
   }
 
   Widget _getPlayersChooserCard(List<PlayerObserved> playersObserved) {
-    Widget widget;
+    List<Widget> widgets = List();
     if (playersObserved.length > 0) {
-      widget = _getPlayersDropdown(playersObserved);
+      widgets.add(Padding(
+        padding: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+        child: Text("Player:", style: TextStyle(fontSize: 16)),
+      ));
+      widgets.add(_getPlayersDropdown(playersObserved));
     } else {
-      widget = Text("No players");
+      widgets.add(Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(width:MediaQuery.of(context).size.width*0.8,child:Text(
+              "No players observed. Please add player by clicking Observe player in player details.", maxLines: 2, textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,))));
     }
 
     return Card(
         margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Padding(padding: EdgeInsets.only(left:10,top:10,right: 10,bottom: 10), child: Text("Player:", style: TextStyle(fontSize: 16)),), widget]));
+            mainAxisAlignment: MainAxisAlignment.center, children: widgets));
   }
 
 /*Widget _getDropdownButton() async{
