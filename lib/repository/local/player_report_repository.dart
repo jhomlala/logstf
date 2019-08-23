@@ -22,7 +22,7 @@ class PlayerReportRepository{
 
   Future<Database> get database async {
     if (_database != null) return _database;
-    
+
     await _database.execute("CREATE TABLE IF NOT EXISTS LogShort ("
         "id INTEGER PRIMARY KEY,"
         "title TEXT,"
