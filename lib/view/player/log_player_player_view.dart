@@ -9,6 +9,7 @@ import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/view/report/report_generator_view.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -116,6 +117,11 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                               widget.player.steamId),
                                         ),
                                       ]),
+                                      Row(children: [
+                                        _getPageButton(
+                                            "Generate report", _onGenerateReportClicked,
+                                            backgroundColor: Colors.deepPurple)
+                                      ]),
                                     ]));
                               } else {
                                 return Container(
@@ -220,6 +226,14 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  _onGenerateReportClicked(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ReportGeneratorView(player: widget.player, steamId64: steamId64.toString(),)));
+
   }
 
   @override
