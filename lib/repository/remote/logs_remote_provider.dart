@@ -10,8 +10,8 @@ class LogsRemoteProvider{
     return logsRepository.getLog(logId);
   }
 
-  Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player){
-    return logsRepository.searchLogs(map,uploader,title,player);
+  Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player, int offset){
+    return logsRepository.searchLogs(map,uploader,title,player, offset);
   }
 
   void saveLog(Log log) async{

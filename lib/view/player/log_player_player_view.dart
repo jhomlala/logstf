@@ -34,12 +34,9 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
   void initState() {
     matchesCountSubject = BehaviorSubject();
     steamId64 = AppUtils.convertSteamId3ToSteamId64(widget.player.steamId);
-    print("Getting player with steamId: " + steamId64.toString());
     logsSearchBloc.getPlayerMatchesCount(steamId64.toString()).then((value) {
       matchesCountSubject.value = value;
     });
-
-    print("OOK");
     _getPlayer();
     super.initState();
   }

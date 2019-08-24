@@ -8,9 +8,6 @@ import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
-import 'package:provider/provider.dart';
-
-import 'package:logstf/view/logs/search/logs_search_view.dart';
 
 class LogsListView extends StatefulWidget {
   @override
@@ -19,10 +16,19 @@ class LogsListView extends StatefulWidget {
 
 class _LogsListViewState extends State<LogsListView>
     with AutomaticKeepAliveClientMixin<LogsListView> {
+  ScrollController _controller;
+
   @override
   void initState() {
     logsSearchBloc.initLogs();
+    _controller = new ScrollController();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,19 +72,35 @@ class _LogsListViewState extends State<LogsListView>
                         .add(EmptyCard(description: "There's no logs found."));
                   } else {
                     widgets.add(Expanded(
-                        child: ListView.builder(
-                            itemCount: data.length,
-                            itemBuilder: (context, position) {
-                              return LogShortCard(logSearch: data[position]);
-                            })));
+                        child: NotificationListener<ScrollNotification>(
+                            onNotification: _handleScrollNotification,
+                            child: ListView.builder(
+                                itemCount: data.length,
+                                controller: _controller,
+                                itemBuilder: (context, position) {
+                                  return LogShortCard(
+                                      logSearch: data[position]);
+                                }))));
                   }
                 }
               } else {
                 widgets.add(Expanded(child: Center(child: ProgressBar())));
               }
-
               return Column(children: widgets);
             }));
+  }
+
+  bool _handleScrollNotification(ScrollNotification notification) {
+    if (notification is ScrollEndNotification) {
+      if (_controller.position.extentAfter == 0 && !logsSearchBloc.loading) {
+        logsSearchBloc.searchLogs(
+            map: logsSearchBloc.map,
+            player: logsSearchBloc.player,
+            uploader: logsSearchBloc.uploader,
+            title: logsSearchBloc.title);
+      }
+    }
+    return false;
   }
 
   @override

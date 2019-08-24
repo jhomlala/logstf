@@ -11,7 +11,7 @@ class LogsPlayerObservedBloc {
       loading = true;
       logsSearchSubject.value = List();
       var response =
-          await logsRemoteProvider.searchLogs("", "", "", playerSteamId64);
+          await logsRemoteProvider.searchLogs("", "", "", playerSteamId64, 0);
 
       if (response != null) {
         if (logsSearchSubject.value != null) {
