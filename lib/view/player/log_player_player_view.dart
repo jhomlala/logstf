@@ -58,7 +58,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(10),
         child: StreamBuilder<SteamPlayer>(
             stream: steamBloc.steamPlayerSubject.stream,
@@ -107,7 +107,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                       Row(children: [
                                         _getPageButton(
                                             "Matches", _onMatchesClicked,
-                                            backgroundColor: Colors.deepPurple)
+                                            backgroundColor: Theme.of(context).primaryColor)
                                       ]),
                                       Row(children: [
                                         ObservePlayerButton(

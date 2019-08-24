@@ -18,7 +18,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.deepPurple),
+        color: Theme.of(context).primaryColor,
         child: Column(children: [
           Container(
               margin: EdgeInsets.all(10),

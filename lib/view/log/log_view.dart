@@ -115,7 +115,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 ]);
               } else {
                 return Container(
-                    decoration: BoxDecoration(color: Colors.deepPurple),
+                    color: Theme.of(context).primaryColor,
                     child: Center(
                         child: Container(height: 40, child: ProgressBar())));
               }

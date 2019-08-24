@@ -19,7 +19,7 @@ class TableHeaderWidget extends StatelessWidget {
       borderRadius = BorderRadius.only(topRight: Radius.circular(10));
     }
 
-    return Container(color: Colors.deepPurple, child: Container(
+    return Container(color: Theme.of(context).primaryColor, child: Container(
       height: 30,
       decoration: BoxDecoration(
         borderRadius: borderRadius,

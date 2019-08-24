@@ -52,7 +52,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.deepPurple),
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child:
             Container(child: Column(children: _getMainColumnWidgets()))));

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 class ProgressBar extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _ProgressBarState extends State<ProgressBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.deepPurple),
+        color: Theme.of(context).primaryColor,
         child: Center(
             child: Container(
                 height: 40,

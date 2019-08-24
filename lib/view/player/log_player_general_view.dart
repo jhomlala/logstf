@@ -22,7 +22,7 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child: Column(
           children: _getStatsComparisonWidgets(),

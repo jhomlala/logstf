@@ -34,7 +34,7 @@ class _LogHealViewState extends State<LogHealView> {
     init(context);
     //return HealSpreadPieChart(healSpreadList: _healSpreadMap.values.first);
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
           child: Column(
             children: getHealSpreadWidgets(),

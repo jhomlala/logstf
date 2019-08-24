@@ -12,10 +12,15 @@ class SettingsBloc {
 
   getAppSettings() async {
     var appSettings = await settingsLocalProvider.getAppSettings();
+    if (appSettings == null){
+      appSettings = AppSettings(appColor:"Purple");
+    }
     appSettingsSubject.value = appSettings;
   }
 
   saveAppSettings(AppSettings appSettings) {
+    print("Saved app settings!");
+    appSettingsSubject.value = appSettings;
     settingsLocalProvider.saveAppSettings(appSettings);
   }
 }

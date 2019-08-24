@@ -26,7 +26,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: StreamBuilder(
             stream: playersObservedBloc.playersObservedSubject.stream,
             builder: (context, snapshot) {

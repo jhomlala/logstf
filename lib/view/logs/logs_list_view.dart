@@ -28,7 +28,7 @@ class _LogsListViewState extends State<LogsListView>
   Widget build(BuildContext context) {
     super.build(context);
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(
             stream: logsSearchBloc.logsSearchSubject.stream,
             initialData: logsSearchBloc.logsSearchSubject.value,

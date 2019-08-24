@@ -16,7 +16,7 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.deepPurple),
+        color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(10),
         child: Align(alignment: Alignment.topCenter,child: Card(
             elevation: 10.0,
@@ -102,7 +102,7 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
   TableRow _getHeaderRow() {
     return TableRow(children: [
       Container(
-          color: Colors.deepPurple,
+          color: Theme.of(context).primaryColor,
           child: Container(
               decoration: BoxDecoration(
                   color: AppUtils.darkBlueColor,
@@ -118,7 +118,7 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
               child: Text("RED",
                   style: TextStyle(color: Colors.white, fontSize: 16)))),
       Container(
-          color: Colors.deepPurple,
+          color: Theme.of(context).primaryColor,
           child: Container(
               decoration: BoxDecoration(
                   color: Colors.blue,

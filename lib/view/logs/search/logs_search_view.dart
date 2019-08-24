@@ -43,7 +43,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         title: Text("Search logs"),
       ),
       body: Container(
-          color: Colors.deepPurple,
+          color: Theme.of(context).primaryColor,
           child: ListView(children: [
             Card(
                 margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),

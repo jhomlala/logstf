@@ -20,7 +20,7 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(color: Colors.deepPurple),
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child: Column(children: _getClassKillsCardsWidgets())));
   }

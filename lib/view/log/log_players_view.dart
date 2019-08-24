@@ -46,7 +46,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   Widget build(BuildContext context) {
     init(context);
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           _getFilterDropdownWidget(),

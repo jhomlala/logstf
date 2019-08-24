@@ -19,7 +19,7 @@ class _LogAwardsViewState extends State<LogAwardsView> {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child: Column(
           children: <Widget>[

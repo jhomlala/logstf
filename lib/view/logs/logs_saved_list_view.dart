@@ -25,7 +25,7 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
     super.build(context);
     print("[LOGS_SAVED] Building! " + logsSavedBloc.loading.toString());
     return Container(
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(
             stream: logsSavedBloc.savedLogsSubject,
             initialData: logsSavedBloc.savedLogsSubject.value,

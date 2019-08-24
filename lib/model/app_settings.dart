@@ -1,16 +1,13 @@
-import 'package:logstf/model/watched_player.dart';
+import 'dart:ui';
 
 class AppSettings {
-  List<WatchedPlayer> watchedPlayers;
+  String appColor;
 
-  AppSettings({this.watchedPlayers});
+  AppSettings({this.appColor});
 
-  factory AppSettings.fromJson(Map<String, dynamic> json) => AppSettings(
-      watchedPlayers: new List<WatchedPlayer>.from(
-          json["watchedPlayers"].map((x) => WatchedPlayer.fromJson(x))));
+  factory AppSettings.fromJson(Map<String, dynamic> json) =>
+      AppSettings(appColor: json["appColor"]);
 
-  Map<String, dynamic> toJson() => {
-        "watchedPlayers":
-            new List<dynamic>.from(watchedPlayers.map((x) => x.toJson()))
-      };
+  Map<String, dynamic> toJson() => {"appColor": appColor};
+
 }
