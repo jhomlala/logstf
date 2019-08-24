@@ -36,7 +36,7 @@ class LogShortCard extends StatelessWidget {
                         style: TextStyle(fontSize: 12, color: Colors.grey))
                   ]),
                   Row(children: [
-                    Text(logSearch.title, style: TextStyle(fontSize: 20)),
+                    Expanded(child:Text(logSearch.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20))),
                   ]),
                   Row(children: [
                     Icon(
