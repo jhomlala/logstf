@@ -47,18 +47,6 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                       _getUploaderWidget()
                     ],
                   )))
-
-          /*Padding(padding: EdgeInsets.only(top: 20)),
-      Padding(padding: EdgeInsets.only(top: 10)),
-      _getMapWidget(context),
-      Padding(padding: EdgeInsets.only(top: 10)),
-      _getMatchTypeWidget(),
-      Padding(padding: EdgeInsets.only(top: 10)),
-      _getTimestampWidget(),
-      Padding(padding: EdgeInsets.only(top: 10)),
-      _getTimeWidget(context),
-      Padding(padding: EdgeInsets.only(top: 10)),
-      _getUploaderWidget()*/
         ]));
   }
 
@@ -69,6 +57,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   Widget _getTitleWidget(BuildContext context) {
     return Text(
       _log.info.title,
+      textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.title,
     );
   }
