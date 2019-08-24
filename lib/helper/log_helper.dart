@@ -48,6 +48,10 @@ class LogHelper {
   static List<HealSpread> getHealSpread(Log log, String steamId) {
     List<HealSpread> healSpreadList = List();
     var healSpreadMap = log.healspread[steamId];
+    print("HEAL SPREAD MAP: " + healSpreadMap.toString());
+    if (healSpreadMap == null){
+      return null;
+    }
     int sum = _getSumOfMap(healSpreadMap);
     healSpreadMap.forEach((steamId, value) {
       var player = log.players[steamId];

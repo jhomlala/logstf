@@ -28,14 +28,20 @@ class _AboutViewState extends State<AboutView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Text("About"),
       ),
       body: Container(
         padding: EdgeInsets.all(10),
         color: Theme.of(context).primaryColor,
-        child: Card(child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Column(children: _getWidgets())])),
+        child: Column(children: [
+          Card(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                Column(mainAxisSize: MainAxisSize.min, children: _getWidgets())
+              ]))
+        ]),
       ),
     );
   }
@@ -86,33 +92,37 @@ class _AboutViewState extends State<AboutView> {
     widgets.add(LogsButton(
       text: "GitHub",
       backgroundColor: Colors.grey,
-      onPressed: (){
+      onPressed: () {
         _launchWebPage("http://github.com/jhomlala/");
       },
     ));
     widgets.add(
       Padding(
-        padding: EdgeInsets.only(top: 40),
+        padding: EdgeInsets.only(top: 20),
       ),
     );
     widgets.add(
       Container(
           width: 300,
-          child:
-      Text(
-        "If you encountered any problem, please report it in project page.",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 14),
-      )),
+          child: Text(
+            "If you encountered any problem, please report it in project page.",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          )),
     );
-
 
     widgets.add(LogsButton(
         text: "Project page",
         backgroundColor: Colors.grey,
-        onPressed: (){
-      _launchWebPage("http://github.com/jhomlala/logstf");
-    }));
+        onPressed: () {
+          _launchWebPage("http://github.com/jhomlala/logstf");
+        }));
+    widgets.add(
+      Padding(
+        padding: EdgeInsets.only(top: 10),
+      ),
+    );
+
     return widgets;
   }
 

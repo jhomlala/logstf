@@ -3,8 +3,8 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:logstf/model/player.dart';
+import 'package:logstf/model/team.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/heal_spread_pie_chart.dart';
@@ -21,11 +21,13 @@ class _LogHealViewState extends State<LogHealView> {
   Map<Player, List<HealSpread>> _healSpreadMap;
 
   void init(BuildContext context) {
-
     _healSpreadMap = Map();
     var medicPlayers = LogHelper.getPlayersWithClass(_log, "medic");
     medicPlayers.forEach((player) {
-      _healSpreadMap[player] = LogHelper.getHealSpread(_log, player.steamId);
+      var healSpread = LogHelper.getHealSpread(_log, player.steamId);
+      if (healSpread != null) {
+        _healSpreadMap[player] = healSpread;
+      }
     });
   }
 
@@ -44,39 +46,58 @@ class _LogHealViewState extends State<LogHealView> {
 
   List<Widget> getHealSpreadWidgets() {
     List<Widget> widgets = List();
-
-    _healSpreadMap.forEach((player, list) {
+    if (_healSpreadMap != null && _healSpreadMap.isNotEmpty) {
+      _healSpreadMap.forEach((player, list) {
+        widgets.add(Card(
+            margin: EdgeInsets.all(10),
+            child: Column(children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ClassIcon(
+                  playerClass: "medic",
+                ),
+                Text(
+                  _log.getPlayerName(player.steamId),
+                  style: TextStyle(
+                      fontSize: 24, color: _getPlayerTeamColor(player.steamId)),
+                )
+              ]),
+              Container(
+                  margin: EdgeInsets.only(top: 5, bottom: 5),
+                  height: 1,
+                  color: AppUtils.lightGreyColor),
+              MedicStatsWidget(player: player),
+              Container(
+                  margin: EdgeInsets.only(top: 5, bottom: 5),
+                  height: 1,
+                  color: AppUtils.lightGreyColor),
+              HealSpreadPieChart(healSpreadList: list),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+              )
+            ])));
+      });
+    } else {
       widgets.add(Card(
           margin: EdgeInsets.all(10),
-          child: Column(children: [
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ClassIcon(
-                playerClass: "medic",
-              ),
-              Text(
-                _log.getPlayerName(player.steamId),
-                style: TextStyle(fontSize: 24),
-              )
-            ]),
-            Container(
-                margin: EdgeInsets.only(top: 5, bottom: 5),
-                height: 1,
-                color: AppUtils.lightGreyColor),
-            MedicStatsWidget(player: player),
-            Container(
-                margin: EdgeInsets.only(top: 5, bottom: 5),
-                height: 1,
-                color: AppUtils.lightGreyColor),
-            HealSpreadPieChart(healSpreadList: list),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            )
-          ])));
-    });
+          child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text("There's no medics in this match.")]))));
+    }
 
     return widgets;
+  }
+
+  Color _getPlayerTeamColor(String steamId) {
+    String team = _log.players[steamId].team;
+    if (team == "Red") {
+      return Colors.red;
+    } else {
+      return Colors.blue;
+    }
   }
 }

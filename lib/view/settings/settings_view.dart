@@ -25,15 +25,15 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-
-        return StreamBuilder(
-            initialData: settingsBloc.appSettingsSubject.value,
-            stream: settingsBloc.appSettingsSubject,
-            builder: (context, snapshot) {
-              _appSettings = snapshot.data;
-              _selectedColor = _appSettings.appColor;
-              return Scaffold(
-                  appBar: AppBar( title: Text("Settings")), body: Container(
+    return StreamBuilder(
+        initialData: settingsBloc.appSettingsSubject.value,
+        stream: settingsBloc.appSettingsSubject,
+        builder: (context, snapshot) {
+          _appSettings = snapshot.data;
+          _selectedColor = _appSettings.appColor;
+          return Scaffold(
+              appBar: AppBar(elevation: 0.0, title: Text("Settings")),
+              body: Container(
                 color: Theme.of(context).primaryColor,
                 child: Column(
                   children: [
@@ -55,11 +55,7 @@ class _SettingsViewState extends State<SettingsView> {
                   ],
                 ),
               ));
-            });
-  }
-
-  Color _getColor() {
-    return _availableColors[_selectedColor];
+        });
   }
 
   Widget _getDropdownButton() {
