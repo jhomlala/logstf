@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 
-
 class AwardCard extends StatelessWidget {
   final String awardName;
   final Log log;
@@ -30,15 +29,20 @@ class AwardCard extends StatelessWidget {
               ),
               Table(
                 defaultColumnWidth: IntrinsicColumnWidth(),
-                children: [
-                  _getPlayerRow(players[0], 1),
-                  _getPlayerRow(players[1], 2),
-                  _getPlayerRow(players[2], 3),
-                ],
+                children: _getPlayerRows(players)
               )
             ],
           )),
     );
+  }
+
+  List<TableRow> _getPlayerRows(List<Player> players) {
+    List<TableRow> widgets = List();
+    for (int index = 0; index < players.length; index++) {
+      widgets.add(_getPlayerRow(players[index], index+1));
+    }
+  
+    return widgets;
   }
 
   TableRow _getPlayerRow(Player player, int place) {
@@ -52,10 +56,9 @@ class AwardCard extends StatelessWidget {
       fontSize = 20.0;
     }
     var color = Colors.red;
-    if (player.team == "Blue"){
+    if (player.team == "Blue") {
       color = Colors.blue;
     }
-
 
     return TableRow(children: [
       Image.asset(placeImage, width: 20, height: 20),
@@ -65,7 +68,6 @@ class AwardCard extends StatelessWidget {
             log.getPlayerName(player.steamId),
             style: TextStyle(fontSize: fontSize, color: color),
           )),
-
     ]);
   }
 }

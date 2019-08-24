@@ -82,31 +82,40 @@ class _LogAwardsViewState extends State<LogAwardsView> {
         )));
   }
 
+  List<Player> getTopList(List<Player> sortedList){
+    int count = sortedList.length;
+    if (count <= 3){
+      return sortedList;
+    } else {
+      return sortedList.sublist(0,3);
+    }
+  }
+
   List<Player> getTopKillPlayers() {
-    return LogHelper.getPlayersSortedByKills(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByKills(_log));
   }
 
   List<Player> getTopAssistsPlayers() {
-    return LogHelper.getPlayersSortedByAssists(_log, false).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByAssists(_log, false));
   }
 
   List<Player> getTopDamagePlayers() {
-    return LogHelper.getPlayersSortedByDamage(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByDamage(_log));
   }
 
   List<Player> getTopMedicKillsPlayers() {
-    return LogHelper.getPlayersSortedByMedicKills(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByMedicKills(_log));
   }
 
   List<Player> getTopMVPPlayers() {
-    return LogHelper.getPlayerSortedByMVPScore(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayerSortedByMVPScore(_log));
   }
 
   List<Player> getTopKPDPlayers() {
-    return LogHelper.getPlayersSortedByKPD(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByKPD(_log));
   }
 
   List<Player> getTopKAPDPlayers() {
-    return LogHelper.getPlayersSortedByKAPD(_log).sublist(0, 3);
+    return getTopList(LogHelper.getPlayersSortedByKAPD(_log));
   }
 }

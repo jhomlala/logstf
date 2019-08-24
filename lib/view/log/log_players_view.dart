@@ -58,7 +58,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                   children: _getTableRows(),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 5),
+                  padding: EdgeInsets.only(bottom: 1),
                 )
               ]))
         ])));

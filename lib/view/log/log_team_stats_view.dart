@@ -20,7 +20,7 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
         padding: EdgeInsets.all(10),
         child: Align(alignment: Alignment.topCenter,child: Card(
             elevation: 10.0,
-            child: Container(padding: EdgeInsets.only(bottom: 5),child: Table(
+            child: Container(padding: EdgeInsets.only(bottom: 1),child: Table(
               children: _getTableRows(),
             )))));
   }

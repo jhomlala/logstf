@@ -33,13 +33,11 @@ class _ObservePlayerButtonState extends State<ObservePlayerButton> {
             if (snapshotData != null){
               return _getPageButton(" Remove from observed",
                   _removeObservedPlayer,
-                  backgroundColor: Colors
-                      .deepPurple);
+                  backgroundColor: Theme.of(context).primaryColor);
             } else {
               return _getPageButton("Observe",
                   _observePlayer,
-                  backgroundColor: Colors
-                      .deepPurple);
+                  backgroundColor: Theme.of(context).primaryColor);
             }
           } else {
             return _getPageButton("", (){});

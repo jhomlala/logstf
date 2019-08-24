@@ -33,9 +33,9 @@ class _AboutViewState extends State<AboutView> {
       body: Container(
         padding: EdgeInsets.all(10),
         color: Theme.of(context).primaryColor,
-        child: Row(
+        child: Card(child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Column(children: _getWidgets())]),
+            children: [Column(children: _getWidgets())])),
       ),
     );
   }
@@ -50,13 +50,13 @@ class _AboutViewState extends State<AboutView> {
     widgets.add(
       Text(
         "Pocket Logs",
-        style: TextStyle(fontSize: 40, color: Colors.white),
+        style: TextStyle(fontSize: 40),
       ),
     );
     if (_packageInfo != null) {
       widgets.add(Text(
         "${_packageInfo.version} (build ${_packageInfo.buildNumber})",
-        style: TextStyle(fontSize: 25, color: Colors.white),
+        style: TextStyle(fontSize: 25),
       ));
     }
     widgets.add(
@@ -73,9 +73,14 @@ class _AboutViewState extends State<AboutView> {
       ),
     ));
     widgets.add(
+      Padding(
+        padding: EdgeInsets.only(top: 10),
+      ),
+    );
+    widgets.add(
       Text(
         "Jakub Homlala",
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: TextStyle(fontSize: 20),
       ),
     );
     widgets.add(LogsButton(
@@ -97,7 +102,7 @@ class _AboutViewState extends State<AboutView> {
       Text(
         "If you encountered any problem, please report it in project page.",
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 14, color: Colors.white),
+        style: TextStyle(fontSize: 14),
       )),
     );
 
