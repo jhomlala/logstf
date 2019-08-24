@@ -11,9 +11,21 @@ class LogAwardsView extends StatefulWidget {
 }
 
 class _LogAwardsViewState extends State<LogAwardsView> {
+  Log _log;
+  int _upperRange;
 
-  Log _log = logDetailsBloc.logSubject.value;
+  @override
+  void initState() {
+    _log = logDetailsBloc.logSubject.value;
+    int playersCount =  _log.players.length;
+    if (playersCount <= 4){
+      _upperRange = 2;
+    } else{
+      _upperRange = 3;
+    }
 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +72,6 @@ class _LogAwardsViewState extends State<LogAwardsView> {
               log: _log,
               description: "Players which had best kills per deaths",
             ),
-
             AwardCard(
               awardName: "Top kills & assists per deaths",
               players: getTopKPDPlayers(),
@@ -76,8 +87,7 @@ class _LogAwardsViewState extends State<LogAwardsView> {
   }
 
   List<Player> getTopAssistsPlayers() {
-    return LogHelper.getPlayersSortedByAssists(_log, false)
-        .sublist(0, 3);
+    return LogHelper.getPlayersSortedByAssists(_log, false).sublist(0, 3);
   }
 
   List<Player> getTopDamagePlayers() {
@@ -92,12 +102,11 @@ class _LogAwardsViewState extends State<LogAwardsView> {
     return LogHelper.getPlayerSortedByMVPScore(_log).sublist(0, 3);
   }
 
-  List<Player> getTopKPDPlayers(){
-    return LogHelper.getPlayersSortedByKPD(_log).sublist(0,3);
+  List<Player> getTopKPDPlayers() {
+    return LogHelper.getPlayersSortedByKPD(_log).sublist(0, 3);
   }
 
-  List<Player> getTopKAPDPlayers(){
-    return LogHelper.getPlayersSortedByKAPD(_log).sublist(0,3);
+  List<Player> getTopKAPDPlayers() {
+    return LogHelper.getPlayersSortedByKAPD(_log).sublist(0, 3);
   }
-
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 
+import 'about/about_view.dart';
 import 'logs/logs_saved_list_view.dart';
 import 'package:logstf/view/logs/logs_list_view.dart';
 import 'package:logstf/view/logs/search/logs_search_view.dart';
@@ -27,7 +28,7 @@ class _MainViewState extends State<MainView>
     return Scaffold(
         appBar: AppBar(
             elevation: 0.0,
-            title: Text("Logs TF"),
+            title: Text("Pocket Logs"),
             actions: [
               IconButton(
                   icon: Icon(Icons.search),
@@ -82,6 +83,10 @@ class _MainViewState extends State<MainView>
     if (menuItem.title == "Settings") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsView()));
+    }
+    if (menuItem.title == "About"){
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AboutView()));
     }
   }
 }
