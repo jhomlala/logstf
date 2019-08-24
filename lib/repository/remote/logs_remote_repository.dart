@@ -18,7 +18,6 @@ class LogsRemoteRepository{
   }
 
   Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player) async {
-    try {
       String url = "http://logs.tf/api/v1/log?";
       if (map != null) {
         url += "map=$map&";
@@ -39,10 +38,6 @@ class LogsRemoteRepository{
       Response response = await dio.request(uri.toString());
       print("Got response from server: " + response.statusCode.toString());
       return LogsSearchResponse.fromJson(response.data);
-    } catch (exc){
-      print(exc);
-      return null;
-    }
   }
 
   saveLog(Log log) async{

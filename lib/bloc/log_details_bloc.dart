@@ -15,14 +15,16 @@ class LogDetailsBloc {
   }
 
   void dispose() async {
-    await logSubject.drain();
     logSubject.close();
-    await selectedPlayerSubject.drain();
     selectedPlayerSubject.close();
   }
 
   void selectLog(int logId) async{
-    logSubject.value = await logsRemoteProvider.getLog(logId);
+    try {
+      logSubject.value = await logsRemoteProvider.getLog(logId);
+    } catch (exception){
+      logSubject.addError(exception);
+    }
   }
 
   void setLog(Log log) {

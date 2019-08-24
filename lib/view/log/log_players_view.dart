@@ -276,8 +276,14 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   Widget _getPlayerClassesWidget(Player player) {
-    List<Widget> classIcons = List();
+    List<Widget> widgets = List();
     var classStatsList = player.classStats;
+    int additionalClasses = 0;
+    if (classStatsList.length > 3){
+      additionalClasses = classStatsList.length - 3;
+      classStatsList = classStatsList.sublist(0,3);
+    }
+
     classStatsList.forEach((classStats) {
       var asset = "";
 
@@ -312,7 +318,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
       }
 
       if (asset.length > 0) {
-        classIcons.add(
+        widgets.add(
           Image.asset(
             asset,
             width: 20,
@@ -321,21 +327,19 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         );
       }
     });
+
+    if (additionalClasses != 0){
+      widgets.add(Text(" +$additionalClasses "));
+    }
+
     return Center(
         child: Container(
             height: 30,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: classIcons)));
+                children: widgets)));
   }
 
-  String _getPlayerName(String steamId) {
-    if (_playerNames.containsKey(steamId)) {
-      return _playerNames[steamId];
-    } else {
-      return "";
-    }
-  }
 
   Widget _getTeamWidget(Player player) {
     var teamColor = Colors.red;

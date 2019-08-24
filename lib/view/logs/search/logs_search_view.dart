@@ -108,7 +108,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       LogsButton(
         text: "Send",
         onPressed: _onSendClicked,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     ]));
 

@@ -25,8 +25,6 @@ class LogShortCard extends StatelessWidget {
             logsSearchBloc.clearLogs();
             logsSearchBloc.searchLogs(player: navigationEvent.steamId);
           }
-
-
         },
         child: Card(
             margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),

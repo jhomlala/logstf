@@ -3,10 +3,12 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_heal_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
 import 'package:logstf/view/log/log_team_stats_view.dart';
+import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
 import 'package:logstf/view/log/log_awards_view.dart';
@@ -105,6 +107,13 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         body: StreamBuilder<Log>(
             stream: logDetailsBloc.logSubject,
             builder: (context, snapshot) {
+              print("Snapshot got error: " + snapshot.hasError.toString());
+              if (snapshot.hasError) {
+                return Container(
+                    color: Theme.of(context).primaryColor,
+                    child: EmptyCard(
+                        description: ErrorHandler.handleError(snapshot.error)));
+              }
               if (snapshot.hasData) {
                 return TabBarView(controller: tabController, children: [
                   LogGeneralStatsView(),

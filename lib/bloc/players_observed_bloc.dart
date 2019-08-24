@@ -32,7 +32,6 @@ class PlayersObservedBloc {
   }
 
   getPlayersObserved() async {
-
     var list = await playersObservedLocalProvider.getPlayersObserved();
     playersObservedSubject.value = list;
   }

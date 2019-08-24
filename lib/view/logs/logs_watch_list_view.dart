@@ -3,6 +3,7 @@ import 'package:logstf/bloc/logs_player_observed_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -48,6 +49,13 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                           logsPlayerObservedBloc.logsSearchSubject.value,
                       builder: (context, snapshot) {
                         if (!logsPlayerObservedBloc.loading) {
+                          if (snapshot.hasError) {
+                            return EmptyCard(
+                              description:
+                                  ErrorHandler.handleError(snapshot.error),
+                            );
+                          }
+
                           var data = snapshot.data;
                           if (data == null || data.isEmpty) {
                             return EmptyCard(
@@ -117,9 +125,14 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
     } else {
       widgets.add(Padding(
           padding: EdgeInsets.all(10),
-          child: Container(width:MediaQuery.of(context).size.width*0.8,child:Text(
-              "No players observed. Please add player by clicking Observe player in player details.", maxLines: 2, textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,))));
+          child: Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                "No players observed. Please add player by clicking Observe player in player details.",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ))));
     }
 
     return Card(

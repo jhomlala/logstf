@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
+import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
@@ -55,16 +56,22 @@ class _LogsListViewState extends State<LogsListView>
               }
 
               if (!logsSearchBloc.loading) {
-                var data = snapshot.data;
-                if (data == null || data.isEmpty) {
-                  widgets.add(EmptyCard(description: "There's no logs found."));
+                if (snapshot.hasError) {
+                  widgets.add(EmptyCard(
+                      description: ErrorHandler.handleError(snapshot.error)));
                 } else {
-                  widgets.add(Expanded(
-                      child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (context, position) {
-                            return LogShortCard(logSearch: data[position]);
-                          })));
+                  var data = snapshot.data;
+                  if (data == null || data.isEmpty) {
+                    widgets
+                        .add(EmptyCard(description: "There's no logs found."));
+                  } else {
+                    widgets.add(Expanded(
+                        child: ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (context, position) {
+                              return LogShortCard(logSearch: data[position]);
+                            })));
+                  }
                 }
               } else {
                 widgets.add(Expanded(child: Center(child: ProgressBar())));
