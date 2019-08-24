@@ -16,11 +16,19 @@ class LogsWatchListView extends StatefulWidget {
 class _LogsWatchListViewState extends State<LogsWatchListView>
     with AutomaticKeepAliveClientMixin<LogsWatchListView> {
   PlayerObserved _selectedPlayer;
+  ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = new ScrollController();
     playersObservedBloc.getPlayersObserved();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,12 +71,15 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                             );
                           } else {
                             return Expanded(
-                                child: ListView.builder(
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder: (context, index) {
-                                      return LogShortCard(
-                                          logSearch: data[index]);
-                                    }));
+                                child: NotificationListener<ScrollNotification>(
+                                    onNotification: _handleScrollNotification,
+                                    child: ListView.builder(
+                                        controller: _controller,
+                                        itemCount: snapshot.data.length,
+                                        itemBuilder: (context, index) {
+                                          return LogShortCard(
+                                              logSearch: data[index]);
+                                        })));
                           }
                         } else {
                           return ProgressBar();
@@ -90,11 +101,6 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
       _selectedPlayer = players[0];
     }
 
-    print("Dropdown button with players: " +
-        players.toString() +
-        " selected player: " +
-        _selectedPlayer.toString());
-
     return DropdownButton<PlayerObserved>(
         elevation: 2,
         isDense: true,
@@ -107,6 +113,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
           );
         }).toList(),
         onChanged: (value) {
+          logsPlayerObservedBloc.clearLogs();
           logsPlayerObservedBloc.searchLogs(value.steamid64);
           setState(() {
             _selectedPlayer = value;
@@ -141,25 +148,13 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
             mainAxisAlignment: MainAxisAlignment.center, children: widgets));
   }
 
-/*Widget _getDropdownButton() async{
-
-    List<PlayerObserved> playersObserved = await playersObservedBloc.playersObservedSubject.value;
-    return DropdownButton<String>(
-        elevation: 2,
-        isDense: true,
-        iconSize: 20.0,
-        value: _selectedClass,
-        items: _classes.map((String value) {
-          return new DropdownMenuItem<String>(
-            value: value,
-            child: new Text(_formatClassName(value), style: TextStyle(fontSize: 16)),
-          );
-        }).toList(),
-        onChanged: (value) {
-          _onClassSelected(value);
-          setState(() {
-            _selectedClass = value;
-          });
-        });
-  }*/
+  bool _handleScrollNotification(ScrollNotification notification) {
+    if (notification is ScrollEndNotification) {
+      if (_controller.position.extentAfter == 0 &&
+          !logsPlayerObservedBloc.loading) {
+        logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
+      }
+    }
+    return false;
+  }
 }
