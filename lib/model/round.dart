@@ -1,5 +1,4 @@
 import 'package:logstf/model/event.dart';
-import 'package:logstf/model/player.dart';
 import 'package:logstf/model/round_player.dart';
 import 'package:logstf/model/teams.dart';
 

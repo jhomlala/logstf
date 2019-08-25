@@ -9,6 +9,9 @@ class PlayersObservedBloc {
   var playersObservedSubject = BehaviorSubject<List<PlayerObserved>>();
 
 
+  void dispose(){
+    playersObservedSubject.close();
+  }
 
 
   addPlayerObserved(PlayerObserved playerObserved) async {

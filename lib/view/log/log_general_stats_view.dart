@@ -5,7 +5,6 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/widget/teams_score_table_widget.dart';
-import 'package:provider/provider.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
   @override

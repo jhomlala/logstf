@@ -68,7 +68,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           key: _mapKey,
           controller: _mapController,
           decoration: InputDecoration(hintText: 'Map', labelText: 'Map'),
-          validator: (value) {}),
+         ),
     );
 
     formWidgets.add(
@@ -77,7 +77,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           controller: _uploaderController,
           decoration:
               InputDecoration(hintText: 'Uploader', labelText: 'Uploader'),
-          validator: (value) {}),
+          ),
     );
 
     formWidgets.add(
@@ -85,7 +85,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           key: _titleKey,
           controller: _titleController,
           decoration: InputDecoration(hintText: 'Title', labelText: 'Title'),
-          validator: (value) {}),
+          ),
     );
 
     formWidgets.add(
@@ -93,7 +93,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           key: _playerKey,
           controller: _playerController,
           decoration: InputDecoration(hintText: 'Player', labelText: 'Player'),
-          validator: (value) {}),
+         ),
     );
     formWidgets.add(Padding(
       padding: EdgeInsets.only(top: 10),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
-import 'package:logstf/widget/progress_bar.dart';
 
 import 'logs_button.dart';
 

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
-import 'package:logstf/widget/table_header_widget.dart';
 
 class LogPlayerGeneralView extends StatefulWidget {
   final Player player;

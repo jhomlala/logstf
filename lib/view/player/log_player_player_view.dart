@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
-import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/bloc/steam_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/observe_player_button.dart';
@@ -30,6 +27,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
   BehaviorSubject<int> matchesCountSubject;
   int steamId64;
 
+
   @override
   void initState() {
     matchesCountSubject = BehaviorSubject();
@@ -48,12 +46,13 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
 
   @override
   void dispose() {
-    matchesCountSubject.sink.close();
+    matchesCountSubject.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(10),
@@ -164,22 +163,6 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
             )));
   }
 
-  void _observePlayer() async {
-    PlayerObserved playerObserved =
-        await playersObservedBloc.getPlayerObserved(steamId64.toString());
-    if (playerObserved == null) {
-      playerObserved = PlayerObserved(
-          id: DateTime.now().millisecondsSinceEpoch,
-          name: widget.log.getPlayerName(widget.player.steamId),
-          steamid64: steamId64.toString());
-      await playersObservedBloc.addPlayerObserved(playerObserved);
-    }
-  }
-
-  void _removeObservedPlayer() async {
-    PlayerObserved playerObserved =
-        await playersObservedBloc.getPlayerObserved(steamId64.toString());
-  }
 
   void _onMatchesClicked() {
     Navigator.pop(

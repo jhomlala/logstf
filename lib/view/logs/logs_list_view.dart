@@ -2,7 +2,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';

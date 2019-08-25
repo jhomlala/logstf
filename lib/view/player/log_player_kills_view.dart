@@ -3,7 +3,6 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/kills_card.dart';
 
 class LogPlayerKillsView extends StatefulWidget {

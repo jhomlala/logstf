@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:logstf/model/log_short.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'app_database_provider.dart';

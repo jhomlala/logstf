@@ -4,7 +4,6 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/model/team.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/heal_spread_pie_chart.dart';

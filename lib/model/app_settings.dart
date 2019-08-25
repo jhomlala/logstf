@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 class AppSettings {
   String appColor;
 
@@ -9,5 +7,4 @@ class AppSettings {
       AppSettings(appColor: json["appColor"]);
 
   Map<String, dynamic> toJson() => {"appColor": appColor};
-
 }

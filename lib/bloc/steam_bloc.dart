@@ -8,16 +8,19 @@ class SteamBloc {
 
   BehaviorSubject<SteamPlayer> steamPlayerSubject = BehaviorSubject();
 
+  void dispose() {
+    steamPlayerSubject.close();
+  }
+
   getSteamPlayer(String steamId) async {
     steamPlayerSubject.value = null;
-    SteamPlayersResponse response = await _steamRemoteProvider.getSteamPlayers(
-        steamId);
+    SteamPlayersResponse response =
+        await _steamRemoteProvider.getSteamPlayers(steamId);
     var players = response.response.players;
     if (players != null && players.length > 0) {
       steamPlayerSubject.value = players[0];
     }
   }
-
 }
 
 final steamBloc = new SteamBloc();

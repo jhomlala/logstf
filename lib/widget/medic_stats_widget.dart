@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/model/medic_stats.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/model/ubertypes.dart';
 
 class MedicStatsWidget extends StatelessWidget {
   final Player player;

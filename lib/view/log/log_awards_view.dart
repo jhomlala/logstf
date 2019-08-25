@@ -12,18 +12,10 @@ class LogAwardsView extends StatefulWidget {
 
 class _LogAwardsViewState extends State<LogAwardsView> {
   Log _log;
-  int _upperRange;
 
   @override
   void initState() {
     _log = logDetailsBloc.logSubject.value;
-    int playersCount =  _log.players.length;
-    if (playersCount <= 4){
-      _upperRange = 2;
-    } else{
-      _upperRange = 3;
-    }
-
     super.initState();
   }
 
