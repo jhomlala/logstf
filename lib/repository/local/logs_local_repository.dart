@@ -53,4 +53,10 @@ class LogsLocalRepository {
     var res = await db.delete("LogShort", where: "id = ?", whereArgs: [logId]);
     return res;
   }
+
+  Future<int> deleteLogs() async {
+    final db = await database;
+    var res = await db.delete("LogShort");
+    return res;
+  }
 }

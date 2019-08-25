@@ -31,6 +31,11 @@ class PlayersObservedBloc {
     playersObservedSubject.value = List();
   }
 
+  deletePlayersObserved() async{
+    await playersObservedLocalProvider.deletePlayersObserved();
+    clearPlayersObserved();
+  }
+
   getPlayersObserved() async {
     var list = await playersObservedLocalProvider.getPlayersObserved();
     playersObservedSubject.value = list;

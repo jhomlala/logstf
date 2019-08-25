@@ -52,6 +52,15 @@ class LogsSavedBloc {
     savedLogsSubject.value = savedLogs;
   }
 
+  void clearLogs(){
+    savedLogsSubject.value = List();
+  }
+
+  void deleteSavedLogs() async {
+    await logsLocalProvider.deleteLogs();
+    clearLogs();
+  }
+
 
 }
 

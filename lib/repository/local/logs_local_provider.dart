@@ -21,5 +21,9 @@ class LogsLocalProvider{
     return dbProvider.deleteLog(logId);
   }
 
+  Future<int> deleteLogs() {
+    return dbProvider.deleteLogs();
+  }
+
 }
 final logsLocalProvider = LogsLocalProvider();

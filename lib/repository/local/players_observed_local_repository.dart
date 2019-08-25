@@ -64,4 +64,11 @@ class PlayersObservedLocalRepository {
         await db.delete("PlayerObserved", where: "id = ?", whereArgs: [id]);
     return res;
   }
+
+  Future<int> deletePlayersObserved() async{
+    final db = await database;
+    var res =
+        await db.delete("PlayerObserved");
+    return res;
+  }
 }

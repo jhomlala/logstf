@@ -23,6 +23,11 @@ class PlayersObservedLocalProvider {
   Future<int> deletePlayerObserved(int id) {
     return dbProvider.deletePlayerObserved(id);
   }
+
+  Future<int> deletePlayersObserved(){
+    return dbProvider.deletePlayersObserved();
+  }
+
 }
 
 final PlayersObservedLocalProvider playersObservedLocalProvider =
