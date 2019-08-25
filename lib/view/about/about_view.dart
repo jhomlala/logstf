@@ -67,7 +67,7 @@ class _AboutViewState extends State<AboutView> {
     }
     widgets.add(
       Padding(
-        padding: EdgeInsets.only(top: 40),
+        padding: EdgeInsets.only(top: 30),
       ),
     );
     widgets.add(ClipOval(
@@ -89,13 +89,25 @@ class _AboutViewState extends State<AboutView> {
         style: TextStyle(fontSize: 20),
       ),
     );
-    widgets.add(LogsButton(
-      text: "GitHub",
-      backgroundColor: Colors.grey,
-      onPressed: () {
-        _launchWebPage("http://github.com/jhomlala/");
-      },
-    ));
+    widgets.add(Row(children: [
+      LogsButton(
+        text: "GitHub",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          _launchWebPage("http://github.com/jhomlala/");
+        },
+      ),
+      Padding(padding: EdgeInsets.only(left:10),),
+      LogsButton(
+        text: "Steam",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          _launchWebPage(
+              "https://steamcommunity.com/profiles/76561198024790295/");
+        },
+      )
+    ]));
+
     widgets.add(
       Padding(
         padding: EdgeInsets.only(top: 20),
