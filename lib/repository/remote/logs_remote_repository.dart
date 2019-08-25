@@ -16,9 +16,18 @@ class LogsRemoteRepository {
     return Log.fromJson(response.data, logId);
   }
 
+
+
   Future<LogsSearchResponse> searchLogs(String map, String uploader,
-      String title, String player, int offset) async {
-    String url = "http://logs.tf/api/v1/log?limit=1000&offset=$offset";
+      String title, String player, int offset, int limit) async {
+    String url = "http://logs.tf/api/v1/log?";
+    if (offset != null){
+      url += "offset=$offset&";
+    }
+    if (limit != null){
+      url += "limit=$limit&";
+    }
+
     if (map != null) {
       url += "map=$map&";
     }

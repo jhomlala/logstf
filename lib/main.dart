@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, snapshot) {
           return MaterialApp(
               title: 'Logs TF',
+              debugShowCheckedModeBanner: false,
               theme: ThemeData(primaryColor: AppUtils.getColor(snapshot.data.appColor)),
               home: MainView());
         });

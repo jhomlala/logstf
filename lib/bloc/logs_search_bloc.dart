@@ -28,7 +28,7 @@ class LogsSearchBloc {
   Future<int> getPlayerMatchesCount(String player) async {
     print("Selecting matches count for: " + player);
     var response =
-        await logsRemoteProvider.searchLogs(null, null, null, player, 0);
+        await logsRemoteProvider.searchLogs(null, null, null, player, null,limit: null);
     if (response != null) {
       print("Response is: " + response.toJson().toString());
       return response.total;
