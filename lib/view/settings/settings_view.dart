@@ -35,18 +35,22 @@ class _SettingsViewState extends State<SettingsView> {
 
     playersObservedSubscription = playersObservedBloc.playersObservedSubject
         .listen((List<PlayerObserved> observedPlayers) {
-      setState(() {
-        observedPlayersCount = observedPlayers.length;
-      });
+      if (mounted) {
+        setState(() {
+          observedPlayersCount = observedPlayers.length;
+        });
+      }
     });
 
     playersObservedBloc.getPlayersObserved();
 
     savedLogsSubscription =
         logsSavedBloc.savedLogsSubject.listen((List<LogShort> logs) {
-      setState(() {
-        savedLogsCount = logs.length;
-      });
+      if (mounted) {
+        setState(() {
+          savedLogsCount = logs.length;
+        });
+      }
     });
     logsSavedBloc.getSavedLogs();
 

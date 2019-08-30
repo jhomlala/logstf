@@ -6,7 +6,6 @@ import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
-
 class LogsSavedListView extends StatefulWidget {
   @override
   _LogsSavedListViewState createState() => _LogsSavedListViewState();
@@ -40,7 +39,14 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return LogShortCard(logSearch: data[index]);
+                        return Dismissible(
+                          key: Key(data[index].id.toString()),
+                          child: LogShortCard(logSearch: data[index]),
+                          onDismissed: (direction) {
+                            logsSavedBloc.deleteSavedLog(data[index].id);
+                            logsSavedBloc.removeLog(data[index]);
+                          },
+                        );
                       });
                 }
               } else {

@@ -128,7 +128,17 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
         padding: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
         child: Text("Player:", style: TextStyle(fontSize: 16)),
       ));
-      widgets.add(_getPlayersDropdown(playersObserved));
+      widgets.add(Row(children: [
+        _getPlayersDropdown(playersObserved),
+        IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            playersObservedBloc.deletePlayerObserved(_selectedPlayer.id);
+            logsPlayerObservedBloc.clearLogs();
+            _selectedPlayer = null;
+          },
+        )
+      ]));
     } else {
       widgets.add(Padding(
           padding: EdgeInsets.all(10),
