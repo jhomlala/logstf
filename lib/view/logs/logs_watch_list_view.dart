@@ -131,7 +131,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
       widgets.add(Row(children: [
         _getPlayersDropdown(playersObserved),
         IconButton(
-          icon: Icon(Icons.delete),
+          icon: Icon(Icons.delete, color: Colors.grey,),
           onPressed: () {
             playersObservedBloc.deletePlayerObserved(_selectedPlayer.id);
             logsPlayerObservedBloc.clearLogs();

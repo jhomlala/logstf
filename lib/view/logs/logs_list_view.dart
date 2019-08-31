@@ -7,6 +7,7 @@ import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class LogsListView extends StatefulWidget {
   @override
@@ -16,6 +17,13 @@ class LogsListView extends StatefulWidget {
 class _LogsListViewState extends State<LogsListView>
     with AutomaticKeepAliveClientMixin<LogsListView> {
   ScrollController _controller;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    await logsSearchBloc.searchLogs(clearLogs: true);
+    _refreshController.refreshCompleted();
+  }
 
   @override
   void initState() {
@@ -73,13 +81,22 @@ class _LogsListViewState extends State<LogsListView>
                     widgets.add(Expanded(
                         child: NotificationListener<ScrollNotification>(
                             onNotification: _handleScrollNotification,
-                            child: ListView.builder(
-                                itemCount: data.length,
-                                controller: _controller,
-                                itemBuilder: (context, position) {
-                                  return LogShortCard(
-                                      logSearch: data[position]);
-                                }))));
+                            child: SmartRefresher(
+                                controller: _refreshController,
+                                onRefresh: _onRefresh,
+                                header: CustomHeader(
+                                  builder: (BuildContext context,
+                                      RefreshStatus mode) {
+                                    return Container(margin: EdgeInsets.all(10),child: ProgressBar());
+                                  },
+                                ),
+                                child: ListView.builder(
+                                    itemCount: data.length,
+                                    controller: _controller,
+                                    itemBuilder: (context, position) {
+                                      return LogShortCard(
+                                          logSearch: data[position]);
+                                    })))));
                   }
                 }
               } else {

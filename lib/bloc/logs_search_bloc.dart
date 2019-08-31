@@ -37,8 +37,13 @@ class LogsSearchBloc {
     }
   }
 
-  searchLogs({String map, String uploader, String title, String player}) async {
+  searchLogs({String map, String uploader, String title, String player, bool clearLogs = false}) async {
     try {
+      if (clearLogs){
+        logsSearchSubject.value.clear();
+        offset = 0;
+      }
+
       print("search logs: $map, $uploader, $title, $player");
       this.map = map != null ? map : "";
       this.uploader = uploader != null ? uploader : "";
@@ -100,6 +105,7 @@ class LogsSearchBloc {
     clearLogs();
     searchLogs();
   }
+
 }
 
 final logsSearchBloc = LogsSearchBloc();
