@@ -16,12 +16,11 @@ class LogsWatchListView extends StatefulWidget {
 class _LogsWatchListViewState extends State<LogsWatchListView>
     with AutomaticKeepAliveClientMixin<LogsWatchListView> {
   PlayerObserved _selectedPlayer;
-  ScrollController _controller;
+  ScrollController _controller = new ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _controller = new ScrollController();
     playersObservedBloc.getPlayersObserved();
   }
 
@@ -44,7 +43,6 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                 return Text("Loading");
               } else {
                 List<PlayerObserved> observedPlayers = snapshot.data;
-                print("Observed players: " + observedPlayers.toString());
                 if (_selectedPlayer == null && observedPlayers.length > 0) {
                   _selectedPlayer = observedPlayers[0];
                   logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);

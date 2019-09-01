@@ -22,7 +22,6 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print("[LOGS_SAVED] Building! " + logsSavedBloc.loading.toString());
     return Container(
         color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(

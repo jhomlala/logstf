@@ -4,10 +4,10 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 
 class LogPlayerAwardsView extends StatelessWidget {
-  final Log log;
-  final Player player;
+  final Log _log;
+  final Player _player;
 
-  const LogPlayerAwardsView(this.log, this.player);
+  const LogPlayerAwardsView(this._log, this._player);
 
   @override
   Widget build(BuildContext context) {
@@ -19,29 +19,29 @@ class LogPlayerAwardsView extends StatelessWidget {
               _getAwardCard(
                   "Most valuable players",
                   "Players which were most valuable in game",
-                  LogHelper.getPlayerSortedByMVPScore(log)),
+                  LogHelper.getPlayerSortedByMVPScore(_log)),
               _getAwardCard("Top kills", "Players which had most kills overall",
-                  LogHelper.getPlayersSortedByKills(log)),
+                  LogHelper.getPlayersSortedByKills(_log)),
               _getAwardCard(
                   "Top assists",
                   "Players which had most asissts overall",
-                  LogHelper.getPlayersSortedByAssists(log, true)),
+                  LogHelper.getPlayersSortedByAssists(_log, true)),
               _getAwardCard(
                   "Top damage",
                   "Players which dealed the most damage",
-                  LogHelper.getPlayersSortedByDamage(log)),
+                  LogHelper.getPlayersSortedByDamage(_log)),
               _getAwardCard(
                   "Top medic kills",
                   "Players which killed most medics",
-                  LogHelper.getPlayersSortedByMedicKills(log)),
+                  LogHelper.getPlayersSortedByMedicKills(_log)),
               _getAwardCard(
                   "Top kills per deaths",
                   "Players which had best kills per death",
-                  LogHelper.getPlayersSortedByKPD(log)),
+                  LogHelper.getPlayersSortedByKPD(_log)),
               _getAwardCard(
                   "Top kills & assists per death",
                   "Players which had best kills & assists per deaths",
-                  LogHelper.getPlayersSortedByKPD(log)),
+                  LogHelper.getPlayersSortedByKPD(_log)),
             ],
           ),
         ));
@@ -51,7 +51,7 @@ class LogPlayerAwardsView extends StatelessWidget {
       String name, String description, List<Player> sortedPlayers) {
     int playerIndex = 0;
     for (int index = 0; index < sortedPlayers.length; index++) {
-      if (sortedPlayers[index].steamId == player.steamId) {
+      if (sortedPlayers[index].steamId == _player.steamId) {
         playerIndex = index;
         break;
       }

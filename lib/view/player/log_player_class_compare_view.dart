@@ -6,10 +6,10 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/comparison_card.dart';
 
 class LogPlayerClassCompareView extends StatefulWidget {
-  final Log log;
-  final Player player;
+  final Log _log;
+  final Player _player;
 
-  const LogPlayerClassCompareView(this.log, this.player);
+  const LogPlayerClassCompareView(this._log, this._player);
 
   @override
   _LogPlayerClassCompareViewState createState() =>
@@ -30,19 +30,19 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     _classes = _getPlayerClasses();
     _selectedClass = _classes[0];
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
-        widget.log, _selectedClass, widget.player.steamId);
+        widget._log, _selectedClass, widget._player.steamId);
     _selectedPlayer = _otherPlayersWithSelectedClass[0];
-    _playerName = widget.log.getPlayerName(widget.player.steamId);
-    _selectedPlayerName = widget.log.getPlayerName(_selectedPlayer.steamId);
+    _playerName = widget._log.getPlayerName(widget._player.steamId);
+    _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
     super.initState();
   }
 
   _onClassSelected(String className) {
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
-        widget.log, className, widget.player.steamId);
+        widget._log, className, widget._player.steamId);
     if (_otherPlayersWithSelectedClass.isNotEmpty) {
       _selectedPlayer = _otherPlayersWithSelectedClass[0];
-      _selectedPlayerName = widget.log.getPlayerName(_selectedPlayer.steamId);
+      _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
     } else {
       _selectedPlayer = null;
       _selectedPlayerName = null;
@@ -113,7 +113,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   }
 
   List<String> _getPlayerClasses() {
-    return widget.player.classStats.map((ClassStats classStats) {
+    return widget._player.classStats.map((ClassStats classStats) {
       return classStats.type;
     }).toList();
   }
@@ -147,7 +147,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
       items: _otherPlayersWithSelectedClass.map((Player player) {
         return new DropdownMenuItem<Player>(
           value: player,
-          child: Text(widget.log.getPlayerName(player.steamId),
+          child: Text(widget._log.getPlayerName(player.steamId),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 16,
@@ -169,14 +169,14 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     widgets.add(ComparisonCard(
         title: "Kills",
-        playerValue: widget.player.kills.toDouble(),
+        playerValue: widget._player.kills.toDouble(),
         comparedPlayerValue: _selectedPlayer.kills.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
       title: "Deaths",
-      playerValue: widget.player.deaths.toDouble(),
+      playerValue: widget._player.deaths.toDouble(),
       comparedPlayerValue: _selectedPlayer.deaths.toDouble(),
       playerName: _playerName,
       comparedPlayerName: _selectedPlayerName,
@@ -185,28 +185,28 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     widgets.add(ComparisonCard(
         title: "Assists",
-        playerValue: widget.player.assists.toDouble(),
+        playerValue: widget._player.assists.toDouble(),
         comparedPlayerValue: _selectedPlayer.assists.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Damage",
-        playerValue: widget.player.dmg.toDouble(),
+        playerValue: widget._player.dmg.toDouble(),
         comparedPlayerValue: _selectedPlayer.dmg.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Damage per minute",
-        playerValue: widget.player.dapm.toDouble(),
+        playerValue: widget._player.dapm.toDouble(),
         comparedPlayerValue: _selectedPlayer.dapm.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
       title: "Kill & assists per death",
-      playerValue: double.parse(widget.player.kapd),
+      playerValue: double.parse(widget._player.kapd),
       comparedPlayerValue: double.parse(_selectedPlayer.kapd),
       playerName: _playerName,
       comparedPlayerName: _selectedPlayerName,
@@ -215,7 +215,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     widgets.add(ComparisonCard(
       title: "Kill per death",
-      playerValue: double.parse(widget.player.kpd),
+      playerValue: double.parse(widget._player.kpd),
       comparedPlayerValue: double.parse(_selectedPlayer.kpd),
       playerName: _playerName,
       comparedPlayerName: _selectedPlayerName,
@@ -224,42 +224,42 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
     widgets.add(ComparisonCard(
         title: "Damage taken",
-        playerValue: widget.player.dt.toDouble(),
+        playerValue: widget._player.dt.toDouble(),
         comparedPlayerValue: _selectedPlayer.dt.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Captured points",
-        playerValue: widget.player.cpc.toDouble(),
+        playerValue: widget._player.cpc.toDouble(),
         comparedPlayerValue: _selectedPlayer.cpc.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Inter captures",
-        playerValue: widget.player.ic.toDouble(),
+        playerValue: widget._player.ic.toDouble(),
         comparedPlayerValue: _selectedPlayer.ic.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Longest kill streak",
-        playerValue: widget.player.lks.toDouble(),
+        playerValue: widget._player.lks.toDouble(),
         comparedPlayerValue: _selectedPlayer.lks.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Medkits picked",
-        playerValue: widget.player.medkits.toDouble(),
+        playerValue: widget._player.medkits.toDouble(),
         comparedPlayerValue: _selectedPlayer.medkits.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Restored HP from medkits",
-        playerValue: widget.player.medkitsHp.toDouble(),
+        playerValue: widget._player.medkitsHp.toDouble(),
         comparedPlayerValue: _selectedPlayer.medkitsHp.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
@@ -279,14 +279,14 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     List<Widget> widgets = List();
     widgets.add(ComparisonCard(
         title: "Headshots",
-        playerValue: widget.player.headshots.toDouble(),
+        playerValue: widget._player.headshots.toDouble(),
         comparedPlayerValue: _selectedPlayer.headshots.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
         title: "Headshots hit",
-        playerValue: widget.player.headshotsHit.toDouble(),
+        playerValue: widget._player.headshotsHit.toDouble(),
         comparedPlayerValue: _selectedPlayer.headshotsHit.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
@@ -297,14 +297,14 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     List<Widget> widgets = List();
     widgets.add(ComparisonCard(
         title: "Ubers",
-        playerValue: widget.player.ubers.toDouble(),
+        playerValue: widget._player.ubers.toDouble(),
         comparedPlayerValue: _selectedPlayer.ubers.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
       title: "Drops",
-      playerValue: widget.player.drops.toDouble(),
+      playerValue: widget._player.drops.toDouble(),
       comparedPlayerValue: _selectedPlayer.drops.toDouble(),
       playerName: _playerName,
       comparedPlayerName: _selectedPlayerName,

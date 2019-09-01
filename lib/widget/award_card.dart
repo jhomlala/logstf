@@ -28,9 +28,8 @@ class AwardCard extends StatelessWidget {
                 padding: EdgeInsets.only(top: 5),
               ),
               Table(
-                defaultColumnWidth: IntrinsicColumnWidth(),
-                children: _getPlayerRows(players)
-              )
+                  defaultColumnWidth: IntrinsicColumnWidth(),
+                  children: _getPlayerRows(players))
             ],
           )),
     );
@@ -39,9 +38,9 @@ class AwardCard extends StatelessWidget {
   List<TableRow> _getPlayerRows(List<Player> players) {
     List<TableRow> widgets = List();
     for (int index = 0; index < players.length; index++) {
-      widgets.add(_getPlayerRow(players[index], index+1));
+      widgets.add(_getPlayerRow(players[index], index + 1));
     }
-  
+
     return widgets;
   }
 

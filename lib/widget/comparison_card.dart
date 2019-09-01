@@ -33,14 +33,13 @@ class ComparisonCard extends StatelessWidget {
     var playersPair = _getWinnerAndLoser();
     var colorsPair = _getPlayerColors();
 
-    if (reversed){
+    if (reversed) {
       playersPair = Pair.reverse(playersPair);
       colorsPair = Pair.reverse(colorsPair);
     }
 
     winnerPlayer = playersPair.first;
     loserPlayer = playersPair.second;
-
 
     playerColor = colorsPair.first;
     comparedPlayerColor = colorsPair.second;
@@ -109,9 +108,8 @@ class ComparisonCard extends StatelessWidget {
     if (playerValue == comparedPlayerValue) {
       return Container();
     } else {
-
       String phrase = "more";
-      if (reversed){
+      if (reversed) {
         phrase = "less";
       }
 
@@ -121,10 +119,7 @@ class ComparisonCard extends StatelessWidget {
           // Note: Styles for TextSpans must be explicitly defined.
           // Child text spans will inherit styles from parent
           style: new TextStyle(
-            fontSize: 14.0,
-            color: Colors.black,
-              fontStyle: FontStyle.italic
-          ),
+              fontSize: 14.0, color: Colors.black, fontStyle: FontStyle.italic),
           children: <TextSpan>[
             new TextSpan(
                 text: "$winnerPlayer",
@@ -144,7 +139,7 @@ class ComparisonCard extends StatelessWidget {
   }
 
   String _getWinnerText() {
-    if (reversed){
+    if (reversed) {
       if (playerValue < comparedPlayerValue) {
         return "$playerName wins!";
       } else if (playerValue > comparedPlayerValue) {
@@ -153,7 +148,6 @@ class ComparisonCard extends StatelessWidget {
         return "It's a tie!";
       }
     }
-
 
     if (playerValue > comparedPlayerValue) {
       return "$playerName wins!";
@@ -175,7 +169,7 @@ class ComparisonCard extends StatelessWidget {
   }
 
   double _getPercentage() {
-    if (reversed){
+    if (reversed) {
       if (playerValue > comparedPlayerValue) {
         return (1 - comparedPlayerValue / playerValue).abs() * 100;
       } else if (playerValue < comparedPlayerValue) {

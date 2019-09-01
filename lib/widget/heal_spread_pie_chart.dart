@@ -99,7 +99,6 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
                   "${healSpread.percentage.toStringAsFixed(1)}% (${healSpread.health} HP)",
                   overflow: TextOverflow.ellipsis,
                 )),
-
           ],
         ));
   }

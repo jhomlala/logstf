@@ -17,11 +17,13 @@ class LogShortCard extends StatelessWidget {
     var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map);
     return InkWell(
         onTap: () async {
-          NavigationEvent navigationEvent = await Navigator.push<NavigationEvent>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LogView(logId: logSearch.id)));
-          if (navigationEvent != null && navigationEvent is SearchPlayerMatchesNavigationEvent){
+          NavigationEvent navigationEvent =
+              await Navigator.push<NavigationEvent>(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LogView(logId: logSearch.id)));
+          if (navigationEvent != null &&
+              navigationEvent is SearchPlayerMatchesNavigationEvent) {
             logsSearchBloc.clearLogs();
             logsSearchBloc.searchLogs(player: navigationEvent.steamId);
           }
@@ -36,7 +38,10 @@ class LogShortCard extends StatelessWidget {
                         style: TextStyle(fontSize: 12, color: Colors.grey))
                   ]),
                   Row(children: [
-                    Expanded(child:Text(logSearch.title, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 20))),
+                    Expanded(
+                        child: Text(logSearch.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 20))),
                   ]),
                   Row(children: [
                     Icon(

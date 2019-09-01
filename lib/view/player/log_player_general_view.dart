@@ -26,7 +26,6 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
             child: Column(
           children: _getStatsComparisonWidgets(),
         )));
-
   }
 
   List<Widget> _getStatsComparisonWidgets() {
@@ -48,12 +47,27 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
         all.averageAssists, team.averageAssists, opponent.averageAssists));
     widgets.add(_getStatComparisonCard("Damage", player.dmg.toDouble(),
         all.averageDmg, team.averageDmg, opponent.averageDmg));
-    widgets.add(_getStatComparisonCard("Damage per minute", player.dapm.toDouble(),
-        all.averageDapm, team.averageDapm, opponent.averageDapm, playerValueFractionDigits: 2));
-    widgets.add(_getStatComparisonCard("Kills & assists per death", double.parse(player.kapd),
-        all.averageKapd, team.averageKapd, opponent.averageKapd, playerValueFractionDigits: 2));
-    widgets.add(_getStatComparisonCard("Kills per death", double.parse(player.kpd),
-        all.averageKpd, team.averageKpd, opponent.averageKpd, playerValueFractionDigits: 2));
+    widgets.add(_getStatComparisonCard(
+        "Damage per minute",
+        player.dapm.toDouble(),
+        all.averageDapm,
+        team.averageDapm,
+        opponent.averageDapm,
+        playerValueFractionDigits: 2));
+    widgets.add(_getStatComparisonCard(
+        "Kills & assists per death",
+        double.parse(player.kapd),
+        all.averageKapd,
+        team.averageKapd,
+        opponent.averageKapd,
+        playerValueFractionDigits: 2));
+    widgets.add(_getStatComparisonCard(
+        "Kills per death",
+        double.parse(player.kpd),
+        all.averageKpd,
+        team.averageKpd,
+        opponent.averageKpd,
+        playerValueFractionDigits: 2));
     widgets.add(_getStatComparisonCard("Damage taken", player.dt.toDouble(),
         all.averageDt, team.averageDt, opponent.averageDt));
     widgets.add(_getStatComparisonCard(
@@ -61,7 +75,8 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
         player.dt.toDouble() / (widget.length / 60),
         all.averageDtpm,
         team.averageDtpm,
-        opponent.averageDtpm, playerValueFractionDigits: 2));
+        opponent.averageDtpm,
+        playerValueFractionDigits: 2));
     widgets.add(_getStatComparisonCard("Medkits", player.medkits.toDouble(),
         all.averageMedkits, team.averageMedkits, opponent.averageMedkits));
     return widgets;
@@ -105,8 +120,6 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
         ));
   }
 
-
-
   Widget _getAverageWidgetRow(String name, double value, bool arrowUp) {
     var arrow = Icon(Icons.keyboard_arrow_up, color: Colors.green);
     if (!arrowUp) {
@@ -120,7 +133,10 @@ class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
             name,
             style: TextStyle(fontSize: 16),
           ),
-          Text(value.toStringAsFixed(2), style: TextStyle(fontWeight: FontWeight.bold),),
+          Text(
+            value.toStringAsFixed(2),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           arrow
         ]));
   }

@@ -97,9 +97,7 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
 
   int _getDeathsOfClassFromOppositeTeams(String team, String className) {
     var players = LogHelper.getPlayers(widget.log, team, className: className);
-    print("Players: " + players.length.toString() + " team: " + team.toString() + " class: " + className);
     int deaths = LogHelper.sumDeaths(players);
-    print("Deaths: " + deaths.toString());
     return deaths;
   }
 }

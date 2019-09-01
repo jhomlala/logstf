@@ -16,11 +16,9 @@ class LogHealView extends StatefulWidget {
 
 class _LogHealViewState extends State<LogHealView> {
   Log _log = logDetailsBloc.logSubject.value;
-
-  Map<Player, List<HealSpread>> _healSpreadMap;
+  Map<Player, List<HealSpread>> _healSpreadMap = Map();
 
   void init(BuildContext context) {
-    _healSpreadMap = Map();
     var medicPlayers = LogHelper.getPlayersWithClass(_log, "medic");
     medicPlayers.forEach((player) {
       var healSpread = LogHelper.getHealSpread(_log, player.steamId);

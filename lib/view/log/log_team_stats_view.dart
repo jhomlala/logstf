@@ -11,8 +11,8 @@ class LogTeamStatsView extends StatefulWidget {
 }
 
 class _LogTeamStatsViewState extends State<LogTeamStatsView> {
-
   Log _log = logDetailsBloc.logSubject.value;
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -20,5 +20,11 @@ class AppConst {
   static const String authorSteamProfileUrl = "https://steamcommunity.com/profiles/76561198024790295/";
   static const String authorGithubUrl = "http://github.com/jhomlala/";
   static const String projectGithubUrl = "http://github.com/jhomlala/logstf";
+  static const String steamProfileUrl = "http://steamcommunity.com/profiles/";
+  static const String etf2lProfileUrl = "http://etf2l.org/search/";
+  static const String ugcProfileUrl = "http://www.ugcleague.com/players_page.cfm?player_id=";
+  static const String tf2CenterProfileUrl = "http://tf2center.com/profile/";
+  static const String ozFortressProfileUrl = "http://warzone.ozfortress.com/users/steam_id/";
+  static const String rglProfileUrl = "http://rgl.gg/Public/PlayerProfile.aspx?p=";
 
 }

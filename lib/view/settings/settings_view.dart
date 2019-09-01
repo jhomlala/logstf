@@ -19,10 +19,10 @@ class _SettingsViewState extends State<SettingsView> {
   String _selectedColor = "Purple";
   Map<String, Color> _availableColors = Map();
   AppSettings _appSettings;
-  int observedPlayersCount = 0;
-  int savedLogsCount = 0;
-  StreamSubscription playersObservedSubscription;
-  StreamSubscription savedLogsSubscription;
+  int _observedPlayersCount = 0;
+  int _savedLogsCount = 0;
+  StreamSubscription _playersObservedSubscription;
+  StreamSubscription _savedLogsSubscription;
 
   @override
   void initState() {
@@ -33,22 +33,22 @@ class _SettingsViewState extends State<SettingsView> {
     _availableColors["Red"] = Colors.red;
     _availableColors["Pink"] = Colors.pink;
 
-    playersObservedSubscription = playersObservedBloc.playersObservedSubject
+    _playersObservedSubscription = playersObservedBloc.playersObservedSubject
         .listen((List<PlayerObserved> observedPlayers) {
       if (mounted) {
         setState(() {
-          observedPlayersCount = observedPlayers.length;
+          _observedPlayersCount = observedPlayers.length;
         });
       }
     });
 
     playersObservedBloc.getPlayersObserved();
 
-    savedLogsSubscription =
+    _savedLogsSubscription =
         logsSavedBloc.savedLogsSubject.listen((List<LogShort> logs) {
       if (mounted) {
         setState(() {
-          savedLogsCount = logs.length;
+          _savedLogsCount = logs.length;
         });
       }
     });
@@ -59,8 +59,8 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   void dispose() {
-    playersObservedSubscription.cancel();
-    savedLogsSubscription.cancel();
+    _playersObservedSubscription.cancel();
+    _savedLogsSubscription.cancel();
     super.dispose();
   }
 
@@ -103,7 +103,7 @@ class _SettingsViewState extends State<SettingsView> {
                               Padding(
                                 padding: EdgeInsets.only(left: 5),
                               ),
-                              Text("Observed players: $observedPlayersCount")
+                              Text("Observed players: $_observedPlayersCount")
                             ]),
                             Row(children: [
                               LogsButton(
@@ -119,7 +119,7 @@ class _SettingsViewState extends State<SettingsView> {
                               Padding(
                                 padding: EdgeInsets.only(left: 5),
                               ),
-                              Text("Saved matches: $savedLogsCount")
+                              Text("Saved matches: $_savedLogsCount")
                             ]),
                             Row(children: [
                               LogsButton(

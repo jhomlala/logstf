@@ -49,9 +49,6 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  int getRoundsWonByTeam(String team) {
-    return _log.rounds.where((round) => round.winner == team).length;
-  }
 
   Widget _getTitleWidget(BuildContext context) {
     return Text(
@@ -83,12 +80,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     var lengthHours = (length / 3600).floor();
     var lengthMinutes = ((length - lengthHours * 3600) / 60).floor();
     var lengthSeconds = length - lengthHours * 3600 - lengthMinutes * 60;
-    print("length hours: " +
-        lengthHours.toString() +
-        " length minutes: " +
-        lengthMinutes.toString() +
-        " lengthSeconds: " +
-        lengthSeconds.toString());
+
     var lengthText = "";
     if (lengthHours > 0) {
       lengthText += "$lengthHours h";
@@ -168,7 +160,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
             height: 20,
           ),
           Text(" Uploaded by: "),
-          Flexible(child: Container(
+          Flexible(
+              child: Container(
             child: Text(
                 "${_log.info.uploader.name} (${_log.info.uploader.info})",
                 overflow: TextOverflow.ellipsis,

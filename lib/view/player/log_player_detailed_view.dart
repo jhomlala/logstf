@@ -25,11 +25,11 @@ class LogPlayerDetailedView extends StatefulWidget {
 
 class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
     with SingleTickerProviderStateMixin {
-  TabController tabController;
+  TabController _tabController;
 
   @override
   void initState() {
-    tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     super.initState();
   }
 
@@ -40,7 +40,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
         title: Text(widget.log.getPlayerName(widget.player.steamId)),
         elevation: 0.0,
         bottom: TabBar(
-            controller: tabController,
+            controller: _tabController,
             indicatorColor: Colors.white,
             tabs: [
               Tab(text: "Player",
@@ -64,7 +64,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
             ]),
       ),
       body: Container(
-          child: TabBarView(controller: tabController, children: [
+          child: TabBarView(controller: _tabController, children: [
             LogPlayerPlayerView(widget.player,widget.log),
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),

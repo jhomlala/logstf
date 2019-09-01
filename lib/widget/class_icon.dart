@@ -5,11 +5,17 @@ class ClassIcon extends StatelessWidget {
   final double width;
   final double height;
 
-  const ClassIcon({Key key, this.playerClass, this.width = 20, this.height = 20}) : super(key: key);
+  const ClassIcon(
+      {Key key, this.playerClass, this.width = 20, this.height = 20})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(_getClassIcon(playerClass), height: height, width: width,);
+    return Image.asset(
+      _getClassIcon(playerClass),
+      height: height,
+      width: width,
+    );
   }
 
   String _getClassIcon(String className) {

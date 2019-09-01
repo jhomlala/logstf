@@ -15,7 +15,6 @@ import 'package:logstf/view/log/log_awards_view.dart';
 
 class LogView extends StatefulWidget {
   final int logId;
-
   const LogView({Key key, this.logId}) : super(key: key);
 
   @override
@@ -23,7 +22,7 @@ class LogView extends StatefulWidget {
 }
 
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
-  TabController tabController;
+  TabController _tabController;
   String _appBarTitle = "General stats";
   bool _saved = false;
 
@@ -33,8 +32,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
-    tabController = TabController(length: 5, vsync: this);
-    tabController.addListener(_onTabChanged);
+    _tabController = TabController(length: 5, vsync: this);
+    _tabController.addListener(_onTabChanged);
     _setupLogSavedState();
   }
 
@@ -45,8 +44,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void _onTabChanged() {
-    print("Tab changed");
-    var index = tabController.index;
+    var index = _tabController.index;
     var tabName = "";
     switch (index) {
       case 0:
@@ -80,12 +78,12 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
               IconButton(
                 icon: Icon(_saved == true ? Icons.star : Icons.star_border),
                 onPressed: () {
-                  onSaveClicked();
+                  _onSaveClicked();
                 },
               )
             ],
             bottom: TabBar(
-                controller: tabController,
+                controller: _tabController,
                 indicatorColor: Colors.white,
                 tabs: [
                   Tab(
@@ -107,7 +105,6 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         body: StreamBuilder<Log>(
             stream: logDetailsBloc.logSubject,
             builder: (context, snapshot) {
-              print("Snapshot got error: " + snapshot.hasError.toString());
               if (snapshot.hasError) {
                 return Container(
                     color: Theme.of(context).primaryColor,
@@ -115,7 +112,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                         description: ErrorHandler.handleError(snapshot.error)));
               }
               if (snapshot.hasData) {
-                return TabBarView(controller: tabController, children: [
+                return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
                   LogTeamStatsView(),
                   LogPlayersView(),
@@ -131,23 +128,31 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
             }));
   }
 
-  void onSaveClicked() async {
+  void _onSaveClicked() async {
     Log log = logDetailsBloc.logSubject.value;
     var savedLog = await logDetailsBloc.getLogFromDatabase(log.id);
     LogShort logShort = log.setupShortLog();
     if (savedLog == null) {
-      logDetailsBloc.createLogInDatabase(logShort);
-      logsSavedBloc.addLog(logShort);
-      setState(() {
-        _saved = true;
-      });
+      _saveLog(logShort);
     } else {
-      logDetailsBloc.deleteLogFromDatabase(log.id);
-      logsSavedBloc.removeLog(logShort);
-      setState(() {
-        _saved = false;
-      });
+      _removeSavedLog(log, logShort);
     }
+  }
+
+  void _removeSavedLog(Log log, LogShort logShort) {
+    logDetailsBloc.deleteLogFromDatabase(log.id);
+    logsSavedBloc.removeLog(logShort);
+    setState(() {
+      _saved = false;
+    });
+  }
+
+  void _saveLog(LogShort logShort) {
+     logDetailsBloc.createLogInDatabase(logShort);
+    logsSavedBloc.addLog(logShort);
+    setState(() {
+      _saved = true;
+    });
   }
 
   void _setupLogSavedState() {

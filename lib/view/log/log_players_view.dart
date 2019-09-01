@@ -12,6 +12,7 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
+import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 import 'package:marquee/marquee.dart';
 
@@ -22,7 +23,6 @@ class LogPlayersView extends StatefulWidget {
 
 class _LogPlayersViewState extends State<LogPlayersView> {
   Log _log = logDetailsBloc.logSubject.value;
-
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   String _filterName = "Kills";
@@ -285,47 +285,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     }
 
     classStatsList.forEach((classStats) {
-      var asset = "";
-
-      switch (classStats.type) {
-        case "scout":
-          asset = "assets/scout.png";
-          break;
-        case "soldier":
-          asset = "assets/soldier.png";
-          break;
-        case "pyro":
-          asset = "assets/pyro.png";
-          break;
-        case "heavyweapons":
-          asset = "assets/heavy.png";
-          break;
-        case "engineer":
-          asset = "assets/engineer.png";
-          break;
-        case "demoman":
-          asset = "assets/demoman.png";
-          break;
-        case "medic":
-          asset = "assets/medic.png";
-          break;
-        case "sniper":
-          asset = "assets/sniper.png";
-          break;
-        case "spy":
-          asset = "assets/spy.png";
-          break;
-      }
-
-      if (asset.length > 0) {
-        widgets.add(
-          Image.asset(
-            asset,
-            width: 20,
-            height: 20,
-          ),
-        );
-      }
+      widgets.add(ClassIcon(playerClass: classStats.type));
     });
 
     if (additionalClasses != 0){

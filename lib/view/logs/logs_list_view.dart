@@ -16,7 +16,7 @@ class LogsListView extends StatefulWidget {
 
 class _LogsListViewState extends State<LogsListView>
     with AutomaticKeepAliveClientMixin<LogsListView> {
-  ScrollController _controller;
+  ScrollController _scrollController = new ScrollController();
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -28,13 +28,12 @@ class _LogsListViewState extends State<LogsListView>
   @override
   void initState() {
     logsSearchBloc.initLogs();
-    _controller = new ScrollController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -87,12 +86,14 @@ class _LogsListViewState extends State<LogsListView>
                                 header: CustomHeader(
                                   builder: (BuildContext context,
                                       RefreshStatus mode) {
-                                    return Container(margin: EdgeInsets.all(10),child: ProgressBar());
+                                    return Container(
+                                        margin: EdgeInsets.all(10),
+                                        child: ProgressBar());
                                   },
                                 ),
                                 child: ListView.builder(
                                     itemCount: data.length,
-                                    controller: _controller,
+                                    controller: _scrollController,
                                     itemBuilder: (context, position) {
                                       return LogShortCard(
                                           logSearch: data[position]);
@@ -108,7 +109,8 @@ class _LogsListViewState extends State<LogsListView>
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {
-      if (_controller.position.extentAfter == 0 && !logsSearchBloc.loading) {
+      if (_scrollController.position.extentAfter == 0 &&
+          !logsSearchBloc.loading) {
         logsSearchBloc.searchLogs(
             map: logsSearchBloc.map,
             player: logsSearchBloc.player,

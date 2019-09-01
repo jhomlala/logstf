@@ -8,16 +8,16 @@ class LogsSearchView extends StatefulWidget {
 }
 
 class _LogsSearchViewState extends State<LogsSearchView> {
-  final _formKey = GlobalKey<FormState>();
-  var _mapKey = GlobalKey<FormFieldState>();
-  var _uploaderKey = GlobalKey<FormFieldState>();
-  var _titleKey = GlobalKey<FormFieldState>();
-  var _playerKey = GlobalKey<FormFieldState>();
-  final _mapController = TextEditingController();
-  final _uploaderController = TextEditingController();
-  final _titleController = TextEditingController();
-  final _playerController = TextEditingController();
-  var _editingControllersInitialized = false;
+  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey _mapKey = GlobalKey<FormFieldState>();
+  final GlobalKey _uploaderKey = GlobalKey<FormFieldState>();
+  final GlobalKey _titleKey = GlobalKey<FormFieldState>();
+  final GlobalKey _playerKey = GlobalKey<FormFieldState>();
+  final TextEditingController _mapController = TextEditingController();
+  final TextEditingController _uploaderController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _playerController = TextEditingController();
+  bool _editingControllersInitialized = false;
 
   @override
   void dispose() {
@@ -46,7 +46,8 @@ class _LogsSearchViewState extends State<LogsSearchView> {
           color: Theme.of(context).primaryColor,
           child: ListView(children: [
             Card(
-                margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                margin:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 child: _getForm())
           ])),
     );
@@ -57,43 +58,43 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         key: _formKey,
         child: SingleChildScrollView(
             padding: EdgeInsets.all(5),
-            child: Column(children: getFormWidget())));
+            child: Column(children: _getFormWidget())));
   }
 
-  List<Widget> getFormWidget() {
+  List<Widget> _getFormWidget() {
     List<Widget> formWidgets = new List();
 
     formWidgets.add(
       new TextFormField(
-          key: _mapKey,
-          controller: _mapController,
-          decoration: InputDecoration(hintText: 'Map', labelText: 'Map'),
-         ),
+        key: _mapKey,
+        controller: _mapController,
+        decoration: InputDecoration(hintText: 'Map', labelText: 'Map'),
+      ),
     );
 
     formWidgets.add(
       new TextFormField(
-          key: _uploaderKey,
-          controller: _uploaderController,
-          decoration:
-              InputDecoration(hintText: 'Uploader', labelText: 'Uploader'),
-          ),
+        key: _uploaderKey,
+        controller: _uploaderController,
+        decoration:
+            InputDecoration(hintText: 'Uploader', labelText: 'Uploader'),
+      ),
     );
 
     formWidgets.add(
       new TextFormField(
-          key: _titleKey,
-          controller: _titleController,
-          decoration: InputDecoration(hintText: 'Title', labelText: 'Title'),
-          ),
+        key: _titleKey,
+        controller: _titleController,
+        decoration: InputDecoration(hintText: 'Title', labelText: 'Title'),
+      ),
     );
 
     formWidgets.add(
       new TextFormField(
-          key: _playerKey,
-          controller: _playerController,
-          decoration: InputDecoration(hintText: 'Player', labelText: 'Player'),
-         ),
+        key: _playerKey,
+        controller: _playerController,
+        decoration: InputDecoration(hintText: 'Player', labelText: 'Player'),
+      ),
     );
     formWidgets.add(Padding(
       padding: EdgeInsets.only(top: 10),
@@ -115,27 +116,25 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     return formWidgets;
   }
 
-  _onSendClicked() {
+  void _onSendClicked() {
     var map = _mapController.text;
     var uploader = _uploaderController.text;
     var title = _titleController.text;
     var player = _playerController.text;
 
-    print("Searching...");
     logsSearchBloc.clearLogs();
     logsSearchBloc.searchLogs(
         map: map, uploader: uploader, title: title, player: player);
     Navigator.pop(context);
   }
 
-  _onClearFiltersClicked() {
+  void _onClearFiltersClicked() {
     logsSearchBloc.clearFilters();
     logsSearchBloc.searchLogs();
     Navigator.pop(context);
   }
 
   void _initEditingControllers() {
-    print("Init editing controllers");
     _mapController.text = logsSearchBloc.map;
     _uploaderController.text = logsSearchBloc.uploader;
     _playerController.text = logsSearchBloc.player;

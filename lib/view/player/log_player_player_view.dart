@@ -5,12 +5,13 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
+import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class LogPlayerPlayerView extends StatefulWidget {
   final Player player;
@@ -24,16 +25,14 @@ class LogPlayerPlayerView extends StatefulWidget {
 
 class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
     with AutomaticKeepAliveClientMixin<LogPlayerPlayerView> {
-  BehaviorSubject<int> matchesCountSubject;
-  int steamId64;
-
+  BehaviorSubject<int> _matchesCountSubject = BehaviorSubject();
+  int _steamId64;
 
   @override
   void initState() {
-    matchesCountSubject = BehaviorSubject();
-    steamId64 = AppUtils.convertSteamId3ToSteamId64(widget.player.steamId);
-    logsSearchBloc.getPlayerMatchesCount(steamId64.toString()).then((value) {
-      matchesCountSubject.value = value;
+    _steamId64 = AppUtils.convertSteamId3ToSteamId64(widget.player.steamId);
+    logsSearchBloc.getPlayerMatchesCount(_steamId64.toString()).then((value) {
+      _matchesCountSubject.value = value;
     });
     _getPlayer();
     super.initState();
@@ -46,7 +45,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
 
   @override
   void dispose() {
-    matchesCountSubject.close();
+    _matchesCountSubject.close();
     super.dispose();
   }
 
@@ -88,7 +87,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                               "(${widget.log.getPlayerName(widget.player.steamId)})",
                               textAlign: TextAlign.center),
                           StreamBuilder<int>(
-                            stream: matchesCountSubject.stream,
+                            stream: _matchesCountSubject.stream,
                             builder: (context, snapshot) {
                               if (snapshot.data != null) {
                                 return Padding(
@@ -103,11 +102,12 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                       Row(children: [
                                         _getPageButton(
                                             "Matches", _onMatchesClicked,
-                                            backgroundColor: Theme.of(context).primaryColor)
+                                            backgroundColor:
+                                                Theme.of(context).primaryColor)
                                       ]),
                                       Row(children: [
                                         ObservePlayerButton(
-                                          steamId64: steamId64.toString(),
+                                          steamId64: _steamId64.toString(),
                                           playerName: widget.log.getPlayerName(
                                               widget.player.steamId),
                                         ),
@@ -163,43 +163,33 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
             )));
   }
 
-
   void _onMatchesClicked() {
     Navigator.pop(
-        context, SearchPlayerMatchesNavigationEvent(steamId64.toString()));
+        context, SearchPlayerMatchesNavigationEvent(_steamId64.toString()));
   }
 
   void _onSteamClicked() {
-    _launchWebPage("http://steamcommunity.com/profiles/$steamId64");
+    AppUtils.launchWebPage("${AppConst.steamProfileUrl}$_steamId64");
   }
 
   void _onEtf2lClicked() {
-    _launchWebPage("http://etf2l.org/search/$steamId64");
+    AppUtils.launchWebPage("${AppConst.etf2lProfileUrl}$_steamId64");
   }
 
   void _onUgcClicked() {
-    _launchWebPage(
-        "http://www.ugcleague.com/players_page.cfm?player_id=$steamId64");
+    AppUtils.launchWebPage("${AppConst.ugcProfileUrl}$_steamId64");
   }
 
   void _onTf2CenterClicked() {
-    _launchWebPage("http://tf2center.com/profile/$steamId64");
+    AppUtils.launchWebPage("${AppConst.tf2CenterProfileUrl}$_steamId64");
   }
 
   void _onOzFortressClicked() {
-    _launchWebPage("http://warzone.ozfortress.com/users/steam_id/$steamId64");
+    AppUtils.launchWebPage("${AppConst.ozFortressProfileUrl}$_steamId64");
   }
 
   void _onRglClicked() {
-    _launchWebPage("http://rgl.gg/Public/PlayerProfile.aspx?p=$steamId64");
-  }
-
-  _launchWebPage(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+    AppUtils.launchWebPage("${AppConst.rglProfileUrl}$_steamId64");
   }
 
   @override

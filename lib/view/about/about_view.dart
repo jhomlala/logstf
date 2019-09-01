@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/app_const.dart';
+import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AboutView extends StatefulWidget {
   @override
@@ -95,16 +95,17 @@ class _AboutViewState extends State<AboutView> {
         text: "GitHub",
         backgroundColor: Colors.grey,
         onPressed: () {
-          _launchWebPage(AppConst.authorGithubUrl);
+          AppUtils.launchWebPage(AppConst.authorGithubUrl);
         },
       ),
-      Padding(padding: EdgeInsets.only(left:10),),
+      Padding(
+        padding: EdgeInsets.only(left: 10),
+      ),
       LogsButton(
         text: "Steam",
         backgroundColor: Colors.grey,
         onPressed: () {
-          _launchWebPage(
-              AppConst.authorSteamProfileUrl);
+          AppUtils.launchWebPage(AppConst.authorSteamProfileUrl);
         },
       )
     ]));
@@ -128,7 +129,7 @@ class _AboutViewState extends State<AboutView> {
         text: "Project page",
         backgroundColor: Colors.grey,
         onPressed: () {
-          _launchWebPage(AppConst.projectGithubUrl);
+          AppUtils.launchWebPage(AppConst.projectGithubUrl);
         }));
     widgets.add(
       Padding(
@@ -137,13 +138,5 @@ class _AboutViewState extends State<AboutView> {
     );
 
     return widgets;
-  }
-
-  _launchWebPage(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
