@@ -10,7 +10,7 @@ main() {
 }
 
 void testAppBar() {
-  testWidgets("AppBarTests", (WidgetTester tester) async {
+  testWidgets("AppBar Tests", (WidgetTester tester) async {
     await setupWidget(tester, MainView());
     expectOneWidgetByKey("mainViewAppBar");
     expectOneWidgetWithText("Pocket Logs");
@@ -20,9 +20,8 @@ void testAppBar() {
 }
 
 void testTabBar() {
-  testWidgets("TabBarTests", (WidgetTester tester) async {
+  testWidgets("TabBar Tests", (WidgetTester tester) async {
     await setupWidget(tester, MainView());
-
     expectOneWidgetByKey("mainViewTabBar");
     expectNWidgetsByType(3, Tab);
     expectOneWidgetByType(TabBarView);
