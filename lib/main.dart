@@ -7,19 +7,19 @@ import 'bloc/settings_bloc.dart';
 import 'model/app_settings.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(PocketLogsApp());
 }
 
-class MyApp extends StatefulWidget {
+class PocketLogsApp extends StatefulWidget {
   // This widget is the root of your application.
 
   @override
   State<StatefulWidget> createState() {
-    return _MyAppState();
+    return _PocketLogsAppState();
   }
 }
 
-class _MyAppState extends State<MyApp> {
+class _PocketLogsAppState extends State<PocketLogsApp> {
   @override
   void initState() {
     super.initState();
@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
+            key: Key("pocketLogsMaterialApp"),
               title: 'Pocket Logs',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(primaryColor: AppUtils.getColor(snapshot.data.appColor)),

@@ -126,7 +126,7 @@ class _LogTeamStatsViewState extends State<LogTeamStatsView> {
                       BorderRadius.only(topRight: Radius.circular(8))),
               height: 30,
               child: Center(
-                  child: Text("BLUE",
+                  child: Text("BLU",
                       style: TextStyle(color: Colors.white, fontSize: 16)))))
     ]);
   }

@@ -27,6 +27,7 @@ class _MainViewState extends State<MainView>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          key: Key("mainViewAppBar"),
             elevation: 0.0,
             title: Text("Pocket Logs"),
             actions: [
