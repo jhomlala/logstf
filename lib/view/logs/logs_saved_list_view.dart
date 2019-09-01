@@ -32,7 +32,7 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
                 var data = snapshot.data;
                 if (data == null || data.isEmpty) {
                   return EmptyCard(
-                    description: "There's no saved data. ",
+                    description: "There's no saved data.",
                   );
                 } else {
                   return ListView.builder(

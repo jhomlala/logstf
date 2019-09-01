@@ -11,20 +11,32 @@ import 'package:logstf/widget/progress_bar.dart';
 import 'test_helper.dart';
 
 main() {
-  testStreamBuilder();
+  testStreamBuilderProgressBar();
+  testStreamBuilderError();
+  testStreamBuilderFilled();
+  testStreamBuilderEmpty();
   testFiltersCard();
 }
 
-void testStreamBuilder() {
-  testWidgets("Stream Builder Tests", (WidgetTester tester) async {
+void testStreamBuilderProgressBar() async {
+  testWidgets("Stream builder progress bar test", (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsListView());
     expectOneWidgetByType(ProgressBar);
+  });
+}
 
+void testStreamBuilderError() async {
+  testWidgets("Stream builder empty test", (WidgetTester tester) async {
+    await setupWidgetWithScaffold(tester, LogsListView());
     logsSearchBloc.logsSearchSubject.addError(Error());
     await pauseTester(tester);
-
     expectOneWidgetByType(EmptyCard);
+  });
+}
 
+void testStreamBuilderFilled() async {
+  testWidgets("Stream builder filled test", (WidgetTester tester) async {
+    await setupWidgetWithScaffold(tester, LogsListView());
     var list = List<LogShort>();
     list.add(setupMockupLogShort());
     list.add(setupMockupLogShort());
@@ -32,8 +44,12 @@ void testStreamBuilder() {
     logsSearchBloc.logsSearchSubject.value = list;
     await pauseTester(tester);
     expectNWidgetsByType(3, LogShortCard);
+  });
+}
 
-
+void testStreamBuilderEmpty() async {
+  testWidgets("Stream builder empty test", (WidgetTester tester) async {
+    await setupWidgetWithScaffold(tester, LogsListView());
     logsSearchBloc.loading = false;
     logsSearchBloc.logsSearchSubject.value = List();
     await pauseTester(tester);
