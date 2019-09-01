@@ -4,9 +4,7 @@ class Pair<T1, T2> {
 
   Pair(this.first, this.second);
 
-  factory Pair.reverse(Pair pair){
-    return Pair(pair.second,pair.first);
+  factory Pair.reverse(Pair pair) {
+    return Pair(pair.second, pair.first);
   }
-
-
 }

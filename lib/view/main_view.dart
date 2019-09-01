@@ -67,9 +67,11 @@ class _MainViewState extends State<MainView>
                     icon: Icon(Icons.favorite),
                   )
                 ])),
-        body: TabBarView(
-            controller: tabController,
-            children: [LogsListView(), LogsWatchListView(), LogsSavedListView()]));
+        body: TabBarView(controller: tabController, children: [
+          LogsListView(),
+          LogsWatchListView(),
+          LogsSavedListView()
+        ]));
   }
 
   List<MenuItem> _getMenuItems() {
@@ -84,7 +86,7 @@ class _MainViewState extends State<MainView>
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsView()));
     }
-    if (menuItem.title == "About"){
+    if (menuItem.title == "About") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutView()));
     }

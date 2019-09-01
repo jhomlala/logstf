@@ -1,17 +1,16 @@
 import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/repository/local/settings_local_repository.dart';
 
-class SettingsLocalProvider{
-  SettingsLocalRepository repository = SettingsLocalRepository();
+class SettingsLocalProvider {
+  SettingsLocalRepository _settingsLocalRepository = SettingsLocalRepository();
 
   Future<AppSettings> getAppSettings() {
-    return repository.getAppSettings();
+    return _settingsLocalRepository.getAppSettings();
   }
 
-  void saveAppSettings(AppSettings appSettings){
-    repository.saveAppSettings(appSettings);
+  void saveAppSettings(AppSettings appSettings) {
+    _settingsLocalRepository.saveAppSettings(appSettings);
   }
-
 }
 
 final SettingsLocalProvider settingsLocalProvider = SettingsLocalProvider();

@@ -3,14 +3,13 @@ import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsBloc {
-  BehaviorSubject<AppSettings> appSettingsSubject = BehaviorSubject();
+  final BehaviorSubject<AppSettings> appSettingsSubject = BehaviorSubject();
 
-  dispose() async {
-    await appSettingsSubject.drain();
+  void dispose() async {
     appSettingsSubject.close();
   }
 
-  getAppSettings() async {
+  void getAppSettings() async {
     var appSettings = await settingsLocalProvider.getAppSettings();
     if (appSettings == null){
       appSettings = AppSettings(appColor:"Purple");
@@ -18,11 +17,10 @@ class SettingsBloc {
     appSettingsSubject.value = appSettings;
   }
 
-  saveAppSettings(AppSettings appSettings) {
-    print("Saved app settings!");
+  void saveAppSettings(AppSettings appSettings) {
     appSettingsSubject.value = appSettings;
     settingsLocalProvider.saveAppSettings(appSettings);
   }
 }
 
-final settingsBloc = SettingsBloc();
+final SettingsBloc settingsBloc = SettingsBloc();

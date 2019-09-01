@@ -2,33 +2,34 @@ import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/repository/local/players_observed_local_repository.dart';
 
 class PlayersObservedLocalProvider {
-  PlayersObservedLocalRepository dbProvider = PlayersObservedLocalRepository.db;
+  PlayersObservedLocalRepository _playersObservedLocalRepository =
+      PlayersObservedLocalRepository.db;
 
   Future<int> createPlayerObserved(PlayerObserved playerObserved) {
-    return dbProvider.createPlayerObserved(playerObserved);
+    return _playersObservedLocalRepository.createPlayerObserved(playerObserved);
   }
 
   Future<PlayerObserved> getPlayerObserved(int id) {
-    return dbProvider.getPlayerObserved(id);
+    return _playersObservedLocalRepository.getPlayerObserved(id);
   }
 
   Future<PlayerObserved> getPlayerObservedWithSteamId64(String steamId64) {
-    return dbProvider.getPlayerObservedWithSteamId64(steamId64);
+    return _playersObservedLocalRepository
+        .getPlayerObservedWithSteamId64(steamId64);
   }
 
   Future<List<PlayerObserved>> getPlayersObserved() {
-    return dbProvider.getPlayersObserved();
+    return _playersObservedLocalRepository.getPlayersObserved();
   }
 
   Future<int> deletePlayerObserved(int id) {
-    return dbProvider.deletePlayerObserved(id);
+    return _playersObservedLocalRepository.deletePlayerObserved(id);
   }
 
-  Future<int> deletePlayersObserved(){
-    return dbProvider.deletePlayersObserved();
+  Future<int> deletePlayersObserved() {
+    return _playersObservedLocalRepository.deletePlayersObserved();
   }
-
 }
 
 final PlayersObservedLocalProvider playersObservedLocalProvider =
-    new PlayersObservedLocalProvider();
+    PlayersObservedLocalProvider();

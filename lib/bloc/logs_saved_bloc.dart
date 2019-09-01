@@ -3,9 +3,7 @@ import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:rxdart/subjects.dart';
 
 class LogsSavedBloc {
-
-  var savedLogsSubject = BehaviorSubject<List<LogShort>>();
-
+  final BehaviorSubject<List<LogShort>> savedLogsSubject = BehaviorSubject();
   var loading = false;
 
   void dispose() async {
@@ -31,28 +29,26 @@ class LogsSavedBloc {
 
   void initLogs() {
     if (loading) {
-      print("logs are loading..");
       return;
     }
     if (savedLogsSubject.value == null) {
-      print("Logs not present, selecting new....");
       getSavedLogs();
     }
   }
 
-  addLog(LogShort logShort){
+  void addLog(LogShort logShort) {
     var savedLogs = savedLogsSubject.value;
     savedLogs.add(logShort);
     savedLogsSubject.add(savedLogs);
   }
 
-  removeLog(LogShort logShortToFind){
+  void removeLog(LogShort logShortToFind) {
     var savedLogs = savedLogsSubject.value;
     savedLogs.removeWhere((logShort) => logShort.id == logShortToFind.id);
     savedLogsSubject.value = savedLogs;
   }
 
-  void clearLogs(){
+  void clearLogs() {
     savedLogsSubject.value = List();
   }
 
@@ -60,8 +56,6 @@ class LogsSavedBloc {
     await logsLocalProvider.deleteLogs();
     clearLogs();
   }
-
-
 }
 
 final logsSavedBloc = LogsSavedBloc();

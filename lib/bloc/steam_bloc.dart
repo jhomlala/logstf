@@ -4,18 +4,16 @@ import 'package:logstf/repository/remote/steam_remote_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SteamBloc {
-  SteamRemoteProvider _steamRemoteProvider = SteamRemoteProvider();
-
-  BehaviorSubject<SteamPlayer> steamPlayerSubject = BehaviorSubject();
+  final BehaviorSubject<SteamPlayer> steamPlayerSubject = BehaviorSubject();
 
   void dispose() {
     steamPlayerSubject.close();
   }
 
-  getSteamPlayer(String steamId) async {
+  void getSteamPlayer(String steamId) async {
     steamPlayerSubject.value = null;
     SteamPlayersResponse response =
-        await _steamRemoteProvider.getSteamPlayers(steamId);
+        await steamRemoteProvider.getSteamPlayers(steamId);
     var players = response.response.players;
     if (players != null && players.length > 0) {
       steamPlayerSubject.value = players[0];
@@ -23,4 +21,4 @@ class SteamBloc {
   }
 }
 
-final steamBloc = new SteamBloc();
+final SteamBloc steamBloc = new SteamBloc();

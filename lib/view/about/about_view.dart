@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/util/app_const.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -72,7 +73,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(ClipOval(
       child: Image.network(
-        "https://avatars1.githubusercontent.com/u/1329033?s=460&v=4",
+        AppConst.authorAvatarUrl,
         height: 100,
         width: 100,
         fit: BoxFit.cover,
@@ -94,7 +95,7 @@ class _AboutViewState extends State<AboutView> {
         text: "GitHub",
         backgroundColor: Colors.grey,
         onPressed: () {
-          _launchWebPage("http://github.com/jhomlala/");
+          _launchWebPage(AppConst.authorGithubUrl);
         },
       ),
       Padding(padding: EdgeInsets.only(left:10),),
@@ -103,7 +104,7 @@ class _AboutViewState extends State<AboutView> {
         backgroundColor: Colors.grey,
         onPressed: () {
           _launchWebPage(
-              "https://steamcommunity.com/profiles/76561198024790295/");
+              AppConst.authorSteamProfileUrl);
         },
       )
     ]));
@@ -127,7 +128,7 @@ class _AboutViewState extends State<AboutView> {
         text: "Project page",
         backgroundColor: Colors.grey,
         onPressed: () {
-          _launchWebPage("http://github.com/jhomlala/logstf");
+          _launchWebPage(AppConst.projectGithubUrl);
         }));
     widgets.add(
       Padding(

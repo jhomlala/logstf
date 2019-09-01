@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
-              title: 'Logs TF',
+              title: 'Pocket Logs',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(primaryColor: AppUtils.getColor(snapshot.data.appColor)),
               home: MainView());

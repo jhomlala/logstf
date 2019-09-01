@@ -6,10 +6,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 
 class LogDetailsBloc {
-  BehaviorSubject<Log> logSubject;
-  BehaviorSubject<Player> selectedPlayerSubject;
+  BehaviorSubject<Log> logSubject = BehaviorSubject();
+  BehaviorSubject<Player> selectedPlayerSubject = BehaviorSubject();
 
-  init(){
+  void init(){
     logSubject = BehaviorSubject();
     selectedPlayerSubject = BehaviorSubject();
   }
@@ -19,10 +19,10 @@ class LogDetailsBloc {
     selectedPlayerSubject.close();
   }
 
-  void selectLog(int logId) async{
+  void selectLog(int logId) async {
     try {
       logSubject.value = await logsRemoteProvider.getLog(logId);
-    } catch (exception){
+    } catch (exception) {
       logSubject.addError(exception);
     }
   }
@@ -35,18 +35,17 @@ class LogDetailsBloc {
     selectedPlayerSubject.value = player;
   }
 
-  void createLogInDatabase(LogShort log){
+  void createLogInDatabase(LogShort log) {
     logsLocalProvider.createLog(log);
   }
 
-  Future<LogShort> getLogFromDatabase(int logId){
+  Future<LogShort> getLogFromDatabase(int logId) {
     return logsLocalProvider.getLog(logId);
   }
 
   void deleteLogFromDatabase(int logId) async {
     await logsLocalProvider.deleteLog(logId);
   }
-
 }
 
-final logDetailsBloc = LogDetailsBloc();
+final LogDetailsBloc logDetailsBloc = LogDetailsBloc();

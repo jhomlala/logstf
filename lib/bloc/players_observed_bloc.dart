@@ -3,47 +3,44 @@ import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:rxdart/subjects.dart';
 
 class PlayersObservedBloc {
+  final BehaviorSubject<List<PlayerObserved>> playersObservedSubject =
+      BehaviorSubject<List<PlayerObserved>>();
   PlayersObservedLocalProvider provider;
   bool loading = false;
 
-  var playersObservedSubject = BehaviorSubject<List<PlayerObserved>>();
-
-
-  void dispose(){
+  void dispose() {
     playersObservedSubject.close();
   }
 
-
-  addPlayerObserved(PlayerObserved playerObserved) async {
+  Future addPlayerObserved(PlayerObserved playerObserved) async {
     await playersObservedLocalProvider.createPlayerObserved(playerObserved);
     clearPlayersObserved();
     getPlayersObserved();
   }
 
-  Future<PlayerObserved> getPlayerObserved(String steamId64) async{
-    return await playersObservedLocalProvider.getPlayerObservedWithSteamId64(steamId64);
+  Future<PlayerObserved> getPlayerObserved(String steamId64) async {
+    return await playersObservedLocalProvider
+        .getPlayerObservedWithSteamId64(steamId64);
   }
 
-  deletePlayerObserved(int id) async{
+  void deletePlayerObserved(int id) async {
     await playersObservedLocalProvider.deletePlayerObserved(id);
     clearPlayersObserved();
     getPlayersObserved();
   }
 
-  clearPlayersObserved(){
+  void clearPlayersObserved() {
     playersObservedSubject.value = List();
   }
 
-  deletePlayersObserved() async{
+  void deletePlayersObserved() async {
     await playersObservedLocalProvider.deletePlayersObserved();
     clearPlayersObserved();
   }
 
-  getPlayersObserved() async {
-    var list = await playersObservedLocalProvider.getPlayersObserved();
-    playersObservedSubject.value = list;
+  void getPlayersObserved() async {
+    playersObservedSubject.value = await playersObservedLocalProvider.getPlayersObserved();
   }
-
 }
 
-PlayersObservedBloc playersObservedBloc = new PlayersObservedBloc();
+final PlayersObservedBloc playersObservedBloc = new PlayersObservedBloc();

@@ -1,4 +1,5 @@
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/app_const.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'app_database_provider.dart';
@@ -26,19 +27,20 @@ class LogsLocalRepository {
 
   Future<int> createLog(LogShort logShort) async {
     final db = await database;
-    var res = await db.insert("LogShort", logShort.toJson());
+    var res = await db.insert(AppConst.logShortTableName, logShort.toJson());
     return res;
   }
 
   Future<LogShort> getLog(int logId) async {
     final db = await database;
-    var res = await db.query("LogShort", where: "id = ?", whereArgs: [logId]);
+    var res = await db
+        .query(AppConst.logShortTableName, where: "id = ?", whereArgs: [logId]);
     return res.isNotEmpty ? LogShort.fromJson(res.first) : null;
   }
 
   Future<List<LogShort>> getLogs() async {
     final db = await database;
-    var res = await db.query("LogShort");
+    var res = await db.query(AppConst.logShortTableName);
     List<LogShort> list =
         res.isNotEmpty ? res.map((c) => LogShort.fromJson(c)).toList() : [];
     return list;
@@ -46,13 +48,14 @@ class LogsLocalRepository {
 
   Future<int> deleteLog(int logId) async {
     final db = await database;
-    var res = await db.delete("LogShort", where: "id = ?", whereArgs: [logId]);
+    var res = await db.delete(AppConst.logShortTableName,
+        where: "id = ?", whereArgs: [logId]);
     return res;
   }
 
   Future<int> deleteLogs() async {
     final db = await database;
-    var res = await db.delete("LogShort");
+    var res = await db.delete(AppConst.logShortTableName);
     return res;
   }
 }

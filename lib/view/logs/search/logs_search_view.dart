@@ -130,6 +130,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
 
   _onClearFiltersClicked() {
     logsSearchBloc.clearFilters();
+    logsSearchBloc.searchLogs();
     Navigator.pop(context);
   }
 

@@ -4,6 +4,7 @@ import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/match_type.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/app_const.dart';
 
 class LogHelper {
   static List<Player> getOtherPlayersWithClass(
@@ -48,8 +49,7 @@ class LogHelper {
   static List<HealSpread> getHealSpread(Log log, String steamId) {
     List<HealSpread> healSpreadList = List();
     var healSpreadMap = log.healspread[steamId];
-    print("HEAL SPREAD MAP: " + healSpreadMap.toString());
-    if (healSpreadMap == null){
+    if (healSpreadMap == null) {
       return null;
     }
     int sum = _getSumOfMap(healSpreadMap);
@@ -246,7 +246,11 @@ class LogHelper {
 
   static List<Player> getPlayersSortedByMedicKills(Log log) {
     List<Player> players = log.players.values.toList();
-    players = players.where((player) => log.classKills[player.steamId] != null && log.classKills[player.steamId].medic != null).toList();
+    players = players
+        .where((player) =>
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].medic != null)
+        .toList();
     players.sort((player1, player2) => log.classKills[player2.steamId].medic
         .compareTo(log.classKills[player1.steamId].medic));
     return players;
@@ -267,7 +271,7 @@ class LogHelper {
     var medicKills = 0;
     if (log.classKills.containsKey(player.steamId)) {
       medicKills = log.classKills[player.steamId].medic;
-      if (medicKills == null){
+      if (medicKills == null) {
         medicKills = 0;
       }
     }
@@ -291,33 +295,32 @@ class LogHelper {
     return players;
   }
 
-  static MatchType getMatchType(int playersCount, String mapName){
+  static MatchType getMatchType(int playersCount, String mapName) {
     String matchType = "";
     Color color = Colors.lightBlue;
-    if (playersCount % 2 == 0){
+    if (playersCount % 2 == 0) {
       double half = playersCount / 2;
       matchType = "${half.toStringAsFixed(0)}v${half.toStringAsFixed(0)}";
     } else {
       matchType = "$playersCount players";
     }
 
-    if (playersCount == 4){
-      if (mapName.contains("ultiduo")){
-        matchType = "Ultiduo";
+    if (playersCount == 4) {
+      if (mapName.contains("ultiduo")) {
+        matchType = AppConst.ultiduoMode;
         color = Colors.pink;
       } else {
-        matchType = "BBall";
+        matchType = AppConst.bballMode;
         color = Colors.teal;
       }
     }
     if (playersCount >= 12 && playersCount < 18) {
-      matchType = "6v6";
+      matchType = AppConst.sixesMode;
       color = Colors.green;
     } else if (playersCount >= 18) {
-      matchType = "Highlander";
+      matchType = AppConst.highlanderMode;
       color = Colors.orange;
     }
     return MatchType(matchType, color);
   }
-
 }

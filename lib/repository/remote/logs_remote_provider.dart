@@ -2,24 +2,28 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/logs_search_response.dart';
 import 'package:logstf/repository/remote/logs_remote_repository.dart';
+import 'package:logstf/util/app_const.dart';
 
-class LogsRemoteProvider{
-  LogsRemoteRepository logsRepository = LogsRemoteRepository();
+class LogsRemoteProvider {
+  LogsRemoteRepository _logsRepository = LogsRemoteRepository();
 
-  Future<Log> getLog(int logId){
-    return logsRepository.getLog(logId);
+  Future<Log> getLog(int logId) {
+    return _logsRepository.getLog(logId);
   }
 
-  Future<LogsSearchResponse> searchLogs(String map, String uploader, String title, String player, int offset, {int limit = 1000}){
-    return logsRepository.searchLogs(map,uploader,title,player, offset, limit);
+  Future<LogsSearchResponse> searchLogs(
+      String map, String uploader, String title, String player, int offset,
+      {int limit = AppConst.logsLimit}) {
+    return _logsRepository.searchLogs(
+        map, uploader, title, player, offset, limit);
   }
 
-  void saveLog(Log log) async{
-    await logsRepository.saveLog(log);
+  void saveLog(Log log) async {
+    await _logsRepository.saveLog(log);
   }
 
-  Future<LogShort> getSavedLog(int logId){
-    return logsRepository.getSavedLog(logId);
+  Future<LogShort> getSavedLog(int logId) {
+    return _logsRepository.getSavedLog(logId);
   }
 }
 
