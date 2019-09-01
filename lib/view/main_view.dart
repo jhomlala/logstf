@@ -32,6 +32,7 @@ class _MainViewState extends State<MainView>
             title: Text("Pocket Logs"),
             actions: [
               IconButton(
+                key: Key("mainViewSearchIcon"),
                   icon: Icon(Icons.search),
                   onPressed: () {
                     Navigator.push(
@@ -40,6 +41,7 @@ class _MainViewState extends State<MainView>
                             builder: (context) => LogsSearchView()));
                   }),
               PopupMenuButton<MenuItem>(
+                key: Key("mainViewOverflowMenu"),
                 onSelected: _select,
                 itemBuilder: (BuildContext context) {
                   return _getMenuItems().map((MenuItem menuItem) {
@@ -52,6 +54,7 @@ class _MainViewState extends State<MainView>
               ),
             ],
             bottom: TabBar(
+                key: Key("mainViewTabBar"),
                 controller: tabController,
                 indicatorColor: Colors.white,
                 tabs: [
