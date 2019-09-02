@@ -19,10 +19,11 @@ class LogHelper {
   }
 
   static bool isClassPlayedByPlayer(Player player, String className) {
-    return player.classStats
-            .where((classStats) => classStats.type == className)
-            .length >
-        0;
+    return player != null &&
+        player.classStats
+                .where((classStats) => classStats.type == className)
+                .length >
+            0;
   }
 
   static ClassKill getClassKill(Log log, Player player) {
