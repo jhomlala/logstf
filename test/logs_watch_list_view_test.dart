@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/bloc/logs_player_observed_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
@@ -20,8 +19,8 @@ main() {
 }
 
 void testPlayersStreamBuilderEmpty() async {
-  testWidgets(
-      "Stream builder with players empty test", (WidgetTester tester) async {
+  testWidgets("Stream builder with players empty test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     playersObservedBloc.loading = false;
     playersObservedBloc.playersObservedSubject.value = List();
@@ -32,8 +31,8 @@ void testPlayersStreamBuilderEmpty() async {
 }
 
 void testPlayersFilledStreamBuilder() async {
-  testWidgets(
-      "Stream builder with players filled test", (WidgetTester tester) async {
+  testWidgets("Stream builder with players filled test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
@@ -48,8 +47,8 @@ void testPlayersFilledStreamBuilder() async {
 }
 
 void testPlayerLogsLoadingStreamBuilder() {
-  testWidgets("Stream builder with player logs loading test", (
-      WidgetTester tester) async {
+  testWidgets("Stream builder with player logs loading test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
@@ -65,8 +64,8 @@ void testPlayerLogsLoadingStreamBuilder() {
 }
 
 void testPlayerLogsStreamBuilder() {
-  testWidgets("Stream builder with player logs filled test", (
-      WidgetTester tester) async {
+  testWidgets("Stream builder with player logs filled test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
@@ -85,10 +84,9 @@ void testPlayerLogsStreamBuilder() {
   });
 }
 
-
 void testPlayerLogsErrorStreamBuilder() {
-  testWidgets("Stream builder with player logs error test", (
-      WidgetTester tester) async {
+  testWidgets("Stream builder with player logs error test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
@@ -103,10 +101,9 @@ void testPlayerLogsErrorStreamBuilder() {
   });
 }
 
-
 void testPlayerLogsEmptyStreamBuilder() {
-  testWidgets("Stream builder with player logs empty test", (
-      WidgetTester tester) async {
+  testWidgets("Stream builder with player logs empty test",
+      (WidgetTester tester) async {
     await setupWidgetWithScaffold(tester, LogsWatchListView());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();

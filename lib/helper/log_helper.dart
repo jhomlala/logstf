@@ -9,7 +9,8 @@ import 'package:logstf/util/app_const.dart';
 class LogHelper {
   static List<Player> getOtherPlayersWithClass(
       Log log, String className, String excludedSteamId) {
-    List<Player> allPlayers = log.players.values.toList();
+    List<Player> allPlayers =
+        log.players != null ? log.players.values.toList() : List();
     return allPlayers
         .where((player) =>
             excludedSteamId != player.steamId &&
