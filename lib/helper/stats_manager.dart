@@ -1,9 +1,13 @@
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/app_utils.dart';
 
 class StatsManager {
   static AveragePlayerStats getAveragePlayerStatsForAllPlayers(
       List<Player> players, int length) {
+    if (players == null){
+      players = List<Player>();
+    }
     double averageKills = getAverage(getKills(players));
     double averageDeaths = getAverage(getDeaths(players));
     double averageAssists = getAverage(getAssists(players));
@@ -31,6 +35,10 @@ class StatsManager {
 
   static AveragePlayerStats getAveragePlayerStatsForTeam(
       List<Player> players, int length, String team) {
+    if (players == null) {
+      players = List();
+    }
+
     double averageKills = getAverage(getKills(players, team: team));
     double averageDeaths = getAverage(getDeaths(players, team: team));
     double averageAssists = getAverage(getAssists(players, team: team));
@@ -117,14 +125,22 @@ class StatsManager {
   }
 
   static double getAverage(List<int> values) {
+    if (values == null){
+      values = List();
+    }
     var valuesSum = 0.0;
-    values.forEach((value) => {valuesSum += value});
-    return valuesSum / values.length;
+    values
+        .where((value) => value != null)
+        .forEach((value) => {valuesSum += value});
+    return AppUtils.roundDoubleToFractionDigits((valuesSum / values.length), 3);
   }
 
   static double getAverageFromDouble(List<double> values) {
+    if (values == null){
+      values = List();
+    }
     var valuesSum = 0.0;
     values.forEach((value) => {valuesSum += value});
-    return valuesSum / values.length;
+    return AppUtils.roundDoubleToFractionDigits((valuesSum / values.length), 3);
   }
 }
