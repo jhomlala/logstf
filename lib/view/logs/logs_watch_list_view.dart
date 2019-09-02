@@ -65,7 +65,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                           var data = snapshot.data;
                           if (data == null || data.isEmpty) {
                             return EmptyCard(
-                              description: "There's no data. ",
+                              description: "There's no data.",
                             );
                           } else {
                             return Expanded(
@@ -100,6 +100,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
     }
 
     return DropdownButton<PlayerObserved>(
+        key: Key("logsWatchListViewDropdown"),
         elevation: 2,
         isDense: true,
         iconSize: 20.0,
@@ -129,7 +130,11 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
       widgets.add(Row(children: [
         _getPlayersDropdown(playersObserved),
         IconButton(
-          icon: Icon(Icons.delete, color: Colors.grey,),
+          key: Key("logsWatchListViewDeleteIconButton"),
+          icon: Icon(
+            Icons.delete,
+            color: Colors.grey,
+          ),
           onPressed: () {
             playersObservedBloc.deletePlayerObserved(_selectedPlayer.id);
             logsPlayerObservedBloc.clearLogs();

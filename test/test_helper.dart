@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/player.dart';
+import 'package:logstf/model/player_observed.dart';
 
 expectNWidgetByKey(int widgets, String key) {
   expect(find.byKey(Key(key)), findsNWidgets(widgets));
@@ -50,4 +52,8 @@ Future pauseTester(WidgetTester tester) async {
   await tester.idle();
   await tester.pump(Duration.zero);
   return;
+}
+
+PlayerObserved setupMockPlayerObserved(){
+  return PlayerObserved(steamid64: "76561198024790295", name: "OLI");
 }
