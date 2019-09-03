@@ -105,4 +105,5 @@ class Player {
           ? MedicStats.fromJson(json["medicstats"])
           : null,
       ubertypes: Ubertypes.fromJson(json["ubertypes"]));
+
 }

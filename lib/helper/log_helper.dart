@@ -79,7 +79,9 @@ class LogHelper {
   }
 
   static List<String> getPlayerClasses(Player player) {
-    return player.classStats.map((classStat) => classStat.type).toList();
+    return player.classStats != null
+        ? player.classStats.map((classStat) => classStat.type).toList()
+        : List();
   }
 
   static Map<String, int> getHealSpreadMapWithNames(Log log, String steamId) {
