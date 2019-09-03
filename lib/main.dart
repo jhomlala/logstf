@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/main_view.dart';
-
 import 'bloc/logs_saved_bloc.dart';
 import 'bloc/settings_bloc.dart';
 import 'model/app_settings.dart';
@@ -34,10 +33,11 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
-            key: Key("pocketLogsMaterialApp"),
+              key: Key("pocketLogsMaterialApp"),
               title: 'Pocket Logs',
               debugShowCheckedModeBanner: false,
-              theme: ThemeData(primaryColor: AppUtils.getColor(snapshot.data.appColor)),
+              theme: ThemeData(
+                  primaryColor: AppUtils.getColor(snapshot.data.appColor)),
               home: MainView());
         });
   }

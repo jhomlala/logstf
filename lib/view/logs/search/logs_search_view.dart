@@ -38,18 +38,13 @@ class _LogsSearchViewState extends State<LogsSearchView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Search logs"),
-      ),
-      body: Container(
-          color: Theme.of(context).primaryColor,
-          child: ListView(children: [
-            Card(
-                margin:
-                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
-                child: _getForm())
-          ])),
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: ListView(children: [
+        Card(
+            margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+            child: _getForm())
+      ]),
     );
   }
 
@@ -93,7 +88,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       new TextFormField(
         key: _playerKey,
         controller: _playerController,
-        decoration: InputDecoration(hintText: 'Player', labelText: 'Player'),
+        decoration: InputDecoration(hintText: 'Player steamId', labelText: 'Player steamId'),
       ),
     );
     formWidgets.add(Padding(

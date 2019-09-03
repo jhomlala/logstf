@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/view/settings/settings_view.dart';
-
 import 'about/about_view.dart';
 import 'logs/logs_saved_list_view.dart';
 import 'package:logstf/view/logs/logs_list_view.dart';
-import 'package:logstf/view/logs/search/logs_search_view.dart';
 import 'package:logstf/view/logs/logs_watch_list_view.dart';
+
+import 'logs/search/search_view.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _MainViewState extends State<MainView>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LogsSearchView()));
+                            builder: (context) => SearchView()));
                   }),
               PopupMenuButton<MenuItem>(
                 key: Key("mainViewOverflowMenu"),
