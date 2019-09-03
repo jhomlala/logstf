@@ -160,9 +160,16 @@ void testGetHealSpread() {
   group("Test get heal spread map", () {
     Log log = setupMockLog();
     List<HealSpread> healSpread = LogHelper.getHealSpread(log, "4");
-    test("Heal spread map is not null and has valid value", () {
+    test("Heal spread list is not null and has valid value", () {
       expect(healSpread.length, 2);
       expect(healSpread != null, true);
+    });
+
+    test("Heal spread list elements has right values", (){
+      expect(healSpread[0].name != null, true);
+      expect(healSpread[0].percentage.toStringAsFixed(3), "66.667");
+      expect(healSpread[1].name != null, true);
+      expect(healSpread[1].percentage.toStringAsFixed(3), "33.333");
     });
   });
 }
