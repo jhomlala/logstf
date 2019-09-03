@@ -112,13 +112,49 @@ Log setupMockLog() {
       dapm: 347,
       ubers: 0);
 
+  Player thirdPlayer = Player(
+      steamId: "4",
+      team: "Blue",
+      classStats: List()..add(ClassStats(type:"medic")),
+      kills: 21,
+      assists: 7,
+      deaths: 13,
+      suicides: 0,
+      kapd: "2.2",
+      kpd: "1.6",
+      dmg: 10215,
+      dmgReal: 1261,
+      dt: 6654,
+      dtReal: 394,
+      hr: 8014,
+      lks: 4,
+      as: 1,
+      dapd: 785,
+      dapm: 347,
+      ubers: 0);
+
+
   Map<String, Player> players = Map();
   players["1"] = firstPlayer;
   players["2"] = secondPlayer;
+  players["4"] = thirdPlayer;
 
-  Map<String,ClassKill> classKills = Map();
+
+  Map<String, ClassKill> classKills = Map();
   classKills["1"] = ClassKill(engineer: 10, scout: 10);
   classKills["2"] = ClassKill(scout: 10);
 
-  return Log(players: players, classKills: classKills);
+  Map<String, Map<String, int>> healSpreadMap = Map();
+  Map<String, int> innerHealMap = Map();
+  innerHealMap["1"] = 100;
+  innerHealMap["2"] = 200;
+  healSpreadMap["4"] = innerHealMap;
+
+  Map<String,String> playerNames = Map();
+  playerNames["1"] = "Test";
+  playerNames["2"] = "Test";
+  playerNames["4"] = "Test";
+
+  return Log(
+      players: players, classKills: classKills, healspread: healSpreadMap, names: playerNames);
 }
