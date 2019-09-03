@@ -55,6 +55,12 @@ class _LogPlayersViewState extends State<LogPlayersView> {
               margin: EdgeInsets.all(10),
               child: Column(children: [
                 Table(
+                  columnWidths: {
+                    0: FractionColumnWidth(0.15),
+                    1: FractionColumnWidth(0.45),
+                    2: FractionColumnWidth(0.2),
+                    3: FractionColumnWidth(0.2)
+                  },
                   children: _getTableRows(),
                 ),
                 Padding(
@@ -220,8 +226,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
   bool _isPlayerNameFitInColumn(String name) {
     double width = MediaQuery.of(context).size.width;
-    width = width - 20;
-    double playerNameColumnWidth = width / 4;
+    double playerNameColumnWidth = width * 0.45;
 
     final constraints = BoxConstraints(
       maxWidth: playerNameColumnWidth,
@@ -279,16 +284,16 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     List<Widget> widgets = List();
     var classStatsList = player.classStats;
     int additionalClasses = 0;
-    if (classStatsList.length > 3){
+    if (classStatsList.length > 3) {
       additionalClasses = classStatsList.length - 3;
-      classStatsList = classStatsList.sublist(0,3);
+      classStatsList = classStatsList.sublist(0, 3);
     }
 
     classStatsList.forEach((classStats) {
       widgets.add(ClassIcon(playerClass: classStats.type));
     });
 
-    if (additionalClasses != 0){
+    if (additionalClasses != 0) {
       widgets.add(Text(" +$additionalClasses "));
     }
 
@@ -299,7 +304,6 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: widgets)));
   }
-
 
   Widget _getTeamWidget(Player player) {
     var teamColor = Colors.red;
