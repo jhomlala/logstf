@@ -12,7 +12,6 @@ import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 class LogPlayerPlayerView extends StatefulWidget {
   final Player player;
   final Log log;
@@ -54,7 +53,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
     super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
         child: StreamBuilder<SteamPlayer>(
             stream: steamBloc.steamPlayerSubject.stream,
             builder: (context, snapshot) {
@@ -62,90 +61,92 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                 return ProgressBar();
               } else {
                 SteamPlayer steamPlayer = snapshot.data;
-                return Card(
-                    child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: SingleChildScrollView(
+                return SingleChildScrollView(
+                    child: Card(
+                        child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             child: Column(children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                          ),
-                          ClipOval(
-                            child: Image.network(
-                              steamPlayer.avatarfull,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Text(
-                            "${steamPlayer.personaname}",
-                            style: TextStyle(fontSize: 30.0),
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                              "(${widget.log.getPlayerName(widget.player.steamId)})",
-                              textAlign: TextAlign.center),
-                          StreamBuilder<int>(
-                            stream: _matchesCountSubject.stream,
-                            builder: (context, snapshot) {
-                              if (snapshot.data != null) {
-                                return Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 10, bottom: 5),
-                                    child: Column(children: [
-                                      Text(
-                                          "Player has ${snapshot.data} matches in history"),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 10),
-                                      ),
-                                      Row(children: [
-                                        _getPageButton(
-                                            "Matches", _onMatchesClicked,
-                                            backgroundColor:
-                                                Theme.of(context).primaryColor)
-                                      ]),
-                                      Row(children: [
-                                        ObservePlayerButton(
-                                          steamId64: _steamId64.toString(),
-                                          playerName: widget.log.getPlayerName(
-                                              widget.player.steamId),
-                                        ),
-                                      ]),
-                                    ]));
-                              } else {
-                                return Container(
-                                  width: 0.0,
-                                  height: 0.0,
-                                );
-                              }
-                            },
-                          ),
-                          Column(children: [
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _getPageButton("Steam", _onSteamClicked),
-                                  _getPageButton("ETF2L", _onEtf2lClicked)
-                                ]),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _getPageButton("UGC", _onUgcClicked),
-                                  _getPageButton(
-                                      "TF2Center", _onTf2CenterClicked)
-                                ]),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  _getPageButton(
-                                      "OzFortress", _onOzFortressClicked),
-                                  _getPageButton("RGL", _onRglClicked)
-                                ]),
-                          ])
-                        ]))));
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                              ),
+                              ClipOval(
+                                child: Image.network(
+                                  steamPlayer.avatarfull,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(
+                                "${steamPlayer.personaname}",
+                                style: TextStyle(fontSize: 30.0),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                  "(${widget.log.getPlayerName(widget.player.steamId)})",
+                                  textAlign: TextAlign.center),
+                              StreamBuilder<int>(
+                                stream: _matchesCountSubject.stream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.data != null) {
+                                    return Padding(
+                                        padding:
+                                            EdgeInsets.only(top: 10, bottom: 5),
+                                        child: Column(children: [
+                                          Text(
+                                              "Player has ${snapshot.data} matches in history"),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 10),
+                                          ),
+                                          Row(children: [
+                                            _getPageButton(
+                                                "Matches", _onMatchesClicked,
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .primaryColor)
+                                          ]),
+                                          Row(children: [
+                                            ObservePlayerButton(
+                                              steamId64: _steamId64.toString(),
+                                              playerName: widget.log
+                                                  .getPlayerName(
+                                                      widget.player.steamId),
+                                            ),
+                                          ]),
+                                        ]));
+                                  } else {
+                                    return Container(
+                                      width: 0.0,
+                                      height: 0.0,
+                                    );
+                                  }
+                                },
+                              ),
+                              Column(children: [
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _getPageButton("Steam", _onSteamClicked),
+                                      _getPageButton("ETF2L", _onEtf2lClicked)
+                                    ]),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      _getPageButton("UGC", _onUgcClicked),
+                                      _getPageButton(
+                                          "TF2Center", _onTf2CenterClicked)
+                                    ]),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      _getPageButton(
+                                          "OzFortress", _onOzFortressClicked),
+                                      _getPageButton("RGL", _onRglClicked)
+                                    ]),
+                              ])
+                            ]))));
                 //return Text("Player: " + snapshot.data.toString());
               }
             }));

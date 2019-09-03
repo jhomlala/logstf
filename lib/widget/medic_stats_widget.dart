@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logstf/model/medic_stats.dart';
 import 'package:logstf/model/player.dart';
 
 class MedicStatsWidget extends StatelessWidget {
@@ -17,35 +18,38 @@ class MedicStatsWidget extends StatelessWidget {
         ));
   }
 
+
   List<TableRow> getTableRows() {
     var medicStats = player.medicStats;
     var uberTypes = player.ubertypes;
     List<TableRow> tableRows = List();
     tableRows.add(getTableRow("Healing", "${player.heal} HP"));
-    tableRows.add(getTableRow("Charges", "${player.ubers} Charges"));
-    tableRows.add(getTableRow("Drops", "${player.drops} Drops"));
+    tableRows.add(getTableRow("Charges", "${player.ubers} charge(s)"));
+    tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
+    tableRows.add(getTableRow("Drops", "${player.drops} drop(s)"));
     tableRows.add(getTableRow("Avg time to build",
-        "${medicStats.avgTimeToBuild.toStringAsFixed(2)} seconds"));
+        "${medicStats.avgTimeToBuild.toStringAsFixed(2)} second(s)"));
     tableRows.add(getTableRow("Avg time before using",
-        "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} seconds"));
+        "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} second(s)"));
     tableRows.add(getTableRow(
-        "Near full charge deaths", "${medicStats.deathsWith9599Uber} deaths"));
+        "Near full charge deaths", "${_getNearFullChargeDeaths(medicStats)} death(s)"));
     tableRows.add(getTableRow("Avg uber length",
         "${medicStats.avgUberLength.toStringAsFixed(2)} seconds"));
+    tableRows.add(getTableRow("Avg uber recipients", "${_getAverageUberRecipients(medicStats)} player(s)"));
     tableRows.add(getTableRow("Deaths after charge",
-        "${medicStats.deathsWithin20sAfterUber} deaths"));
+        "${medicStats.deathsWithin20sAfterUber} death(s)"));
     tableRows.add(getTableRow(
-        "Major advantages lost", "${medicStats.advantagesLost} advantages"));
+        "Major advantages lost", "${medicStats.advantagesLost} advantage(s)"));
     tableRows.add(getTableRow("Biggest advantage lost",
-        "${medicStats.biggestAdvantageLost} seconds"));
+        "${medicStats.biggestAdvantageLost} second(s)"));
     if (uberTypes.medigun != null) {
-      tableRows.add(getTableRow("Medigun ubers", "${uberTypes.medigun}"));
+      tableRows.add(getTableRow("Medigun uber(s)", "${uberTypes.medigun}"));
     }
     if (uberTypes.kritzkrieg != null) {
-      tableRows.add(getTableRow("Kritzkrieg ubers", "${uberTypes.kritzkrieg}"));
+      tableRows.add(getTableRow("Kritzkrieg uber(s)", "${uberTypes.kritzkrieg}"));
     }
     if (uberTypes.unknown != null) {
-      tableRows.add(getTableRow("Other ubers", "${uberTypes.unknown}"));
+      tableRows.add(getTableRow("Other uber(s)", "${uberTypes.unknown}"));
     }
 
     return tableRows;
@@ -62,5 +66,26 @@ class MedicStatsWidget extends StatelessWidget {
       ),
       Text(value, style: TextStyle(fontSize: 16))
     ]);
+  }
+  int _getNearFullChargeDeaths(MedicStats medicStats){
+    return medicStats.deathsWith9599Uber != null ? medicStats.deathsWith9599Uber : 0;
+  }
+
+  String _getAverageUberRecipients(MedicStats medicStats){
+    double avgUberLength = medicStats.avgUberLength;
+    if (avgUberLength > 5.33){
+      return "1-2";
+    }
+    else if (avgUberLength > 4){
+      return "2-3";
+    } else if (avgUberLength > 3.2){
+      return "3-4";
+    } else {
+      return "4+";
+    }
+  }
+
+  double _getHealPerCharge(Player player) {
+    return player.heal / player.ubers;
   }
 }
