@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/helper/log_helper.dart';
+import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 
@@ -8,6 +9,9 @@ import 'test_helper.dart';
 main() {
   testGetOtherPlayersWithClass();
   testIsClassPlayedByPlayer();
+  testGetClassKills();
+  testGetPlayers();
+
 }
 
 void testGetOtherPlayersWithClass() {
@@ -54,9 +58,78 @@ void testIsClassPlayedByPlayer() {
     });
 
     bool nullPlayerCheck = LogHelper.isClassPlayedByPlayer(null, "scout");
-    test("Class is not played when player is null", (){
+    test("Class is not played when player is null", () {
       expect(nullPlayerCheck, false);
       expect(nullPlayerCheck != null, true);
+    });
+  });
+}
+
+void testGetClassKills() {
+  group("Test get class kills", () {
+    Log log = setupMockLog();
+    Player player = log.players["1"];
+    ClassKill classKill = LogHelper.getClassKill(log, player);
+    test("Class kills is not null and have valid value", () {
+      expect(classKill != null, true);
+      expect(classKill.engineer == 10, true);
+      expect(classKill.scout == 0, false);
+    });
+  });
+}
+
+void testGetPlayers() {
+  group("Test get players", () {
+    Log log = setupMockLog();
+    List<Player> redPlayers = LogHelper.getPlayers(log, "Red");
+    List<Player> scoutsFromRed =
+        LogHelper.getPlayers(log, "Red", className: "scout");
+    List<Player> pyrosFromRed =
+        LogHelper.getPlayers(log, "Red", className: "pyro");
+    List<Player> bluePlayers = LogHelper.getPlayers(log, "Blue");
+    List<Player> scoutsFromBlue =
+        LogHelper.getPlayers(log, "Blue", className: "scout");
+
+    List<Player> invalidTeamAndClassPlayers =
+        LogHelper.getPlayers(log, "Test", className: "Test");
+
+    print("Red players: "+  redPlayers.toString());
+    test("Players from Red team are not null and have valid value", () {
+      expect(redPlayers != null, true);
+      expect(redPlayers.length == 1, true);
+    });
+
+    test(
+        "Players from Rd team and valid class are not null and have valid value",
+        () {
+      expect(scoutsFromRed != null, true);
+      expect(scoutsFromRed.length == 1, true);
+    });
+
+    test(
+        "Players from Red team and invalid class are not null and have valid value",
+        () {
+      expect(pyrosFromRed != null, true);
+      expect(pyrosFromRed.length == 0, true);
+    });
+
+    test("Players from Blue team are not null and have valid value", () {
+      expect(bluePlayers != null, true);
+      expect(bluePlayers.length == 1, true);
+    });
+
+    test(
+        "Players from Blue team and invalid class are not null and have valid value",
+        () {
+      expect(scoutsFromBlue != null, true);
+      expect(scoutsFromBlue.length == 1, true);
+    });
+
+    test(
+        "Players from unknown team and unknown class are not null and have valid value",
+        () {
+      expect(invalidTeamAndClassPlayers != null, true);
+      expect(invalidTeamAndClassPlayers.length == 0, true);
     });
   });
 }

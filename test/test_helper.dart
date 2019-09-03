@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
@@ -114,5 +115,10 @@ Log setupMockLog() {
   Map<String, Player> players = Map();
   players["1"] = firstPlayer;
   players["2"] = secondPlayer;
-  return Log(players: players);
+
+  Map<String,ClassKill> classKills = Map();
+  classKills["1"] = ClassKill(engineer: 10, scout: 10);
+  classKills["2"] = ClassKill(scout: 10);
+
+  return Log(players: players, classKills: classKills);
 }
