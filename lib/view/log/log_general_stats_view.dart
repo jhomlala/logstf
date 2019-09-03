@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
 
 import 'package:intl/intl.dart';
+import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/model/match_type.dart';
 import 'package:logstf/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
@@ -126,14 +128,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   }
 
   Widget _getMatchTypeWidget() {
-    var matchType = "???";
-    var playersCount = _log.players.length;
-    print("Players: " + playersCount.toString());
-    if (playersCount >= 12 && playersCount < 18) {
-      matchType = "6v6";
-    } else if (playersCount >= 18) {
-      matchType = "Highlander";
-    }
+    MatchType matchType = LogHelper.getMatchType(_log.players.values.length,_log.info.map);
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -144,7 +139,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
           ),
           Text("Type: "),
           Text(
-            matchType,
+            matchType.name,
             style: TextStyle(fontSize: 18),
           )
         ]));
