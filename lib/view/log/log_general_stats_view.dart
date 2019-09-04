@@ -47,10 +47,9 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                       _getTimeWidget(context),
                       _getUploaderWidget()
                     ],
-                  )))
+                  ))),
         ]));
   }
-
 
   Widget _getTitleWidget(BuildContext context) {
     return Text(
@@ -128,7 +127,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
   }
 
   Widget _getMatchTypeWidget() {
-    MatchType matchType = LogHelper.getMatchType(_log.players.values.length,_log.info.map);
+    MatchType matchType =
+        LogHelper.getMatchType(_log.players.values.length, _log.info.map);
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

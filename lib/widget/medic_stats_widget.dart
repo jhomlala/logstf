@@ -37,7 +37,7 @@ class MedicStatsWidget extends StatelessWidget {
         "${medicStats.avgUberLength.toStringAsFixed(2)} seconds"));
     tableRows.add(getTableRow("Avg uber recipients", "${_getAverageUberRecipients(medicStats)} player(s)"));
     tableRows.add(getTableRow("Deaths after charge",
-        "${medicStats.deathsWithin20sAfterUber} death(s)"));
+        "${_getDeathsAfterCharge(medicStats)} death(s)"));
     tableRows.add(getTableRow(
         "Major advantages lost", "${medicStats.advantagesLost} advantage(s)"));
     tableRows.add(getTableRow("Biggest advantage lost",
@@ -69,6 +69,10 @@ class MedicStatsWidget extends StatelessWidget {
   }
   int _getNearFullChargeDeaths(MedicStats medicStats){
     return medicStats.deathsWith9599Uber != null ? medicStats.deathsWith9599Uber : 0;
+  }
+
+  int _getDeathsAfterCharge(MedicStats medicStats){
+    return medicStats.deathsWithin20sAfterUber != null ? medicStats.deathsWithin20sAfterUber : 0;
   }
 
   String _getAverageUberRecipients(MedicStats medicStats){

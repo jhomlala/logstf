@@ -59,6 +59,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                             return EmptyCard(
                               description:
                                   ErrorHandler.handleError(snapshot.error),
+                              retry: true,
+                              retryAction: _onRetryPressed,
                             );
                           }
 
@@ -169,5 +171,9 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
       }
     }
     return false;
+  }
+
+  _onRetryPressed() {
+    logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
   }
 }

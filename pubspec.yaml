@@ -34,6 +34,7 @@ dependencies:
   package_info: ^0.4.0+6
   pull_to_refresh: ^1.5.5
   html: ^0.14.0+2
+  timeline_list: ^0.0.5
 
   flutter:
     sdk: flutter

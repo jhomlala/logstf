@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'logs_button.dart';
+
 class EmptyCard extends StatelessWidget {
   final String description;
+  final bool retry;
+  final Function retryAction;
 
-  const EmptyCard({Key key, this.description}) : super(key: key);
+  const EmptyCard({Key key, this.description, this.retry = false, this.retryAction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +32,10 @@ class EmptyCard extends StatelessWidget {
                           description,
                           style: TextStyle(fontSize: 14),
                           textAlign: TextAlign.center,
-                        ))
+                        )),
                   ],
                 ),
+                retry? Container(padding: EdgeInsets.only(top:30),child: LogsButton(text: "Retry", onPressed: retryAction, backgroundColor: Theme.of(context).primaryColor,)) : Container()
               ])))
     ]));
   }

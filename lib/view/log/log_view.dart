@@ -13,6 +13,8 @@ import 'package:logstf/widget/progress_bar.dart';
 
 import 'package:logstf/view/log/log_awards_view.dart';
 
+import 'log_timeline_view.dart';
+
 class LogView extends StatefulWidget {
   final int logId;
   const LogView({Key key, this.logId}) : super(key: key);
@@ -32,7 +34,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(_onTabChanged);
     _setupLogSavedState();
   }
@@ -51,15 +53,18 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         tabName = "General stats";
         break;
       case 1:
-        tabName = "Team stats";
+        tabName = "Rounds timeline";
         break;
       case 2:
-        tabName = "Player stats";
+        tabName = "Team stats";
         break;
       case 3:
-        tabName = "Heal stats";
+        tabName = "Player stats";
         break;
       case 4:
+        tabName = "Heal stats";
+        break;
+      case 5:
         tabName = "Awards stats";
         break;
     }
@@ -90,6 +95,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     icon: Icon(Icons.info_outline),
                   ),
                   Tab(
+                    icon: Icon(Icons.timer),
+                  ),
+                  Tab(
                     icon: Icon(Icons.swap_horiz),
                   ),
                   Tab(
@@ -109,11 +117,12 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(
-                        description: ErrorHandler.handleError(snapshot.error)));
+                        description: ErrorHandler.handleError(snapshot.error), retry: true, retryAction: _onRetryPressed,));
               }
               if (snapshot.hasData) {
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
+                  LogTimelineView(),
                   LogTeamStatsView(),
                   LogPlayersView(),
                   LogHealView(),
@@ -161,5 +170,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         .then((logShort) => setState(() {
               _saved = logShort != null;
             }));
+  }
+
+  _onRetryPressed() {
+    logDetailsBloc.selectLog(widget.logId);
   }
 }

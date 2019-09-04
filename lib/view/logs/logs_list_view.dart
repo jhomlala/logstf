@@ -70,7 +70,7 @@ class _LogsListViewState extends State<LogsListView>
               if (!logsSearchBloc.loading) {
                 if (snapshot.hasError) {
                   widgets.add(EmptyCard(
-                      description: ErrorHandler.handleError(snapshot.error)));
+                      description: ErrorHandler.handleError(snapshot.error), retry: true, retryAction: _onRetryPressed,));
                 } else {
                   var data = snapshot.data;
                   if (data == null || data.isEmpty) {
@@ -123,4 +123,12 @@ class _LogsListViewState extends State<LogsListView>
 
   @override
   bool get wantKeepAlive => true;
+
+  _onRetryPressed() {
+    logsSearchBloc.searchLogs(
+        map: logsSearchBloc.map,
+        player: logsSearchBloc.player,
+        uploader: logsSearchBloc.uploader,
+        title: logsSearchBloc.title);
+  }
 }
