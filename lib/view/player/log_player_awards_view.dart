@@ -15,36 +15,86 @@ class LogPlayerAwardsView extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              _getAwardCard(
-                  "Most valuable players",
-                  "Players which were most valuable in game",
-                  LogHelper.getPlayerSortedByMVPScore(_log)),
-              _getAwardCard("Top kills", "Players which had most kills overall",
-                  LogHelper.getPlayersSortedByKills(_log)),
-              _getAwardCard(
-                  "Top assists",
-                  "Players which had most asissts overall",
-                  LogHelper.getPlayersSortedByAssists(_log, true)),
-              _getAwardCard(
-                  "Top damage",
-                  "Players which dealed the most damage",
-                  LogHelper.getPlayersSortedByDamage(_log)),
-              _getAwardCard(
-                  "Top medic kills",
-                  "Players which killed most medics",
-                  LogHelper.getPlayersSortedByMedicKills(_log)),
-              _getAwardCard(
-                  "Top kills per deaths",
-                  "Players which had best kills per death",
-                  LogHelper.getPlayersSortedByKPD(_log)),
-              _getAwardCard(
-                  "Top kills & assists per death",
-                  "Players which had best kills & assists per deaths",
-                  LogHelper.getPlayersSortedByKPD(_log)),
-            ],
+            children: getAwards(),
           ),
         ));
+  }
+
+  List<Widget> getAwards() {
+    List<Widget> awards = List();
+    awards.add(_getAwardCard(
+        "Most valuable players",
+        "Players which were most valuable in game. See help for more info.",
+        LogHelper.getPlayerSortedByMVPScore(_log)));
+
+    awards.add(_getAwardCard(
+        "Top kills",
+        "Players which had most kills overall.",
+        LogHelper.getPlayersSortedByKills(_log)));
+
+    awards.add(_getAwardCard(
+        "Top assists",
+        "Players which had most asissts overall.",
+        LogHelper.getPlayersSortedByAssists(_log, true)));
+
+    awards.add(_getAwardCard(
+        "Top damage",
+        "Players which dealed the most damage.",
+        LogHelper.getPlayersSortedByDamage(_log)));
+
+    awards.add(_getAwardCard(
+        "Top medic kills",
+        "Players which killed most medics.",
+        LogHelper.getPlayersSortedByMedicKills(_log)));
+
+    awards.add(_getAwardCard(
+        "Top kills per deaths",
+        "Players which had best kills per death.",
+        LogHelper.getPlayersSortedByKPD(_log)));
+
+    awards.add(_getAwardCard(
+        "Top kills & assists per death",
+        "Players which had best kills & assists per deaths.",
+        LogHelper.getPlayersSortedByKPD(_log)));
+
+    if (_player.dapm >= 500) {
+      awards.add(_getSpecialAwardCard(
+          "500 DPM Club", "Players who had 500+ DPM in a game."));
+    }
+
+    if (_player.dmg >= 10000) {
+      awards.add(_getSpecialAwardCard(
+          "10000 DMG Club", "Players who had 10k DMG in a game."));
+    }
+
+    if (_player.deaths == 0){
+      awards.add(_getSpecialAwardCard(
+          "Deathless", "Players who had 0 deaths in a game."));
+    }
+
+
+    return awards;
+  }
+
+  Card _getSpecialAwardCard(String name, String description) {
+    return Card(
+      margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+      child: Column(children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(name, style: TextStyle(fontSize: 20)),
+        ]),
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+        ),
+        Text(description),
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+        ),
+      ]),
+    );
   }
 
   Card _getAwardCard(

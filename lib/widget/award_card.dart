@@ -23,7 +23,7 @@ class AwardCard extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text(awardName, style: TextStyle(fontSize: 20)),
               ]),
-              Text(description),
+              Container(margin: EdgeInsets.symmetric(horizontal: 10),child:Center(child: Text(description, textAlign: TextAlign.center,))),
               Padding(
                 padding: EdgeInsets.only(top: 5),
               ),

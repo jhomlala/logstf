@@ -31,44 +31,44 @@ class _LogAwardsViewState extends State<LogAwardsView> {
               awardName: "Most valuable players",
               players: getTopMVPPlayers(),
               log: _log,
-              description: "Players which were most valuable in game",
+              description: "Players which were most valuable in game. See help for more info.",
             ),
             AwardCard(
               awardName: "Top kills",
               players: getTopKillPlayers(),
               log: _log,
-              description: "Players which had most kills overall",
+              description: "Players which had most kills overall.",
             ),
             AwardCard(
               awardName: "Top assists",
               players: getTopAssistsPlayers(),
               log: _log,
               description:
-                  "Players which had most asissts overall (without medics)",
+                  "Players which had most asissts overall (without medics).",
             ),
             AwardCard(
               awardName: "Top damage",
               players: getTopDamagePlayers(),
               log: _log,
-              description: "Players which dealed the most damage",
+              description: "Players which dealed the most damage.",
             ),
             AwardCard(
               awardName: "Top medic kills",
               players: getTopDamagePlayers(),
               log: _log,
-              description: "Players which killed most medics",
+              description: "Players which killed most medics.",
             ),
             AwardCard(
               awardName: "Top kills per deaths",
               players: getTopKPDPlayers(),
               log: _log,
-              description: "Players which had best kills per deaths",
+              description: "Players which had best kills per deaths.",
             ),
             AwardCard(
               awardName: "Top kills & assists per deaths",
               players: getTopKPDPlayers(),
               log: _log,
-              description: "Players which had best kills & assists per deaths",
+              description: "Players which had best kills & assists per deaths.",
             )
           ],
         )));

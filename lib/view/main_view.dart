@@ -59,15 +59,15 @@ class _MainViewState extends State<MainView>
                 indicatorColor: Colors.white,
                 tabs: [
                   Tab(
-                    text: "All",
+                    text: "All matches",
+                    icon: Icon(Icons.flash_on),
+                  ),
+                  Tab(
+                    text: "Saved players",
                     icon: Icon(Icons.people),
                   ),
                   Tab(
-                    text: "Watchlist",
-                    icon: Icon(Icons.remove_red_eye),
-                  ),
-                  Tab(
-                    text: "Saved",
+                    text: "Saved matches",
                     icon: Icon(Icons.favorite),
                   )
                 ])),
