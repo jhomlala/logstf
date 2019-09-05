@@ -53,7 +53,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         tabName = "General stats";
         break;
       case 1:
-        tabName = "Rounds timeline";
+        tabName = "Match timeline";
         break;
       case 2:
         tabName = "Team stats";

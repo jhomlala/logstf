@@ -138,35 +138,35 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     }
     if (event.type == "pointcap") {
       children.add(TextSpan(
-          text: event.team,
+          text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " has capped point"));
     }
     if (event.type == "drop") {
       children.add(TextSpan(
-          text: event.team,
+          text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " medic has died and dropped uber"));
     }
     if (event.type == "medic_death") {
       children.add(TextSpan(
-          text: event.team,
+          text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " medic has died"));
     }
     if (event.type == "charge") {
       children.add(TextSpan(
-          text: event.team,
+          text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " medic has charged uber"));
     }
     if (event.type == "round_win") {
       children.add(TextSpan(
-          text: event.team,
+          text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " has won round"));
@@ -174,7 +174,7 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     return RichText(
         text: TextSpan(
             style: new TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               color: Colors.black,
             ),
             children: children));
@@ -201,6 +201,14 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     }
 
     return Icons.remove_red_eye;
+  }
+
+  String _getTeamName(String teamName){
+    if (teamName == "Blue"){
+      return "BLU";
+    } else {
+      return "RED";
+    }
   }
 
   String _getRoundNumberName(String roundId) {

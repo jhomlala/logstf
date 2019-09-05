@@ -26,10 +26,13 @@ class LogPlayerDetailedView extends StatefulWidget {
 class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  String _appBarTitle;
 
   @override
   void initState() {
     _tabController = TabController(length: 5, vsync: this);
+    _tabController.addListener(_onTabChanged);
+    _onTabChanged();
     super.initState();
   }
 
@@ -37,35 +40,30 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.log.getPlayerName(widget.player.steamId)),
+        title: Text(_appBarTitle),
         elevation: 0.0,
         bottom: TabBar(
             controller: _tabController,
             indicatorColor: Colors.white,
             tabs: [
-              Tab(text: "Player",
-                  icon: Icon(Icons.person)),
+              Tab(icon: Icon(Icons.person)),
               Tab(
-                text: "General",
                 icon: Icon(Icons.info_outline),
               ),
               Tab(
-                text: "Class",
                 icon: Icon(Icons.swap_horiz),
               ),
               Tab(
-                text: "Kills",
                 icon: Icon(Icons.location_searching),
               ),
               Tab(
-                text: "Awards",
                 icon: Icon(Icons.flash_on),
               )
             ]),
       ),
       body: Container(
           child: TabBarView(controller: _tabController, children: [
-            LogPlayerPlayerView(widget.player,widget.log),
+        LogPlayerPlayerView(widget.player, widget.log),
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
         LogPlayerClassCompareView(widget.log, widget.player),
@@ -73,5 +71,31 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
         LogPlayerAwardsView(widget.log, widget.player)
       ])),
     );
+  }
+
+  void _onTabChanged() {
+    int index = _tabController.index;
+    String playerName = widget.log.getPlayerName(widget.player.steamId);
+    var tabName = "";
+    switch (index) {
+      case 0:
+        tabName = "$playerName - Player overview";
+        break;
+      case 1:
+        tabName = "$playerName - General stats";
+        break;
+      case 2:
+        tabName = "$playerName - Class compare";
+        break;
+      case 3:
+        tabName = "$playerName - Match matrix";
+        break;
+      case 4:
+        tabName = "$playerName - Awards";
+        break;
+    }
+    setState(() {
+      _appBarTitle = tabName;
+    });
   }
 }

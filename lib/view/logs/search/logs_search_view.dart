@@ -88,7 +88,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       new TextFormField(
         key: _playerKey,
         controller: _playerController,
-        decoration: InputDecoration(hintText: 'Player steamId', labelText: 'Player steamId'),
+        decoration: InputDecoration(hintText: 'Player steam id', labelText: 'Player steam id'),
       ),
     );
     formWidgets.add(Padding(
@@ -102,7 +102,7 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         backgroundColor: Colors.grey,
       ),
       LogsButton(
-        text: "Send",
+        text: "Search",
         onPressed: _onSendClicked,
         backgroundColor: Theme.of(context).primaryColor,
       ),
