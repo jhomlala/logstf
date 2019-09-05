@@ -18,7 +18,6 @@ class PlayerSearchResultsView extends StatefulWidget {
 class _PlayerSearchResultsViewState extends State<PlayerSearchResultsView> {
   @override
   void initState() {
-    print("Searching: " + widget.playerName);
     playerSearchBloc.searchPlayers(widget.playerName);
     super.initState();
   }
@@ -26,7 +25,8 @@ class _PlayerSearchResultsViewState extends State<PlayerSearchResultsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Search: ${widget.playerName}")),
+        appBar:
+            AppBar(elevation: 0.0, title: Text("Search: ${widget.playerName}")),
         body: Container(
             color: Theme.of(context).primaryColor,
             child: StreamBuilder<List<PlayerSearchResult>>(

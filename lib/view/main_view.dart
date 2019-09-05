@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'about/about_view.dart';
+import 'help/help_view.dart';
 import 'logs/logs_saved_list_view.dart';
 import 'package:logstf/view/logs/logs_list_view.dart';
 import 'package:logstf/view/logs/logs_watch_list_view.dart';
@@ -82,6 +83,7 @@ class _MainViewState extends State<MainView>
     List<MenuItem> menuItems = List();
     menuItems.add(MenuItem(title: "Settings", icon: Icons.settings));
     menuItems.add(MenuItem(title: "About", icon: Icons.settings));
+    menuItems.add(MenuItem(title: "Help", icon: Icons.settings));
     return menuItems;
   }
 
@@ -93,6 +95,10 @@ class _MainViewState extends State<MainView>
     if (menuItem.title == "About") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutView()));
+    }
+    if (menuItem.title == "Help"){
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HelpView()));
     }
   }
 }
