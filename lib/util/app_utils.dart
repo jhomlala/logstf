@@ -47,4 +47,6 @@ class AppUtils {
   static double roundDoubleToFractionDigits(double value, int fractionDigits) {
     return double.parse(value.toStringAsFixed(fractionDigits));
   }
+
+  static String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 }

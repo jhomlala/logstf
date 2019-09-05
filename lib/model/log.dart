@@ -14,36 +14,48 @@ class Log {
   final int length;
   final Map<String, String> names;
   final Map<String, ClassKill> classKills;
+  final Map<String, ClassKill> classDeaths;
+  final Map<String, ClassKill> classKillAssists;
   final Map<String, Map<String, int>> healspread;
   int id;
 
-  Log(
-      {this.teams,
-      this.players,
-      this.rounds,
-      this.info,
-      this.length,
-      this.names,
-      this.classKills,
-      this.healspread,
-      this.id});
+  Log({this.teams,
+    this.players,
+    this.rounds,
+    this.info,
+    this.length,
+    this.names,
+    this.classKills,
+    this.classDeaths,
+    this.classKillAssists,
+    this.healspread,
+    this.id});
 
-  factory Log.fromJson(Map<String, dynamic> json, int id) => Log(
-      teams: Teams.fromJson(json["teams"]),
-      players: new Map.from(json["players"]).map(
-          (k, v) => new MapEntry<String, Player>(k, Player.fromJson(v, k))),
-      rounds:
+  factory Log.fromJson(Map<String, dynamic> json, int id) =>
+      Log(
+          teams: Teams.fromJson(json["teams"]),
+          players: new Map.from(json["players"]).map(
+                  (k, v) =>
+              new MapEntry<String, Player>(k, Player.fromJson(v, k))),
+          rounds:
           (json["rounds"] as List).map((i) => new Round.fromJson(i)).toList(),
-      info: Info.fromJson(json["info"]),
-      length: json["length"],
-      names: new Map.from(json["names"])
-          .map((k, v) => new MapEntry<String, String>(k, v)),
-      classKills: new Map.from(json["classkills"]).map(
-          (k, v) => new MapEntry<String, ClassKill>(k, ClassKill.fromJson(v))),
-      healspread: new Map.from(json["healspread"]).map((k, v) =>
+          info: Info.fromJson(json["info"]),
+          length: json["length"],
+          names: new Map.from(json["names"])
+              .map((k, v) => new MapEntry<String, String>(k, v)),
+          classKills: new Map.from(json["classkills"]).map(
+                  (k, v) =>
+              new MapEntry<String, ClassKill>(k, ClassKill.fromJson(v))),
+          classDeaths: new Map.from(json["classdeaths"]).map(
+                  (k, v) =>
+              new MapEntry<String, ClassKill>(k, ClassKill.fromJson(v))),
+          classKillAssists: new Map.from(json["classkillassists"]).map(
+                  (k, v) =>
+              new MapEntry<String, ClassKill>(k, ClassKill.fromJson(v))),
+          healspread: new Map.from(json["healspread"]).map((k, v) =>
           new MapEntry<String, Map<String, int>>(k,
               new Map.from(v).map((k, v) => new MapEntry<String, int>(k, v)))),
-      id: id);
+          id: id);
 
   String getPlayerName(String steamId) {
     if (names.containsKey(steamId)) {

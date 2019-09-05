@@ -284,9 +284,9 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     List<Widget> widgets = List();
     var classStatsList = player.classStats;
     int additionalClasses = 0;
-    if (classStatsList.length > 3) {
-      additionalClasses = classStatsList.length - 3;
-      classStatsList = classStatsList.sublist(0, 3);
+    if (classStatsList.length > 2) {
+      additionalClasses = classStatsList.length - 2;
+      classStatsList = classStatsList.sublist(0, 2);
     }
 
     classStatsList.forEach((classStats) {
