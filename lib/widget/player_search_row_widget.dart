@@ -12,7 +12,7 @@ class PlayerSearchRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(child: Card(child:
       Container(margin:EdgeInsets.all(5),child:Row(children: [
-        Image.network(playerSearchResult.avatarUrl),
+       _getImage(playerSearchResult.avatarUrl),
         Padding(padding: EdgeInsets.only(left:5)),
         Container(width: MediaQuery.of(context).size.width*0.8,child: Text(playerSearchResult.playerNames.join(", "), maxLines: 5,))
       ])),
@@ -26,5 +26,13 @@ class PlayerSearchRowWidget extends StatelessWidget {
     logsSearchBloc.clearFilters();
     logsSearchBloc.searchLogs(player: playerSearchResult.steamId);
    Navigator.of(context).pop();
+  }
+
+  Widget _getImage(String url){
+    if (url != null){
+      return Image.network(playerSearchResult.avatarUrl);
+    } else {
+      return Image.asset("assets/tf2logo.png", width: 32,height: 32);
+    }
   }
 }

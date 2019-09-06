@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:logstf/model/player_search_result.dart';
 import 'package:logstf/util/app_utils.dart';
@@ -30,9 +31,15 @@ class LogsPlayerSearchRepository {
             }
             if (index == 1) {
               var innerTdElements = tdElement.children;
-              avatarUrl = innerTdElements.first.attributes["src"];
-              playerNames = innerTdElements[1]
-                  .text
+              Element playerNameElement;
+              if (innerTdElements.length == 1) {
+                playerNameElement = innerTdElements[0];
+              } else {
+                avatarUrl = innerTdElements.first.attributes["src"];
+                playerNameElement = innerTdElements[1];
+              }
+
+              playerNames = playerNameElement.text
                   .replaceAll(new RegExp(r"\s+\b|\b\s"), "")
                   .split(",");
 

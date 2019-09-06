@@ -32,6 +32,8 @@ class AppUtils {
         return Colors.red;
       case "Pink":
         return Colors.pink;
+      case "Black":
+        return Colors.black;
     }
     return Colors.deepPurple;
   }

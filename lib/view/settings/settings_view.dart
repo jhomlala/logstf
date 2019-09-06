@@ -32,6 +32,7 @@ class _SettingsViewState extends State<SettingsView> {
     _availableColors["Blue"] = Colors.blue;
     _availableColors["Red"] = Colors.red;
     _availableColors["Pink"] = Colors.pink;
+    _availableColors["Black"] = Colors.black;
 
     _playersObservedSubscription = playersObservedBloc.playersObservedSubject
         .listen((List<PlayerObserved> observedPlayers) {

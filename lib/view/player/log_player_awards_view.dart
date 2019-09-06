@@ -67,11 +67,10 @@ class LogPlayerAwardsView extends StatelessWidget {
           "10000 DMG Club", "Players who had 10k DMG in a game."));
     }
 
-    if (_player.deaths == 0){
+    if (_player.deaths == 0) {
       awards.add(_getSpecialAwardCard(
           "Deathless", "Players who had 0 deaths in a game."));
     }
-
 
     return awards;
   }
@@ -131,7 +130,12 @@ class LogPlayerAwardsView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 5),
           ),
-          Text(description),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+              )),
           Padding(
             padding: EdgeInsets.only(top: 5),
           ),
