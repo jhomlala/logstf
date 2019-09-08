@@ -106,19 +106,19 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     List<Player> playersCopy = List();
     playersCopy.addAll(players);
     switch (filterName) {
-      case "Kills":
+      case "K":
         playersCopy
             .sort((player1, player2) => player2.kills.compareTo(player1.kills));
         break;
-      case "Deaths":
+      case "D":
         playersCopy.sort(
             (player1, player2) => player2.deaths.compareTo(player1.deaths));
         break;
-      case "Assists":
+      case "A":
         playersCopy.sort(
             (player1, player2) => player2.assists.compareTo(player1.assists));
         break;
-      case "Damage":
+      case "DA":
         playersCopy
             .sort((player1, player2) => player2.dmg.compareTo(player1.dmg));
         break;
@@ -299,28 +299,28 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   Widget _getPlayerValueColumn(int index) {
     if (index == 0) {
       return _getValuesColumn(
-          "Kills",
+          "K",
           _playersSorted.map<String>((Player player) {
             return player.kills.toString();
           }).toList());
     }
     if (index == 1) {
       return _getValuesColumn(
-          "Assists",
+          "A",
           _playersSorted.map<String>((Player player) {
             return player.assists.toString();
           }).toList());
     }
     if (index == 2) {
       return _getValuesColumn(
-          "Deaths",
+          "D",
           _playersSorted.map<String>((Player player) {
             return player.deaths.toString();
           }).toList());
     }
     if (index == 3) {
       return _getValuesColumn(
-          "Damage",
+          "DA",
           _playersSorted.map<String>((Player player) {
             return player.dmg.toString();
           }).toList());
@@ -437,7 +437,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         child: Container(
             decoration: decoration,
             height: 30,
-            width: 80,
+            width: 40,
             child: Center(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -451,7 +451,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           border: Border(bottom: BorderSide(color: AppUtils.darkBlueColor)),
         ),
         height: 30,
-        width: 80,
+        width: 40,
         child: Center(child: Text(value)));
   }
 

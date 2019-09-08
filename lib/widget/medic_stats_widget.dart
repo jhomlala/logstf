@@ -27,8 +27,8 @@ class MedicStatsWidget extends StatelessWidget {
     List<TableRow> tableRows = List();
     tableRows.add(getTableRow("Healing", "${player.heal} HP"));
     tableRows.add(getTableRow("Charges", "${player.ubers} charge(s)"));
-    tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Heal/minute", "${_getHealPerMinute(player).toStringAsFixed(1)} HP"));
+    tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Drops", "${player.drops} drop(s)"));
     tableRows.add(getTableRow("Avg time to build",
         "${medicStats.avgTimeToBuild.toStringAsFixed(2)} second(s)"));
