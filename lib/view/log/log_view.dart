@@ -7,7 +7,6 @@ import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_heal_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
-import 'package:logstf/view/log/log_team_stats_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
@@ -17,6 +16,7 @@ import 'log_timeline_view.dart';
 
 class LogView extends StatefulWidget {
   final int logId;
+
   const LogView({Key key, this.logId}) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     _tabController.addListener(_onTabChanged);
     _setupLogSavedState();
   }
@@ -53,19 +53,16 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         tabName = "General stats";
         break;
       case 1:
-        tabName = "Match timeline";
-        break;
-      case 2:
-        tabName = "Team stats";
-        break;
-      case 3:
         tabName = "Player stats";
         break;
-      case 4:
+      case 2:
         tabName = "Heal stats";
         break;
-      case 5:
+      case 3:
         tabName = "Awards stats";
+        break;
+      case 4:
+        tabName = "Match timeline";
         break;
     }
     setState(() {
@@ -95,12 +92,6 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     icon: Icon(Icons.info_outline),
                   ),
                   Tab(
-                    icon: Icon(Icons.timer),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.swap_horiz),
-                  ),
-                  Tab(
                     icon: Icon(Icons.people),
                   ),
                   Tab(
@@ -108,7 +99,10 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                   ),
                   Tab(
                     icon: Icon(Icons.flash_on),
-                  )
+                  ),
+                  Tab(
+                    icon: Icon(Icons.timer),
+                  ),
                 ])),
         body: StreamBuilder<Log>(
             stream: logDetailsBloc.logSubject,
@@ -117,16 +111,18 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(
-                        description: ErrorHandler.handleError(snapshot.error), retry: true, retryAction: _onRetryPressed,));
+                      description: ErrorHandler.handleError(snapshot.error),
+                      retry: true,
+                      retryAction: _onRetryPressed,
+                    ));
               }
               if (snapshot.hasData) {
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
-                  LogTimelineView(),
-                  LogTeamStatsView(),
                   LogPlayersView(),
                   LogHealView(),
-                  LogAwardsView()
+                  LogAwardsView(),
+                  LogTimelineView(),
                 ]);
               } else {
                 return Container(
@@ -157,7 +153,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void _saveLog(LogShort logShort) {
-     logDetailsBloc.createLogInDatabase(logShort);
+    logDetailsBloc.createLogInDatabase(logShort);
     logsSavedBloc.addLog(logShort);
     setState(() {
       _saved = true;
