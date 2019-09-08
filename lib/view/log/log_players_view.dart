@@ -13,7 +13,6 @@ import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/class_icon.dart';
-import 'package:logstf/widget/table_header_widget.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersView extends StatefulWidget {
@@ -25,8 +24,15 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   Log _log = logDetailsBloc.logSubject.value;
   Map<String, Player> _players;
   Map<String, String> _playerNames;
-  String _filterName = "Kills";
   HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;
+  List<Player> _playersSorted;
+  String _currentFilter = "Kills";
+
+  @override
+  void initState() {
+    init(context);
+    super.initState();
+  }
 
   void init(BuildContext context) {
     _players = _log.players;
@@ -40,102 +46,41 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         _players.values.toList(), length, "Red");
     _averagePlayerStatsMap["Blue"] = StatsManager.getAveragePlayerStatsForTeam(
         _players.values.toList(), length, "Blue");
+    _playersSorted = _orderPlayersByField(_players.values.toList(), "Kills");
   }
 
   @override
   Widget build(BuildContext context) {
-    init(context);
     return Container(
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
-            child: Column(children: <Widget>[
-          _getFilterDropdownWidget(),
-          Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              child: Column(children: [
-                Table(
-                  columnWidths: {
-                    0: FractionColumnWidth(0.15),
-                    1: FractionColumnWidth(0.45),
-                    2: FractionColumnWidth(0.2),
-                    3: FractionColumnWidth(0.2)
-                  },
-                  children: _getTableRows(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 1),
-                )
-              ]))
-        ])));
+            child: Column(children: [Card(
+                child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+              color: Theme.of(context).primaryColor,
+              width: 200,
+              child: Table(
+                columnWidths: {
+                  0: FractionColumnWidth(0.65),
+                  1: FractionColumnWidth(0.35)
+                },
+                children: _getPlayerStickyRows(),
+              )),
+          Expanded(
+              child: Container(
+                  height: (_players.length + 1) * 30.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 13,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _getPlayerValueColumn(index);
+                    },
+                  )))
+        ])),
+            Row(mainAxisAlignment: MainAxisAlignment.end,children:[Text("Scroll right to see more stats", style: TextStyle(color: Colors.white)), Icon(Icons.keyboard_arrow_right, color: Colors.white,)])])));
   }
 
-  Widget _getFilterDropdownWidget() {
-    return Card(
-        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text("Metric: "),
-          Padding(
-            padding: EdgeInsets.only(left: 5),
-          ),
-          DropdownButton<String>(
-            value: _filterName,
-            style: TextStyle(color: Colors.black),
-            items: <String>[
-              "Kills",
-              "Assists",
-              "Deaths",
-              "DA",
-              "DA/M",
-              "KA/D",
-              "K/D",
-              "DT",
-              "DT/M",
-              "HP",
-              "HS",
-              "AS",
-              "CAP"
-            ].map((String value) {
-              return new DropdownMenuItem<String>(
-                value: value,
-                child: new Text(value),
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                _filterName = value;
-              });
-            },
-          )
-        ]));
-  }
-
-  List<TableRow> _getTableRows() {
-    List<TableRow> tableRowsList = List<TableRow>();
-    var playersList = _players.values.toList();
-    var playersListOrdered = orderPlayersByField(playersList);
-
-    tableRowsList.add(getHeaderTableRow());
-    for (int index = 0; index < playersListOrdered.length; index++) {
-      var player = playersListOrdered[index];
-      var name = _playerNames[player.steamId];
-
-      var tableRow = TableRow(
-          decoration: BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
-          children: [
-            _getTeamWidget(player),
-            _getPlayerNameWidget(player, name),
-            _getPlayerClassesWidget(player),
-            _getCurrentStatWidget(player),
-          ]);
-      tableRowsList.add(tableRow);
-    }
-    return tableRowsList;
-  }
-
-  void onPlayerClicked(Player player) async {
+  void _onPlayerClicked(Player player) async {
     NavigationEvent navigationEvent = await Navigator.push<NavigationEvent>(
         context,
         MaterialPageRoute(
@@ -148,10 +93,10 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     }
   }
 
-  List<Player> orderPlayersByField(List<Player> players) {
+  List<Player> _orderPlayersByField(List<Player> players, String filterName) {
     List<Player> playersCopy = List();
     playersCopy.addAll(players);
-    switch (_filterName) {
+    switch (filterName) {
       case "Kills":
         playersCopy
             .sort((player1, player2) => player2.kills.compareTo(player1.kills));
@@ -164,7 +109,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         playersCopy.sort(
             (player1, player2) => player2.assists.compareTo(player1.assists));
         break;
-      case "DA":
+      case "Damage":
         playersCopy
             .sort((player1, player2) => player2.dmg.compareTo(player1.dmg));
         break;
@@ -215,18 +160,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return damgeTaken / length;
   }
 
-  TableRow getHeaderTableRow() {
-    return TableRow(children: [
-      TableHeaderWidget("TEAM", 1),
-      TableHeaderWidget("PLAYER", 0),
-      TableHeaderWidget("CLASSES", 0),
-      TableHeaderWidget(_filterName, 2),
-    ]);
-  }
-
   bool _isPlayerNameFitInColumn(String name) {
-    double width = MediaQuery.of(context).size.width;
-    double playerNameColumnWidth = width * 0.45;
+    double playerNameColumnWidth = 150;
 
     final constraints = BoxConstraints(
       maxWidth: playerNameColumnWidth,
@@ -250,36 +185,6 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return playerNameColumnWidth > textWidth;
   }
 
-  Widget _getPlayerNameWidget(Player player, String name) {
-    Widget widget;
-    if (!_isPlayerNameFitInColumn(name)) {
-      widget = Marquee(
-        text: name,
-        scrollAxis: Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        velocity: 20.0,
-        blankSpace: 20.0,
-      );
-    } else {
-      widget = Container(
-          height: 30,
-          padding: EdgeInsets.only(left: 5),
-          child: Center(
-              child: Text(
-            name,
-            overflow: TextOverflow.ellipsis,
-          )));
-    }
-
-    return InkWell(
-      onTap: () {
-        onPlayerClicked(player);
-      },
-      child: Container(
-          height: 30, padding: EdgeInsets.only(left: 5), child: widget),
-    );
-  }
-
   Widget _getPlayerClassesWidget(Player player) {
     List<Widget> widgets = List();
     var classStatsList = player.classStats;
@@ -299,85 +204,251 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
     return Center(
         child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border:
+                    Border(bottom: BorderSide(color: AppUtils.darkBlueColor))),
             height: 30,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: widgets)));
   }
 
-  Widget _getTeamWidget(Player player) {
-    var teamColor = Colors.red;
-    var teamName = "RED";
-    if (player.team == "Blue") {
-      teamColor = Colors.blue;
-      teamName = "BLU";
-    }
-
-    return InkWell(
-        onTap: () {
-          onPlayerClicked(player);
-        },
-        child: Container(
-            height: 30,
-            width: 50,
-            decoration: BoxDecoration(
-                color: teamColor,
-                border:
-                    Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
-            child: Center(
-              child: Text(teamName, style: TextStyle(color: Colors.white)),
-            )));
+  List<TableRow> _getPlayerStickyRows() {
+    List<TableRow> rows = List();
+    rows.add(TableRow(children: [
+      Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10)),
+            color: AppUtils.darkBlueColor,
+          ),
+          height: 30,
+          child: Center(
+              child: Text("Player", style: TextStyle(color: Colors.white)))),
+      Container(
+          decoration: BoxDecoration(
+            color: AppUtils.darkBlueColor,
+          ),
+          height: 30,
+          child: Center(
+              child: Text("Class", style: TextStyle(color: Colors.white))))
+    ]));
+    _playersSorted.forEach((Player player) {
+      rows.add(_getPlayerStickyRow(player));
+    });
+    return rows;
   }
 
-  _getCurrentStatWidget(Player player) {
-    String value = "";
-    switch (_filterName) {
-      case "Kills":
-        value = "${player.kills}";
-        break;
-      case "Deaths":
-        value = "${player.deaths}";
-        break;
-      case "Assists":
-        value = "${player.assists}";
-        break;
-      case "DA":
-        value = "${player.dmg}";
-        break;
-      case "DA/M":
-        value = "${player.dapm}";
-        break;
-      case "KA/D":
-        value = "${player.kapd}";
-        break;
-      case "K/D":
-        value = "${player.kpd}";
-        break;
-      case "DT":
-        value = "${player.dt}";
-        break;
-      case "DT/M":
-        value = "${_calculateDamageTakenPerMinute(player.dt)}";
-        break;
-      case "HP":
-        value = "${player.heal}";
-        break;
-      case "HS":
-        value = "${player.headshots}";
-        break;
-      case "AS":
-        value = "${player.as}";
-        break;
-      case "CAP":
-        value = "${player.as}";
-        break;
+  Widget _getPlayerNameWidget(Player player) {
+    String name = _playerNames[player.steamId];
+    Color teamColor = Colors.red;
+    if (player.team == "Blue") {
+      teamColor = Colors.blue;
+    }
+    Widget widget;
+    if (_isPlayerNameFitInColumn(name)) {
+      widget = Center(
+          child: Text(
+        _playerNames[player.steamId],
+        style: TextStyle(color: Colors.white),
+      ));
+    } else {
+      widget = Marquee(
+        text: name,
+        scrollAxis: Axis.horizontal,
+        style: TextStyle(color: Colors.white),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        velocity: 20.0,
+        blankSpace: 20.0,
+      );
     }
 
     return Container(
-      height: 30,
-      width: 100,
-      padding: EdgeInsets.only(left: 5),
-      child: Center(child: Text(value)),
+        decoration: BoxDecoration(
+            color: teamColor,
+            border: Border(bottom: BorderSide(color: AppUtils.darkBlueColor))),
+        height: 30,
+        width: 100,
+        child: widget);
+  }
+
+  TableRow _getPlayerStickyRow(Player player) {
+    return TableRow(children: [
+      InkWell(
+          onTap: () {
+            _onPlayerClicked(player);
+          },
+          child: _getPlayerNameWidget(player)),
+      InkWell(
+          onTap: () {
+            _onPlayerClicked(player);
+          },
+          child: _getPlayerClassesWidget(player))
+    ]);
+  }
+
+  Widget _getPlayerValueColumn(int index) {
+    if (index == 0) {
+      return _getValuesColumn(
+          "Kills",
+          _playersSorted.map<String>((Player player) {
+            return player.kills.toString();
+          }).toList());
+    }
+    if (index == 1) {
+      return _getValuesColumn(
+          "Assists",
+          _playersSorted.map<String>((Player player) {
+            return player.assists.toString();
+          }).toList());
+    }
+    if (index == 2) {
+      return _getValuesColumn(
+          "Deaths",
+          _playersSorted.map<String>((Player player) {
+            return player.deaths.toString();
+          }).toList());
+    }
+    if (index == 3) {
+      return _getValuesColumn(
+          "Damage",
+          _playersSorted.map<String>((Player player) {
+            return player.dmg.toString();
+          }).toList());
+    }
+    if (index == 4) {
+      return _getValuesColumn(
+          "DA/M",
+          _playersSorted.map<String>((Player player) {
+            return player.dapm.toString();
+          }).toList());
+    }
+    if (index == 5) {
+      return _getValuesColumn(
+          "KA/D",
+          _playersSorted.map<String>((Player player) {
+            return player.kapd;
+          }).toList());
+    }
+    if (index == 6) {
+      return _getValuesColumn(
+          "K/D",
+          _playersSorted.map<String>((Player player) {
+            return player.kpd.toString();
+          }).toList());
+    }
+    if (index == 7) {
+      return _getValuesColumn(
+          "DT",
+          _playersSorted.map<String>((Player player) {
+            return player.dt.toString();
+          }).toList());
+    }
+    if (index == 8) {
+      return _getValuesColumn(
+          "DT/M",
+          _playersSorted.map<String>((Player player) {
+            return _calculateDamageTakenPerMinute(player.dt).toStringAsFixed(0);
+          }).toList());
+    }
+    if (index == 9) {
+      return _getValuesColumn(
+          "HP",
+          _playersSorted.map<String>((Player player) {
+            return player.medkitsHp.toString();
+          }).toList());
+    }
+    if (index == 10) {
+      return _getValuesColumn(
+          "HS",
+          _playersSorted.map<String>((Player player) {
+            return player.headshots.toString();
+          }).toList());
+    }
+    if (index == 11) {
+      return _getValuesColumn(
+          "AS",
+          _playersSorted.map<String>((Player player) {
+            return player.as.toString();
+          }).toList());
+    }
+    if (index == 12) {
+      return _getValuesColumn(
+          "CAP",
+          _playersSorted.map<String>((Player player) {
+            return player.cpc.toString();
+          }).toList(),
+          rightCorner: true);
+    }
+
+    return Container(
+      width: 0,
+      height: 0,
     );
+  }
+
+  Widget _getValuesColumn(String title, List<String> values,
+      {bool rightCorner = false}) {
+    List<Widget> columnWidgets = List();
+    columnWidgets.add(_getHeaderCell(title, rightCorner: rightCorner));
+    values.forEach((String value) {
+      columnWidgets.add(_getPlayerValueCell(value));
+    });
+    return Container(
+        color: Theme.of(context).primaryColor,
+        child: Column(children: columnWidgets));
+  }
+
+  Widget _getHeaderCell(String value, {bool rightCorner = false}) {
+    BoxDecoration decoration;
+    if (rightCorner) {
+      decoration = BoxDecoration(
+        borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
+        color: AppUtils.darkBlueColor,
+      );
+    } else {
+      decoration = BoxDecoration(
+        color: AppUtils.darkBlueColor,
+      );
+    }
+
+    List<Widget> widgets = List();
+    if (_currentFilter == value) {
+      widgets.add(Icon(
+        Icons.arrow_drop_down,
+        color: Colors.white,
+      ));
+    }
+    widgets.add(Text(value, style: TextStyle(color: Colors.white)));
+
+    return InkWell(
+        onTap: () {
+          _onHeaderClicked(value);
+        },
+        child: Container(
+            decoration: decoration,
+            height: 30,
+            width: 80,
+            child: Center(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: widgets))));
+  }
+
+  Widget _getPlayerValueCell(String value) {
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: AppUtils.darkBlueColor)),
+        ),
+        height: 30,
+        width: 80,
+        child: Center(child: Text(value)));
+  }
+
+  _onHeaderClicked(String value) {
+    _playersSorted = _orderPlayersByField(_playersSorted, value);
+    _currentFilter = value;
+    setState(() {});
   }
 }

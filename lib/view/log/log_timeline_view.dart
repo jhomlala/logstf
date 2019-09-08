@@ -171,6 +171,35 @@ class _LogTimelineViewState extends State<LogTimelineView> {
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
       children.add(TextSpan(text: " has won round"));
     }
+    if (event.type == "picked up") {
+      children.add(TextSpan(
+          text: _getTeamName(event.team),
+          style: TextStyle(
+              color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
+      children.add(TextSpan(text: " has picked up intelligence"));
+    }
+    if (event.type == "captured") {
+      children.add(TextSpan(
+          text: _getTeamName(event.team),
+          style: TextStyle(
+              color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
+      children.add(TextSpan(text: " has captured intelligence"));
+    }
+    if (event.type == "defended") {
+      children.add(TextSpan(
+          text: _getTeamName(event.team),
+          style: TextStyle(
+              color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
+      children.add(TextSpan(text: " has defended intelligence"));
+    }
+    if (event.type == "dropped") {
+      children.add(TextSpan(
+          text: _getTeamName(event.team),
+          style: TextStyle(
+              color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
+      children.add(TextSpan(text: " has dropped intelligence"));
+    }
+
     return RichText(
         text: TextSpan(
             style: new TextStyle(
@@ -198,6 +227,18 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     }
     if (event.type == "round_win") {
       return Icons.done;
+    }
+    if (event.type == "picked up"){
+      return Icons.file_upload;
+    }
+    if (event.type == "captured"){
+      return Icons.assistant_photo;
+    }
+    if (event.type == "defended"){
+      return Icons.lock;
+    }
+    if (event.type == "dropped"){
+      return Icons.pin_drop;
     }
 
     return Icons.remove_red_eye;
