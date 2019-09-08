@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logstf/model/log.dart';
 import 'package:logstf/model/medic_stats.dart';
 import 'package:logstf/model/player.dart';
 
 class MedicStatsWidget extends StatelessWidget {
   final Player player;
+  final Log log;
 
-  const MedicStatsWidget({Key key, this.player}) : super(key: key);
+  const MedicStatsWidget({Key key, this.player, this.log}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class MedicStatsWidget extends StatelessWidget {
     tableRows.add(getTableRow("Healing", "${player.heal} HP"));
     tableRows.add(getTableRow("Charges", "${player.ubers} charge(s)"));
     tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
+    tableRows.add(getTableRow("Heal/minute", "${_getHealPerMinute(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Drops", "${player.drops} drop(s)"));
     tableRows.add(getTableRow("Avg time to build",
         "${medicStats.avgTimeToBuild.toStringAsFixed(2)} second(s)"));
@@ -91,5 +94,9 @@ class MedicStatsWidget extends StatelessWidget {
 
   double _getHealPerCharge(Player player) {
     return player.heal / player.ubers;
+  }
+
+  _getHealPerMinute(Player player) {
+    return player.heal/(log.length/60);
   }
 }

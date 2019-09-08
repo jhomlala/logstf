@@ -65,7 +65,7 @@ class _LogHealViewState extends State<LogHealView> {
                   margin: EdgeInsets.only(top: 5, bottom: 5),
                   height: 1,
                   color: AppUtils.lightGreyColor),
-              MedicStatsWidget(player: player),
+              MedicStatsWidget(player: player, log: _log),
               Container(
                   margin: EdgeInsets.only(top: 5, bottom: 5),
                   height: 1,

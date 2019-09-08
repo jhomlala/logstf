@@ -54,30 +54,39 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return Container(
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
-            child: Column(children: [Card(
-                child: Row(mainAxisSize: MainAxisSize.min, children: [
-          Container(
-              color: Theme.of(context).primaryColor,
-              width: 200,
-              child: Table(
-                columnWidths: {
-                  0: FractionColumnWidth(0.65),
-                  1: FractionColumnWidth(0.35)
-                },
-                children: _getPlayerStickyRows(),
-              )),
-          Expanded(
-              child: Container(
-                  height: (_players.length + 1) * 30.0,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 13,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _getPlayerValueColumn(index);
-                    },
-                  )))
-        ])),
-            Row(mainAxisAlignment: MainAxisAlignment.end,children:[Text("Scroll right to see more stats", style: TextStyle(color: Colors.white)), Icon(Icons.keyboard_arrow_right, color: Colors.white,)])])));
+            child: Column(children: [
+          Card(
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+            Container(
+                color: Theme.of(context).primaryColor,
+                width: 200,
+                child: Table(
+                  columnWidths: {
+                    0: FractionColumnWidth(0.65),
+                    1: FractionColumnWidth(0.35)
+                  },
+                  children: _getPlayerStickyRows(),
+                )),
+            Expanded(
+                child: Container(
+                    height: (_players.length + 1) * 30.0,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 13,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _getPlayerValueColumn(index);
+                      },
+                    )))
+          ])),
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+            Text("Scroll right to see more stats",
+                style: TextStyle(color: Colors.white)),
+            Icon(
+              Icons.keyboard_arrow_right,
+              color: Colors.white,
+            )
+          ])
+        ])));
   }
 
   void _onPlayerClicked(Player player) async {
