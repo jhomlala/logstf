@@ -39,7 +39,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                   ]))),
           Container(
               color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.only(left:10,right: 10, bottom: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
               child: Align(
                   alignment: Alignment.topCenter,
                   child: Card(
@@ -59,7 +59,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                       _getMatchTypeWidget(),
                       _getTimestampWidget(),
                       _getTimeWidget(context),
-                      _getUploaderWidget()
+                      _getUploaderWidget(),
+                      _getMatchIdWidget()
                     ],
                   ))),
         ])));
@@ -77,11 +78,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset(
-            "assets/map.png",
-            width: 20,
-            height: 20,
-          ),
+          Image.asset("assets/map.png",
+              width: 20, height: 20, color: AppUtils.getIconColor(context)),
           Text(" Map: "),
           Text(
             "${_log.info.map}",
@@ -109,11 +107,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset(
-            "assets/timer.png",
-            width: 20,
-            height: 20,
-          ),
+          Image.asset("assets/timer.png",
+              width: 20, height: 20, color: AppUtils.getIconColor(context)),
           Text("Played:"),
           Text(
             lengthText,
@@ -127,11 +122,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset(
-            "assets/calendar.png",
-            width: 20,
-            height: 20,
-          ),
+          Image.asset("assets/calendar.png",
+              width: 20, height: 20, color: AppUtils.getIconColor(context)),
           Text("Played at: "),
           Text(
             DateFormat('yyyy-MM-dd kk:mm:ss').format(dateTime),
@@ -146,11 +138,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset(
-            "assets/battle.png",
-            width: 20,
-            height: 20,
-          ),
+          Image.asset("assets/battle.png",
+              width: 20, height: 20, color: AppUtils.getIconColor(context)),
           Text("Type: "),
           Text(
             matchType.name,
@@ -163,11 +152,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset(
-            "assets/upload.png",
-            width: 20,
-            height: 20,
-          ),
+          Image.asset("assets/upload.png",
+              width: 20, height: 20, color: AppUtils.getIconColor(context)),
           Text(" Uploaded by: "),
           Flexible(
               child: Container(
@@ -176,6 +162,22 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18)),
           ))
+        ]));
+  }
+
+  Widget _getMatchIdWidget() {
+    return Container(
+        margin: EdgeInsets.all(5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Icon(Icons.important_devices, color: AppUtils.getIconColor(context), size: 20,),
+          Text(" Match id: "),
+          Flexible(
+              child: Container(
+                child: Text(
+                    "#${_log.id}",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 18)),
+              ))
         ]));
   }
 
@@ -279,7 +281,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
       String metricName, String redTeamValue, String blueTeamValue) {
     return TableRow(
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
+            border: Border(
+                bottom: BorderSide(color: AppUtils.getBorderColor(context)))),
         children: [
           Container(
               height: 20,

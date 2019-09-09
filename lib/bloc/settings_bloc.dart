@@ -12,7 +12,7 @@ class SettingsBloc {
   void getAppSettings() async {
     var appSettings = await settingsLocalProvider.getAppSettings();
     if (appSettings == null){
-      appSettings = AppSettings(appColor:"Purple");
+      appSettings = AppSettings(appColor:"Purple", appBrightness: "Light");
     }
     appSettingsSubject.value = appSettings;
   }

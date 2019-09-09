@@ -214,9 +214,10 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return Center(
         child: Container(
             decoration: BoxDecoration(
-                color: Colors.white,
-                border:
-                    Border(bottom: BorderSide(color: AppUtils.darkBlueColor))),
+                color: AppUtils.getBackgroundColor(context),
+                border: Border(
+                    bottom:
+                        BorderSide(color: AppUtils.getBorderColor(context)))),
             height: 30,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -275,7 +276,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return Container(
         decoration: BoxDecoration(
             color: teamColor,
-            border: Border(bottom: BorderSide(color: AppUtils.darkBlueColor))),
+            border: Border(bottom: BorderSide(color: AppUtils.getBorderColor(context)))),
         height: 30,
         width: 100,
         child: widget);
@@ -447,8 +448,9 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   Widget _getPlayerValueCell(String value) {
     return Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(color: AppUtils.darkBlueColor)),
+          color: AppUtils.getBackgroundColor(context),
+          border: Border(
+              bottom: BorderSide(color: AppUtils.getBorderColor(context))),
         ),
         height: 30,
         width: 40,

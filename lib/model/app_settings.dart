@@ -1,10 +1,12 @@
 class AppSettings {
   String appColor;
+  String appBrightness;
 
-  AppSettings({this.appColor});
+  AppSettings({this.appColor, this.appBrightness});
 
   factory AppSettings.fromJson(Map<String, dynamic> json) =>
-      AppSettings(appColor: json["appColor"]);
+      AppSettings(appColor: json["appColor"], appBrightness: json["appBrightness"]);
 
-  Map<String, dynamic> toJson() => {"appColor": appColor};
+  Map<String, dynamic> toJson() =>
+      {"appColor": appColor, "appBrightness": appBrightness};
 }

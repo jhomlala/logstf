@@ -42,6 +42,9 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
   }
 
   int _sumStats(ClassKill classKill) {
+    if (classKill == null) {
+      return 0;
+    }
     return classKill.scout +
         classKill.soldier +
         classKill.pyro +
@@ -53,13 +56,38 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
         classKill.spy;
   }
 
+  ClassKill _setupDefaultStats(){
+    return ClassKill(
+        scout: 0,
+        soldier: 0,
+        pyro: 0,
+        demoman: 0,
+        heavyweapons: 0,
+        engineer: 0,
+        medic: 0,
+        sniper: 0,
+        spy: 0);
+  }
+
   List<TableRow> _getTableRows() {
     List<TableRow> tableRowsList = List<TableRow>();
     tableRowsList.add(_getHeaderTableRow());
     ClassKill classKill = widget.log.classKills[widget.player.steamId];
+    if (classKill == null) {
+      classKill = _setupDefaultStats();
+    }
+
     ClassKill classKillAssists =
         widget.log.classKillAssists[widget.player.steamId];
+    if (classKillAssists == null) {
+      classKillAssists = _setupDefaultStats();
+    }
+
     ClassKill classDeaths = widget.log.classDeaths[widget.player.steamId];
+    if (classDeaths == null) {
+      classDeaths = _setupDefaultStats();
+    }
+
     int classKillSum = _sumStats(classKill);
     int classKillAssistsSum = _sumStats(classKillAssists);
     int classDeathsSum = _sumStats(classDeaths);
@@ -163,12 +191,22 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
     }
 
     killsPercentage = killsPercentage * 100;
+    if (killsPercentage.isNaN) {
+      killsPercentage = 0;
+    }
     killsAndAssistsPercentage = killsAndAssistsPercentage * 100;
+    if (killsAndAssistsPercentage.isNaN) {
+      killsAndAssistsPercentage = 0;
+    }
     deathsPercentage = deathsPercentage * 100;
+    if (deathsPercentage.isNaN) {
+      deathsPercentage = 0;
+    }
 
     return TableRow(
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppUtils.lightGreyColor))),
+            border: Border(
+                bottom: BorderSide(color: AppUtils.getBorderColor(context)))),
         children: [
           Container(
               padding: EdgeInsets.only(top: 5, bottom: 5),

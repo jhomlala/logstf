@@ -29,7 +29,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        initialData: AppSettings(appColor: "Purple"),
+        initialData: AppSettings(appColor: "Purple", appBrightness: "Light"),
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
@@ -37,6 +37,8 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
               title: 'Pocket Logs',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
+                  brightness:
+                      AppUtils.getBrightness(snapshot.data.appBrightness),
                   primaryColor: AppUtils.getColor(snapshot.data.appColor)),
               home: MainView());
         });

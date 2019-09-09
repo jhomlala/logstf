@@ -31,7 +31,7 @@ class ComparisonCard extends StatelessWidget {
     String loserPlayer;
 
     var playersPair = _getWinnerAndLoser();
-    var colorsPair = _getPlayerColors();
+    var colorsPair = _getPlayerColors(context);
 
     if (reversed) {
       playersPair = Pair.reverse(playersPair);
@@ -62,7 +62,8 @@ class ComparisonCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 5),
         ),
-        _getWinnerDescriptionWidget(winnerPlayer, loserPlayer, percentage),
+        _getWinnerDescriptionWidget(
+            winnerPlayer, loserPlayer, percentage, context),
         Padding(
           padding: EdgeInsets.only(top: 10),
         ),
@@ -103,8 +104,8 @@ class ComparisonCard extends StatelessWidget {
     );
   }
 
-  Widget _getWinnerDescriptionWidget(
-      String winnerPlayer, String loserPlayer, double percentage) {
+  Widget _getWinnerDescriptionWidget(String winnerPlayer, String loserPlayer,
+      double percentage, BuildContext context) {
     if (playerValue == comparedPlayerValue) {
       return Container();
     } else {
@@ -119,7 +120,9 @@ class ComparisonCard extends StatelessWidget {
           // Note: Styles for TextSpans must be explicitly defined.
           // Child text spans will inherit styles from parent
           style: new TextStyle(
-              fontSize: 14.0, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 14.0,
+              color: Theme.of(context).textTheme.body1.color,
+              fontStyle: FontStyle.italic),
           children: <TextSpan>[
             new TextSpan(
                 text: "$winnerPlayer",
@@ -158,13 +161,14 @@ class ComparisonCard extends StatelessWidget {
     }
   }
 
-  Pair<Color, Color> _getPlayerColors() {
+  Pair<Color, Color> _getPlayerColors(BuildContext context) {
     if (playerValue > comparedPlayerValue) {
       return Pair(Colors.green, Colors.red);
     } else if (playerValue < comparedPlayerValue) {
       return Pair(Colors.red, Colors.green);
     } else {
-      return Pair(Colors.black, Colors.black);
+      return Pair(Theme.of(context).textTheme.body1.color,
+          Theme.of(context).textTheme.body1.color);
     }
   }
 

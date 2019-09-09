@@ -17,7 +17,9 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   String _selectedColor = "Purple";
+  String _selectedBrightness = "Light";
   Map<String, Color> _availableColors = Map();
+  Map<String, Brightness> _availableBrightness = Map();
   AppSettings _appSettings;
   int _observedPlayersCount = 0;
   int _savedLogsCount = 0;
@@ -33,6 +35,9 @@ class _SettingsViewState extends State<SettingsView> {
     _availableColors["Red"] = Colors.red;
     _availableColors["Pink"] = Colors.pink;
     _availableColors["Black"] = Colors.black;
+
+    _availableBrightness["Light"] = Brightness.light;
+    _availableBrightness["Dark"] = Brightness.dark;
 
     _playersObservedSubscription = playersObservedBloc.playersObservedSubject
         .listen((List<PlayerObserved> observedPlayers) {
@@ -73,6 +78,8 @@ class _SettingsViewState extends State<SettingsView> {
         builder: (context, snapshot) {
           _appSettings = snapshot.data;
           _selectedColor = _appSettings.appColor;
+          print("Selected app color: " + _appSettings.appColor);
+          _selectedBrightness = _appSettings.appBrightness;
           return Scaffold(
               appBar: AppBar(elevation: 0.0, title: Text("Settings")),
               body: Container(
@@ -97,9 +104,25 @@ class _SettingsViewState extends State<SettingsView> {
                                   Padding(
                                     padding: EdgeInsets.only(left: 20),
                                   ),
-                                  _getDropdownButton()
+                                  _getColorDropdownButton()
                                 ]),
                             Divider(),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Text(
+                                        "App brightness: ",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                      ),
+                                      _getBrightnessDropdownButton()
+                                    ]),
+                                Divider(),
                             Row(children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 5),
@@ -146,7 +169,7 @@ class _SettingsViewState extends State<SettingsView> {
     logsSavedBloc.deleteSavedLogs();
   }
 
-  Widget _getDropdownButton() {
+  Widget _getColorDropdownButton() {
     return DropdownButton<String>(
         elevation: 2,
         isDense: true,
@@ -163,6 +186,27 @@ class _SettingsViewState extends State<SettingsView> {
           settingsBloc.saveAppSettings(_appSettings);
           setState(() {
             _selectedColor = value;
+          });
+        });
+  }
+
+  Widget _getBrightnessDropdownButton() {
+    return DropdownButton<String>(
+        elevation: 2,
+        isDense: true,
+        iconSize: 20.0,
+        value: _selectedBrightness,
+        items: _availableBrightness.keys.map((String value) {
+          return new DropdownMenuItem<String>(
+            value: value,
+            child: new Text(value, style: TextStyle(fontSize: 16)),
+          );
+        }).toList(),
+        onChanged: (value) {
+          _appSettings.appBrightness = value;
+          settingsBloc.saveAppSettings(_appSettings);
+          setState(() {
+            _selectedBrightness = value;
           });
         });
   }

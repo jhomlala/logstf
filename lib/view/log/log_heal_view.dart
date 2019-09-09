@@ -31,7 +31,6 @@ class _LogHealViewState extends State<LogHealView> {
   @override
   Widget build(BuildContext context) {
     init(context);
-    //return HealSpreadPieChart(healSpreadList: _healSpreadMap.values.first);
     return Container(
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
@@ -61,15 +60,13 @@ class _LogHealViewState extends State<LogHealView> {
                       fontSize: 24, color: _getPlayerTeamColor(player.steamId)),
                 )
               ]),
-              Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  height: 1,
-                  color: AppUtils.lightGreyColor),
+              Divider(
+                color: AppUtils.getBorderColor(context),
+              ),
               MedicStatsWidget(player: player, log: _log),
-              Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  height: 1,
-                  color: AppUtils.lightGreyColor),
+              Divider(
+                color: AppUtils.getBorderColor(context),
+              ),
               HealSpreadPieChart(healSpreadList: list),
               Padding(
                 padding: EdgeInsets.only(top: 10),

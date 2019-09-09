@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/model/event.dart';
 import 'package:logstf/model/log.dart';
+import 'package:logstf/util/app_utils.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -48,10 +49,20 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     return events;
   }
 
+  Color _getTimelineColor() {
+    Brightness brightness = Theme.of(context).brightness;
+    if (brightness == Brightness.light) {
+      return Colors.white;
+    } else {
+      return AppUtils.greyColor;
+    }
+  }
+
+
   _setupTimelineWidget(TimelinePosition position) => Timeline.builder(
       itemBuilder: _setupTimelineElement,
       itemCount: _events.length,
-      lineColor: Colors.white,
+      lineColor: _getTimelineColor(),
       physics: ClampingScrollPhysics());
 
   TimelineModel _setupTimelineElement(BuildContext context, int i) {
@@ -91,7 +102,7 @@ class _LogTimelineViewState extends State<LogTimelineView> {
             i % 2 == 0 ? TimelineItemPosition.right : TimelineItemPosition.left,
         isFirst: i == 0,
         isLast: i == 10,
-        iconBackground: Colors.white,
+        iconBackground: _getTimelineColor(),
         icon: Icon(
           _getIcon(event),
           color: Theme.of(context).primaryColor,
@@ -204,7 +215,7 @@ class _LogTimelineViewState extends State<LogTimelineView> {
         text: TextSpan(
             style: new TextStyle(
               fontSize: 12.0,
-              color: Colors.black,
+              color: Theme.of(context).textTheme.body1.color
             ),
             children: children));
   }
@@ -228,24 +239,24 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     if (event.type == "round_win") {
       return Icons.done;
     }
-    if (event.type == "picked up"){
+    if (event.type == "picked up") {
       return Icons.file_upload;
     }
-    if (event.type == "captured"){
+    if (event.type == "captured") {
       return Icons.assistant_photo;
     }
-    if (event.type == "defended"){
+    if (event.type == "defended") {
       return Icons.lock;
     }
-    if (event.type == "dropped"){
+    if (event.type == "dropped") {
       return Icons.pin_drop;
     }
 
     return Icons.remove_red_eye;
   }
 
-  String _getTeamName(String teamName){
-    if (teamName == "Blue"){
+  String _getTeamName(String teamName) {
+    if (teamName == "Blue") {
       return "BLU";
     } else {
       return "RED";

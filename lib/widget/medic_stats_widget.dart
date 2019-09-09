@@ -24,16 +24,22 @@ class MedicStatsWidget extends StatelessWidget {
   List<TableRow> getTableRows() {
     var medicStats = player.medicStats;
     var uberTypes = player.ubertypes;
+
     List<TableRow> tableRows = List();
+    if (medicStats == null){
+      tableRows.add(TableRow(children: [Text("No medic data")]));
+      return tableRows;
+    }
+
     tableRows.add(getTableRow("Healing", "${player.heal} HP"));
     tableRows.add(getTableRow("Charges", "${player.ubers} charge(s)"));
     tableRows.add(getTableRow("Heal/minute", "${_getHealPerMinute(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Drops", "${player.drops} drop(s)"));
     tableRows.add(getTableRow("Avg time to build",
-        "${medicStats.avgTimeToBuild.toStringAsFixed(2)} second(s)"));
+        "${_getAvgTimeToBuild(medicStats)}"));
     tableRows.add(getTableRow("Avg time before using",
-        "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} second(s)"));
+        "${_getAvgTimeBeforeUsing(medicStats)}"));
     tableRows.add(getTableRow(
         "Near full charge deaths", "${_getNearFullChargeDeaths(medicStats)} death(s)"));
     tableRows.add(getTableRow("Avg uber length",
@@ -98,5 +104,21 @@ class MedicStatsWidget extends StatelessWidget {
 
   _getHealPerMinute(Player player) {
     return player.heal/(log.length/60);
+  }
+
+  _getAvgTimeToBuild(MedicStats medicStats) {
+    if (medicStats != null){
+      return "${medicStats.avgTimeToBuild.toStringAsFixed(2)} second(s)" ;
+    } else {
+      return "no data";
+    }
+  }
+
+  _getAvgTimeBeforeUsing(MedicStats medicStats) {
+    if (medicStats != null){
+      return "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} second(s)" ;
+    } else {
+      return "no data";
+    }
   }
 }

@@ -9,6 +9,8 @@ class AppUtils {
   static Color darkBlueColor = Color.fromARGB(255, 23, 63, 95);
   static Color seashellColor = Color.fromARGB(255, 245, 245, 245);
   static Color lightGreyColor = Color.fromARGB(255, 230, 230, 230);
+  static Color darkGreyColor = Color.fromARGB(255, 90,90,90);
+  static Color greyColor = Color.fromARGB(255, 66,66,66);
 
   static int convertSteamId3ToSteamId64(String steamId) {
     String steamIdFixed = steamId.replaceAll("[", "");
@@ -51,4 +53,40 @@ class AppUtils {
   }
 
   static String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
+  static Brightness getBrightness(String appBrightness) {
+    if (appBrightness == "Light"){
+      return Brightness.light;
+    } else {
+      return Brightness.dark;
+    }
+  }
+
+  static Color getBorderColor(BuildContext context){
+    Brightness brightness = Theme.of(context).brightness;
+    if (brightness == Brightness.light){
+      return lightGreyColor;
+    } else {
+      return darkGreyColor;
+    }
+  }
+  static Color getBackgroundColor(BuildContext context){
+    Brightness brightness = Theme.of(context).brightness;
+    if (brightness == Brightness.light){
+      return Colors.white;
+    } else {
+      return greyColor;
+    }
+  }
+
+  static getIconColor(BuildContext context) {
+    Brightness brightness = Theme.of(context).brightness;
+    if (brightness == Brightness.light){
+      return Colors.black;
+    } else {
+      return Colors.white;
+    }
+  }
+
+
 }
