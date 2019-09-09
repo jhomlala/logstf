@@ -72,7 +72,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                     height: (_players.length + 1) * 30.0,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 13,
+                      itemCount: 14,
                       itemBuilder: (BuildContext context, int index) {
                         return _getPlayerValueColumn(index);
                       },
@@ -158,7 +158,11 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         break;
       case "CAP":
         playersCopy
-            .sort((player1, player2) => player2.as.compareTo(player1.as));
+            .sort((player1, player2) => player2.cpc.compareTo(player1.cpc));
+        break;
+      case "BA":
+        playersCopy
+            .sort((player1, player2) => player2.backstabs.compareTo(player1.backstabs));
         break;
     }
     return playersCopy;
@@ -387,6 +391,14 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           "CAP",
           _playersSorted.map<String>((Player player) {
             return player.cpc.toString();
+          }).toList());
+    }
+
+    if (index == 13) {
+      return _getValuesColumn(
+          "BA",
+          _playersSorted.map<String>((Player player) {
+            return player.backstabs.toString();
           }).toList(),
           rightCorner: true);
     }
@@ -438,7 +450,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         child: Container(
             decoration: decoration,
             height: 30,
-            width: 40,
+            width: 65,
             child: Center(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -453,7 +465,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
               bottom: BorderSide(color: AppUtils.getBorderColor(context))),
         ),
         height: 30,
-        width: 40,
+        width: 65,
         child: Center(child: Text(value)));
   }
 
