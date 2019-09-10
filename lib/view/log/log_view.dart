@@ -12,6 +12,7 @@ import 'package:logstf/widget/progress_bar.dart';
 
 import 'package:logstf/view/log/log_awards_view.dart';
 
+import 'log_players_stats_matrix_view.dart';
 import 'log_timeline_view.dart';
 
 class LogView extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(_onTabChanged);
     _setupLogSavedState();
   }
@@ -56,12 +57,15 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         tabName = "Player stats";
         break;
       case 2:
-        tabName = "Heal stats";
+        tabName = "Players matrix";
         break;
       case 3:
-        tabName = "Awards stats";
+        tabName = "Heal stats";
         break;
       case 4:
+        tabName = "Awards stats";
+        break;
+      case 5:
         tabName = "Match timeline";
         break;
     }
@@ -95,6 +99,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     icon: Icon(Icons.people),
                   ),
                   Tab(
+                    icon: Icon(Icons.apps),
+                  ),
+                  Tab(
                     icon: Icon(Icons.add),
                   ),
                   Tab(
@@ -120,6 +127,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
                   LogPlayersView(),
+                  LogPlayersStatsMatrixView(),
                   LogHealView(),
                   LogAwardsView(),
                   LogTimelineView(),

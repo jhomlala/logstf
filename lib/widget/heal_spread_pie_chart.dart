@@ -76,6 +76,11 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
   }
 
   Widget getLegendRow(HealSpread healSpread, Color color) {
+    String playerName = healSpread.name;
+    if (playerName.length > 20){
+      playerName = playerName.substring(0,20) + "...";
+    }
+
     return Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         child: Row(
@@ -90,10 +95,11 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
             Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  healSpread.name,
+                 playerName,
                   overflow: TextOverflow.ellipsis,
                 )),
             Container(
+
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
                   "${healSpread.percentage.toStringAsFixed(1)}% (${healSpread.health} HP)",
