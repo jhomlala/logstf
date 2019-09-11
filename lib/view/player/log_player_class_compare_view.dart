@@ -158,7 +158,6 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         print("Selected.");
         setState(() {
           _selectedPlayer = value;
-          print("selected: " + value.toString());
         });
       },
     );

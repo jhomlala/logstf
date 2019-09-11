@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/heal_spread.dart';
@@ -7,6 +9,63 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_const.dart';
 
 class LogHelper {
+  static HashMap<String, String> _weaponNames = HashMap();
+  static HashMap<String, String> _weaponImages = HashMap();
+
+  static String getWeaponImage(String weaponNameKey) {
+    if (_weaponImages.isEmpty) {
+      _initWeaponImages();
+    }
+    if (_weaponImages.containsKey(weaponNameKey)) {
+      return _weaponImages[weaponNameKey];
+    } else {
+      return "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
+    }
+  }
+
+  static String getWeaponName(String weaponNameKey) {
+    if (_weaponNames.isEmpty) {
+      _initWeaponNames();
+    }
+
+    if (_weaponNames.containsKey(weaponNameKey)) {
+      return _weaponNames[weaponNameKey];
+    } else {
+      return weaponNameKey;
+    }
+  }
+
+  static void _initWeaponNames() {
+    _weaponNames["scattergun"] = "Scattergun";
+    _weaponNames["maxgun"] = "Lugermorph";
+    _weaponNames["pistol_scout"] = "Pistol";
+    _weaponNames["soda_popper"] = "Soda Popper";
+    _weaponNames["wrap_assassin"] = "Wrap Assasin";
+    _weaponNames["the_winger"] = "Winger";
+    _weaponNames["pep_brawlerblaster"] = "Baby Face's Blaster";
+    _weaponNames["back_scatter"] = "Back Scatter";
+    _weaponNames["pep_pistol"] = "Baby Face's Blaster";
+
+  }
+
+  static void _initWeaponImages() {
+    _weaponImages["scattergun"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
+    _weaponImages["maxgun"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/86/Item_icon_Lugermorph.png/150px-Item_icon_Lugermorph.png";
+    _weaponImages["pistol_scout"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/52/Item_icon_Pistol.png/150px-Item_icon_Pistol.png";
+    _weaponImages["soda_popper"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f1/Item_icon_Soda_Popper.png/150px-Item_icon_Soda_Popper.png";
+    _weaponImages["wrap_assassin"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/6b/Item_icon_Wrap_Assassin.png/150px-Item_icon_Wrap_Assassin.png";
+    _weaponImages["the_winger"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/4e/Item_icon_Winger.png/150px-Item_icon_Winger.png";
+    _weaponImages["pep_brawlerblaster"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/e6/Item_icon_Baby_Face%27s_Blaster.png/150px-Item_icon_Baby_Face%27s_Blaster.png";
+    _weaponImages["back_scatter"] = "https://wiki.teamfortress.com/w/images/thumb/1/11/Item_icon_Back_Scatter.png/150px-Item_icon_Back_Scatter.png";
+  }
+
   static List<Player> getOtherPlayersWithClass(
       Log log, String className, String excludedSteamId) {
     List<Player> allPlayers =
@@ -326,5 +385,45 @@ class LogHelper {
       color = Colors.orange;
     }
     return MatchType(matchType, color);
+  }
+
+  static getDamagePerMinute(Player player, int length) {
+    var damage = player.dmg;
+    return damage / (length / 60);
+  }
+
+  static getPlayersSortedByDAPM(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => getDamagePerMinute(player2, log.length)
+        .compareTo(getDamagePerMinute(player1, log.length)));
+    return players;
+  }
+
+  static getPlayersSortedByMedkits(Log log) {
+    List<Player> players = log.players.values.toList();
+    players
+        .sort((player1, player2) => player2.medkits.compareTo(player1.medkits));
+    return players;
+  }
+
+  static int getMedicKills(Player player, Log log) {
+    if (log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].medic;
+    } else {
+      return 0;
+    }
+  }
+
+  static getPlayersSortedByMedicsKilled(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) =>
+        getMedicKills(player2, log).compareTo(getMedicKills(player1, log)));
+    return players;
+  }
+
+  static getPlayersSortedByCaps(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.cpc.compareTo(player1.cpc));
+    return players;
   }
 }
