@@ -3,6 +3,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/demoman_overview_card.dart';
+import 'package:logstf/widget/heavy_overview_card.dart';
 import 'package:logstf/widget/pyro_overview_card.dart';
 import 'package:logstf/widget/scout_overview_card.dart';
 import 'package:logstf/widget/soldier_overview_widget.dart';
@@ -28,26 +29,37 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
       child: Column(children: [
         SingleChildScrollView(
             child: Card(
-                child: Container(margin: EdgeInsets.all(10),child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Class: ", style: TextStyle(fontSize: 16.0),), _getClassesDropdown()])))),
+                child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Class: ",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                          _getClassesDropdown()
+                        ])))),
         _getClassWidget()
       ]),
     );
   }
 
-  Widget _getClassWidget(){
-    if (_selectedClass == "scout"){
+  Widget _getClassWidget() {
+    if (_selectedClass == "scout") {
       return ScoutOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "soldier"){
+    if (_selectedClass == "soldier") {
       return SoldierOverviewWidget(widget.player, widget.log);
     }
-    if (_selectedClass == "pyro"){
+    if (_selectedClass == "pyro") {
       return PyroOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "demoman"){
-      return DemomanOverviewCard(widget.player,widget.log);
+    if (_selectedClass == "demoman") {
+      return DemomanOverviewCard(widget.player, widget.log);
+    }
+    if (_selectedClass == "heavyweapons") {
+      return HeavyOverviewCard(widget.player, widget.log);
     }
 
     return Container();

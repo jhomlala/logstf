@@ -77,6 +77,12 @@ class LogHelper {
     _weaponNames["nonnonviolent_protest"] = "Conscientious Objector";
     _weaponNames["tide_turner"] = "Tide Turner";
     _weaponNames["skullbat"] = "Bat Outta Hell";
+    _weaponNames["force_a_nature"] = "Force-A-Nature";
+    _weaponNames["brass_beast"] = "Brass Beast";
+    _weaponNames["tomislav"] = "Tomislav";
+    _weaponNames["iron_curtain"] = "Iron Curtain";
+    _weaponNames["family_business"] = "Family Business";
+    _weaponNames["minigun"] = "Minigun";
   }
 
   static void _initWeaponImages() {
@@ -160,6 +166,18 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Tide_Turner.png/150px-Item_icon_Tide_Turner.png";
     _weaponImages["skullbat"] =
         "https://wiki.teamfortress.com/w/images/thumb/c/c5/Item_icon_Bat_Outta_Hell.png/150px-Item_icon_Bat_Outta_Hell.png";
+    _weaponImages["force_a_nature"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ed/Item_icon_Force-A-Nature.png/150px-Item_icon_Force-A-Nature.png";
+    _weaponImages["brass_beast"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/64/Item_icon_Brass_Beast.png/150px-Item_icon_Brass_Beast.png";
+    _weaponImages["tomislav"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/3e/Item_icon_Tomislav.png/150px-Item_icon_Tomislav.png";
+    _weaponImages["iron_curtain"] =
+        "https://wiki.teamfortress.com/w/images/thumb/d/da/Item_icon_Iron_Curtain.png/150px-Item_icon_Iron_Curtain.png";
+    _weaponImages["family_business"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Family_Business.png/150px-Item_icon_Family_Business.png";
+    _weaponImages["minigun"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a7/Item_icon_Minigun.png/150px-Item_icon_Minigun.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
@@ -550,6 +568,25 @@ class LogHelper {
         .toList();
     players.sort((player1, player2) => log.classKills[player2.steamId].soldier
         .compareTo(log.classKills[player1.steamId].soldier));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByDT(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.dt.compareTo(player1.dt));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByHeavyKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) =>
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].heavyweapons != null)
+        .toList();
+    players.sort((player1, player2) => log
+        .classKills[player2.steamId].heavyweapons
+        .compareTo(log.classKills[player1.steamId].heavyweapons));
     return players;
   }
 }
