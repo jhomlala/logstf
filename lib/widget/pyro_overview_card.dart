@@ -26,7 +26,6 @@ class _PyroOverviewCardState extends BaseOverviewCardState<PyroOverviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> weapons = getWeaponWidgets(_classStats);
     return Container(
         child: Expanded(
             child: ListView(children: [

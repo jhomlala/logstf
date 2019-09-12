@@ -65,6 +65,18 @@ class LogHelper {
     _weaponNames["reserve_shooter"] = "Reserve Shooter";
     _weaponNames["phlogistinator"] = "Phlogistinator";
     _weaponNames["backburner"] = "Backburner";
+    _weaponNames["loose_cannon"] = "Loose Cannon";
+    _weaponNames["iron_bomber"] = "Iron Bomber";
+    _weaponNames["loch_n_load"] = "Loch-n-load";
+    _weaponNames["tf_projectile_pipe_remote"] = "Stickybomb Launcher";
+    _weaponNames["scotland_shard"] = "Scottish Resistance";
+    _weaponNames["sword"] = "Eyelander";
+    _weaponNames["tf_projectile_pipe"] = "Grenade Launcher";
+    _weaponNames["fryingpan"] = "Frying Pan";
+    _weaponNames["quickiebomb_launcher"] = "Quickiebomb Launcher";
+    _weaponNames["nonnonviolent_protest"] = "Conscientious Objector";
+    _weaponNames["tide_turner"] = "Tide Turner";
+    _weaponNames["skullbat"] = "Bat Outta Hell";
   }
 
   static void _initWeaponImages() {
@@ -122,7 +134,32 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/3/34/Item_icon_Reserve_Shooter.png/150px-Item_icon_Reserve_Shooter.png";
     _weaponImages["phlogistinator"] =
         "https://wiki.teamfortress.com/w/images/thumb/2/22/Item_icon_Phlogistinator.png/150px-Item_icon_Phlogistinator.png";
-    _weaponImages["backburner"] = "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Backburner.png/150px-Item_icon_Backburner.png";
+    _weaponImages["backburner"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Backburner.png/150px-Item_icon_Backburner.png";
+    _weaponImages["loose_cannon"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Loose_Cannon.png/150px-Item_icon_Loose_Cannon.png";
+    _weaponImages["iron_bomber"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Iron_Bomber.png/150px-Item_icon_Iron_Bomber.png";
+    _weaponImages["loch_n_load"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/62/Item_icon_Loch-n-Load.png/150px-Item_icon_Loch-n-Load.png";
+    _weaponImages["tf_projectile_pipe_remote"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7c/Item_icon_Stickybomb_Launcher.png/150px-Item_icon_Stickybomb_Launcher.png";
+    _weaponImages["scotland_shard"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/2c/Item_icon_Scottish_Resistance.png/150px-Item_icon_Scottish_Resistance.png";
+    _weaponImages["sword"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/94/Item_icon_Eyelander.png/150px-Item_icon_Eyelander.png";
+    _weaponImages["tf_projectile_pipe"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/e6/Item_icon_Grenade_Launcher.png/150px-Item_icon_Grenade_Launcher.png";
+    _weaponImages["fryingpan"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c1/Item_icon_Frying_Pan.png/150px-Item_icon_Frying_Pan.png";
+    _weaponImages["quickiebomb_launcher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f9/Item_icon_Quickiebomb_Launcher.png/150px-Item_icon_Quickiebomb_Launcher.png";
+    _weaponImages["nonnonviolent_protest"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cb/Item_icon_Conscientious_Objector.png/150px-Item_icon_Conscientious_Objector.png";
+    _weaponImages["tide_turner"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Tide_Turner.png/150px-Item_icon_Tide_Turner.png";
+    _weaponImages["skullbat"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c5/Item_icon_Bat_Outta_Hell.png/150px-Item_icon_Bat_Outta_Hell.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
