@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/weapon.dart';
@@ -24,13 +22,17 @@ class WeaponStatsWidget extends StatelessWidget {
             _getWeaponName(),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
           ),
-          Text("Kills: ${weapon.kills}"),
-          Text("DA: ${weapon.dmg}"),
-          Text("Avg DA: ${_getAvgDmg(weapon).toStringAsFixed(2)}"),
-          Text("Shots: ${weapon.shots}"),
-          Text("Hits: ${weapon.hits}"),
-          Text("Accuracy: ${_getAccuracy(weapon).toStringAsFixed(2)}%")
+          Padding(padding: EdgeInsets.only(top:5),),
+          _getStatRow("Kills: ", weapon.kills.toString()),
+          _getStatRow("DA: ", weapon.dmg.toString()),
+          _getStatRow("Avg DA: ", _getAvgDmg(weapon).toStringAsFixed(2)),
+          _getStatRow("Shots: ", weapon.shots.toString()),
+          _getStatRow("Hits: ", weapon.hits.toString()),
+          _getStatRow("Accuracy: ", _getAccuracy(weapon).toStringAsFixed(2) + "%")
         ]));
+  }
+  Row _getStatRow(String name, String value){
+    return Row(children: [Text(name), Text(value, style: TextStyle(fontWeight: FontWeight.bold),)]);
   }
 
   double _getAvgDmg(Weapon weapon) {

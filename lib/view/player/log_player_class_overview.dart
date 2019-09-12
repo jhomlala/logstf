@@ -3,6 +3,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/scout_overview_card.dart';
+import 'package:logstf/widget/soldier_overview_widget.dart';
 
 class LogPlayerClassOverview extends StatefulWidget {
   final Log log;
@@ -25,9 +26,9 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
       child: Column(children: [
         SingleChildScrollView(
             child: Card(
-                child: Row(
+                child: Container(margin: EdgeInsets.all(10),child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Class: ", style: TextStyle(fontSize: 16.0),), _getClassesDropdown()]))),
+                    children: [Text("Class: ", style: TextStyle(fontSize: 16.0),), _getClassesDropdown()])))),
         _getClassWidget()
       ]),
     );
@@ -36,6 +37,9 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
   Widget _getClassWidget(){
     if (_selectedClass == "scout"){
       return ScoutOverviewCard(widget.player, widget.log);
+    }
+    if (_selectedClass == "soldier"){
+      return SoldierOverviewWidget(widget.player, widget.log);
     }
 
     return Container();

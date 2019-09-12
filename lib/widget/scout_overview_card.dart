@@ -3,16 +3,12 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/widget/weapon_stats_widget.dart';
-
 import 'base_overview_card.dart';
 import 'class_icon.dart';
 
 class ScoutOverviewCard extends BaseOverviewCard {
-  final Player player;
-  final Log log;
+  ScoutOverviewCard(Player player, Log log) : super(player, log);
 
-  ScoutOverviewCard(this.player, this.log);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,14 +19,6 @@ class ScoutOverviewCard extends BaseOverviewCard {
 
 class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
   ClassStats _classStats;
-
-  Player get player {
-    return widget.player;
-  }
-
-  Log get log {
-    return widget.log;
-  }
 
   @override
   void initState() {
@@ -44,8 +32,8 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
   Widget build(BuildContext context) {
     List<Widget> weapons = getWeaponWidgets(_classStats);
     return Container(
-        child: SingleChildScrollView(
-            child: Column(children: [
+        child: Expanded(child: ListView(
+            children: [
               Card(
                   child: Container(
                       margin: EdgeInsets.all(10),
@@ -65,7 +53,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                           Row(children: [
                             getStatRow("Kills: ", player.kills.toString()),
                             getPositionRow(
-                                _getPlayerKillsPosition(), "top kills", context)
+                                getPlayerKillsPosition(), "top kills", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -73,7 +61,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                               player.assists.toString(),
                             ),
                             getPositionRow(
-                                _getPlayerAssistsPosition(), "top assists",
+                                getPlayerAssistsPosition(), "top assists",
                                 context)
                           ]),
                           Row(children: [
@@ -82,7 +70,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                               player.kapd.toString(),
                             ),
                             getPositionRow(
-                                _getPlayerKAPDPosition(), "top KA/D", context)
+                                getPlayerKAPDPosition(), "top KA/D", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -90,7 +78,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                               player.dmg.toString(),
                             ),
                             getPositionRow(
-                                _getPlayerDamagePosition(), "top damage",
+                                getPlayerDamagePosition(), "top damage",
                                 context)
                           ]),
                           Row(children: [
@@ -99,7 +87,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                               player.dapm.toString(),
                             ),
                             getPositionRow(
-                                _getPlayerDAPMPosition(), "top DA/M", context)
+                                getPlayerDAPMPosition(), "top DA/M", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -112,9 +100,9 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                           Row(children: [
                             getStatRow(
                               "Medics killed: ",
-                              _getMedicPicks().toString(),
+                              getMedicPicks().toString(),
                             ),
-                            getPositionRow(_getPlayerMedicsPickedPosition(),
+                            getPositionRow(getPlayerMedicsPickedPosition(),
                                 "top medics killed", context)
                           ]),
                           Row(children: [
@@ -122,14 +110,22 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                               "Caps: ",
                               player.cpc.toString(),
                             ),
-                            getPositionRow(_getPlayerCapPosition(),
+                            getPositionRow(getPlayerCapPosition(),
                                 "top caps", context)
+                          ]),
+                          Row(children: [
+                            getStatRow(
+                              "Scout kills: ",
+                              getScoutKills().toString()
+                            ),
+                            getPositionRow(_getScoutKilledPosition(),
+                                "top scout killed", context)
                           ]),
                         ],
                       ))),
               Card(
                   child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(5),
                       child: Column(children: [
                         Row(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -141,7 +137,7 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                                   ))
                             ]),
                         Container(
-                            height: 250,
+                          height: 240,
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: _classStats.weapon.length,
@@ -151,61 +147,20 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                       ])))
             ])));
   }
-
-  int _getMedicPicks() {
-    return log.classKills[player.steamId].medic;
+  int getScoutKills() {
+    return log.classKills[player.steamId].scout;
   }
 
-  int _getPlayerKillsPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByKills(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerAssistsPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByAssists(log, true);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerKAPDPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByKAPD(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerDamagePosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByDamage(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerDAPMPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByDAPM(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerMedicsPickedPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByMedicKills(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
+  int _getScoutKilledPosition(){
+    var sortedPlayers = LogHelper.getPlayersSortedByScoutKills(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 
   int _getPlayerMedkitsPickedPosition() {
     var sortedPlayers = LogHelper.getPlayersSortedByMedkits(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 
-  int _getPlayerCapPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByCaps(log);
-    return _getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
 
-  int _getPlayerPositionInSortedPlayersList(List<Player> sortedPlayers) {
-    int playerIndex = 0;
-    for (int index = 0; index < sortedPlayers.length; index++) {
-      if (sortedPlayers[index].steamId == player.steamId) {
-        playerIndex = index;
-        break;
-      }
-    }
-    var position = playerIndex + 1;
-    return position;
-  }
 
 }

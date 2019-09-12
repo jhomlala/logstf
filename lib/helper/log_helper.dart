@@ -40,12 +40,23 @@ class LogHelper {
     _weaponNames["maxgun"] = "Lugermorph";
     _weaponNames["pistol_scout"] = "Pistol";
     _weaponNames["soda_popper"] = "Soda Popper";
-    _weaponNames["wrap_assassin"] = "Wrap Assasin";
+    _weaponNames["wrap_assassin"] = "Wrap Assassin";
     _weaponNames["the_winger"] = "Winger";
     _weaponNames["pep_brawlerblaster"] = "Baby Face's Blaster";
     _weaponNames["back_scatter"] = "Back Scatter";
     _weaponNames["pep_pistol"] = "Baby Face's Blaster";
-
+    _weaponNames["world"] = "Env. death";
+    _weaponNames["tf_projectile_rocket"] = "Rocket Launcher";
+    _weaponNames["unique_pickaxe_escape"] = "Escape Plan";
+    _weaponNames["blackbox"] = "Black Box";
+    _weaponNames["rocketlauncher_directhit"] = "Direct Hit";
+    _weaponNames["quake_rl"] = "Original";
+    _weaponNames["market_gardener"] = "Market Gardener";
+    _weaponNames["the_capper"] = "C.A.P.P.E.R";
+    _weaponNames["boston_basher"] = "Boston Basher";
+    _weaponNames["panic_attack"] = "Panic Attack";
+    _weaponNames["scout_sword"] = "Three-Rune Blade";
+    _weaponNames["shotgun_soldier"] = "Shotgun";
   }
 
   static void _initWeaponImages() {
@@ -63,7 +74,31 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/4/4e/Item_icon_Winger.png/150px-Item_icon_Winger.png";
     _weaponImages["pep_brawlerblaster"] =
         "https://wiki.teamfortress.com/w/images/thumb/e/e6/Item_icon_Baby_Face%27s_Blaster.png/150px-Item_icon_Baby_Face%27s_Blaster.png";
-    _weaponImages["back_scatter"] = "https://wiki.teamfortress.com/w/images/thumb/1/11/Item_icon_Back_Scatter.png/150px-Item_icon_Back_Scatter.png";
+    _weaponImages["back_scatter"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/11/Item_icon_Back_Scatter.png/150px-Item_icon_Back_Scatter.png";
+    _weaponImages["world"] =
+        "https://wiki.teamfortress.com/w/images/5/50/Killicon_skull.png";
+    _weaponImages["tf_projectile_rocket"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/fe/Item_icon_Rocket_Launcher.png/150px-Item_icon_Rocket_Launcher.png";
+    _weaponImages["unique_pickaxe_escape"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/0c/Item_icon_Escape_Plan.png/150px-Item_icon_Escape_Plan.png";
+    _weaponImages["blackbox"] =
+        "https://wiki.teamfortress.com/w/images/thumb/d/d2/Item_icon_Black_Box.png/150px-Item_icon_Black_Box.png";
+    _weaponImages["rocketlauncher_directhit"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/e7/Item_icon_Direct_Hit.png/150px-Item_icon_Direct_Hit.png";
+    _weaponImages["quake_rl"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/88/Item_icon_Original.png/150px-Item_icon_Original.png";
+    _weaponImages["market_gardener"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/ac/Item_icon_Market_Gardener.png/150px-Item_icon_Market_Gardener.png";
+    _weaponImages["the_capper"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a6/Item_icon_C.A.P.P.E.R.png/150px-Item_icon_C.A.P.P.E.R.png";
+    _weaponImages["boston_basher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b5/Item_icon_Boston_Basher.png/150px-Item_icon_Boston_Basher.png";
+    _weaponImages["panic_attack"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/150px-Item_icon_Panic_Attack.png";
+    _weaponImages["scout_sword"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Three-Rune_Blade.png/150px-Item_icon_Three-Rune_Blade.png";
+    _weaponImages["shotgun_soldier"] = "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
@@ -414,16 +449,46 @@ class LogHelper {
     }
   }
 
-  static getPlayersSortedByMedicsKilled(Log log) {
+  static List<Player> getPlayersSortedByMedicsKilled(Log log) {
     List<Player> players = log.players.values.toList();
     players.sort((player1, player2) =>
         getMedicKills(player2, log).compareTo(getMedicKills(player1, log)));
     return players;
   }
 
-  static getPlayersSortedByCaps(Log log) {
+  static List<Player> getPlayersSortedByCaps(Log log) {
     List<Player> players = log.players.values.toList();
     players.sort((player1, player2) => player2.cpc.compareTo(player1.cpc));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByAirshots(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) => player2.as.compareTo(player1.as));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByScoutKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) =>
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].scout != null)
+        .toList();
+    players.sort((player1, player2) => log.classKills[player2.steamId].scout
+        .compareTo(log.classKills[player1.steamId].scout));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedBySoldierKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) =>
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].soldier != null)
+        .toList();
+    players.sort((player1, player2) => log.classKills[player2.steamId].soldier
+        .compareTo(log.classKills[player1.steamId].soldier));
     return players;
   }
 }

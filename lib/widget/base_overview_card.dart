@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
+import 'package:logstf/model/log.dart';
+import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/weapon_stats_widget.dart';
 
 abstract class BaseOverviewCard extends StatefulWidget{
+  final Player player;
+  final Log log;
 
+  const BaseOverviewCard( this.player, this.log);
 }
 
 abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T>{
+  Player get player {
+    return widget.player;
+  }
+
+  Log get log {
+    return widget.log;
+  }
+
   String getTimePlayed(ClassStats classStats) {
     int seconds = classStats.totalTime;
     int minutes = (seconds / 60).floor();
@@ -18,13 +32,13 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
   }
 
   Widget getStatRow(String name, String value) {
-    return Row(children: [
+    return Container(padding: EdgeInsets.only(top: 2,bottom: 2),child: Row(children: [
       Text(name),
       Text(
         value,
         style: TextStyle(fontWeight: FontWeight.w700),
       )
-    ]);
+    ]));
   }
 
   Widget getPositionRow(int position, String name, BuildContext context) {
@@ -64,5 +78,56 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     });
     return widgets;
   }
+  int getMedicPicks() {
+    return log.classKills[player.steamId].medic;
+  }
+
+  int getPlayerKillsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByKills(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerAssistsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByAssists(log, true);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerKAPDPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByKAPD(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerDamagePosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByDamage(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerDAPMPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByDAPM(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerMedicsPickedPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByMedicKills(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerCapPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByCaps(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int getPlayerPositionInSortedPlayersList(List<Player> sortedPlayers) {
+    int playerIndex = 0;
+    for (int index = 0; index < sortedPlayers.length; index++) {
+      if (sortedPlayers[index].steamId == player.steamId) {
+        playerIndex = index;
+        break;
+      }
+    }
+    var position = playerIndex + 1;
+    return position;
+  }
+
 }
 
