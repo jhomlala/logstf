@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/widget/pyro_overview_card.dart';
 import 'package:logstf/widget/scout_overview_card.dart';
 import 'package:logstf/widget/soldier_overview_widget.dart';
 
@@ -40,6 +41,9 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
     }
     if (_selectedClass == "soldier"){
       return SoldierOverviewWidget(widget.player, widget.log);
+    }
+    if (_selectedClass == "pyro"){
+      return PyroOverviewCard(widget.player, widget.log);
     }
 
     return Container();

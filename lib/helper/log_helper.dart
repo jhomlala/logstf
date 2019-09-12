@@ -57,6 +57,14 @@ class LogHelper {
     _weaponNames["panic_attack"] = "Panic Attack";
     _weaponNames["scout_sword"] = "Three-Rune Blade";
     _weaponNames["shotgun_soldier"] = "Shotgun";
+    _weaponNames["degreaser"] = "Degreaser";
+    _weaponNames["flaregun"] = "Flare Gun";
+    _weaponNames["scorch_shot"] = "Scorch Shot";
+    _weaponNames["flamethrower"] = "Flamethrower";
+    _weaponNames["powerjack"] = "Powerjack";
+    _weaponNames["reserve_shooter"] = "Reserve Shooter";
+    _weaponNames["phlogistinator"] = "Phlogistinator";
+    _weaponNames["backburner"] = "Backburner";
   }
 
   static void _initWeaponImages() {
@@ -98,7 +106,23 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/150px-Item_icon_Panic_Attack.png";
     _weaponImages["scout_sword"] =
         "https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Three-Rune_Blade.png/150px-Item_icon_Three-Rune_Blade.png";
-    _weaponImages["shotgun_soldier"] = "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["shotgun_soldier"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["degreaser"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/94/Item_icon_Degreaser.png/150px-Item_icon_Degreaser.png";
+    _weaponImages["flaregun"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7b/Item_icon_Flare_Gun.png/150px-Item_icon_Flare_Gun.png";
+    _weaponImages["scorch_shot"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Scorch_Shot.png/150px-Item_icon_Scorch_Shot.png";
+    _weaponImages["flamethrower"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["powerjack"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Powerjack.png/150px-Item_icon_Powerjack.png";
+    _weaponImages["reserve_shooter"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/34/Item_icon_Reserve_Shooter.png/150px-Item_icon_Reserve_Shooter.png";
+    _weaponImages["phlogistinator"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/22/Item_icon_Phlogistinator.png/150px-Item_icon_Phlogistinator.png";
+    _weaponImages["backburner"] = "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Backburner.png/150px-Item_icon_Backburner.png";
   }
 
   static List<Player> getOtherPlayersWithClass(

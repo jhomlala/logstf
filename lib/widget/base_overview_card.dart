@@ -5,6 +5,8 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/weapon_stats_widget.dart';
 
+import 'class_icon.dart';
+
 abstract class BaseOverviewCard extends StatefulWidget{
   final Player player;
   final Log log;
@@ -128,6 +130,32 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     var position = playerIndex + 1;
     return position;
   }
+
+  Widget getWeaponsCard(ClassStats classStats){
+    List<Widget> weapons = getWeaponWidgets(classStats);
+    return Card(
+        child: Container(
+            margin: EdgeInsets.all(5),
+            child: Column(children: [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ClassIcon(playerClass: classStats.type),
+                Container(
+                    child: Text(
+                      " Weapons stats",
+                      style: TextStyle(fontSize: 20),
+                    ))
+              ]),
+              Container(
+                  height: 240,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: classStats.weapon.length,
+                      itemBuilder: (context, position) {
+                        return weapons[position];
+                      }))
+            ])));
+  }
+
 
 }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
@@ -7,28 +6,30 @@ import 'package:logstf/model/player.dart';
 import 'base_overview_card.dart';
 import 'class_icon.dart';
 
-class SoldierOverviewWidget extends BaseOverviewCard {
-  SoldierOverviewWidget(Player player, Log log) : super(player, log);
+class PyroOverviewCard extends BaseOverviewCard {
+  PyroOverviewCard(Player player, Log log) : super(player, log);
 
   @override
-  _SoldierOverviewWidgetState createState() => _SoldierOverviewWidgetState();
+  _PyroOverviewCardState createState() => _PyroOverviewCardState();
 }
 
-class _SoldierOverviewWidgetState
-    extends BaseOverviewCardState<SoldierOverviewWidget> {
+class _PyroOverviewCardState extends BaseOverviewCardState<PyroOverviewCard> {
   ClassStats _classStats;
 
   @override
   void initState() {
     _classStats = widget.player.classStats.toList().where((classStats) {
-      return classStats.type == "soldier";
+      return classStats.type == "pyro";
     }).first;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ListView(children: [
+    List<Widget> weapons = getWeaponWidgets(_classStats);
+    return Container(
+        child: Expanded(
+            child: ListView(children: [
       Card(
           child: Container(
               margin: EdgeInsets.all(10),
@@ -36,7 +37,7 @@ class _SoldierOverviewWidgetState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "soldier"),
+                    ClassIcon(playerClass: "pyro"),
                     Container(
                         child: Text(
                       " Highlights",
@@ -89,44 +90,14 @@ class _SoldierOverviewWidgetState
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Airshots: ",
-                      player.as.toString(),
-                    ),
-                    getPositionRow(
-                        _getPlayerAirshotsPosition(), "top airshots", context)
-                  ]),
-                  Row(children: [
-                    getStatRow(
                       "Caps: ",
                       player.cpc.toString(),
                     ),
                     getPositionRow(getPlayerCapPosition(), "top caps", context)
                   ]),
-                  Row(children: [
-                    getStatRow(
-                      "Soldiers killed: ",
-                      _getSoldierKills().toString(),
-                    ),
-                    getPositionRow(_getSoldierKilledPosition(),
-                        "top soldiers killed", context)
-                  ]),
                 ],
               ))),
       getWeaponsCard(_classStats)
-    ]));
-  }
-
-  int _getPlayerAirshotsPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByAirshots(log);
-    return getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getSoldierKills() {
-    return log.classKills[player.steamId].soldier;
-  }
-
-  int _getSoldierKilledPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedBySoldierKills(log);
-    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+    ])));
   }
 }
