@@ -83,6 +83,7 @@ class LogHelper {
     _weaponNames["iron_curtain"] = "Iron Curtain";
     _weaponNames["family_business"] = "Family Business";
     _weaponNames["minigun"] = "Minigun";
+    _weaponNames["gloves_running_urgently"] = "G.R.U.";
     _weaponNames["shotgun_primary"] = "Shotgun";
     _weaponNames["giger_counter"] = "Giger Counter";
     _weaponNames["obj_minisentry"] = "Minisentry";
@@ -95,7 +96,19 @@ class LogHelper {
     _weaponNames["wrench_jag"] = "Jag";
     _weaponNames["wrangler_kill"] = "Wrangler";
     _weaponNames["wrench"] = "Wrench";
-
+    _weaponNames["awper_hand"] = "AWPer Hand";
+    _weaponNames["sniperrifle"] = "Sniper Rifle";
+    _weaponNames["smg"] = "Submachine Gun";
+    _weaponNames["bazaar_bargain"] = "Bazaar Bargain";
+    _weaponNames["airstrike"] = "Air Strike";
+    _weaponNames["tf_projectile_arrow"] = "Huntsman";
+    _weaponNames["shahanshah"] = "Shahanshah";
+    _weaponNames["tribalkukri"] = "Tribalman's Shiv";
+    _weaponNames["club"] = "Kukri";
+    _weaponNames["deflect_rocket"] = "Deflected Rocket";
+    _weaponNames["shotgun_pyro"] = "Shotgun";
+    _weaponNames["defelect_promode"] = "Deflected Promode";
+    _weaponNames["pistol"] = "Pistol";
   }
 
   static void _initWeaponImages() {
@@ -191,19 +204,58 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Family_Business.png/150px-Item_icon_Family_Business.png";
     _weaponImages["minigun"] =
         "https://wiki.teamfortress.com/w/images/thumb/a/a7/Item_icon_Minigun.png/150px-Item_icon_Minigun.png";
-
-    _weaponImages["shotgun_primary"] = "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
-    _weaponImages["giger_counter"] = "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Giger_Counter.png/150px-Item_icon_Giger_Counter.png";
-    _weaponImages["obj_minisentry"] = "https://wiki.teamfortress.com/w/images/thumb/e/ea/Red_Mini_Sentry.png/150px-Red_Mini_Sentry.png";
-    _weaponImages["obj_sentrygun3"] = "https://wiki.teamfortress.com/w/images/thumb/7/78/RED_Level_3_Sentry_Gun.png/150px-RED_Level_3_Sentry_Gun.png";
-    _weaponImages["obj_sentrygun2"] = "https://wiki.teamfortress.com/w/images/thumb/0/0d/RED_Level_2_Sentry_Gun.png/150px-RED_Level_2_Sentry_Gun.png";
-    _weaponImages["obj_sentrygun"] = "https://wiki.teamfortress.com/w/images/thumb/8/8a/RED_Level_1_Sentry_Gun.png/150px-RED_Level_1_Sentry_Gun.png";
-    _weaponImages["rescue_ranger"] = "https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Rescue_Ranger.png/150px-Item_icon_Rescue_Ranger.png";
-    _weaponImages["frontier_justice"] = "https://wiki.teamfortress.com/w/images/thumb/2/26/Item_icon_Frontier_Justice.png/150px-Item_icon_Frontier_Justice.png";
-    _weaponImages["robot_arm"] = "https://wiki.teamfortress.com/w/images/thumb/c/ca/Item_icon_Gunslinger.png/150px-Item_icon_Gunslinger.png";
-    _weaponImages["wrench_jag"] = "https://wiki.teamfortress.com/w/images/thumb/4/49/Item_icon_Jag.png/150px-Item_icon_Jag.png";
-    _weaponImages["wrangler_kill"] = "https://wiki.teamfortress.com/w/images/thumb/c/ce/Item_icon_Wrangler.png/150px-Item_icon_Wrangler.png";
-    _weaponImages["wrench"] = "https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Wrench.png/150px-Item_icon_Wrench.png";
+    _weaponImages["gloves_running_urgently"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/4f/Item_icon_Gloves_of_Running_Urgently.png/150px-Item_icon_Gloves_of_Running_Urgently.png";
+    _weaponImages["shotgun_primary"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["giger_counter"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Giger_Counter.png/150px-Item_icon_Giger_Counter.png";
+    _weaponImages["obj_minisentry"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ea/Red_Mini_Sentry.png/150px-Red_Mini_Sentry.png";
+    _weaponImages["obj_sentrygun3"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/78/RED_Level_3_Sentry_Gun.png/150px-RED_Level_3_Sentry_Gun.png";
+    _weaponImages["obj_sentrygun2"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/0d/RED_Level_2_Sentry_Gun.png/150px-RED_Level_2_Sentry_Gun.png";
+    _weaponImages["obj_sentrygun"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/8a/RED_Level_1_Sentry_Gun.png/150px-RED_Level_1_Sentry_Gun.png";
+    _weaponImages["rescue_ranger"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Rescue_Ranger.png/150px-Item_icon_Rescue_Ranger.png";
+    _weaponImages["frontier_justice"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/26/Item_icon_Frontier_Justice.png/150px-Item_icon_Frontier_Justice.png";
+    _weaponImages["robot_arm"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/ca/Item_icon_Gunslinger.png/150px-Item_icon_Gunslinger.png";
+    _weaponImages["wrench_jag"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/49/Item_icon_Jag.png/150px-Item_icon_Jag.png";
+    _weaponImages["wrangler_kill"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/ce/Item_icon_Wrangler.png/150px-Item_icon_Wrangler.png";
+    _weaponImages["wrench"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Wrench.png/150px-Item_icon_Wrench.png";
+    _weaponImages["awper_hand"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/24/Item_icon_AWPer_Hand.png/150px-Item_icon_AWPer_Hand.png";
+    _weaponImages["sniperrifle"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a1/Item_icon_Sniper_Rifle.png/150px-Item_icon_Sniper_Rifle.png";
+    _weaponImages["smg"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/12/Item_icon_Submachine_Gun.png/150px-Item_icon_Submachine_Gun.png";
+    _weaponImages["bazaar_bargain"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f4/Item_icon_Bazaar_Bargain.png/150px-Item_icon_Bazaar_Bargain.png";
+    _weaponImages["airstrike"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f8/Item_icon_Air_Strike.png/150px-Item_icon_Air_Strike.png";
+    _weaponImages["tf_projectile_arrow"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f8/Item_icon_Huntsman.png/150px-Item_icon_Huntsman.png";
+    _weaponImages["shahanshah"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Shahanshah.png/150px-Item_icon_Shahanshah.png";
+    _weaponImages["club"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ea/Item_icon_Kukri.png/150px-Item_icon_Kukri.png";
+    _weaponImages["tribalkukri"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/55/Item_icon_Tribalman%27s_Shiv.png/150px-Item_icon_Tribalman%27s_Shiv.png";
+    _weaponImages["deflect_rocket"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["shotgun_pyro"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["defelect_promode"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["pistol"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/52/Item_icon_Pistol.png/150px-Item_icon_Pistol.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
@@ -613,6 +665,32 @@ class LogHelper {
     players.sort((player1, player2) => log
         .classKills[player2.steamId].heavyweapons
         .compareTo(log.classKills[player1.steamId].heavyweapons));
+    return players;
+  }
+
+  static getPlayersSortedBySniperKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) =>
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].sniper != null)
+        .toList();
+    players.sort((player1, player2) => log.classKills[player2.steamId].sniper
+        .compareTo(log.classKills[player1.steamId].sniper));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByHeadshots(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort(
+        (player1, player2) => player2.headshots.compareTo(player1.headshots));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByHeadshotsHits(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) =>
+        player2.headshotsHit.compareTo(player1.headshotsHit));
     return players;
   }
 }
