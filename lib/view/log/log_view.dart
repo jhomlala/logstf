@@ -115,6 +115,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
             stream: logDetailsBloc.logSubject,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
+                print("Error: " + snapshot.error.toString());
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(

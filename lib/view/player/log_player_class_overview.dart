@@ -3,6 +3,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/widget/demoman_overview_card.dart';
+import 'package:logstf/widget/engineer_overview_card.dart';
 import 'package:logstf/widget/heavy_overview_card.dart';
 import 'package:logstf/widget/pyro_overview_card.dart';
 import 'package:logstf/widget/scout_overview_card.dart';
@@ -60,6 +61,9 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
     }
     if (_selectedClass == "heavyweapons") {
       return HeavyOverviewCard(widget.player, widget.log);
+    }
+    if (_selectedClass == "engineer"){
+      return EngineerOverviewCard(widget.player,widget.log);
     }
 
     return Container();

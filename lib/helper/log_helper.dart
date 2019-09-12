@@ -83,6 +83,19 @@ class LogHelper {
     _weaponNames["iron_curtain"] = "Iron Curtain";
     _weaponNames["family_business"] = "Family Business";
     _weaponNames["minigun"] = "Minigun";
+    _weaponNames["shotgun_primary"] = "Shotgun";
+    _weaponNames["giger_counter"] = "Giger Counter";
+    _weaponNames["obj_minisentry"] = "Minisentry";
+    _weaponNames["obj_sentrygun3"] = "Sentry gun level 3";
+    _weaponNames["obj_sentrygun2"] = "Sentry gun level 2";
+    _weaponNames["obj_sentrygun"] = "Sentry gun level 1";
+    _weaponNames["rescue_ranger"] = "Rescue Ranger";
+    _weaponNames["frontier_justice"] = "Frontier Justice";
+    _weaponNames["robot_arm"] = "Gunslinger";
+    _weaponNames["wrench_jag"] = "Jag";
+    _weaponNames["wrangler_kill"] = "Wrangler";
+    _weaponNames["wrench"] = "Wrench";
+
   }
 
   static void _initWeaponImages() {
@@ -178,6 +191,19 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Family_Business.png/150px-Item_icon_Family_Business.png";
     _weaponImages["minigun"] =
         "https://wiki.teamfortress.com/w/images/thumb/a/a7/Item_icon_Minigun.png/150px-Item_icon_Minigun.png";
+
+    _weaponImages["shotgun_primary"] = "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["giger_counter"] = "https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Giger_Counter.png/150px-Item_icon_Giger_Counter.png";
+    _weaponImages["obj_minisentry"] = "https://wiki.teamfortress.com/w/images/thumb/e/ea/Red_Mini_Sentry.png/150px-Red_Mini_Sentry.png";
+    _weaponImages["obj_sentrygun3"] = "https://wiki.teamfortress.com/w/images/thumb/7/78/RED_Level_3_Sentry_Gun.png/150px-RED_Level_3_Sentry_Gun.png";
+    _weaponImages["obj_sentrygun2"] = "https://wiki.teamfortress.com/w/images/thumb/0/0d/RED_Level_2_Sentry_Gun.png/150px-RED_Level_2_Sentry_Gun.png";
+    _weaponImages["obj_sentrygun"] = "https://wiki.teamfortress.com/w/images/thumb/8/8a/RED_Level_1_Sentry_Gun.png/150px-RED_Level_1_Sentry_Gun.png";
+    _weaponImages["rescue_ranger"] = "https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Rescue_Ranger.png/150px-Item_icon_Rescue_Ranger.png";
+    _weaponImages["frontier_justice"] = "https://wiki.teamfortress.com/w/images/thumb/2/26/Item_icon_Frontier_Justice.png/150px-Item_icon_Frontier_Justice.png";
+    _weaponImages["robot_arm"] = "https://wiki.teamfortress.com/w/images/thumb/c/ca/Item_icon_Gunslinger.png/150px-Item_icon_Gunslinger.png";
+    _weaponImages["wrench_jag"] = "https://wiki.teamfortress.com/w/images/thumb/4/49/Item_icon_Jag.png/150px-Item_icon_Jag.png";
+    _weaponImages["wrangler_kill"] = "https://wiki.teamfortress.com/w/images/thumb/c/ce/Item_icon_Wrangler.png/150px-Item_icon_Wrangler.png";
+    _weaponImages["wrench"] = "https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Wrench.png/150px-Item_icon_Wrench.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
