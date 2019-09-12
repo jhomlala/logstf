@@ -9,6 +9,7 @@ import 'package:logstf/widget/pyro_overview_card.dart';
 import 'package:logstf/widget/scout_overview_card.dart';
 import 'package:logstf/widget/sniper_overview_card.dart';
 import 'package:logstf/widget/soldier_overview_widget.dart';
+import 'package:logstf/widget/spy_overview_card.dart';
 
 class LogPlayerClassOverview extends StatefulWidget {
   final Log log;
@@ -68,6 +69,9 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
     }
     if (_selectedClass == "sniper"){
       return SniperOverviewCard(widget.player,widget.log);
+    }
+    if (_selectedClass == "spy"){
+      return SpyOverviewCard(widget.player,widget.log);
     }
 
     return Container();
