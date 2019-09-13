@@ -47,67 +47,79 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                   ]),
                   getStatRow("Time played: ", getTimePlayed(_classStats)),
                   Row(children: [
-                    getStatRow("Kills: ", player.kills.toString()),
+                    getStatRow("Kills: ", _classStats.kills.toString()),
                     getPositionRow(
-                        getPlayerKillsPosition(), "top kills", context)
+                        getPlayerKillsPosition(), "overall top kills", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Assists: ",
-                      player.assists.toString(),
+                      _classStats.assists.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerAssistsPosition(), "top assists", context)
+                    getPositionRow(getPlayerAssistsPosition(),
+                        "overall top assists", context)
+                  ]),
+                  Row(children: [
+                    getStatRow(
+                      "K/D: ",
+                      getKillsPerDeath(_classStats).toStringAsFixed(1),
+                    ),
+                    getPositionRow(getPlayerKillsPerDeathPosition(),
+                        "overall top K/D", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "KA/D: ",
-                      player.kapd.toString(),
+                      getKillsAndAssistsPerDeath(_classStats).toStringAsFixed(1),
                     ),
-                    getPositionRow(getPlayerKAPDPosition(), "top KA/D", context)
+                    getPositionRow(
+                        getPlayerKAPDPosition(), "overall top KA/D", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Damage: ",
-                      player.dmg.toString(),
+                      _classStats.dmg.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerDamagePosition(), "top damage", context)
+                    getPositionRow(getPlayerDamagePosition(),
+                        "overall top damage", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "DA/M: ",
-                      player.dapm.toString(),
+                      getDamagePerMinute(_classStats).toStringAsFixed(0),
                     ),
-                    getPositionRow(getPlayerDAPMPosition(), "top DA/M", context)
+                    getPositionRow(
+                        getPlayerDAPMPosition(), "overall top DA/M", context)
                   ]),
+                  Divider(),
                   Row(children: [
                     getStatRow(
                       "Medkits picked: ",
                       player.medkits.toString(),
                     ),
                     getPositionRow(_getPlayerMedkitsPickedPosition(),
-                        "top medkits picked", context)
+                        "overall top medkits picked", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Medics killed: ",
-                      getMedicPicks().toString(),
+                      getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
-                        "top medics killed", context)
+                        "overall top medics killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Caps: ",
                       player.cpc.toString(),
                     ),
-                    getPositionRow(getPlayerCapPosition(), "top caps", context)
+                    getPositionRow(
+                        getPlayerCapPosition(), "overall top caps", context)
                   ]),
                   Row(children: [
                     getStatRow("Scouts killed: ", getScoutKills().toString()),
-                    getPositionRow(
-                        _getScoutKilledPosition(), "top scouts killed", context)
+                    getPositionRow(_getScoutKilledPosition(),
+                        "overall top scouts killed", context)
                   ]),
                 ],
               ))),

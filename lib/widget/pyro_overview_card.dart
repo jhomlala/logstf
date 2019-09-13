@@ -36,53 +36,64 @@ class _PyroOverviewCardState extends BaseOverviewCardState<PyroOverviewCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "pyro"),
+                    ClassIcon(playerClass: "scout"),
                     Container(
                         child: Text(
-                      " Highlights",
-                      style: TextStyle(fontSize: 20),
-                    ))
+                          " Highlights",
+                          style: TextStyle(fontSize: 20),
+                        ))
                   ]),
                   getStatRow("Time played: ", getTimePlayed(_classStats)),
                   Row(children: [
-                    getStatRow("Kills: ", player.kills.toString()),
+                    getStatRow("Kills: ", _classStats.kills.toString()),
                     getPositionRow(
-                        getPlayerKillsPosition(), "top kills", context)
+                        getPlayerKillsPosition(), "overall top kills", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Assists: ",
-                      player.assists.toString(),
+                      _classStats.assists.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerAssistsPosition(), "top assists", context)
+                    getPositionRow(getPlayerAssistsPosition(),
+                        "overall top assists", context)
+                  ]),
+                  Row(children: [
+                    getStatRow(
+                      "K/D: ",
+                      getKillsPerDeath(_classStats).toStringAsFixed(1),
+                    ),
+                    getPositionRow(getPlayerKillsPerDeathPosition(),
+                        "overall top K/D", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "KA/D: ",
-                      player.kapd.toString(),
+                      getKillsAndAssistsPerDeath(_classStats).toStringAsFixed(1),
                     ),
-                    getPositionRow(getPlayerKAPDPosition(), "top KA/D", context)
+                    getPositionRow(
+                        getPlayerKAPDPosition(), "overall top KA/D", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Damage: ",
-                      player.dmg.toString(),
+                      _classStats.dmg.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerDamagePosition(), "top damage", context)
+                    getPositionRow(getPlayerDamagePosition(),
+                        "overall top damage", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "DA/M: ",
-                      player.dapm.toString(),
+                      getDamagePerMinute(_classStats).toStringAsFixed(0),
                     ),
-                    getPositionRow(getPlayerDAPMPosition(), "top DA/M", context)
+                    getPositionRow(
+                        getPlayerDAPMPosition(), "overall top DA/M", context)
                   ]),
+                  Divider(),
                   Row(children: [
                     getStatRow(
                       "Medics killed: ",
-                      getMedicPicks().toString(),
+                      getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
                         "top medics killed", context)

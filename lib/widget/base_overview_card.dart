@@ -80,7 +80,7 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     });
     return widgets;
   }
-  int getMedicPicks() {
+  int getMedicsKilled() {
     return log.classKills[player.steamId].medic;
   }
 
@@ -119,6 +119,11 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 
+  int getPlayerKillsPerDeathPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByKillsPerDeath(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
   int getPlayerPositionInSortedPlayersList(List<Player> sortedPlayers) {
     int playerIndex = 0;
     for (int index = 0; index < sortedPlayers.length; index++) {
@@ -145,15 +150,38 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
                       style: TextStyle(fontSize: 20),
                     ))
               ]),
-              Container(
+              weapons.isEmpty ? Container(height: 100, child: Center(child: Text("No weapon data"))):  Container(
                   height: 240,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: classStats.weapon.length,
                       itemBuilder: (context, position) {
                         return weapons[position];
-                      }))
+                      })),
             ])));
+  }
+
+  double getKillsPerDeath(ClassStats classStats){
+    int deaths = classStats.deaths;
+    if (deaths == 0){
+      deaths = 1;
+    }
+    return classStats.kills / deaths;
+  }
+
+  double getKillsAndAssistsPerDeath(ClassStats classStats){
+    int deaths = classStats.deaths;
+    if (deaths == 0){
+      deaths = 1;
+    }
+    return (classStats.kills + classStats.assists) / deaths;
+  }
+
+  double getDamagePerMinute(ClassStats classStats){
+    if (classStats.totalTime < 60){
+      return classStats.dmg.toDouble();
+    }
+    return classStats.dmg / (classStats.totalTime / 60);
   }
 
 

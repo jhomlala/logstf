@@ -34,7 +34,6 @@ class MedicStatsWidget extends StatelessWidget {
     tableRows.add(getTableRow("Healing", "${player.heal} HP"));
     tableRows.add(getTableRow("Charges", "${player.ubers} charge(s)"));
     tableRows.add(getTableRow("Heal/minute", "${_getHealPerMinute(player).toStringAsFixed(1)} HP"));
-    tableRows.add(getTableRow("Heal/charge", "${_getHealPerCharge(player).toStringAsFixed(1)} HP"));
     tableRows.add(getTableRow("Drops", "${player.drops} drop(s)"));
     tableRows.add(getTableRow("Avg time to build",
         "${_getAvgTimeToBuild(medicStats)}"));
@@ -96,10 +95,6 @@ class MedicStatsWidget extends StatelessWidget {
     } else {
       return "4+";
     }
-  }
-
-  double _getHealPerCharge(Player player) {
-    return player.heal / player.ubers;
   }
 
   _getHealPerMinute(Player player) {

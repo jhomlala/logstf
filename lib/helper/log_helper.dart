@@ -118,6 +118,14 @@ class LogHelper {
     _weaponNames["enforcer"] = "Enforcer";
     _weaponNames["eternal_reward"] = "Eternal Reward";
     _weaponNames["kunai"] = "Kunai";
+    _weaponNames["black_rose"] = "Black Rose";
+    _weaponNames["spy_cicle"] = "Spy-cicle";
+    _weaponNames["necro_smasher"] = "Necro Smasher";
+    _weaponNames["player"] = "Player";
+    _weaponNames["detonator"] = "Detonator";
+    _weaponNames["bottle"] = "Bottle";
+    _weaponNames["dumpster_device"] = "Beggar's Bazooka";
+    _weaponNames["taunt_sniper"] = "Sniper Taunt";
   }
 
   static void _initWeaponImages() {
@@ -267,14 +275,37 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/5/52/Item_icon_Pistol.png/150px-Item_icon_Pistol.png";
     _weaponImages["disciplinary_action"] =
         "https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Disciplinary_Action.png/150px-Item_icon_Disciplinary_Action.png";
-    _weaponImages["big_earner"] = "https://wiki.teamfortress.com/w/images/thumb/c/c9/Item_icon_Big_Earner.png/150px-Item_icon_Big_Earner.png";
-    _weaponImages["ambassador"] = "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Ambassador.png/150px-Item_icon_Ambassador.png";
-    _weaponImages["knife"] = "https://wiki.teamfortress.com/w/images/thumb/5/57/Item_icon_Knife.png/150px-Item_icon_Knife.png";
-    _weaponImages["revolver"] = "https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Revolver.png/150px-Item_icon_Revolver.png";
-    _weaponImages["letranger"] = "https://wiki.teamfortress.com/w/images/thumb/b/b1/Item_icon_L%27Etranger.png/150px-Item_icon_L%27Etranger.png";
-    _weaponImages["enforcer"] = "https://wiki.teamfortress.com/w/images/thumb/b/b6/Item_icon_Enforcer.png/150px-Item_icon_Enforcer.png";
-    _weaponImages["eternal_reward"] = "https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Your_Eternal_Reward.png/150px-Item_icon_Your_Eternal_Reward.png";
-    _weaponImages["kunai"] = "https://wiki.teamfortress.com/w/images/thumb/0/02/Item_icon_Conniver%27s_Kunai.png/150px-Item_icon_Conniver%27s_Kunai.png";
+    _weaponImages["big_earner"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c9/Item_icon_Big_Earner.png/150px-Item_icon_Big_Earner.png";
+    _weaponImages["ambassador"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Ambassador.png/150px-Item_icon_Ambassador.png";
+    _weaponImages["knife"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/57/Item_icon_Knife.png/150px-Item_icon_Knife.png";
+    _weaponImages["revolver"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Revolver.png/150px-Item_icon_Revolver.png";
+    _weaponImages["letranger"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b1/Item_icon_L%27Etranger.png/150px-Item_icon_L%27Etranger.png";
+    _weaponImages["enforcer"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b6/Item_icon_Enforcer.png/150px-Item_icon_Enforcer.png";
+    _weaponImages["eternal_reward"] =
+        "https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Your_Eternal_Reward.png/150px-Item_icon_Your_Eternal_Reward.png";
+    _weaponImages["kunai"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/02/Item_icon_Conniver%27s_Kunai.png/150px-Item_icon_Conniver%27s_Kunai.png";
+    _weaponImages["black_rose"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/33/Item_icon_Black_Rose.png/150px-Item_icon_Black_Rose.png";
+    _weaponImages["spy_cicle"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a3/Item_icon_Spy-cicle.png/150px-Item_icon_Spy-cicle.png";
+    _weaponImages["necro_smasher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1a/Item_icon_Necro_Smasher.png/150px-Item_icon_Necro_Smasher.png";
+    _weaponImages["player"] =
+        "https://wiki.teamfortress.com/w/images/5/50/Killicon_skull.png";
+    _weaponImages["detonator"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/53/Item_icon_Detonator.png/150px-Item_icon_Detonator.png";
+    _weaponImages["bottle"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b2/Item_icon_Bottle.png/150px-Item_icon_Bottle.png";
+    _weaponImages["dumpster_device"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/77/Item_icon_Beggar%27s_Bazooka.png/150px-Item_icon_Beggar%27s_Bazooka.png";
+    _weaponImages["taunt_sniper"] = "https://wiki.teamfortress.com/w/images/thumb/1/1e/Snipertaunt4.PNG/225px-Snipertaunt4.PNG";
   }
 
   static List<Player> getOtherPlayersWithClass(
@@ -717,6 +748,25 @@ class LogHelper {
     List<Player> players = log.players.values.toList();
     players.sort(
         (player1, player2) => player2.backstabs.compareTo(player1.backstabs));
+    return players;
+  }
+
+  static List<Player> getPlayersSortedByKillsPerDeath(Log log) {
+    List<Player> players = log.players.values.toList();
+    players.sort((player1, player2) =>
+        player2.kpd.compareTo(player1.kpd));
+    return players;
+  }
+
+  static getPlayersSortedByDemomanKills(Log log) {
+    List<Player> players = log.players.values.toList();
+    players = players
+        .where((player) =>
+    log.classKills[player.steamId] != null &&
+        log.classKills[player.steamId].demoman != null)
+        .toList();
+    players.sort((player1, player2) => log.classKills[player2.steamId].demoman
+        .compareTo(log.classKills[player1.steamId].demoman));
     return players;
   }
 }
