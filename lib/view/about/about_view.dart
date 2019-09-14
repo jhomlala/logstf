@@ -48,6 +48,7 @@ class _AboutViewState extends State<AboutView> {
   }
 
   List<Widget> _getWidgets() {
+    double width = MediaQuery.of(context).size.width;
     List<Widget> widgets = List();
     widgets.add(
       Padding(
@@ -71,9 +72,9 @@ class _AboutViewState extends State<AboutView> {
         padding: EdgeInsets.only(top: 30),
       ),
     );
-    widgets.add(Row(children: [_getOliWidget(),_getSupraWidget()],));
-
-
+    widgets.add(Row(
+      children: [_getOliWidget(), _getSupraWidget()],
+    ));
 
     widgets.add(
       Padding(
@@ -102,10 +103,42 @@ class _AboutViewState extends State<AboutView> {
       ),
     );
 
+    widgets.add(
+      Container(
+          width: 300,
+          child: Text(
+            "Do you like this app? You can donate TF2 items to the author!",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+          )),
+    );
+    widgets.add(LogsButton(
+      text: "Send trade offer",
+      backgroundColor: Colors.grey,
+      onPressed: () {
+        AppUtils.launchWebPage(AppConst.authorDonateUrl);
+      },
+    ));
+
+    widgets.add(Divider(
+      color: AppUtils.getBorderColor(context),
+    ));
+    widgets.add(Container(
+        width: width * 0.9,
+        child: Text(
+          "Team Fortress, the Team Fortress logo, Steam, the Steam logo are trademarks and/or registered trademarks of Valve Corporation.",
+          textAlign: TextAlign.center,
+          maxLines: 4,
+        )));
+
+    widgets.add(Padding(
+      padding: EdgeInsets.only(top: 20),
+    ));
+
     return widgets;
   }
 
-  Widget _getOliWidget(){
+  Widget _getOliWidget() {
     List<Widget> widgets = List();
     widgets.add(ClipOval(
       child: Image.network(
@@ -122,7 +155,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(
       Text(
-        "Jakub Homlala",
+        "Oli",
         style: TextStyle(fontSize: 20),
       ),
     );
@@ -151,14 +184,16 @@ class _AboutViewState extends State<AboutView> {
         },
       )
     ]));
-    return Column(children: widgets,);
+    return Column(
+      children: widgets,
+    );
   }
 
-  Widget _getSupraWidget(){
+  Widget _getSupraWidget() {
     List<Widget> widgets = List();
     widgets.add(ClipOval(
       child: Image.network(
-        "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d0/d0e9e61aa2bc3ec6e3b6d5bd11de422c5d1870e9_full.jpg",
+        AppConst.supraAvatarUrl,
         height: 100,
         width: 100,
         fit: BoxFit.cover,
@@ -186,7 +221,7 @@ class _AboutViewState extends State<AboutView> {
         text: "Page",
         backgroundColor: Colors.grey,
         onPressed: () {
-          AppUtils.launchWebPage("https://supra.tf/");
+          AppUtils.launchWebPage(AppConst.supraWebPage);
         },
       ),
       Padding(
@@ -196,10 +231,12 @@ class _AboutViewState extends State<AboutView> {
         text: "Steam",
         backgroundColor: Colors.grey,
         onPressed: () {
-          AppUtils.launchWebPage("https://steamcommunity.com/id/cosiepatrzysz");
+          AppUtils.launchWebPage(AppConst.supraSteamProfileUrl);
         },
-      )
+      ),
     ]));
-    return Container(margin: EdgeInsets.only(left:5),child:Column(children: widgets));
+
+    return Container(
+        margin: EdgeInsets.only(left: 5), child: Column(children: widgets));
   }
 }
