@@ -8,6 +8,7 @@ import 'package:logstf/view/player/log_player_class_compare_view.dart';
 import 'package:logstf/view/player/log_player_general_view.dart';
 
 import 'log_player_awards_view.dart';
+import 'log_player_class_overview.dart';
 import 'log_player_kills_view.dart';
 import 'log_player_player_view.dart';
 
@@ -30,7 +31,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(_onTabChanged);
     _onTabChanged();
     super.initState();
@@ -51,6 +52,9 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
                 icon: Icon(Icons.info_outline),
               ),
               Tab(
+                icon: Icon(Icons.highlight),
+              ),
+              Tab(
                 icon: Icon(Icons.swap_horiz),
               ),
               Tab(
@@ -66,6 +70,7 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
         LogPlayerPlayerView(widget.player, widget.log),
         LogPlayerGeneralView(
             widget.player, widget.averagePlayersStatsMap, widget.log.length),
+        LogPlayerClassOverview(widget.log,widget.player),
         LogPlayerClassCompareView(widget.log, widget.player),
         LogPlayerKillsView(widget.log, widget.player),
         LogPlayerAwardsView(widget.log, widget.player)
@@ -85,12 +90,15 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
         tabName = "$playerName - General stats";
         break;
       case 2:
-        tabName = "$playerName - Class compare";
+        tabName = "$playerName - Class overview";
         break;
       case 3:
-        tabName = "$playerName - Match matrix";
+        tabName = "$playerName - Class compare";
         break;
       case 4:
+        tabName = "$playerName - Match matrix";
+        break;
+      case 5:
         tabName = "$playerName - Awards";
         break;
     }
