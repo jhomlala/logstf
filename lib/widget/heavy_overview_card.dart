@@ -98,7 +98,7 @@ class _HeavyOverviewCardState extends BaseOverviewCardState<HeavyOverviewCard> {
                               getMedicsKilled().toString(),
                             ),
                             getPositionRow(getPlayerMedicsPickedPosition(),
-                                "top medics killed", context)
+                                "overall top medics killed", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -106,14 +106,14 @@ class _HeavyOverviewCardState extends BaseOverviewCardState<HeavyOverviewCard> {
                               _getHeavyKills().toString(),
                             ),
                             getPositionRow(_getHeavyKillsPosition(),
-                                "top heavies killed", context)
+                                "overall top heavies killed", context)
                           ]),
                           Row(children: [
                             getStatRow(
                               "DT: ",
                               player.dt.toString(),
                             ),
-                            getPositionRow(_getDamageTakenPosition(), "top DT", context)
+                            getPositionRow(_getDamageTakenPosition(), "overall top DT", context)
                           ]),
                         ],
                       ))),

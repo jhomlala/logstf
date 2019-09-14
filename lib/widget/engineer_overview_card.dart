@@ -94,7 +94,7 @@ class _EngineerOverviewCardState extends BaseOverviewCardState<EngineerOverviewC
                               "Caps: ",
                               player.cpc.toString(),
                             ),
-                            getPositionRow(getPlayerCapPosition(), "top caps", context)
+                            getPositionRow(getPlayerCapPosition(), "overall top caps", context)
                           ]),
                         ],
                       ))),

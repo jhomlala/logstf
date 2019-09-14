@@ -97,28 +97,28 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
                               getMedicsKilled().toString(),
                             ),
                             getPositionRow(getPlayerMedicsPickedPosition(),
-                                "top medics killed", context)
+                                "overall top medics killed", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Sniper killed: ",
+                              "Snipers killed: ",
                               _getSniperKills().toString(),
                             ),
-                            getPositionRow(_getSniperKilledPosition(), "top sniper killed", context)
+                            getPositionRow(_getSniperKilledPosition(), "overall top sniper killed", context)
                           ]),
                           Row(children: [
                             getStatRow(
                               "Headshots: ",
                               player.headshots.toString(),
                             ),
-                            getPositionRow(_getHeadshotsPosition(), "top headshots", context)
+                            getPositionRow(_getHeadshotsPosition(), "overall top headshots", context)
                           ]),
                           Row(children: [
                             getStatRow(
                               "Headshots hits: ",
                               player.headshots.toString(),
                             ),
-                            getPositionRow(_getHeadshotsHitsPosition(), "top headshots hits", context)
+                            getPositionRow(_getHeadshotsHitsPosition(), "overall top headshots hits", context)
                           ]),
                         ],
                       ))),

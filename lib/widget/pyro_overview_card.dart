@@ -36,7 +36,7 @@ class _PyroOverviewCardState extends BaseOverviewCardState<PyroOverviewCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "scout"),
+                    ClassIcon(playerClass: "pyro"),
                     Container(
                         child: Text(
                           " Highlights",
@@ -96,14 +96,14 @@ class _PyroOverviewCardState extends BaseOverviewCardState<PyroOverviewCard> {
                       getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
-                        "top medics killed", context)
+                        "overall top medics killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Caps: ",
                       player.cpc.toString(),
                     ),
-                    getPositionRow(getPlayerCapPosition(), "top caps", context)
+                    getPositionRow(getPlayerCapPosition(), "overall top caps", context)
                   ]),
                 ],
               ))),

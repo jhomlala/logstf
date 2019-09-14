@@ -67,12 +67,12 @@ class MedicStatsWidget extends StatelessWidget {
     return TableRow(children: [
       Text(
         name,
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 14),
       ),
       Padding(
         padding: EdgeInsets.only(left: 40),
       ),
-      Text(value, style: TextStyle(fontSize: 16))
+      Text(value, style: TextStyle(fontSize: 14))
     ]);
   }
   int _getNearFullChargeDeaths(MedicStats medicStats){

@@ -5,7 +5,6 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
-import 'package:logstf/view/log/log_heal_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -35,7 +34,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     _tabController.addListener(_onTabChanged);
     _setupLogSavedState();
   }
@@ -60,12 +59,9 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
         tabName = "Players matrix";
         break;
       case 3:
-        tabName = "Heal stats";
-        break;
-      case 4:
         tabName = "Awards stats";
         break;
-      case 5:
+      case 4:
         tabName = "Match timeline";
         break;
     }
@@ -102,9 +98,6 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                     icon: Icon(Icons.apps),
                   ),
                   Tab(
-                    icon: Icon(Icons.add),
-                  ),
-                  Tab(
                     icon: Icon(Icons.flash_on),
                   ),
                   Tab(
@@ -129,7 +122,6 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                   LogGeneralStatsView(),
                   LogPlayersView(),
                   LogPlayersStatsMatrixView(),
-                  LogHealView(),
                   LogAwardsView(),
                   LogTimelineView(),
                 ]);

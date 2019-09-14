@@ -71,44 +71,9 @@ class _AboutViewState extends State<AboutView> {
         padding: EdgeInsets.only(top: 30),
       ),
     );
-    widgets.add(ClipOval(
-      child: Image.network(
-        AppConst.authorAvatarUrl,
-        height: 100,
-        width: 100,
-        fit: BoxFit.cover,
-      ),
-    ));
-    widgets.add(
-      Padding(
-        padding: EdgeInsets.only(top: 10),
-      ),
-    );
-    widgets.add(
-      Text(
-        "Jakub Homlala",
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-    widgets.add(Row(children: [
-      LogsButton(
-        text: "GitHub",
-        backgroundColor: Colors.grey,
-        onPressed: () {
-          AppUtils.launchWebPage(AppConst.authorGithubUrl);
-        },
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: 10),
-      ),
-      LogsButton(
-        text: "Steam",
-        backgroundColor: Colors.grey,
-        onPressed: () {
-          AppUtils.launchWebPage(AppConst.authorSteamProfileUrl);
-        },
-      )
-    ]));
+    widgets.add(Row(children: [_getOliWidget(),_getSupraWidget()],));
+
+
 
     widgets.add(
       Padding(
@@ -138,5 +103,103 @@ class _AboutViewState extends State<AboutView> {
     );
 
     return widgets;
+  }
+
+  Widget _getOliWidget(){
+    List<Widget> widgets = List();
+    widgets.add(ClipOval(
+      child: Image.network(
+        AppConst.authorAvatarUrl,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+      ),
+    ));
+    widgets.add(
+      Padding(
+        padding: EdgeInsets.only(top: 10),
+      ),
+    );
+    widgets.add(
+      Text(
+        "Jakub Homlala",
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+    widgets.add(
+      Text(
+        "Developer",
+        style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+      ),
+    );
+    widgets.add(Column(children: [
+      LogsButton(
+        text: "GitHub",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          AppUtils.launchWebPage(AppConst.authorGithubUrl);
+        },
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 5),
+      ),
+      LogsButton(
+        text: "Steam",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          AppUtils.launchWebPage(AppConst.authorSteamProfileUrl);
+        },
+      )
+    ]));
+    return Column(children: widgets,);
+  }
+
+  Widget _getSupraWidget(){
+    List<Widget> widgets = List();
+    widgets.add(ClipOval(
+      child: Image.network(
+        "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d0/d0e9e61aa2bc3ec6e3b6d5bd11de422c5d1870e9_full.jpg",
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
+      ),
+    ));
+    widgets.add(
+      Padding(
+        padding: EdgeInsets.only(top: 10),
+      ),
+    );
+    widgets.add(
+      Text(
+        "Supra",
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+    widgets.add(
+      Text(
+        "Ideas",
+        style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+      ),
+    );
+    widgets.add(Column(children: [
+      LogsButton(
+        text: "Page",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          AppUtils.launchWebPage("https://supra.tf/");
+        },
+      ),
+      Padding(
+        padding: EdgeInsets.only(left: 5),
+      ),
+      LogsButton(
+        text: "Steam",
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          AppUtils.launchWebPage("https://steamcommunity.com/id/cosiepatrzysz");
+        },
+      )
+    ]));
+    return Container(margin: EdgeInsets.only(left:5),child:Column(children: widgets));
   }
 }

@@ -96,7 +96,7 @@ class _SoldierOverviewWidgetState
                       getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
-                        "top medics killed", context)
+                        "overall top medics killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -104,14 +104,14 @@ class _SoldierOverviewWidgetState
                       player.as.toString(),
                     ),
                     getPositionRow(
-                        _getPlayerAirshotsPosition(), "top airshots", context)
+                        _getPlayerAirshotsPosition(), "overall top airshots", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Caps: ",
                       player.cpc.toString(),
                     ),
-                    getPositionRow(getPlayerCapPosition(), "top caps", context)
+                    getPositionRow(getPlayerCapPosition(), "overall top caps", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -119,7 +119,7 @@ class _SoldierOverviewWidgetState
                       _getSoldierKills().toString(),
                     ),
                     getPositionRow(_getSoldierKilledPosition(),
-                        "top soldiers killed", context)
+                        "overall top soldiers killed", context)
                   ]),
                 ],
               ))),

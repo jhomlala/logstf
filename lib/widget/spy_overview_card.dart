@@ -98,21 +98,21 @@ class _SpyOverviewCardState extends BaseOverviewCardState<SpyOverviewCard> {
                       getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
-                        "top medics killed", context)
+                        "overall top medics killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Sniper killed: ",
+                      "Snipers killed: ",
                       _getSniperKills().toString(),
                     ),
-                    getPositionRow(_getSniperKilledPosition(), "top sniper killed", context)
+                    getPositionRow(_getSniperKilledPosition(), "overall top sniper killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "Backstabs: ",
                       player.backstabs.toString(),
                     ),
-                    getPositionRow(_getBackstabsPosition(), "top backstabs", context)
+                    getPositionRow(_getBackstabsPosition(), "overall top backstabs", context)
                   ]),
                 ],
               ))),

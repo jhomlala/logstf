@@ -126,6 +126,7 @@ class LogHelper {
     _weaponNames["bottle"] = "Bottle";
     _weaponNames["dumpster_device"] = "Beggar's Bazooka";
     _weaponNames["taunt_sniper"] = "Sniper Taunt";
+    _weaponNames["sticky_ressistance"] = "Scottish Resistance";
   }
 
   static void _initWeaponImages() {
@@ -305,7 +306,10 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/b/b2/Item_icon_Bottle.png/150px-Item_icon_Bottle.png";
     _weaponImages["dumpster_device"] =
         "https://wiki.teamfortress.com/w/images/thumb/7/77/Item_icon_Beggar%27s_Bazooka.png/150px-Item_icon_Beggar%27s_Bazooka.png";
-    _weaponImages["taunt_sniper"] = "https://wiki.teamfortress.com/w/images/thumb/1/1e/Snipertaunt4.PNG/225px-Snipertaunt4.PNG";
+    _weaponImages["taunt_sniper"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1e/Snipertaunt4.PNG/225px-Snipertaunt4.PNG";
+    _weaponImages["sticky_ressistance"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/2c/Item_icon_Scottish_Resistance.png/150px-Item_icon_Scottish_Resistance.png";
   }
 
   static List<Player> getOtherPlayersWithClass(
@@ -753,8 +757,7 @@ class LogHelper {
 
   static List<Player> getPlayersSortedByKillsPerDeath(Log log) {
     List<Player> players = log.players.values.toList();
-    players.sort((player1, player2) =>
-        player2.kpd.compareTo(player1.kpd));
+    players.sort((player1, player2) => player2.kpd.compareTo(player1.kpd));
     return players;
   }
 
@@ -762,8 +765,8 @@ class LogHelper {
     List<Player> players = log.players.values.toList();
     players = players
         .where((player) =>
-    log.classKills[player.steamId] != null &&
-        log.classKills[player.steamId].demoman != null)
+            log.classKills[player.steamId] != null &&
+            log.classKills[player.steamId].demoman != null)
         .toList();
     players.sort((player1, player2) => log.classKills[player2.steamId].demoman
         .compareTo(log.classKills[player1.steamId].demoman));
