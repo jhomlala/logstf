@@ -104,7 +104,7 @@ class _SoldierOverviewWidgetState
                       player.as.toString(),
                     ),
                     getPositionRow(
-                        _getPlayerAirshotsPosition(), "overall top airshots", context)
+                        getPlayerAirshotsPosition(), "overall top airshots", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -127,10 +127,6 @@ class _SoldierOverviewWidgetState
     ]));
   }
 
-  int _getPlayerAirshotsPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByAirshots(log);
-    return getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
 
   int _getSoldierKills() {
     return log.classKills[player.steamId].soldier;

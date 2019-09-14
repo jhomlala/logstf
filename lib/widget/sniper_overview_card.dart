@@ -128,7 +128,11 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
 
 
   int _getSniperKills() {
-    return log.classKills[player.steamId].sniper;
+    if (log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].sniper;
+    } else {
+      return 0;
+    }
   }
 
   int _getSniperKilledPosition() {

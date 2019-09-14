@@ -70,7 +70,8 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                   Row(children: [
                     getStatRow(
                       "KA/D: ",
-                      getKillsAndAssistsPerDeath(_classStats).toStringAsFixed(1),
+                      getKillsAndAssistsPerDeath(_classStats)
+                          .toStringAsFixed(1),
                     ),
                     getPositionRow(
                         getPlayerKAPDPosition(), "overall top KA/D", context)
@@ -94,19 +95,16 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                   Divider(),
                   Row(children: [
                     getStatRow(
-                      "Medkits picked: ",
-                      player.medkits.toString(),
-                    ),
-                    getPositionRow(_getPlayerMedkitsPickedPosition(),
-                        "overall top medkits picked", context)
-                  ]),
-                  Row(children: [
-                    getStatRow(
                       "Medics killed: ",
                       getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
                         "overall top medics killed", context)
+                  ]),
+                  Row(children: [
+                    getStatRow("Scouts killed: ", getScoutKills().toString()),
+                    getPositionRow(_getScoutKilledPosition(),
+                        "overall top scouts killed", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -117,9 +115,12 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                         getPlayerCapPosition(), "overall top caps", context)
                   ]),
                   Row(children: [
-                    getStatRow("Scouts killed: ", getScoutKills().toString()),
-                    getPositionRow(_getScoutKilledPosition(),
-                        "overall top scouts killed", context)
+                    getStatRow(
+                      "Medkits picked: ",
+                      player.medkits.toString(),
+                    ),
+                    getPositionRow(_getPlayerMedkitsPickedPosition(),
+                        "overall top medkits picked", context)
                   ]),
                 ],
               ))),

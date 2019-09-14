@@ -81,7 +81,11 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     return widgets;
   }
   int getMedicsKilled() {
-    return log.classKills[player.steamId].medic;
+    if (log.classKills.containsKey(player.steamId)){
+      return log.classKills[player.steamId].medic;
+    } else {
+      return 0;
+    }
   }
 
   int getPlayerKillsPosition() {
@@ -125,13 +129,17 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
   }
 
   int getPlayerPositionInSortedPlayersList(List<Player> sortedPlayers) {
-    int playerIndex = 0;
+    int playerIndex = -1;
     for (int index = 0; index < sortedPlayers.length; index++) {
       if (sortedPlayers[index].steamId == player.steamId) {
         playerIndex = index;
         break;
       }
     }
+    if (playerIndex == -1){
+      playerIndex = sortedPlayers.length - 2;
+    }
+
     var position = playerIndex + 1;
     return position;
   }
@@ -184,6 +192,10 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     return classStats.dmg / (classStats.totalTime / 60);
   }
 
+  int getPlayerAirshotsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByAirshots(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
 
 }
 

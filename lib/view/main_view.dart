@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logstf/model/menu_item.dart';
+import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'about/about_view.dart';
 import 'help/help_view.dart';
+import 'log/log_view.dart';
 import 'logs/logs_saved_list_view.dart';
 import 'package:logstf/view/logs/logs_list_view.dart';
 import 'package:logstf/view/logs/logs_watch_list_view.dart';
@@ -22,24 +25,34 @@ class _MainViewState extends State<MainView>
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    callGetDeepLinkLogId();
+  }
+
+  void callGetDeepLinkLogId() async {
+    var channel = const MethodChannel("com.jhomlala.logstf.link");
+    var result = await channel.invokeMethod<String>("getIntent");
+    if (result != null && result != "none") {
+      Navigator.push<NavigationEvent>(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LogView(logId: int.parse((result)))));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          key: Key("mainViewAppBar"),
+            key: Key("mainViewAppBar"),
             elevation: 0.0,
             title: Text("Pocket Logs"),
             actions: [
               IconButton(
-                key: Key("mainViewSearchIcon"),
+                  key: Key("mainViewSearchIcon"),
                   icon: Icon(Icons.search),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SearchView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SearchView()));
                   }),
               PopupMenuButton<MenuItem>(
                 key: Key("mainViewOverflowMenu"),
@@ -96,7 +109,7 @@ class _MainViewState extends State<MainView>
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutView()));
     }
-    if (menuItem.title == "Help"){
+    if (menuItem.title == "Help") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HelpView()));
     }
