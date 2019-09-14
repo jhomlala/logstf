@@ -12,29 +12,6 @@ class LogHelper {
   static HashMap<String, String> _weaponNames = HashMap();
   static HashMap<String, String> _weaponImages = HashMap();
 
-  static String getWeaponImage(String weaponNameKey) {
-    if (_weaponImages.isEmpty) {
-      _initWeaponImages();
-    }
-    if (_weaponImages.containsKey(weaponNameKey)) {
-      return _weaponImages[weaponNameKey];
-    } else {
-      return "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
-    }
-  }
-
-  static String getWeaponName(String weaponNameKey) {
-    if (_weaponNames.isEmpty) {
-      _initWeaponNames();
-    }
-
-    if (_weaponNames.containsKey(weaponNameKey)) {
-      return _weaponNames[weaponNameKey];
-    } else {
-      return weaponNameKey;
-    }
-  }
-
   static void _initWeaponNames() {
     _weaponNames["scattergun"] = "Scattergun";
     _weaponNames["maxgun"] = "Lugermorph";
@@ -127,6 +104,7 @@ class LogHelper {
     _weaponNames["dumpster_device"] = "Beggar's Bazooka";
     _weaponNames["taunt_sniper"] = "Sniper Taunt";
     _weaponNames["sticky_ressistance"] = "Scottish Resistance";
+    _weaponNames["freedom_staff"] = "Freedom Staff";
   }
 
   static void _initWeaponImages() {
@@ -310,6 +288,31 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/1/1e/Snipertaunt4.PNG/225px-Snipertaunt4.PNG";
     _weaponImages["sticky_ressistance"] =
         "https://wiki.teamfortress.com/w/images/thumb/2/2c/Item_icon_Scottish_Resistance.png/150px-Item_icon_Scottish_Resistance.png";
+    _weaponImages["freedom_staff"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/28/Item_icon_Freedom_Staff.png/150px-Item_icon_Freedom_Staff.png";
+  }
+
+  static String getWeaponImage(String weaponNameKey) {
+    if (_weaponImages.isEmpty) {
+      _initWeaponImages();
+    }
+    if (_weaponImages.containsKey(weaponNameKey)) {
+      return _weaponImages[weaponNameKey];
+    } else {
+      return "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
+    }
+  }
+
+  static String getWeaponName(String weaponNameKey) {
+    if (_weaponNames.isEmpty) {
+      _initWeaponNames();
+    }
+
+    if (_weaponNames.containsKey(weaponNameKey)) {
+      return _weaponNames[weaponNameKey];
+    } else {
+      return weaponNameKey;
+    }
   }
 
   static List<Player> getOtherPlayersWithClass(

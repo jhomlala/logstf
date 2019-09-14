@@ -35,7 +35,7 @@ class _AboutViewState extends State<AboutView> {
       body: Container(
         padding: EdgeInsets.all(10),
         color: Theme.of(context).primaryColor,
-        child: Column(children: [
+        child: ListView(children: [
           Card(
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class _AboutViewState extends State<AboutView> {
     widgets.add(Container(
         width: width * 0.9,
         child: Text(
-          "Team Fortress, the Team Fortress logo, Steam, the Steam logo are trademarks and/or registered trademarks of Valve Corporation.",
+          "Team Fortress, the Team Fortress logo, Steam, the Steam logo are trademarks and/or registered trademarks of Valve Corporation. Logs thanks to logs.tf created by zoob. Weapon images thanks to wiki.teamfortress.com.",
           textAlign: TextAlign.center,
           maxLines: 4,
         )));

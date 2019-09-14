@@ -169,15 +169,18 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Icon(Icons.important_devices, color: AppUtils.getIconColor(context), size: 20,),
+          Icon(
+            Icons.important_devices,
+            color: AppUtils.getIconColor(context),
+            size: 20,
+          ),
           Text(" Match id: "),
           Flexible(
               child: Container(
-                child: Text(
-                    "#${_log.id}",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 18)),
-              ))
+            child: Text("#${_log.id}",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 18)),
+          ))
         ]));
   }
 
@@ -225,13 +228,13 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
 
     tableRows.add(_getRow(
         "HP from pickups",
-        "${LogHelper.getMedkitsHPSum(_log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getMedkitsHPSum(_log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getMedkitsHPSum(_log, "Red").toStringAsFixed(0)}",
+        "${LogHelper.getMedkitsHPSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
         "Headshots",
-        "${LogHelper.getHeadshotsSum(_log, "Red").toStringAsFixed(2)}",
-        "${LogHelper.getHeadshotsSum(_log, "Blue").toStringAsFixed(2)}"));
+        "${LogHelper.getHeadshotsSum(_log, "Red").toStringAsFixed(0)}",
+        "${LogHelper.getHeadshotsSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
         "Sentries",

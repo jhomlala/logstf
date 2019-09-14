@@ -114,8 +114,8 @@ class _DemomanOverviewCardState
                       "Airshots: ",
                       player.as.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerAirshotsPosition(), "overall top airshots", context)
+                    getPositionRow(getPlayerAirshotsPosition(),
+                        "overall top airshots", context)
                   ]),
                 ],
               ))),
