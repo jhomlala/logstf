@@ -206,7 +206,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(
       Text(
-        "Supra",
+        "supra",
         style: TextStyle(fontSize: 20),
       ),
     );
