@@ -80,7 +80,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/map.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text(" Map: "),
+          Text("  Map: "),
           Text(
             "${_log.info.map}",
             style: TextStyle(fontSize: 18),
@@ -109,7 +109,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/timer.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("Played:"),
+          Text("  Played:"),
           Text(
             lengthText,
             style: TextStyle(fontSize: 18),
@@ -124,7 +124,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/calendar.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("Played at: "),
+          Text("  Played at: "),
           Text(
             DateFormat('yyyy-MM-dd kk:mm:ss').format(dateTime),
             style: TextStyle(fontSize: 18),
@@ -140,7 +140,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/battle.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("Type: "),
+          Text("  Type: "),
           Text(
             matchType.name,
             style: TextStyle(fontSize: 18),
@@ -154,7 +154,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/upload.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text(" Uploaded by: "),
+          Text("  Uploaded by: "),
           Flexible(
               child: Container(
             child: Text(
@@ -174,7 +174,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
             color: AppUtils.getIconColor(context),
             size: 20,
           ),
-          Text(" Match id: "),
+          Text("  Match id: "),
           Flexible(
               child: Container(
             child: Text("#${_log.id}",

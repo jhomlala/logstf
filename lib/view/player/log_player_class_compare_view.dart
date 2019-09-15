@@ -26,14 +26,15 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
   @override
   void initState() {
-    print("init state");
     _classes = _getPlayerClasses();
     _selectedClass = _classes[0];
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
         widget._log, _selectedClass, widget._player.steamId);
-    _selectedPlayer = _otherPlayersWithSelectedClass[0];
+    if (_otherPlayersWithSelectedClass.isNotEmpty) {
+      _selectedPlayer = _otherPlayersWithSelectedClass[0];
     _playerName = widget._log.getPlayerName(widget._player.steamId);
     _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
+    }
     super.initState();
   }
 
@@ -142,6 +143,10 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   }
 
   Widget _getPlayersDropdown() {
+    if (_otherPlayersWithSelectedClass == null || _otherPlayersWithSelectedClass.isEmpty){
+      return Text("None", style: TextStyle(fontSize: 16),);
+    }
+
     return DropdownButton<Player>(
       elevation: 2,
       isDense: true,

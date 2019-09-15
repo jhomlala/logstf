@@ -212,7 +212,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(
       Text(
-        "Ideas",
+        "Ideas, tests",
         style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
       ),
     );
