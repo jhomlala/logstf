@@ -161,11 +161,39 @@ class _LogPlayersViewState extends State<LogPlayersView> {
             .sort((player1, player2) => player2.cpc.compareTo(player1.cpc));
         break;
       case "BA":
-        playersCopy
-            .sort((player1, player2) => player2.backstabs.compareTo(player1.backstabs));
+        playersCopy.sort((player1, player2) =>
+            player2.backstabs.compareTo(player1.backstabs));
+        break;
+      case "class":
+        playersCopy.sort((player1, player2) =>
+            getPlayerClass(player1).compareTo(getPlayerClass(player2)));
         break;
     }
     return playersCopy;
+  }
+
+  int getPlayerClass(Player player) {
+    switch (player.classStats.first.type) {
+      case "scout":
+        return 1;
+      case "soldier":
+        return 2;
+      case "pyro":
+        return 3;
+      case "demoman":
+        return 4;
+      case "heavyweapons":
+        return 5;
+      case "engineer":
+        return 6;
+      case "medic":
+        return 7;
+      case "sniper":
+        return 8;
+      case "spy":
+        return 9;
+    }
+    return 0;
   }
 
   double _calculateDamageTakenPerMinute(int damgeTaken) {
@@ -239,13 +267,25 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           height: 30,
           child: Center(
               child: Text("Player", style: TextStyle(color: Colors.white)))),
-      Container(
-          decoration: BoxDecoration(
-            color: AppUtils.darkBlueColor,
-          ),
-          height: 30,
-          child: Center(
-              child: Text("Class", style: TextStyle(color: Colors.white))))
+      InkWell(
+          onTap: () {
+            _onHeaderClicked("class");
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                color: AppUtils.darkBlueColor,
+              ),
+              height: 30,
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                _currentFilter == "class"
+                    ? Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      )
+                    : Container(),
+                Text("Class", style: TextStyle(color: Colors.white))
+              ])))
     ]));
     _playersSorted.forEach((Player player) {
       rows.add(_getPlayerStickyRow(player));
@@ -280,7 +320,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return Container(
         decoration: BoxDecoration(
             color: teamColor,
-            border: Border(bottom: BorderSide(color: AppUtils.getBorderColor(context)))),
+            border: Border(
+                bottom: BorderSide(color: AppUtils.getBorderColor(context)))),
         height: 30,
         width: 100,
         child: widget);

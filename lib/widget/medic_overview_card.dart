@@ -43,12 +43,11 @@ class _MedicOverviewCardState extends BaseOverviewCardState<MedicOverviewCard> {
           Padding(
             padding: EdgeInsets.only(top: 10),
           ),
-
-          MedicStatsWidget(player: player, log: log),
+          HealSpreadPieChart(healSpreadList: _healSpread),
           Divider(
             color: AppUtils.getBorderColor(context),
           ),
-          HealSpreadPieChart(healSpreadList: _healSpread),
+          MedicStatsWidget(player: player, log: log),
           Padding(
             padding: EdgeInsets.only(top: 10),
           )

@@ -7,14 +7,15 @@ import 'package:logstf/widget/weapon_stats_widget.dart';
 
 import 'class_icon.dart';
 
-abstract class BaseOverviewCard extends StatefulWidget{
+abstract class BaseOverviewCard extends StatefulWidget {
   final Player player;
   final Log log;
 
-  const BaseOverviewCard( this.player, this.log);
+  const BaseOverviewCard(this.player, this.log);
 }
 
-abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T>{
+abstract class BaseOverviewCardState<T extends BaseOverviewCard>
+    extends State<T> {
   Player get player {
     return widget.player;
   }
@@ -29,26 +30,24 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     int secondsLeft = seconds - minutes * 60;
     String minutesFormatted = minutes < 10 ? "0$minutes" : minutes.toString();
     String secondsFormatted =
-    secondsLeft < 10 ? "0$secondsLeft" : secondsLeft.toString();
+        secondsLeft < 10 ? "0$secondsLeft" : secondsLeft.toString();
     return "$minutesFormatted:$secondsFormatted";
   }
 
   Widget getStatRow(String name, String value) {
-    return Container(padding: EdgeInsets.only(top: 2,bottom: 2),child: Row(children: [
-      Text(name),
-      Text(
-        value,
-        style: TextStyle(fontWeight: FontWeight.w700),
-      )
-    ]));
+    return Container(
+        padding: EdgeInsets.only(top: 2, bottom: 2),
+        child: Row(children: [
+          Text(name),
+          Text(
+            value,
+            style: TextStyle(fontWeight: FontWeight.w700),
+          )
+        ]));
   }
 
   Widget getPositionRow(int position, String name, BuildContext context) {
-    Color color = Theme
-        .of(context)
-        .textTheme
-        .body1
-        .color;
+    Color color = Theme.of(context).textTheme.body1.color;
     if (position == 1) {
       color = Colors.yellow;
     }
@@ -80,8 +79,13 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
     });
     return widgets;
   }
+
   int getMedicsKilled() {
-    return log.classKills[player.steamId].medic;
+    if (log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].medic;
+    } else {
+      return 0;
+    }
   }
 
   int getPlayerKillsPosition() {
@@ -125,18 +129,22 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
   }
 
   int getPlayerPositionInSortedPlayersList(List<Player> sortedPlayers) {
-    int playerIndex = 0;
+    int playerIndex = -1;
     for (int index = 0; index < sortedPlayers.length; index++) {
       if (sortedPlayers[index].steamId == player.steamId) {
         playerIndex = index;
         break;
       }
     }
+    if (playerIndex == -1) {
+      playerIndex = sortedPlayers.length - 2;
+    }
+
     var position = playerIndex + 1;
     return position;
   }
 
-  Widget getWeaponsCard(ClassStats classStats){
+  Widget getWeaponsCard(ClassStats classStats) {
     List<Widget> weapons = getWeaponWidgets(classStats);
     return Card(
         child: Container(
@@ -146,44 +154,49 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard> extends State<T
                 ClassIcon(playerClass: classStats.type),
                 Container(
                     child: Text(
-                      " Weapons stats",
-                      style: TextStyle(fontSize: 20),
-                    ))
+                  " Weapons stats",
+                  style: TextStyle(fontSize: 20),
+                ))
               ]),
-              weapons.isEmpty ? Container(height: 100, child: Center(child: Text("No weapon data"))):  Container(
-                  height: 240,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: classStats.weapon.length,
-                      itemBuilder: (context, position) {
-                        return weapons[position];
-                      })),
+              weapons.isEmpty
+                  ? Container(
+                      height: 100, child: Center(child: Text("No weapon data")))
+                  : Container(
+                      height: 240,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: classStats.weapon.length,
+                          itemBuilder: (context, position) {
+                            return weapons[position];
+                          })),
             ])));
   }
 
-  double getKillsPerDeath(ClassStats classStats){
+  double getKillsPerDeath(ClassStats classStats) {
     int deaths = classStats.deaths;
-    if (deaths == 0){
+    if (deaths == 0) {
       deaths = 1;
     }
     return classStats.kills / deaths;
   }
 
-  double getKillsAndAssistsPerDeath(ClassStats classStats){
+  double getKillsAndAssistsPerDeath(ClassStats classStats) {
     int deaths = classStats.deaths;
-    if (deaths == 0){
+    if (deaths == 0) {
       deaths = 1;
     }
     return (classStats.kills + classStats.assists) / deaths;
   }
 
-  double getDamagePerMinute(ClassStats classStats){
-    if (classStats.totalTime < 60){
+  double getDamagePerMinute(ClassStats classStats) {
+    if (classStats.totalTime < 60) {
       return classStats.dmg.toDouble();
     }
     return classStats.dmg / (classStats.totalTime / 60);
   }
 
-
+  int getPlayerAirshotsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByAirshots(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
 }
-

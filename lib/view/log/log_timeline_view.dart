@@ -58,7 +58,6 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     }
   }
 
-
   _setupTimelineWidget(TimelinePosition position) => Timeline.builder(
       itemBuilder: _setupTimelineElement,
       itemCount: _events.length,
@@ -214,9 +213,7 @@ class _LogTimelineViewState extends State<LogTimelineView> {
     return RichText(
         text: TextSpan(
             style: new TextStyle(
-              fontSize: 12.0,
-              color: Theme.of(context).textTheme.body1.color
-            ),
+                fontSize: 12.0, color: Theme.of(context).textTheme.body1.color),
             children: children));
   }
 

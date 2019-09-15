@@ -26,14 +26,15 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
 
   @override
   void initState() {
-    print("init state");
     _classes = _getPlayerClasses();
     _selectedClass = _classes[0];
     _otherPlayersWithSelectedClass = LogHelper.getOtherPlayersWithClass(
         widget._log, _selectedClass, widget._player.steamId);
-    _selectedPlayer = _otherPlayersWithSelectedClass[0];
+    if (_otherPlayersWithSelectedClass.isNotEmpty) {
+      _selectedPlayer = _otherPlayersWithSelectedClass[0];
     _playerName = widget._log.getPlayerName(widget._player.steamId);
     _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
+    }
     super.initState();
   }
 
@@ -55,7 +56,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
             child:
-            Container(child: Column(children: _getMainColumnWidgets()))));
+                Container(child: Column(children: _getMainColumnWidgets()))));
   }
 
   List<Widget> _getMainColumnWidgets() {
@@ -84,7 +85,9 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 5),),
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
+                ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
                     "Class:",
@@ -127,7 +130,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         items: _classes.map((String value) {
           return new DropdownMenuItem<String>(
             value: value,
-            child: new Text(_formatClassName(value), style: TextStyle(fontSize: 16)),
+            child: new Text(_formatClassName(value),
+                style: TextStyle(fontSize: 16)),
           );
         }).toList(),
         onChanged: (value) {
@@ -139,6 +143,10 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   }
 
   Widget _getPlayersDropdown() {
+    if (_otherPlayersWithSelectedClass == null || _otherPlayersWithSelectedClass.isEmpty){
+      return Text("None", style: TextStyle(fontSize: 16),);
+    }
+
     return DropdownButton<Player>(
       elevation: 2,
       isDense: true,
@@ -222,11 +230,13 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     ));
 
     widgets.add(ComparisonCard(
-        title: "Damage taken",
-        playerValue: widget._player.dt.toDouble(),
-        comparedPlayerValue: _selectedPlayer.dt.toDouble(),
-        playerName: _playerName,
-        comparedPlayerName: _selectedPlayerName));
+      title: "Damage taken",
+      playerValue: widget._player.dt.toDouble(),
+      comparedPlayerValue: _selectedPlayer.dt.toDouble(),
+      playerName: _playerName,
+      comparedPlayerName: _selectedPlayerName,
+      reversed: true,
+    ));
 
     widgets.add(ComparisonCard(
         title: "Captured points",
@@ -321,5 +331,4 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
           rawClassName.substring(1, rawClassName.length);
     }
   }
-
 }

@@ -109,6 +109,14 @@ class _DemomanOverviewCardState
                     getPositionRow(_getDemomanKillsPosition(),
                         "overal top demomans killed", context)
                   ]),
+                  Row(children: [
+                    getStatRow(
+                      "Airshots: ",
+                      player.as.toString(),
+                    ),
+                    getPositionRow(getPlayerAirshotsPosition(),
+                        "overall top airshots", context)
+                  ]),
                 ],
               ))),
       getWeaponsCard(_classStats)

@@ -4,7 +4,6 @@ import 'package:logstf/view/main_view.dart';
 import 'bloc/logs_saved_bloc.dart';
 import 'bloc/settings_bloc.dart';
 import 'model/app_settings.dart';
-
 void main() {
   runApp(PocketLogsApp());
 }
@@ -24,6 +23,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
     super.initState();
     settingsBloc.getAppSettings();
     logsSavedBloc.initLogs();
+
   }
 
   @override

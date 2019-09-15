@@ -12,29 +12,6 @@ class LogHelper {
   static HashMap<String, String> _weaponNames = HashMap();
   static HashMap<String, String> _weaponImages = HashMap();
 
-  static String getWeaponImage(String weaponNameKey) {
-    if (_weaponImages.isEmpty) {
-      _initWeaponImages();
-    }
-    if (_weaponImages.containsKey(weaponNameKey)) {
-      return _weaponImages[weaponNameKey];
-    } else {
-      return "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
-    }
-  }
-
-  static String getWeaponName(String weaponNameKey) {
-    if (_weaponNames.isEmpty) {
-      _initWeaponNames();
-    }
-
-    if (_weaponNames.containsKey(weaponNameKey)) {
-      return _weaponNames[weaponNameKey];
-    } else {
-      return weaponNameKey;
-    }
-  }
-
   static void _initWeaponNames() {
     _weaponNames["scattergun"] = "Scattergun";
     _weaponNames["maxgun"] = "Lugermorph";
@@ -44,7 +21,7 @@ class LogHelper {
     _weaponNames["the_winger"] = "Winger";
     _weaponNames["pep_brawlerblaster"] = "Baby Face's Blaster";
     _weaponNames["back_scatter"] = "Back Scatter";
-    _weaponNames["pep_pistol"] = "Baby Face's Blaster";
+    _weaponNames["pep_pistol"] = "Pretty Boy's Pocket Pistol";
     _weaponNames["world"] = "Env. death";
     _weaponNames["tf_projectile_rocket"] = "Rocket Launcher";
     _weaponNames["unique_pickaxe_escape"] = "Escape Plan";
@@ -106,8 +83,10 @@ class LogHelper {
     _weaponNames["tribalkukri"] = "Tribalman's Shiv";
     _weaponNames["club"] = "Kukri";
     _weaponNames["deflect_rocket"] = "Deflected Rocket";
+    _weaponNames["deflect_promode"] = "Deflected Flare";
+    _weaponNames["rocketpack_stomp"] = "Thermal Thruster Stomp";
     _weaponNames["shotgun_pyro"] = "Shotgun";
-    _weaponNames["defelect_promode"] = "Deflected Promode";
+    _weaponNames["defelect_promode"] = "Deflected Flare";
     _weaponNames["pistol"] = "Pistol";
     _weaponNames["disciplinary_action"] = "Disciplinary Action";
     _weaponNames["big_earner"] = "Big Earner";
@@ -125,8 +104,84 @@ class LogHelper {
     _weaponNames["detonator"] = "Detonator";
     _weaponNames["bottle"] = "Bottle";
     _weaponNames["dumpster_device"] = "Beggar's Bazooka";
-    _weaponNames["taunt_sniper"] = "Sniper Taunt";
-    _weaponNames["sticky_ressistance"] = "Scottish Resistance";
+    _weaponNames["taunt_sniper"] = "Sniper's Skewer Taunt";
+    _weaponNames["sticky_resistance"] = "Scottish Resistance";
+    _weaponNames["freedom_staff"] = "Freedom Staff";
+    _weaponNames["bleed_kill"] = "Bleeding";
+    _weaponNames["the_classic"] = "Classic";
+    _weaponNames["persian_persuader"] = "Persian Persuader";
+    _weaponNames["splendid_screen"] = "Splednid Screen";
+    _weaponNames["telefrag"] = "Telefrag";
+    _weaponNames["eureka_effect"] = "Eureka effect";
+    _weaponNames["southern_hospitality"] = "Southern Hospitality";
+    _weaponNames["widowmaker"] = "Widowmaker";
+    _weaponNames["pomson"] = "Pomson 6000";
+    _weaponNames["short_circuit"] = "Short Circuit";
+    _weaponNames["taunt_guitar_kill"] = "Engineer's Dischord Taunt";
+    _weaponNames["robot_arm_blender_kill"] = "Engineer's Organ Grinder Taunt";
+    _weaponNames["cow_mangler"] = "Cow Mangler 5000";
+    _weaponNames["demokatana"] = "Half-Zatoichi";
+    _weaponNames["liberty_launcher"] = "Liberty Launcher";
+    _weaponNames["righteous_bison"] = "Righteous Bison";
+    _weaponNames["unique_pickaxe"] = "Equalizer";
+    _weaponNames["shovel"] = "Shovel";
+    _weaponNames["paintrain"] = "Pain Train";
+    _weaponNames["mantreads"] = "Mantreads";
+    _weaponNames["taunt_soldier"] = "Soldier's Kamikaze Taunt";
+    _weaponNames["taunt_soldier_lumbricus"] = "Soldier's Holy Kamikaze Taunt";
+    _weaponNames["sandman"] = "Sandman";
+    _weaponNames["shortstop"] = "Shortstop";
+    _weaponNames["candy_cane"] = "Candy Cane";
+    _weaponNames["bat"] = "Bat";
+    _weaponNames["warfan"] = "Fan O'War";
+    _weaponNames["lava_bat"] = "Sun-on-a-Stick";
+    _weaponNames["guillotine"] = "Flying Guillotine";
+    _weaponNames["atomizer"] = "Atomizer";
+    _weaponNames["ball"] = "Ball";
+    _weaponNames["taunt_scout"] = "Scout's Home Run Taunt";
+    _weaponNames["taunt_demoman"] = "Demoman's Decapitation Taunt";
+    _weaponNames["claidheamhmor"] = "Claidheamh Mòr";
+    _weaponNames["headtaker"] = "Horseless Headless Horsemann's Headtaker";
+    _weaponNames["demoshield"] = "Chargin' Targe";
+    _weaponNames["stickybomb_defender"] = "Stickybomb Defender";
+    _weaponNames["ullapool_caber"] = "Ullapool Caber";
+    _weaponNames["battleaxe"] = "Scotsman's Skullcutter";
+    _weaponNames["ullapool_caber_explosion"] = "Ullapool Caber's Explosion";
+    _weaponNames["rainblower"] = "Rainblower";
+    _weaponNames["dragons_fury"] = "Dragon's Fury";
+    _weaponNames["manmelter"] = "Manmelter";
+    _weaponNames["lava_axe"] = "Sharpened Volcano Fragment";
+    _weaponNames["annihilator"] = "Neon Annihilator";
+    _weaponNames["sledgehammer"] = "Homewrecker";
+    _weaponNames["hot_hand"] = "Hot Hand";
+    _weaponNames["fireaxe"] = "Fire Axe";
+    _weaponNames["thirddegree"] = "Third Degree";
+    _weaponNames["axtinguisher"] = "Axtinguiser";
+    _weaponNames["taunt_pyro"] = "Pyro's Hadouken Taunt";
+    _weaponNames["armageddon"] = "Pyro's Armageddon Taunt";
+    _weaponNames["execution"] = "Pyro's Execution Taunt";
+    _weaponNames["jar_gas"] = "Gas Passer";
+    _weaponNames["dragons_fury_bonus"] = "Dragon's Fury Bonus";
+    _weaponNames["pro_smg"] = "Cleaner's Carbine";
+    _weaponNames["pro_rifle"] = "Hitman's Heatmaker";
+    _weaponNames["machina"] = "Machina";
+    _weaponNames["sydney_sleeper"] = "Sydney Sleeper";
+    _weaponNames["bushwacka"] = "Bushwacka";
+    _weaponNames["compound_bow"] = "Fortified Compound";
+    _weaponNames["taunt_heavy"] = "Heavy's Showdown Taunt";
+    _weaponNames["warrior_spirit"] = "Warrior's Spirit";
+    _weaponNames["natascha"] = "Natascha";
+    _weaponNames["long_heatmaker"] = "Huo-Long Heater";
+    _weaponNames["fists"] = "Fists";
+    _weaponNames["gloves"] = "K.G.B.";
+    _weaponNames["holiday_punch"] = "Holiday Punch";
+    _weaponNames["steel_fists"] = "Fists Of Steel";
+    _weaponNames["eviction_notice"] = "Eviction Notice";
+    _weaponNames["shotgun_hwg"] = "Shotgun";
+    _weaponNames["diamondback"] = "Diamondback";
+    _weaponNames["taunt_spy"] = "Spy's Fencing Taunt";
+    _weaponNames["ai_flamethrower"] = "Nostromo Napalmer";
+    _weaponNames["voodoo_pin"] = "Wanga Prick";
   }
 
   static void _initWeaponImages() {
@@ -308,8 +363,187 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/7/77/Item_icon_Beggar%27s_Bazooka.png/150px-Item_icon_Beggar%27s_Bazooka.png";
     _weaponImages["taunt_sniper"] =
         "https://wiki.teamfortress.com/w/images/thumb/1/1e/Snipertaunt4.PNG/225px-Snipertaunt4.PNG";
-    _weaponImages["sticky_ressistance"] =
+    _weaponImages["sticky_resistance"] =
         "https://wiki.teamfortress.com/w/images/thumb/2/2c/Item_icon_Scottish_Resistance.png/150px-Item_icon_Scottish_Resistance.png";
+    _weaponImages["freedom_staff"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/28/Item_icon_Freedom_Staff.png/150px-Item_icon_Freedom_Staff.png";
+    _weaponImages["bleed_kill"] =
+        "https://wiki.teamfortress.com/w/images/d/dd/Bleed_drop.png";
+    _weaponImages["the_classic"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/73/Item_icon_Classic.png/150px-Item_icon_Classic.png";
+    _weaponImages["persian_persuader"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/98/Item_icon_Persian_Persuader.png/150px-Item_icon_Persian_Persuader.png";
+    _weaponImages["splendid_screen"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c3/Item_icon_Splendid_Screen.png/150px-Item_icon_Splendid_Screen.png";
+    _weaponImages["telefrag"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/6c/Telefrag.png/450px-Telefrag.png";
+    _weaponImages["eureka_effect"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Eureka_Effect.png/150px-Item_icon_Eureka_Effect.png";
+    _weaponImages["southern_hospitality"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Southern_Hospitality.png/150px-Item_icon_Southern_Hospitality.png";
+    _weaponImages["widowmaker"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b8/Item_icon_Widowmaker.png/150px-Item_icon_Widowmaker.png";
+    _weaponImages["pomson"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/89/Item_icon_Pomson_6000.png/150px-Item_icon_Pomson_6000.png";
+    _weaponImages["short_circuit"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/36/Item_icon_Short_Circuit.png/150px-Item_icon_Short_Circuit.png";
+    _weaponImages["taunt_guitar_kill"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/35/EngyGuitarSmash.png/164px-EngyGuitarSmash.png";
+    _weaponImages["robot_arm_blender_kill"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/87/EngyGunslinger.png/116px-EngyGunslinger.png";
+    _weaponImages["cow_mangler"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/46/Item_icon_Cow_Mangler_5000.png/150px-Item_icon_Cow_Mangler_5000.png";
+    _weaponImages["demokatana"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a9/Item_icon_Half-Zatoichi.png/150px-Item_icon_Half-Zatoichi.png";
+    _weaponImages["liberty_launcher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/24/Item_icon_Liberty_Launcher.png/150px-Item_icon_Liberty_Launcher.png";
+    _weaponImages["righteous_bison"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1d/Item_icon_Righteous_Bison.png/150px-Item_icon_Righteous_Bison.png";
+    _weaponImages["unique_pickaxe"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/ba/Item_icon_Equalizer.png/150px-Item_icon_Equalizer.png";
+    _weaponImages["shovel"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/73/Item_icon_Shovel.png/150px-Item_icon_Shovel.png";
+    _weaponImages["paintrain"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/4b/Item_icon_Pain_Train.png/150px-Item_icon_Pain_Train.png";
+    _weaponImages["mantreads"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/6a/Item_icon_Mantreads.png/150px-Item_icon_Mantreads.png";
+    _weaponImages["taunt_soldier"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f4/Soldiergrenadekill.png/81px-Soldiergrenadekill.png";
+    _weaponImages["taunt_soldier_lumbricus"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f4/Soldiergrenadekill.png/81px-Soldiergrenadekill.png";
+    _weaponImages["candy_cane"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/05/Item_icon_Candy_Cane.png/150px-Item_icon_Candy_Cane.png";
+    _weaponImages["bat"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b5/Item_icon_Bat.png/150px-Item_icon_Bat.png";
+    _weaponImages["warfan"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f4/Item_icon_Fan_O%27War.png/150px-Item_icon_Fan_O%27War.png";
+    _weaponImages["lava_bat"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/06/Item_icon_Sun-on-a-Stick.png/150px-Item_icon_Sun-on-a-Stick.png";
+    _weaponImages["guillotine"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5a/Item_icon_Flying_Guillotine.png/150px-Item_icon_Flying_Guillotine.png";
+    _weaponImages["atomizer"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Atomizer.png/150px-Item_icon_Atomizer.png";
+    _weaponImages["ball"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Sandman.png/150px-Item_icon_Sandman.png";
+    _weaponImages["taunt_scout"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/47/Scouttaunt4.PNG/225px-Scouttaunt4.PNG";
+    _weaponImages["sandman"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Sandman.png/150px-Item_icon_Sandman.png";
+    _weaponImages["shortstop"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/84/Item_icon_Shortstop.png/150px-Item_icon_Shortstop.png";
+    _weaponImages["pep_pistol"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Pretty_Boy%27s_Pocket_Pistol.png/150px-Item_icon_Pretty_Boy%27s_Pocket_Pistol.png";
+    _weaponImages["taunt_demoman"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/fa/Demoeyelander.png/187px-Demoeyelander.png";
+    _weaponImages["claidheamhmor"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/0f/Item_icon_Claidheamh_M%C3%B2r.png/150px-Item_icon_Claidheamh_M%C3%B2r.png";
+    _weaponImages["headtaker"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Horseless_Headless_Horsemann%27s_Headtaker.png/150px-Item_icon_Horseless_Headless_Horsemann%27s_Headtaker.png";
+    _weaponImages["demoshield"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7a/Item_icon_Chargin%27_Targe.png/150px-Item_icon_Chargin%27_Targe.png";
+    _weaponImages["stickybomb_defender"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7c/Item_icon_Stickybomb_Launcher.png/150px-Item_icon_Stickybomb_Launcher.png";
+    _weaponImages["ullapool_caber"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a5/Item_icon_Ullapool_Caber.png/150px-Item_icon_Ullapool_Caber.png";
+    _weaponImages["battleaxe"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c6/Item_icon_Scotsman%27s_Skullcutter.png/150px-Item_icon_Scotsman%27s_Skullcutter.png";
+    _weaponImages["ullapool_caber_explosion"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a5/Item_icon_Ullapool_Caber.png/150px-Item_icon_Ullapool_Caber.png";
+    _weaponImages["rainblower"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/3c/Item_icon_Rainblower.png/150px-Item_icon_Rainblower.png";
+    _weaponImages["dragons_fury"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Dragon%27s_Fury.png/150px-Item_icon_Dragon%27s_Fury.png";
+    _weaponImages["manmelter"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/9d/Item_icon_Manmelter.png/150px-Item_icon_Manmelter.png";
+    _weaponImages["lava_axe"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/ac/Item_icon_Sharpened_Volcano_Fragment.png/150px-Item_icon_Sharpened_Volcano_Fragment.png";
+    _weaponImages["annihilator"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/e9/Item_icon_Neon_Annihilator.png/150px-Item_icon_Neon_Annihilator.png";
+    _weaponImages["sledgehammer"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/4a/Item_icon_Homewrecker.png/150px-Item_icon_Homewrecker.png";
+    _weaponImages["hot_hand"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Hot_Hand.png/150px-Item_icon_Hot_Hand.png";
+    _weaponImages["fireaxe"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/9f/Item_icon_Fire_Axe.png/150px-Item_icon_Fire_Axe.png";
+    _weaponImages["thirddegree"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/91/Item_icon_Third_Degree.png/150px-Item_icon_Third_Degree.png";
+    _weaponImages["axtinguisher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/c9/Item_icon_Axtinguisher.png/150px-Item_icon_Axtinguisher.png";
+    _weaponImages["taunt_pyro"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Pyrotaunt2.PNG/225px-Pyrotaunt2.PNG";
+    _weaponImages["armageddon"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/79/Pyro_Armageddon_Taunt.png/225px-Pyro_Armageddon_Taunt.png";
+    _weaponImages["execution"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/8b/Execution.PNG/220px-Execution.PNG";
+    _weaponImages["jar_gas"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/0e/Item_icon_Gas_Passer.png/150px-Item_icon_Gas_Passer.png";
+    _weaponImages["dragons_fury_bonus"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Dragon%27s_Fury.png/150px-Item_icon_Dragon%27s_Fury.png";
+    _weaponImages["pro_smg"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/64/Item_icon_Cleaner%27s_Carbine.png/150px-Item_icon_Cleaner%27s_Carbine.png";
+    _weaponImages["pro_rifle"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/18/Item_icon_Hitman%27s_Heatmaker.png/150px-Item_icon_Hitman%27s_Heatmaker.png";
+    _weaponImages["machina"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/ae/Item_icon_Machina.png/150px-Item_icon_Machina.png";
+    _weaponImages["sydney_sleeper"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/6a/Item_icon_Sydney_Sleeper.png/150px-Item_icon_Sydney_Sleeper.png";
+    _weaponImages["bushwacka"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/46/Item_icon_Bushwacka.png/150px-Item_icon_Bushwacka.png";
+    _weaponImages["compound_bow"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/89/Item_icon_Fortified_Compound.png/150px-Item_icon_Fortified_Compound.png";
+    _weaponImages["taunt_heavy"] =
+        "https://wiki.teamfortress.com/w/images/thumb/7/7d/Heavytaunt3.PNG/225px-Heavytaunt3.PNG";
+    _weaponImages["warrior_spirit"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/87/Item_icon_Warrior%27s_Spirit.png/150px-Item_icon_Warrior%27s_Spirit.png";
+    _weaponImages["natascha"] =
+        "https://wiki.teamfortress.com/w/images/thumb/c/cc/Item_icon_Natascha.png/150px-Item_icon_Natascha.png";
+    _weaponImages["long_heatmaker"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/81/Item_icon_Huo-Long_Heater.png/150px-Item_icon_Huo-Long_Heater.png";
+    _weaponImages["fists"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/19/Item_icon_Fists.png/150px-Item_icon_Fists.png";
+    _weaponImages["gloves"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Killing_Gloves_of_Boxing.png/150px-Item_icon_Killing_Gloves_of_Boxing.png";
+    _weaponImages["holiday_punch"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/54/Item_icon_Holiday_Punch.png/150px-Item_icon_Holiday_Punch.png";
+    _weaponImages["steel_fists"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/9c/Item_icon_Fists_of_Steel.png/150px-Item_icon_Fists_of_Steel.png";
+    _weaponImages["eviction_notice"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/62/Item_icon_Eviction_Notice.png/150px-Item_icon_Eviction_Notice.png";
+    _weaponImages["shotgun_hwg"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/150px-Item_icon_Shotgun.png";
+    _weaponImages["diamondback"] =
+        "https://wiki.teamfortress.com/w/images/thumb/b/b4/Item_icon_Diamondback.png/150px-Item_icon_Diamondback.png";
+    _weaponImages["taunt_spy"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/32/Spytaunt2.PNG/125px-Spytaunt2.PNG";
+    _weaponImages["ai_flamethrower"] =
+        "https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Nostromo_Napalmer.png/150px-Item_icon_Nostromo_Napalmer.png";
+    _weaponImages["voodoo_pin"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f5/Item_icon_Wanga_Prick.png/150px-Item_icon_Wanga_Prick.png";
+    _weaponImages["deflect_promode"] = "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["rocketpack_stomp"] = "https://wiki.teamfortress.com/w/images/thumb/0/00/Item_icon_Thermal_Thruster.png/150px-Item_icon_Thermal_Thruster.png";
+  }
+
+  static String getWeaponImage(String weaponNameKey) {
+    if (_weaponImages.isEmpty) {
+      _initWeaponImages();
+    }
+    if (_weaponImages.containsKey(weaponNameKey)) {
+      return _weaponImages[weaponNameKey];
+    } else {
+      return "https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/150px-Item_icon_Scattergun.png";
+    }
+  }
+
+  static String getWeaponName(String weaponNameKey) {
+    if (_weaponNames.isEmpty) {
+      _initWeaponNames();
+    }
+
+    if (_weaponNames.containsKey(weaponNameKey)) {
+      return _weaponNames[weaponNameKey];
+    } else {
+      return weaponNameKey;
+    }
   }
 
   static List<Player> getOtherPlayersWithClass(

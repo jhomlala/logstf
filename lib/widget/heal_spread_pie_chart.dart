@@ -37,6 +37,10 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.healSpreadList == null || widget.healSpreadList.isEmpty){
+      return Center(child: Text("No heal data"));
+    }
+
     Map<String, double> dataMap = new Map();
     widget.healSpreadList.forEach((healSpread) {
       dataMap[healSpread.name] = healSpread.percentage;
@@ -77,8 +81,8 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
 
   Widget getLegendRow(HealSpread healSpread, Color color) {
     String playerName = healSpread.name;
-    if (playerName.length > 20){
-      playerName = playerName.substring(0,20) + "...";
+    if (playerName.length > 20) {
+      playerName = playerName.substring(0, 20) + "...";
     }
 
     return Container(
@@ -95,11 +99,10 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
             Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                 playerName,
+                  playerName,
                   overflow: TextOverflow.ellipsis,
                 )),
             Container(
-
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
                   "${healSpread.percentage.toStringAsFixed(1)}% (${healSpread.health} HP)",
@@ -111,8 +114,17 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
 
   Widget _getClassesIconsRow(List<String> classes) {
     List<Widget> widgets = List();
-    classes.forEach(
-        (playerClass) => widgets.add(ClassIcon(playerClass: playerClass)));
+    if (classes.length > 2){
+      int size = classes.length;
+      classes.sublist(0,2).forEach(
+              (playerClass) => widgets.add(ClassIcon(playerClass: playerClass)));
+      int moreClasses = size - 2;
+      widgets.add(Text("+$moreClasses"));
+    } else {
+      classes.forEach(
+              (playerClass) =>
+              widgets.add(ClassIcon(playerClass: playerClass)));
+    }
 
     return Row(children: widgets);
   }
