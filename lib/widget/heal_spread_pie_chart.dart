@@ -114,8 +114,17 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
 
   Widget _getClassesIconsRow(List<String> classes) {
     List<Widget> widgets = List();
-    classes.forEach(
-        (playerClass) => widgets.add(ClassIcon(playerClass: playerClass)));
+    if (classes.length > 2){
+      int size = classes.length;
+      classes.sublist(0,2).forEach(
+              (playerClass) => widgets.add(ClassIcon(playerClass: playerClass)));
+      int moreClasses = size - 2;
+      widgets.add(Text("+$moreClasses"));
+    } else {
+      classes.forEach(
+              (playerClass) =>
+              widgets.add(ClassIcon(playerClass: playerClass)));
+    }
 
     return Row(children: widgets);
   }

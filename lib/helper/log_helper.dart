@@ -83,8 +83,10 @@ class LogHelper {
     _weaponNames["tribalkukri"] = "Tribalman's Shiv";
     _weaponNames["club"] = "Kukri";
     _weaponNames["deflect_rocket"] = "Deflected Rocket";
+    _weaponNames["deflect_promode"] = "Deflected Flare";
+    _weaponNames["rocketpack_stomp"] = "Thermal Thruster Stomp";
     _weaponNames["shotgun_pyro"] = "Shotgun";
-    _weaponNames["defelect_promode"] = "Deflected Promode";
+    _weaponNames["defelect_promode"] = "Deflected Flare";
     _weaponNames["pistol"] = "Pistol";
     _weaponNames["disciplinary_action"] = "Disciplinary Action";
     _weaponNames["big_earner"] = "Big Earner";
@@ -178,6 +180,8 @@ class LogHelper {
     _weaponNames["shotgun_hwg"] = "Shotgun";
     _weaponNames["diamondback"] = "Diamondback";
     _weaponNames["taunt_spy"] = "Spy's Fencing Taunt";
+    _weaponNames["ai_flamethrower"] = "Nostromo Napalmer";
+    _weaponNames["voodoo_pin"] = "Wanga Prick";
   }
 
   static void _initWeaponImages() {
@@ -511,6 +515,12 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/b/b4/Item_icon_Diamondback.png/150px-Item_icon_Diamondback.png";
     _weaponImages["taunt_spy"] =
         "https://wiki.teamfortress.com/w/images/thumb/3/32/Spytaunt2.PNG/125px-Spytaunt2.PNG";
+    _weaponImages["ai_flamethrower"] =
+        "https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Nostromo_Napalmer.png/150px-Item_icon_Nostromo_Napalmer.png";
+    _weaponImages["voodoo_pin"] =
+        "https://wiki.teamfortress.com/w/images/thumb/f/f5/Item_icon_Wanga_Prick.png/150px-Item_icon_Wanga_Prick.png";
+    _weaponImages["deflect_promode"] = "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["rocketpack_stomp"] = "https://wiki.teamfortress.com/w/images/thumb/0/00/Item_icon_Thermal_Thruster.png/150px-Item_icon_Thermal_Thruster.png";
   }
 
   static String getWeaponImage(String weaponNameKey) {
