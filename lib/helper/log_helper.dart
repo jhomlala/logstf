@@ -561,7 +561,6 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/8/8c/Item_icon_Crossing_Guard.png/150px-Item_icon_Crossing_Guard.png";
     _weaponImages["player_penetration"] =
         "https://wiki.teamfortress.com/w/images/thumb/a/ae/Item_icon_Machina.png/150px-Item_icon_Machina.png";
-    ;
     _weaponImages["deflect_arrow"] =
         "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
     _weaponImages["deflect_flare"] =

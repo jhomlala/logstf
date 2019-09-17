@@ -128,7 +128,11 @@ class _HeavyOverviewCardState extends BaseOverviewCardState<HeavyOverviewCard> {
   }
 
   int _getHeavyKills() {
-    return log.classKills[player.steamId].heavyweapons;
+    if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].heavyweapons;
+    } else {
+      return 0;
+    }
   }
 
   int _getHeavyKillsPosition() {

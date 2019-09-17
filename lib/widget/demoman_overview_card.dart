@@ -124,7 +124,11 @@ class _DemomanOverviewCardState
   }
 
   int _getDemomansKilled() {
-    return log.classKills[player.steamId].demoman;
+    if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].demoman;
+    } else {
+      return 0;
+    }
   }
 
   int _getDemomanKillsPosition() {

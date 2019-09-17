@@ -121,7 +121,11 @@ class _SpyOverviewCardState extends BaseOverviewCardState<SpyOverviewCard> {
   }
 
   int _getSniperKills() {
-    return log.classKills[player.steamId].sniper;
+    if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].sniper;
+    } else {
+      return 0;
+    }
   }
 
   int _getSniperKilledPosition() {
