@@ -173,6 +173,13 @@ class ComparisonCard extends StatelessWidget {
   }
 
   double _getPercentage() {
+    double playerValue = this.playerValue;
+    double comparedPlayerValue = this.comparedPlayerValue;
+    if ((playerValue == 0 && comparedPlayerValue == 1) ||
+        (playerValue == 1 && comparedPlayerValue == 0)) {
+      return 100;
+    }
+
     if (reversed) {
       if (playerValue > comparedPlayerValue) {
         return (1 - comparedPlayerValue / playerValue).abs() * 100;

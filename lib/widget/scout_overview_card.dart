@@ -129,7 +129,12 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
   }
 
   int getScoutKills() {
-    return log.classKills[player.steamId].scout;
+    if (log.classKills.containsKey(player.steamId)){
+      return log.classKills[player.steamId].scout;
+    } else {
+      return 0;
+    }
+
   }
 
   int _getScoutKilledPosition() {

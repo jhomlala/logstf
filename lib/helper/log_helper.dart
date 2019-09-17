@@ -182,6 +182,28 @@ class LogHelper {
     _weaponNames["taunt_spy"] = "Spy's Fencing Taunt";
     _weaponNames["ai_flamethrower"] = "Nostromo Napalmer";
     _weaponNames["voodoo_pin"] = "Wanga Prick";
+    _weaponNames["golden_fryingpan"] = "Golden Frying Pan";
+    _weaponNames["wrench_golden"] = "Golden Wrench";
+    _weaponNames["saxxy"] = "Saxxy";
+    _weaponNames["memory_maker"] = "Memory Maker";
+    _weaponNames["shooting_star"] = "Shooting Star";
+    _weaponNames["ham_shank"] = "Ham Shank";
+    _weaponNames["crossing_guard"] = "Crossing Guard";
+    _weaponNames["player_penetration"] = "Machina Player Penetration";
+    _weaponNames["deflect_arrow"] = "Deflected Arrow";
+    _weaponNames["deflect_flare"] = "Deflected Flare";
+    _weaponNames["back_scratcher"] = "Back Scratcher";
+    _weaponNames["the_maul"] = "Maul";
+    _weaponNames["mailbox"] = "Postal Pummeler";
+    _weaponNames["lollichop"] = "Lollichop";
+    _weaponNames["holymackerel"] = "Holy Mackerel";
+    _weaponNames["unarmed_combat"] = "Unarmed Combat";
+    _weaponNames["batsaber"] = "Batsaber";
+    _weaponNames["apocofists"] = "Apoco-fists";
+    _weaponNames["bread_bite"] = "Bread bite";
+    _weaponNames["sharp_dresser"] = "Sharp Dresser";
+    _weaponNames["samrevolver"] = "Big Kill";
+    _weaponNames["prinny_machete"] = "Prinny Machete";
   }
 
   static void _initWeaponImages() {
@@ -519,8 +541,55 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Nostromo_Napalmer.png/150px-Item_icon_Nostromo_Napalmer.png";
     _weaponImages["voodoo_pin"] =
         "https://wiki.teamfortress.com/w/images/thumb/f/f5/Item_icon_Wanga_Prick.png/150px-Item_icon_Wanga_Prick.png";
-    _weaponImages["deflect_promode"] = "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
-    _weaponImages["rocketpack_stomp"] = "https://wiki.teamfortress.com/w/images/thumb/0/00/Item_icon_Thermal_Thruster.png/150px-Item_icon_Thermal_Thruster.png";
+    _weaponImages["deflect_promode"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["rocketpack_stomp"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/00/Item_icon_Thermal_Thruster.png/150px-Item_icon_Thermal_Thruster.png";
+    _weaponImages["golden_fryingpan"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/0f/Backpack_Golden_Frying_Pan.png/150px-Backpack_Golden_Frying_Pan.png";
+    _weaponImages["wrench_golden"] =
+        "https://wiki.teamfortress.com/w/images/thumb/5/54/Backpack_Golden_Wrench.png/150px-Backpack_Golden_Wrench.png";
+    _weaponImages["saxxy"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/6e/Backpack_Saxxy.png/135px-Backpack_Saxxy.png";
+    _weaponImages["memory_maker"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/9b/Backpack_Memory_Maker.png/135px-Backpack_Memory_Maker.png";
+    _weaponImages["shooting_star"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/3e/Backpack_Shooting_Star.png/150px-Backpack_Shooting_Star.png";
+    _weaponImages["ham_shank"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/1b/Backpack_Ham_Shank.png/150px-Backpack_Ham_Shank.png";
+    _weaponImages["crossing_guard"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/8c/Item_icon_Crossing_Guard.png/150px-Item_icon_Crossing_Guard.png";
+    _weaponImages["player_penetration"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/ae/Item_icon_Machina.png/150px-Item_icon_Machina.png";
+    ;
+    _weaponImages["deflect_arrow"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["deflect_flare"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/150px-Item_icon_Flame_Thrower.png";
+    _weaponImages["back_scratcher"] =
+        "https://wiki.teamfortress.com/w/images/thumb/4/48/Item_icon_Back_Scratcher.png/150px-Item_icon_Back_Scratcher.png";
+    _weaponImages["the_maul"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/2e/Item_icon_Maul.png/150px-Item_icon_Maul.png";
+    _weaponImages["mailbox"] =
+        "https://wiki.teamfortress.com/w/images/thumb/2/2d/Item_icon_Postal_Pummeler.png/150px-Item_icon_Postal_Pummeler.png";
+    _weaponImages["lollichop"] =
+        "https://wiki.teamfortress.com/w/images/thumb/6/65/Item_icon_Lollichop.png/150px-Item_icon_Lollichop.png";
+    _weaponImages["holymackerel"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/86/Item_icon_Holy_Mackerel.png/150px-Item_icon_Holy_Mackerel.png";
+    _weaponImages["unarmed_combat"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/96/Item_icon_Unarmed_Combat.png/150px-Item_icon_Unarmed_Combat.png";
+    _weaponImages["batsaber"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ef/Item_icon_Batsaber.png/150px-Item_icon_Batsaber.png";
+    _weaponImages["apocofists"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/91/Item_icon_Apoco-Fists.png/150px-Item_icon_Apoco-Fists.png";
+    _weaponImages["bread_bite"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/a4/Item_icon_Bread_Bite.png/150px-Item_icon_Bread_Bite.png";
+    _weaponImages["sharp_dresser"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/eb/Item_icon_Sharp_Dresser.png/150px-Item_icon_Sharp_Dresser.png";
+    _weaponImages["samrevolver"] =
+        "https://wiki.teamfortress.com/w/images/thumb/3/31/Item_icon_Big_Kill.png/150px-Item_icon_Big_Kill.png";
+    _weaponImages["prinny_machete"] =
+        "https://wiki.teamfortress.com/w/images/thumb/e/ef/Item_icon_Prinny_Machete.png/150px-Item_icon_Prinny_Machete.png";
   }
 
   static String getWeaponImage(String weaponNameKey) {

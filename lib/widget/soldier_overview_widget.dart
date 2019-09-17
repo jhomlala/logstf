@@ -129,7 +129,11 @@ class _SoldierOverviewWidgetState
 
 
   int _getSoldierKills() {
-    return log.classKills[player.steamId].soldier;
+    if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].soldier;
+    } else {
+      return 0;
+    }
   }
 
   int _getSoldierKilledPosition() {
