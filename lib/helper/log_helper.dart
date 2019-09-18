@@ -204,6 +204,10 @@ class LogHelper {
     _weaponNames["sharp_dresser"] = "Sharp Dresser";
     _weaponNames["samrevolver"] = "Big Kill";
     _weaponNames["prinny_machete"] = "Prinny Machete";
+    _weaponNames["crusaders_crossbow"] = "Crusader's Crossbow";
+    _weaponNames["ubersaw"] = "Übersaw";
+    _weaponNames["blutsauger"] = "Blutsauger";
+    _weaponNames["amputator"] = "Amputator";
   }
 
   static void _initWeaponImages() {
@@ -589,6 +593,14 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/3/31/Item_icon_Big_Kill.png/150px-Item_icon_Big_Kill.png";
     _weaponImages["prinny_machete"] =
         "https://wiki.teamfortress.com/w/images/thumb/e/ef/Item_icon_Prinny_Machete.png/150px-Item_icon_Prinny_Machete.png";
+    _weaponImages["crusaders_crossbow"] =
+        "https://wiki.teamfortress.com/w/images/thumb/9/9c/Item_icon_Crusader%27s_Crossbow.png/150px-Item_icon_Crusader%27s_Crossbow.png";
+    _weaponImages["ubersaw"] =
+        "https://wiki.teamfortress.com/w/images/thumb/0/04/Item_icon_Ubersaw.png/150px-Item_icon_Ubersaw.png";
+    _weaponImages["blutsauger"] =
+        "https://wiki.teamfortress.com/w/images/thumb/1/13/Item_icon_Blutsauger.png/150px-Item_icon_Blutsauger.png";
+    _weaponImages["amputator"] =
+        "https://wiki.teamfortress.com/w/images/thumb/a/ab/Item_icon_Amputator.png/150px-Item_icon_Amputator.png";
   }
 
   static String getWeaponImage(String weaponNameKey) {
