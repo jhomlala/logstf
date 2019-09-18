@@ -208,6 +208,7 @@ class LogHelper {
     _weaponNames["ubersaw"] = "Übersaw";
     _weaponNames["blutsauger"] = "Blutsauger";
     _weaponNames["amputator"] = "Amputator";
+    _weaponNames["bonesaw"] = "Bonesaw";
   }
 
   static void _initWeaponImages() {
@@ -601,6 +602,7 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/1/13/Item_icon_Blutsauger.png/150px-Item_icon_Blutsauger.png";
     _weaponImages["amputator"] =
         "https://wiki.teamfortress.com/w/images/thumb/a/ab/Item_icon_Amputator.png/150px-Item_icon_Amputator.png";
+    _weaponImages["bonesaw"] = "https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Bonesaw.png/150px-Item_icon_Bonesaw.png";
   }
 
   static String getWeaponImage(String weaponNameKey) {

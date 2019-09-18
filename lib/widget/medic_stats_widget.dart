@@ -14,10 +14,13 @@ class MedicStatsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-        child: Table(
-          defaultColumnWidth: IntrinsicColumnWidth(),
+        child: Center(child: Table(
+            columnWidths: {
+              0: FractionColumnWidth(0.7),
+              1: FractionColumnWidth(0.3),
+            },
           children: getTableRows(),
-        ));
+        )));
   }
 
 
@@ -68,9 +71,6 @@ class MedicStatsWidget extends StatelessWidget {
       Text(
         name,
         style: TextStyle(fontSize: 14),
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: 40),
       ),
       Text(value, style: TextStyle(fontSize: 14))
     ]);
