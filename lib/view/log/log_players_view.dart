@@ -59,11 +59,11 @@ class _LogPlayersViewState extends State<LogPlayersView> {
               child: Row(mainAxisSize: MainAxisSize.min, children: [
             Container(
                 color: Theme.of(context).primaryColor,
-                width: 200,
+                width: 120,
                 child: Table(
                   columnWidths: {
-                    0: FractionColumnWidth(0.65),
-                    1: FractionColumnWidth(0.35)
+                    0: FractionColumnWidth(0.3),
+                    1: FractionColumnWidth(0.7)
                   },
                   children: _getPlayerStickyRows(),
                 )),
@@ -164,7 +164,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
         playersCopy.sort((player1, player2) =>
             player2.backstabs.compareTo(player1.backstabs));
         break;
-      case "class":
+      case "Class":
         playersCopy.sort((player1, player2) =>
             getPlayerClass(player1).compareTo(getPlayerClass(player2)));
         break;
@@ -202,7 +202,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   bool _isPlayerNameFitInColumn(String name) {
-    double playerNameColumnWidth = 150;
+    double playerNameColumnWidth = 120;
 
     final constraints = BoxConstraints(
       maxWidth: playerNameColumnWidth,
@@ -243,17 +243,10 @@ class _LogPlayersViewState extends State<LogPlayersView> {
       widgets.add(Text(" +$additionalClasses "));
     }
 
-    return Center(
-        child: Container(
-            decoration: BoxDecoration(
-                color: AppUtils.getBackgroundColor(context),
-                border: Border(
-                    bottom:
-                        BorderSide(color: AppUtils.getBorderColor(context)))),
-            height: 30,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: widgets)));
+    return Container(
+        color: AppUtils.getBackgroundColor(context),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center, children: widgets));
   }
 
   List<TableRow> _getPlayerStickyRows() {
@@ -267,25 +260,6 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           height: 30,
           child: Center(
               child: Text("Player", style: TextStyle(color: Colors.white)))),
-      InkWell(
-          onTap: () {
-            _onHeaderClicked("class");
-          },
-          child: Container(
-              decoration: BoxDecoration(
-                color: AppUtils.darkBlueColor,
-              ),
-              height: 30,
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                _currentFilter == "class"
-                    ? Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      )
-                    : Container(),
-                Text("Class", style: TextStyle(color: Colors.white))
-              ])))
     ]));
     _playersSorted.forEach((Player player) {
       rows.add(_getPlayerStickyRow(player));
@@ -334,100 +308,116 @@ class _LogPlayersViewState extends State<LogPlayersView> {
             _onPlayerClicked(player);
           },
           child: _getPlayerNameWidget(player)),
-      InkWell(
-          onTap: () {
-            _onPlayerClicked(player);
-          },
-          child: _getPlayerClassesWidget(player))
     ]);
+  }
+
+  Widget _getClassesColumn(List<Player> players) {
+    List<Widget> columnWidgets = List();
+    columnWidgets.add(_getHeaderCell("Class"));
+    players.forEach((Player player) {
+      columnWidgets.add(Container(
+          height: 30,
+          width: 65,
+          decoration: BoxDecoration(
+            color: AppUtils.getBackgroundColor(context),
+            border: Border(
+                bottom: BorderSide(color: AppUtils.getBorderColor(context))),
+          ),
+          child: _getPlayerClassesWidget(player)));
+    });
+    return Column(children: columnWidgets);
   }
 
   Widget _getPlayerValueColumn(int index) {
     if (index == 0) {
+      return _getClassesColumn(_playersSorted);
+    }
+    if (index == 1) {
       return _getValuesColumn(
           "K",
           _playersSorted.map<String>((Player player) {
             return player.kills.toString();
-          }).toList());
+          }).toList(), width: 40);
     }
-    if (index == 1) {
+
+    if (index == 2) {
       return _getValuesColumn(
           "A",
           _playersSorted.map<String>((Player player) {
             return player.assists.toString();
-          }).toList());
+          }).toList(), width: 40);
     }
-    if (index == 2) {
+    if (index == 3) {
       return _getValuesColumn(
           "D",
           _playersSorted.map<String>((Player player) {
             return player.deaths.toString();
-          }).toList());
+          }).toList(), width: 40);
     }
-    if (index == 3) {
+    if (index == 4) {
       return _getValuesColumn(
           "DA",
           _playersSorted.map<String>((Player player) {
             return player.dmg.toString();
-          }).toList());
+          }).toList(), width: 50);
     }
-    if (index == 4) {
+    if (index == 5) {
       return _getValuesColumn(
           "DA/M",
           _playersSorted.map<String>((Player player) {
             return player.dapm.toString();
           }).toList());
     }
-    if (index == 5) {
+    if (index == 6) {
       return _getValuesColumn(
           "KA/D",
           _playersSorted.map<String>((Player player) {
             return player.kapd;
           }).toList());
     }
-    if (index == 6) {
+    if (index == 7) {
       return _getValuesColumn(
           "K/D",
           _playersSorted.map<String>((Player player) {
             return player.kpd.toString();
           }).toList());
     }
-    if (index == 7) {
+    if (index == 8) {
       return _getValuesColumn(
           "DT",
           _playersSorted.map<String>((Player player) {
             return player.dt.toString();
-          }).toList());
+          }).toList(),width: 50);
     }
-    if (index == 8) {
+    if (index == 9) {
       return _getValuesColumn(
           "DT/M",
           _playersSorted.map<String>((Player player) {
             return _calculateDamageTakenPerMinute(player.dt).toStringAsFixed(0);
           }).toList());
     }
-    if (index == 9) {
+    if (index == 10) {
       return _getValuesColumn(
           "HP",
           _playersSorted.map<String>((Player player) {
             return player.medkitsHp.toString();
-          }).toList());
+          }).toList(),width: 50);
     }
-    if (index == 10) {
+    if (index == 11) {
       return _getValuesColumn(
           "HS",
           _playersSorted.map<String>((Player player) {
             return player.headshots.toString();
-          }).toList());
+          }).toList(), width: 50);
     }
-    if (index == 11) {
+    if (index == 12) {
       return _getValuesColumn(
           "AS",
           _playersSorted.map<String>((Player player) {
             return player.as.toString();
-          }).toList());
+          }).toList(), width: 50);
     }
-    if (index == 12) {
+    if (index == 13) {
       return _getValuesColumn(
           "CAP",
           _playersSorted.map<String>((Player player) {
@@ -435,7 +425,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           }).toList());
     }
 
-    if (index == 13) {
+    if (index == 14) {
       return _getValuesColumn(
           "BA",
           _playersSorted.map<String>((Player player) {
@@ -451,14 +441,15 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   Widget _getValuesColumn(String title, List<String> values,
-      {bool rightCorner = false}) {
+      {bool rightCorner = false, double width = 65}) {
     List<Widget> columnWidgets = List();
     columnWidgets.add(_getHeaderCell(title, rightCorner: rightCorner));
     values.forEach((String value) {
-      columnWidgets.add(_getPlayerValueCell(value));
+      columnWidgets.add(_getPlayerValueCell(value, width: width));
     });
     return Container(
-        color: Theme.of(context).primaryColor,
+      width: width,
+        color: AppUtils.getBackgroundColor(context),
         child: Column(children: columnWidgets));
   }
 
@@ -498,7 +489,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                     children: widgets))));
   }
 
-  Widget _getPlayerValueCell(String value) {
+  Widget _getPlayerValueCell(String value, {double width = 65}) {
     return Container(
         decoration: BoxDecoration(
           color: AppUtils.getBackgroundColor(context),
@@ -506,7 +497,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
               bottom: BorderSide(color: AppUtils.getBorderColor(context))),
         ),
         height: 30,
-        width: 65,
+        width: width,
         child: Center(child: Text(value)));
   }
 
