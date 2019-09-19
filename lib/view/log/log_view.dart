@@ -16,8 +16,8 @@ import 'log_timeline_view.dart';
 
 class LogView extends StatefulWidget {
   final int logId;
-
-  const LogView({Key key, this.logId}) : super(key: key);
+  final int selectePlayerSteamId;
+  const LogView({Key key, this.logId, this.selectePlayerSteamId}) : super(key: key);
 
   @override
   _LogViewState createState() => _LogViewState();
@@ -120,7 +120,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
               if (snapshot.hasData) {
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
-                  LogPlayersView(),
+                  LogPlayersView(widget.selectePlayerSteamId),
                   LogPlayersStatsMatrixView(),
                   LogAwardsView(),
                   LogTimelineView(),

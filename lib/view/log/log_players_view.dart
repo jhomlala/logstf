@@ -16,6 +16,11 @@ import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersView extends StatefulWidget {
+  final int selectedPlayerSteamId;
+
+  const LogPlayersView( this.selectedPlayerSteamId);
+
+
   @override
   _LogPlayersViewState createState() => _LogPlayersViewState();
 }
