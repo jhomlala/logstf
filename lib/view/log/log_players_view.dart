@@ -18,8 +18,7 @@ import 'package:marquee/marquee.dart';
 class LogPlayersView extends StatefulWidget {
   final int selectedPlayerSteamId;
 
-  const LogPlayersView( this.selectedPlayerSteamId);
-
+  const LogPlayersView(this.selectedPlayerSteamId);
 
   @override
   _LogPlayersViewState createState() => _LogPlayersViewState();
@@ -231,7 +230,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return playerNameColumnWidth > textWidth;
   }
 
-  Widget _getPlayerClassesWidget(Player player) {
+  Widget _getPlayerClassesWidget(Player player, {bool selectedPlayer = false}) {
     List<Widget> widgets = List();
     var classStatsList = player.classStats;
     int additionalClasses = 0;
@@ -247,9 +246,12 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     if (additionalClasses != 0) {
       widgets.add(Text(" +$additionalClasses "));
     }
-
+    Color color = AppUtils.getBackgroundColor(context);
+    if (selectedPlayer) {
+      color = Colors.teal;
+    }
     return Container(
-        color: AppUtils.getBackgroundColor(context),
+        color: color,
         child: Row(
             mainAxisAlignment: MainAxisAlignment.center, children: widgets));
   }
@@ -319,18 +321,34 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   Widget _getClassesColumn(List<Player> players) {
     List<Widget> columnWidgets = List();
     columnWidgets.add(_getHeaderCell("Class"));
-    players.forEach((Player player) {
+
+    int selectedPlayerIndex = _getSelectedPlayerIndex();
+    for (int index = 0; index < players.length; index++) {
+      Player player = players[index];
+
       columnWidgets.add(Container(
           height: 30,
           width: 65,
           decoration: BoxDecoration(
-            color: AppUtils.getBackgroundColor(context),
             border: Border(
                 bottom: BorderSide(color: AppUtils.getBorderColor(context))),
           ),
-          child: _getPlayerClassesWidget(player)));
-    });
+          child: _getPlayerClassesWidget(player,
+              selectedPlayer: selectedPlayerIndex == index)));
+    }
+
     return Column(children: columnWidgets);
+  }
+
+  int getSelectedPlayerIndex() {
+    int playerIndex = 0;
+    for (int index = 0; index < _playersSorted.length; index++) {
+      if (widget.selectedPlayerSteamId ==
+          AppUtils.convertSteamId3ToSteamId64(_playersSorted[index].steamId)) {
+        playerIndex = index;
+      }
+    }
+    return playerIndex;
   }
 
   Widget _getPlayerValueColumn(int index) {
@@ -342,7 +360,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           "K",
           _playersSorted.map<String>((Player player) {
             return player.kills.toString();
-          }).toList(), width: 40);
+          }).toList(),
+          width: 40);
     }
 
     if (index == 2) {
@@ -350,21 +369,24 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           "A",
           _playersSorted.map<String>((Player player) {
             return player.assists.toString();
-          }).toList(), width: 40);
+          }).toList(),
+          width: 40);
     }
     if (index == 3) {
       return _getValuesColumn(
           "D",
           _playersSorted.map<String>((Player player) {
             return player.deaths.toString();
-          }).toList(), width: 40);
+          }).toList(),
+          width: 40);
     }
     if (index == 4) {
       return _getValuesColumn(
           "DA",
           _playersSorted.map<String>((Player player) {
             return player.dmg.toString();
-          }).toList(), width: 50);
+          }).toList(),
+          width: 50);
     }
     if (index == 5) {
       return _getValuesColumn(
@@ -392,7 +414,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           "DT",
           _playersSorted.map<String>((Player player) {
             return player.dt.toString();
-          }).toList(),width: 50);
+          }).toList(),
+          width: 50);
     }
     if (index == 9) {
       return _getValuesColumn(
@@ -406,21 +429,24 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           "HP",
           _playersSorted.map<String>((Player player) {
             return player.medkitsHp.toString();
-          }).toList(),width: 50);
+          }).toList(),
+          width: 50);
     }
     if (index == 11) {
       return _getValuesColumn(
           "HS",
           _playersSorted.map<String>((Player player) {
             return player.headshots.toString();
-          }).toList(), width: 50);
+          }).toList(),
+          width: 50);
     }
     if (index == 12) {
       return _getValuesColumn(
           "AS",
           _playersSorted.map<String>((Player player) {
             return player.as.toString();
-          }).toList(), width: 50);
+          }).toList(),
+          width: 50);
     }
     if (index == 13) {
       return _getValuesColumn(
@@ -445,17 +471,34 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     );
   }
 
+  int _getSelectedPlayerIndex() {
+    int playerIndex = -1;
+    var players = _players.entries.toList();
+    for (int index = 0; index < players.length; index++) {
+      var entry = players[index];
+      String steamId = entry.key;
+      if (AppUtils.convertSteamId3ToSteamId64(steamId) ==
+          widget.selectedPlayerSteamId) {
+        playerIndex = index;
+      }
+    }
+
+    return playerIndex;
+  }
+
   Widget _getValuesColumn(String title, List<String> values,
       {bool rightCorner = false, double width = 65}) {
     List<Widget> columnWidgets = List();
     columnWidgets.add(_getHeaderCell(title, rightCorner: rightCorner));
-    values.forEach((String value) {
-      columnWidgets.add(_getPlayerValueCell(value, width: width));
-    });
-    return Container(
-      width: width,
-        color: AppUtils.getBackgroundColor(context),
-        child: Column(children: columnWidgets));
+
+    int selectedPlayerIndex = _getSelectedPlayerIndex();
+    print("Selected player index: " + selectedPlayerIndex.toString());
+    for (int index = 0; index < values.length; index++) {
+      columnWidgets.add(_getPlayerValueCell(values[index],
+          width: width, selectedPlayer: index == selectedPlayerIndex));
+    }
+
+    return Container(width: width, child: Column(children: columnWidgets));
   }
 
   Widget _getHeaderCell(String value, {bool rightCorner = false}) {
@@ -494,10 +537,16 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                     children: widgets))));
   }
 
-  Widget _getPlayerValueCell(String value, {double width = 65}) {
+  Widget _getPlayerValueCell(String value,
+      {double width = 65, bool selectedPlayer = false}) {
+    Color color = AppUtils.getBackgroundColor(context);
+    if (selectedPlayer) {
+      color = Colors.teal;
+    }
+
     return Container(
         decoration: BoxDecoration(
-          color: AppUtils.getBackgroundColor(context),
+          color: color,
           border: Border(
               bottom: BorderSide(color: AppUtils.getBorderColor(context))),
         ),
