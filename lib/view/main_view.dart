@@ -32,25 +32,32 @@ class _MainViewState extends State<MainView>
     var channel = const MethodChannel("com.jhomlala.logstf.link");
     var result = await channel.invokeMethod<String>("getIntent");
     if (result != null && result != "none") {
-      int logId;
-      int playerSteamId;
-      if (result.contains("#")) {
-        var resultSplit = result.split("#");
-        if (resultSplit.length == 2) {
-          logId = int.parse(resultSplit[0]);
-          playerSteamId = int.parse(resultSplit[1]);
+      try {
+        int logId;
+        int playerSteamId;
+        if (result.contains("#")) {
+          var resultSplit = result.split("#");
+          if (resultSplit.length == 2) {
+            logId = int.parse(resultSplit[0]);
+            playerSteamId = int.parse(resultSplit[1]);
+          }
+        } else {
+          logId = int.parse(result);
         }
-      } else {
-        logId = int.parse(result);
-      }
 
-      Navigator.push<NavigationEvent>(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LogView(
-                    logId: logId,
-                    selectePlayerSteamId: playerSteamId,
-                  )));
+        if (logId != null ) {
+          Navigator.push<NavigationEvent>(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      LogView(
+                        logId: logId,
+                        selectePlayerSteamId: playerSteamId,
+                      )));
+        }
+      } catch (exception){
+        print(exception);
+      }
     }
   }
 
