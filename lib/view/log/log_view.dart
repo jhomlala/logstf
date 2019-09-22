@@ -3,6 +3,7 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
@@ -46,23 +47,24 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void _onTabChanged() {
+    var applicationLocalization = ApplicationLocalization.of(context);
     var index = _tabController.index;
     var tabName = "";
     switch (index) {
       case 0:
-        tabName = "General stats";
+        tabName = applicationLocalization.getText("log_general_stats");
         break;
       case 1:
-        tabName = "Player stats";
+        tabName = applicationLocalization.getText("log_players_stats");
         break;
       case 2:
-        tabName = "Players matrix";
+        tabName = applicationLocalization.getText("log_players_matrix");
         break;
       case 3:
-        tabName = "Awards stats";
+        tabName = applicationLocalization.getText("log_awards_stats");
         break;
       case 4:
-        tabName = "Match timeline";
+        tabName = applicationLocalization.getText("log_match_timeline");
         break;
     }
     setState(() {

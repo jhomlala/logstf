@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,7 +13,7 @@ class SettingsBloc {
   void getAppSettings() async {
     var appSettings = await settingsLocalProvider.getAppSettings();
     if (appSettings == null){
-      appSettings = AppSettings(appColor:"Purple", appBrightness: "Light");
+      appSettings = AppSettings(appColor:Colors.deepPurple.value.toString(), appBrightness: "1");
     }
     appSettingsSubject.value = appSettings;
   }

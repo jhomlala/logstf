@@ -30,8 +30,9 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder(
-        initialData: AppSettings(appColor: "Purple", appBrightness: "Light"),
+        initialData: AppSettings(appColor: Colors.deepPurple.value.toString(), appBrightness: "0"),
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
@@ -41,7 +42,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
               theme: ThemeData(
                   brightness:
                       AppUtils.getBrightness(snapshot.data.appBrightness),
-                  primaryColor: AppUtils.getColor(snapshot.data.appColor)),
+                  primaryColor: Color(int.parse(snapshot.data.appColor))),
               home: MainView(),
             localizationsDelegates: [
               const ApplicationLocalizationDelegate(),

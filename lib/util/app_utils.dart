@@ -55,11 +55,12 @@ class AppUtils {
   static String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   static Brightness getBrightness(String appBrightness) {
-    if (appBrightness == "Light"){
-      return Brightness.light;
-    } else {
-      return Brightness.dark;
-    }
+   int brightnessIndex = int.parse(appBrightness);
+   if (brightnessIndex == Brightness.light.index){
+     return Brightness.light;
+   } else {
+     return Brightness.dark;
+   }
   }
 
   static Color getBorderColor(BuildContext context){

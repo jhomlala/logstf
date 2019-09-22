@@ -7,6 +7,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/match_type.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
@@ -19,6 +20,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
@@ -47,7 +49,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                       child: Container(
                           padding: EdgeInsets.only(bottom: 1),
                           child: Table(
-                            children: _getTeamStatsTableRows(),
+                            children: _getTeamStatsTableRows(applicationLocalization),
                           ))))),
           Container(
               margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -55,12 +57,12 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                   elevation: 10.0,
                   child: Column(
                     children: [
-                      _getMapWidget(context),
-                      _getMatchTypeWidget(context),
-                      _getTimestampWidget(),
-                      _getTimeWidget(context),
-                      _getUploaderWidget(),
-                      _getMatchIdWidget()
+                      _getMapWidget(context,applicationLocalization),
+                      _getMatchTypeWidget(context,applicationLocalization),
+                      _getTimestampWidget(applicationLocalization),
+                      _getTimeWidget(context,applicationLocalization),
+                      _getUploaderWidget(applicationLocalization),
+                      _getMatchIdWidget(applicationLocalization)
                     ],
                   ))),
         ])));
@@ -74,13 +76,13 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     );
   }
 
-  Widget _getMapWidget(BuildContext context) {
+  Widget _getMapWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/map.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("  Map: "),
+          Text("  ${applicationLocalization.getText("log_map")} "),
           Text(
             "${_log.info.map}",
             style: TextStyle(fontSize: 18),
@@ -88,7 +90,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getTimeWidget(BuildContext context) {
+  Widget _getTimeWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
     var length = _log.length;
     var lengthHours = (length / 3600).floor();
     var lengthMinutes = ((length - lengthHours * 3600) / 60).floor();
@@ -109,7 +111,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/timer.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("  Played:"),
+          Text("  ${applicationLocalization.getText("log_played")}"),
           Text(
             lengthText,
             style: TextStyle(fontSize: 18),
@@ -117,14 +119,14 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getTimestampWidget() {
+  Widget _getTimestampWidget(ApplicationLocalization applicationLocalization) {
     var dateTime = DateTime.fromMillisecondsSinceEpoch(_log.info.date * 1000);
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/calendar.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("  Played at: "),
+          Text("  ${applicationLocalization.getText("log_played_at")} "),
           Text(
             DateFormat('yyyy-MM-dd kk:mm:ss').format(dateTime),
             style: TextStyle(fontSize: 18),
@@ -132,7 +134,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getMatchTypeWidget(BuildContext context) {
+  Widget _getMatchTypeWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
     MatchType matchType =
         LogHelper.getMatchType(_log.players.values.length, _log.info.map, context);
     return Container(
@@ -140,7 +142,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/battle.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("  Type: "),
+          Text("  ${applicationLocalization.getText("log_type")} "),
           Text(
             matchType.name,
             style: TextStyle(fontSize: 18),
@@ -148,13 +150,13 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getUploaderWidget() {
+  Widget _getUploaderWidget(ApplicationLocalization applicationLocalization) {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Image.asset("assets/upload.png",
               width: 20, height: 20, color: AppUtils.getIconColor(context)),
-          Text("  Uploaded by: "),
+          Text("  ${applicationLocalization.getText("log_uploaded_by")} "),
           Flexible(
               child: Container(
             child: Text(
@@ -165,7 +167,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getMatchIdWidget() {
+  Widget _getMatchIdWidget(ApplicationLocalization applicationLocalization) {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -174,7 +176,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
             color: AppUtils.getIconColor(context),
             size: 20,
           ),
-          Text("  Match id: "),
+          Text("  ${applicationLocalization.getText("log_match_id")} "),
           Flexible(
               child: Container(
             child: Text("#${_log.id}",
@@ -184,26 +186,26 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  List<TableRow> _getTeamStatsTableRows() {
+  List<TableRow> _getTeamStatsTableRows(ApplicationLocalization applicationLocalization) {
     List<TableRow> tableRows = List();
-    tableRows.add(_getHeaderRow());
-    tableRows.add(_getRow("Kills", "${LogHelper.getKillsSum(_log, "Red")}",
+    tableRows.add(_getHeaderRow(applicationLocalization));
+    tableRows.add(_getRow(applicationLocalization.getText("log_kills"), "${LogHelper.getKillsSum(_log, "Red")}",
         "${LogHelper.getKillsSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Deaths", "${LogHelper.getDeathsSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_deaths"), "${LogHelper.getDeathsSum(_log, "Red")}",
         "${LogHelper.getDeathsSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Assists", "${LogHelper.getAssistsSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_assists"), "${LogHelper.getAssistsSum(_log, "Red")}",
         "${LogHelper.getAssistsSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Damage", "${LogHelper.getDamageSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_damage"), "${LogHelper.getDamageSum(_log, "Red")}",
         "${LogHelper.getDamageSum(_log, "Blue")}"));
     tableRows.add(_getRow(
-        "Damage Taken",
+        applicationLocalization.getText("log_damage_taken"),
         "${LogHelper.getDamageTakenSum(_log, "Red")}",
         "${LogHelper.getDamageTakenSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Caps", "${LogHelper.getCapSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_caps"), "${LogHelper.getCapSum(_log, "Red")}",
         "${LogHelper.getCapSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Charges", "${LogHelper.getChargeSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_charges"), "${LogHelper.getChargeSum(_log, "Red")}",
         "${LogHelper.getChargeSum(_log, "Blue")}"));
-    tableRows.add(_getRow("Drops", "${LogHelper.getDropSum(_log, "Red")}",
+    tableRows.add(_getRow(applicationLocalization.getText("log_drops"), "${LogHelper.getDropSum(_log, "Red")}",
         "${LogHelper.getDropSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "KA/D",
@@ -222,33 +224,33 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         "${LogHelper.getTeamDamageTakenPerMinute(_log, "Red").toStringAsFixed(2)}",
         "${LogHelper.getTeamDamageTakenPerMinute(_log, "Blue").toStringAsFixed(2)}"));
     tableRows.add(_getRow(
-        "HP pickups",
+        applicationLocalization.getText("log_hp_pickups"),
         "${LogHelper.getMedkitsSum(_log, "Red").toStringAsFixed(2)}",
         "${LogHelper.getMedkitsSum(_log, "Blue").toStringAsFixed(2)}"));
 
     tableRows.add(_getRow(
-        "HP from pickups",
+        applicationLocalization.getText("log_hp_from_pickups"),
         "${LogHelper.getMedkitsHPSum(_log, "Red").toStringAsFixed(0)}",
         "${LogHelper.getMedkitsHPSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
-        "Headshots",
+        applicationLocalization.getText("log_headshots"),
         "${LogHelper.getHeadshotsSum(_log, "Red").toStringAsFixed(0)}",
         "${LogHelper.getHeadshotsSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
-        "Sentries",
+        applicationLocalization.getText("log_sentries"),
         "${LogHelper.getSentriesSum(_log, "Red").toStringAsFixed(0)}",
         "${LogHelper.getSentriesSum(_log, "Blue").toStringAsFixed(0)}"));
 
     tableRows.add(_getRow(
-        "Backstabs",
+        applicationLocalization.getText("log_backstabs"),
         "${LogHelper.getBackstabsSum(_log, "Red").toStringAsFixed(0)}",
         "${LogHelper.getBackstabsSum(_log, "Blue").toStringAsFixed(0)}"));
     return tableRows;
   }
 
-  TableRow _getHeaderRow() {
+  TableRow _getHeaderRow(ApplicationLocalization applicationLocalization) {
     return TableRow(children: [
       Container(
           color: Theme.of(context).primaryColor,
@@ -258,7 +260,7 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(8))),
               height: 30,
               child: Center(
-                  child: Text("METRIC",
+                  child: Text(applicationLocalization.getText("log_metric"),
                       style: TextStyle(color: Colors.white, fontSize: 16))))),
       Container(
           decoration: BoxDecoration(color: Colors.red),

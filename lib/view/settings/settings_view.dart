@@ -8,6 +8,7 @@ import 'package:logstf/bloc/settings_bloc.dart';
 import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/logs_button.dart';
 
 class SettingsView extends StatefulWidget {
@@ -16,7 +17,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  String _selectedColor = "Purple";
+  String _selectedColor = "";
   String _selectedBrightness = "Light";
   Map<String, Color> _availableColors = Map();
   Map<String, Brightness> _availableBrightness = Map();
@@ -28,17 +29,6 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   void initState() {
-    _availableColors["Purple"] = Colors.deepPurple;
-    _availableColors["Orange"] = Colors.orange;
-    _availableColors["Green"] = Colors.green;
-    _availableColors["Blue"] = Colors.blue;
-    _availableColors["Red"] = Colors.red;
-    _availableColors["Pink"] = Colors.pink;
-    _availableColors["Black"] = Colors.black;
-
-    _availableBrightness["Light"] = Brightness.light;
-    _availableBrightness["Dark"] = Brightness.dark;
-
     _playersObservedSubscription = playersObservedBloc.playersObservedSubject
         .listen((List<PlayerObserved> observedPlayers) {
       if (mounted) {
@@ -72,16 +62,22 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
+    _initColors(applicationLocalization);
+    _initBrightnesses(applicationLocalization);
+
     return StreamBuilder(
         initialData: settingsBloc.appSettingsSubject.value,
         stream: settingsBloc.appSettingsSubject,
         builder: (context, snapshot) {
           _appSettings = snapshot.data;
-          _selectedColor = _appSettings.appColor;
-          print("Selected app color: " + _appSettings.appColor);
-          _selectedBrightness = _appSettings.appBrightness;
+          _setSelectedColor(_appSettings);
+          _setSelectedBrightness(_appSettings);
           return Scaffold(
-              appBar: AppBar(elevation: 0.0, title: Text("Settings")),
+              appBar: AppBar(
+                  elevation: 0.0,
+                  title:
+                      Text(applicationLocalization.getText("menu_settings"))),
               body: Container(
                   color: Theme.of(context).primaryColor,
                   child: Column(children: [
@@ -98,7 +94,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     padding: EdgeInsets.only(left: 5),
                                   ),
                                   Text(
-                                    "App color: ",
+                                    "${applicationLocalization.getText("settings_app_color")} ",
                                     style: TextStyle(fontSize: 16),
                                   ),
                                   Padding(
@@ -107,31 +103,33 @@ class _SettingsViewState extends State<SettingsView> {
                                   _getColorDropdownButton()
                                 ]),
                             Divider(),
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5),
-                                      ),
-                                      Text(
-                                        "App brightness: ",
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 20),
-                                      ),
-                                      _getBrightnessDropdownButton()
-                                    ]),
-                                Divider(),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5),
+                                  ),
+                                  Text(
+                                    "${applicationLocalization.getText("settings_app_brightness")} ",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                  ),
+                                  _getBrightnessDropdownButton()
+                                ]),
+                            Divider(),
                             Row(children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 5),
                               ),
-                              Text("Observed players: $_observedPlayersCount")
+                              Text(
+                                  "${applicationLocalization.getText("settings_observed_players")} $_observedPlayersCount")
                             ]),
                             Row(children: [
                               LogsButton(
-                                text: "Clear observed players",
+                                text: applicationLocalization
+                                    .getText("settings_clear_observed_players"),
                                 backgroundColor: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   _clearObservedPlayers();
@@ -143,11 +141,13 @@ class _SettingsViewState extends State<SettingsView> {
                               Padding(
                                 padding: EdgeInsets.only(left: 5),
                               ),
-                              Text("Saved matches: $_savedLogsCount")
+                              Text(
+                                  "${applicationLocalization.getText("settings_saved_matches")} $_savedLogsCount")
                             ]),
                             Row(children: [
                               LogsButton(
-                                text: "Clear saved matches",
+                                text: applicationLocalization
+                                    .getText("settings_clear_saved_matches"),
                                 backgroundColor: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   _clearSavedLogs();
@@ -182,10 +182,12 @@ class _SettingsViewState extends State<SettingsView> {
           );
         }).toList(),
         onChanged: (value) {
-          _appSettings.appColor = value;
+          String colorValue = _availableColors[value].value.toString();
+
+          _appSettings.appColor = colorValue;
           settingsBloc.saveAppSettings(_appSettings);
           setState(() {
-            _selectedColor = value;
+            _selectedColor = colorValue;
           });
         });
   }
@@ -203,11 +205,55 @@ class _SettingsViewState extends State<SettingsView> {
           );
         }).toList(),
         onChanged: (value) {
-          _appSettings.appBrightness = value;
+          Brightness brightness = _availableBrightness[value];
+          _appSettings.appBrightness = brightness.index.toString();
           settingsBloc.saveAppSettings(_appSettings);
           setState(() {
             _selectedBrightness = value;
           });
         });
+  }
+
+  void _initColors(ApplicationLocalization applicationLocalization) {
+    _availableColors[applicationLocalization.getText("settings_color_purple")] =
+        Colors.deepPurple;
+    _availableColors[applicationLocalization.getText("settings_color_orange")] =
+        Colors.orange;
+    _availableColors[applicationLocalization.getText("settings_color_green")] =
+        Colors.green;
+    _availableColors[applicationLocalization.getText("settings_color_blue")] =
+        Colors.blue;
+    _availableColors[applicationLocalization.getText("settings_color_red")] =
+        Colors.red;
+    _availableColors[applicationLocalization.getText("settings_color_pink")] =
+        Colors.pink;
+    _availableColors[applicationLocalization.getText("settings_color_black")] =
+        Colors.black;
+  }
+
+  void _initBrightnesses(ApplicationLocalization applicationLocalization) {
+    _availableBrightness[applicationLocalization
+        .getText("settings_brightness_light")] = Brightness.light;
+    _availableBrightness[applicationLocalization
+        .getText("settings_brightness_dark")] = Brightness.dark;
+  }
+
+  void _setSelectedBrightness(AppSettings appSettings) {
+    int selectedBrightnessIndex = int.parse(appSettings.appBrightness);
+    _availableBrightness
+        .forEach((String brightnessName, Brightness brightness) {
+      if (selectedBrightnessIndex == brightness.index) {
+        _selectedBrightness = brightnessName;
+      }
+    });
+  }
+
+  void _setSelectedColor(AppSettings appSettings) {
+    String selectedColorValue = appSettings.appColor;
+    _availableColors.forEach((String colorName, Color color) {
+      if (selectedColorValue == color.value.toString()) {
+        _selectedColor = colorName;
+      }
+    });
   }
 }
