@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -21,6 +22,7 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
@@ -32,7 +34,8 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
                 var data = snapshot.data;
                 if (data == null || data.isEmpty) {
                   return EmptyCard(
-                    description: "There's no saved data.",
+                    description:
+                        applicationLocalization.getText("logs_saved_no_data"),
                   );
                 } else {
                   return ListView.builder(

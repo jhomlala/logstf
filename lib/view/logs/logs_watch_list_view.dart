@@ -3,6 +3,7 @@ import 'package:logstf/bloc/logs_player_observed_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
@@ -32,6 +33,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
@@ -40,7 +42,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.none ||
                   snapshot.connectionState == ConnectionState.waiting) {
-                return Text("Loading");
+                return Text(applicationLocalization.getText("loading"));
               } else {
                 List<PlayerObserved> observedPlayers = snapshot.data;
                 if (_selectedPlayer == null && observedPlayers.length > 0) {
@@ -48,7 +50,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                   logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
                 }
                 return Column(children: [
-                  _getPlayersChooserCard(snapshot.data),
+                  _getPlayersChooserCard(
+                      snapshot.data, applicationLocalization),
                   StreamBuilder<List<LogShort>>(
                       stream: logsPlayerObservedBloc.logsSearchSubject,
                       initialData:
@@ -57,8 +60,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                         if (!logsPlayerObservedBloc.loading) {
                           if (snapshot.hasError) {
                             return EmptyCard(
-                              description:
-                                  ErrorHandler.handleError(snapshot.error),
+                              description: ErrorHandler.handleError(
+                                  snapshot.error, context),
                               retry: true,
                               retryAction: _onRetryPressed,
                             );
@@ -67,7 +70,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                           var data = snapshot.data;
                           if (data == null || data.isEmpty) {
                             return EmptyCard(
-                              description: "There's no data.",
+                              description: applicationLocalization
+                                  .getText("logs_players_observed_no_data"),
                             );
                           } else {
                             return Expanded(
@@ -122,12 +126,15 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
         });
   }
 
-  Widget _getPlayersChooserCard(List<PlayerObserved> playersObserved) {
+  Widget _getPlayersChooserCard(List<PlayerObserved> playersObserved,
+      ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
     if (playersObserved.length > 0) {
       widgets.add(Padding(
         padding: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
-        child: Text("Player:", style: TextStyle(fontSize: 16)),
+        child: Text(
+            applicationLocalization.getText("logs_players_observed_player"),
+            style: TextStyle(fontSize: 16)),
       ));
       widgets.add(Row(children: [
         _getPlayersDropdown(playersObserved),
@@ -150,7 +157,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
           child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Text(
-                "No players observed. Please add player by clicking Observe player in player details.",
+                applicationLocalization
+                    .getText("logs_players_observed_no_observed_players"),
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,

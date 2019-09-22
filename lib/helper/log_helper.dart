@@ -6,7 +6,7 @@ import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/match_type.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/util/application_localization.dart';
 
 class LogHelper {
   static HashMap<String, String> _weaponNames = HashMap();
@@ -602,7 +602,8 @@ class LogHelper {
         "https://wiki.teamfortress.com/w/images/thumb/1/13/Item_icon_Blutsauger.png/150px-Item_icon_Blutsauger.png";
     _weaponImages["amputator"] =
         "https://wiki.teamfortress.com/w/images/thumb/a/ab/Item_icon_Amputator.png/150px-Item_icon_Amputator.png";
-    _weaponImages["bonesaw"] = "https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Bonesaw.png/150px-Item_icon_Bonesaw.png";
+    _weaponImages["bonesaw"] =
+        "https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Bonesaw.png/150px-Item_icon_Bonesaw.png";
   }
 
   static String getWeaponImage(String weaponNameKey) {
@@ -920,30 +921,36 @@ class LogHelper {
     return players;
   }
 
-  static MatchType getMatchType(int playersCount, String mapName) {
+  static MatchType getMatchType(
+      int playersCount, String mapName, BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     String matchType = "";
     Color color = Colors.lightBlue;
     if (playersCount % 2 == 0) {
       double half = playersCount / 2;
-      matchType = "${half.toStringAsFixed(0)}v${half.toStringAsFixed(0)}";
+      matchType = applicationLocalization
+          .getText("log_x_v_x_match")
+          .replaceAll("<players_count>", half.toStringAsFixed(0));
     } else {
-      matchType = "$playersCount players";
+      matchType = applicationLocalization
+          .getText("log_x_players_match")
+          .replaceAll("<players_count>", playersCount.toString());
     }
 
     if (playersCount == 4) {
       if (mapName.contains("ultiduo")) {
-        matchType = AppConst.ultiduoMode;
+        matchType = applicationLocalization.getText("log_ultiduo_match");
         color = Colors.pink;
       } else {
-        matchType = AppConst.bballMode;
+        matchType = applicationLocalization.getText("log_bball_match");
         color = Colors.teal;
       }
     }
     if (playersCount >= 12 && playersCount < 18) {
-      matchType = AppConst.sixesMode;
+      matchType = applicationLocalization.getText("log_6v6_match");
       color = Colors.green;
     } else if (playersCount >= 18) {
-      matchType = AppConst.highlanderMode;
+      matchType = applicationLocalization.getText("log_highlander_match");
       color = Colors.orange;
     }
     return MatchType(matchType, color);

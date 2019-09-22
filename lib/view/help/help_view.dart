@@ -1,30 +1,47 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:logstf/util/application_localization.dart';
 
 class HelpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text("Help")),
+      appBar: AppBar(title: Text( applicationLocalization.getText("menu_help"))),
       body: Container(
           color: Theme.of(context).primaryColor,
-          child: ListView(children: _getHelpWidgets(context))),
+          child: ListView(children: _getHelpWidgets(context,applicationLocalization))),
     );
   }
 
-  List<Widget> _getHelpWidgets(BuildContext context) {
+  List<Widget> _getHelpWidgets(BuildContext context,ApplicationLocalization applicationLocalization) {
+
     List<Widget> widgets = List();
-    widgets.add(_getHelpQuestion(context, "How MVP is calculated",
-        "Each person is evaluated based on his stats. Here is calculation formula: kills * 0.39 + assists * 0.2 + damage * 0.01 + caps * 0.2 + medic kills * 0.2."));
-    widgets.add(_getHelpQuestion(context, "I have found bug!",
-        "Nice! You can report it to developer. Please go to project page and report issue there (you can find project page in 'About' section)."));
-    widgets.add(_getHelpQuestion(context, "How I can help?",
-        "You can share ideas with developers in project page or steam."));
-    widgets.add(_getHelpQuestion(context, "Is this app free?",
-        "Yes, this app is free and will be free forever! If you appreciate this app, you can donate steam items to authors."));
-    widgets.add(_getHelpQuestion(context, "What is purpose of this app?",
-        "This app is dedicated for professional competetive Team Fortress 2 players, who want to see stats from their matches."));
-    widgets.add(_getHelpQuestion(context, "How do you get data?", "All data is from logs.tf website."));
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_mvp_title"),
+        applicationLocalization.getText("help_mvp_description")));
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_bug_title"),
+        applicationLocalization.getText("help_bug_description")));
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_help_title"),
+        applicationLocalization.getText("help_help_description")));
+
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_free_title"),
+        applicationLocalization.getText("help_free_description")));
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_purpose_title"),
+        applicationLocalization.getText("help_purpose_description")));
+    widgets.add(_getHelpQuestion(
+        context,
+        applicationLocalization.getText("help_data_title"),
+        applicationLocalization.getText("help_data_description")));
     return widgets;
   }
 

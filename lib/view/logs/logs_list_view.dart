@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
@@ -39,6 +40,7 @@ class _LogsListViewState extends State<LogsListView>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
@@ -56,7 +58,9 @@ class _LogsListViewState extends State<LogsListView>
                           height: 50,
                           child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Active Filters",
+                              child: Text(
+                                  applicationLocalization
+                                      .getText("logs_active_filters"),
                                   style: TextStyle(fontSize: 24)))),
                       expanded: FiltersCard(
                         map: logsSearchBloc.map,
@@ -69,13 +73,18 @@ class _LogsListViewState extends State<LogsListView>
 
               if (!logsSearchBloc.loading) {
                 if (snapshot.hasError) {
+                  print("Error: " + snapshot.error.toString());
                   widgets.add(EmptyCard(
-                      description: ErrorHandler.handleError(snapshot.error), retry: true, retryAction: _onRetryPressed,));
+                    description:
+                        ErrorHandler.handleError(snapshot.error, context),
+                    retry: true,
+                    retryAction: _onRetryPressed,
+                  ));
                 } else {
                   var data = snapshot.data;
                   if (data == null || data.isEmpty) {
                     widgets
-                        .add(EmptyCard(description: "There's no logs found."));
+                        .add(EmptyCard(description: applicationLocalization.getText("logs_no_logs_found")));
                   } else {
                     widgets.add(Expanded(
                         child: NotificationListener<ScrollNotification>(

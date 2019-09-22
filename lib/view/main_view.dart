@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/model/navigation_event.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'about/about_view.dart';
 import 'help/help_view.dart';
@@ -45,17 +46,16 @@ class _MainViewState extends State<MainView>
           logId = int.parse(result);
         }
 
-        if (logId != null ) {
+        if (logId != null) {
           Navigator.push<NavigationEvent>(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      LogView(
+                  builder: (context) => LogView(
                         logId: logId,
                         selectePlayerSteamId: playerSteamId,
                       )));
         }
-      } catch (exception){
+      } catch (exception) {
         print(exception);
       }
     }
@@ -63,6 +63,7 @@ class _MainViewState extends State<MainView>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Scaffold(
         appBar: AppBar(
             key: Key("mainViewAppBar"),
@@ -80,7 +81,7 @@ class _MainViewState extends State<MainView>
                 key: Key("mainViewOverflowMenu"),
                 onSelected: _select,
                 itemBuilder: (BuildContext context) {
-                  return _getMenuItems().map((MenuItem menuItem) {
+                  return _getMenuItems(context, applicationLocalization).map((MenuItem menuItem) {
                     return PopupMenuItem<MenuItem>(
                       value: menuItem,
                       child: Text(menuItem.title),
@@ -95,15 +96,15 @@ class _MainViewState extends State<MainView>
                 indicatorColor: Colors.white,
                 tabs: [
                   Tab(
-                    text: "All matches",
+                    text: applicationLocalization.getText("logs_all_matches"),
                     icon: Icon(Icons.flash_on),
                   ),
                   Tab(
-                    text: "Saved players",
+                    text: applicationLocalization.getText("logs_saved_players"),
                     icon: Icon(Icons.people),
                   ),
                   Tab(
-                    text: "Saved matches",
+                    text: applicationLocalization.getText("logs_saved_matches"),
                     icon: Icon(Icons.favorite),
                   )
                 ])),
@@ -114,24 +115,33 @@ class _MainViewState extends State<MainView>
         ]));
   }
 
-  List<MenuItem> _getMenuItems() {
+  List<MenuItem> _getMenuItems(BuildContext context, ApplicationLocalization applicationLocalization) {
     List<MenuItem> menuItems = List();
-    menuItems.add(MenuItem(title: "Settings", icon: Icons.settings));
-    menuItems.add(MenuItem(title: "About", icon: Icons.settings));
-    menuItems.add(MenuItem(title: "Help", icon: Icons.settings));
+    menuItems.add(MenuItem(
+        id: "menu_settings",
+        title: applicationLocalization.getText("menu_settings"),
+        icon: Icons.settings));
+    menuItems.add(MenuItem(
+        id: "menu_about",
+        title: applicationLocalization.getText("menu_about"),
+        icon: Icons.settings));
+    menuItems.add(MenuItem(
+        id: "menu_help",
+        title: applicationLocalization.getText("menu_help"),
+        icon: Icons.settings));
     return menuItems;
   }
 
   void _select(MenuItem menuItem) {
-    if (menuItem.title == "Settings") {
+    if (menuItem.id == "menu_settings") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsView()));
     }
-    if (menuItem.title == "About") {
+    if (menuItem.id == "menu_about") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutView()));
     }
-    if (menuItem.title == "Help") {
+    if (menuItem.id == "menu_help") {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HelpView()));
     }

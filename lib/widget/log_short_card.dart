@@ -4,6 +4,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -14,7 +15,7 @@ class LogShortCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map);
+    var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map, context);
     return InkWell(
         onTap: () async {
           NavigationEvent navigationEvent =
@@ -91,7 +92,7 @@ class LogShortCard extends StatelessWidget {
                       padding: EdgeInsets.only(left: 2),
                     ),
                     Text(
-                      "${matchType.name} match",
+                      "${matchType.name}",
                       style: TextStyle(
                           fontSize: 14,
                           color: matchType.color,

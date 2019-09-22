@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/util/application_localization.dart';
 
 import 'logs_button.dart';
 
@@ -13,6 +14,7 @@ class EmptyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         child: Column(children: [
       Card(
@@ -41,7 +43,7 @@ class EmptyCard extends StatelessWidget {
                     ? Container(
                         padding: EdgeInsets.only(top: 30),
                         child: LogsButton(
-                          text: "Retry",
+                          text: applicationLocalization.getText("retry"),
                           onPressed: retryAction,
                           backgroundColor: Theme.of(context).primaryColor,
                         ))

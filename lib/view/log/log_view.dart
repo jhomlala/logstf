@@ -112,7 +112,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(
-                      description: ErrorHandler.handleError(snapshot.error),
+                      description: ErrorHandler.handleError(snapshot.error, context),
                       retry: true,
                       retryAction: _onRetryPressed,
                     ));

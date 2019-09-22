@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/logs/search/player_search_results_view.dart';
 import 'package:logstf/widget/logs_button.dart';
 
@@ -12,6 +13,7 @@ class _PlayerSearchViewState extends State<PlayerSearchView> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         color: Theme.of(context).primaryColor,
         child: ListView(children: [
@@ -20,20 +22,19 @@ class _PlayerSearchViewState extends State<PlayerSearchView> {
               child: Container(
                   margin: EdgeInsets.all(10),
                   child: Form(
-                      key: Key("aaa"),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         TextFormField(
                           key: Key("Player"),
                           controller: _playerNameController,
                           decoration: InputDecoration(
-                              hintText: 'Player name',
-                              labelText: 'Player name'),
+                              hintText: applicationLocalization.getText("log_search_player_name"),
+                              labelText: applicationLocalization.getText("log_search_player_name")),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10),
                         ),
                         LogsButton(
-                          text: "Search",
+                          text: applicationLocalization.getText("log_search_search"),
                           onPressed: _onSearchClicked,
                           backgroundColor: Theme.of(context).primaryColor,
                         ),

@@ -20,7 +20,7 @@ dependencies:
   provider: ^3.1.0
   dio: ^3.0.1
   rxdart: ^0.22.2
-  intl: ^0.16.0
+  intl: ^0.15.8
   pie_chart: ^1.2.0
   timeago: ^2.0.19
   shared_preferences: ^0.5.3+4
@@ -35,6 +35,9 @@ dependencies:
   timeline_list: ^0.0.5
 
   flutter:
+    sdk: flutter
+
+  flutter_localizations:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.

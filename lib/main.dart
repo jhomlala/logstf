@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization_delegate.dart';
 import 'package:logstf/view/main_view.dart';
 import 'bloc/logs_saved_bloc.dart';
 import 'bloc/settings_bloc.dart';
@@ -40,7 +42,16 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
                   brightness:
                       AppUtils.getBrightness(snapshot.data.appBrightness),
                   primaryColor: AppUtils.getColor(snapshot.data.appColor)),
-              home: MainView());
+              home: MainView(),
+            localizationsDelegates: [
+              const ApplicationLocalizationDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale("en"),
+              const Locale("pl"),
+            ],);
         });
   }
 }

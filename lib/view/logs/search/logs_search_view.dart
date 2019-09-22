@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/logs_button.dart';
 
 class LogsSearchView extends StatefulWidget {
@@ -53,17 +54,20 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         key: _formKey,
         child: SingleChildScrollView(
             padding: EdgeInsets.all(5),
-            child: Column(children: _getFormWidget())));
+            child: Column(children: _getFormWidget(context))));
   }
 
-  List<Widget> _getFormWidget() {
+  List<Widget> _getFormWidget(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     List<Widget> formWidgets = new List();
 
     formWidgets.add(
       new TextFormField(
         key: _mapKey,
         controller: _mapController,
-        decoration: InputDecoration(hintText: 'Map', labelText: 'Map'),
+        decoration: InputDecoration(
+            hintText: applicationLocalization.getText("log_search_map"),
+            labelText: applicationLocalization.getText("log_search_map")),
       ),
     );
 
@@ -71,8 +75,9 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       new TextFormField(
         key: _uploaderKey,
         controller: _uploaderController,
-        decoration:
-            InputDecoration(hintText: 'Uploader', labelText: 'Uploader'),
+        decoration: InputDecoration(
+            hintText: applicationLocalization.getText("log_search_uploader"),
+            labelText: applicationLocalization.getText("log_search_uploader")),
       ),
     );
 
@@ -80,7 +85,9 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       new TextFormField(
         key: _titleKey,
         controller: _titleController,
-        decoration: InputDecoration(hintText: 'Title', labelText: 'Title'),
+        decoration: InputDecoration(
+            hintText: applicationLocalization.getText("log_search_title"),
+            labelText: applicationLocalization.getText("log_search_title")),
       ),
     );
 
@@ -88,7 +95,8 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       new TextFormField(
         key: _playerKey,
         controller: _playerController,
-        decoration: InputDecoration(hintText: 'Player steam id', labelText: 'Player steam id'),
+        decoration: InputDecoration(
+            hintText: applicationLocalization.getText("log_search_player_steam_id"), labelText: applicationLocalization.getText("log_search_player_steam_id")),
       ),
     );
     formWidgets.add(Padding(
@@ -97,12 +105,12 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     formWidgets
         .add(Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       LogsButton(
-        text: "Clear filters",
+        text: applicationLocalization.getText("log_search_clear_filters"),
         onPressed: _onClearFiltersClicked,
         backgroundColor: Colors.grey,
       ),
       LogsButton(
-        text: "Search",
+        text: applicationLocalization.getText("log_search_search"),
         onPressed: _onSendClicked,
         backgroundColor: Theme.of(context).primaryColor,
       ),
