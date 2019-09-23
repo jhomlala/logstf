@@ -5,6 +5,7 @@ import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
@@ -18,19 +19,21 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   List<MapEntry<String, ClassKill>> _currentStatsList;
-  String _statType = "Kills";
+  List<String> _dropdownValues;
+  String _statType = "";
 
   @override
   void initState() {
     _log = logDetailsBloc.logSubject.value;
     _players = _log.players;
     _playerNames = _log.names;
-    _onStatTypeChanged("Kills");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
+    _setupDropdownValues(applicationLocalization);
     return Container(
       color: Theme.of(context).primaryColor,
       child: SingleChildScrollView(
@@ -40,10 +43,10 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
           children: [
             Center(
                 child: Text(
-              "Stats:  ",
+              "${applicationLocalization.getText("log_stats")}  ",
               style: TextStyle(fontSize: 16.0),
             )),
-            _getStatDropdownWidget()
+            _getStatDropdownWidget(applicationLocalization)
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         )),
@@ -53,14 +56,25 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
                 margin: EdgeInsets.all(0),
                 child: Table(columnWidths: {
                   0: FractionColumnWidth(0.2),
-                }, children: _getTableRows())))
+                }, children: _getTableRows(applicationLocalization))))
       ])),
     );
   }
 
-  List<TableRow> _getTableRows() {
+  void _setupDropdownValues(ApplicationLocalization applicationLocalization) {
+    if (_dropdownValues == null || _dropdownValues.isEmpty) {
+      _dropdownValues = List();
+      _dropdownValues.add(applicationLocalization.getText("log_kills"));
+      _dropdownValues
+          .add(applicationLocalization.getText("log_kills_and_assists"));
+      _dropdownValues.add(applicationLocalization.getText("log_deaths"));
+      _onStatTypeChanged(_dropdownValues[0]);
+    }
+  }
+
+  List<TableRow> _getTableRows(ApplicationLocalization applicationLocalization) {
     List<TableRow> rows = List();
-    rows.add(_getHeaderRow());
+    rows.add(_getHeaderRow(applicationLocalization));
     _currentStatsList.forEach((MapEntry<String, ClassKill> entry) {
       rows.add(_getRow(entry.key, entry.value));
     });
@@ -147,7 +161,7 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
     });
   }
 
-  TableRow _getHeaderRow() {
+  TableRow _getHeaderRow(ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
     widgets.add(Container(
         decoration: BoxDecoration(
@@ -157,7 +171,7 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
         height: 30,
         child: Center(
             child: Text(
-          "Player",
+          applicationLocalization.getText("log_player"),
           style: TextStyle(color: Colors.white),
         ))));
     widgets.add(_getClassHeader("scout"));
@@ -232,14 +246,11 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
         child: widget);
   }
 
-  Widget _getStatDropdownWidget() {
+  Widget _getStatDropdownWidget(
+      ApplicationLocalization applicationLocalization) {
     return DropdownButton<String>(
       value: _statType,
-      items: <String>[
-        "Kills",
-        "Kills and Assists",
-        "Deaths",
-      ].map((String value) {
+      items: _dropdownValues.map((String value) {
         return new DropdownMenuItem<String>(
           value: value,
           child: new Text(
@@ -255,13 +266,15 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
   }
 
   _onStatTypeChanged(String statType) {
-    if (statType == "Kills") {
+    int index = _dropdownValues.indexOf(statType);
+
+    if (index == 0) {
       _currentStatsList = _log.classKills.entries.toList();
     }
-    if (statType == "Kills and Assists") {
+    if (index == 1) {
       _currentStatsList = _log.classKillAssists.entries.toList();
     }
-    if (statType == "Deaths") {
+    if (index == 2) {
       _currentStatsList = _log.classDeaths.entries.toList();
     }
 
