@@ -105,7 +105,21 @@ class ApplicationLocalization {
       "log_class": "Class",
       "log_scroll_right_to_see_more":"Scroll right to see more stats",
       "log_stats": "Stats:",
-      "log_kills_and_assists":"Kills and Assists"
+      "log_kills_and_assists":"Kills and Assists",
+      "log_award_mvp_title":"Most valuable players",
+      "log_award_mvp_description":"Players which were most valuable in game.",
+      "log_award_kills_title":"Top kills",
+      "log_award_kills_description":"Players which had most kills overall.",
+      "log_award_assists_title":"Top assists",
+      "log_award_assists_description":"Players which had most asissts overall (without medics).",
+      "log_award_damage_title":"Top damage",
+      "log_award_damage_description":"Players which dealed the most damage.",
+      "log_award_medic_kills_title":"Top medic kills",
+      "log_award_medic_kills_description":"Players which killed most medics.",
+      "log_award_kpd_title":"Top kills per deaths",
+      "log_award_kpd_description":"Players which had best kills per deaths.",
+      "log_award_kapd_title":"Top kills & assists per deaths",
+      "log_award_kapd_description":"Players which had best kills & assists per deaths."
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -202,7 +216,21 @@ class ApplicationLocalization {
       "log_class": "Klasa",
       "log_scroll_right_to_see_more":"Przesuń w prawo aby zobaczyć więcej statystyk",
       "log_stats": "Statystyka:",
-      "log_kills_and_assists":"Zabójstwa i Asysty"
+      "log_kills_and_assists":"Zabójstwa i Asysty",
+      "log_award_mvp_title":"Naj. wartościowi gracze",
+      "log_award_mvp_description":"Gracze, którzy byli najbardziej wartościowi w meczu.",
+      "log_award_kills_title":"Naj. zabójstwa",
+      "log_award_kills_description":"Gracze, którzy mieli najwięcej zabójstw.",
+      "log_award_assists_title":"Naj. asysty",
+      "log_award_assists_description":"Gracze, którzy mieli najwięcej asyst (bez medyków).",
+      "log_award_damage_title":"Naj. obrażenia",
+      "log_award_damage_description":"Gracze, którzy zadali najwięcej obrażeń.",
+      "log_award_medic_kills_title":"Naj. zabójstw medyków",
+      "log_award_medic_kills_description":"Gracze, którzy zabili najwięcej medyków.",
+      "log_award_kpd_title":"Naj. zabójstw na śmierć",
+      "log_award_kpd_description":"Gracze, którzy mieli najlepszą statystykę zabójstw na śmierć.",
+      "log_award_kapd_title":"Naj. zabójstw i asyst na śmierć",
+      "log_award_kapd_description":"Gracze, którzy mieli najwięcej zabójstw i asyst na śmierć."
     }
   };
 

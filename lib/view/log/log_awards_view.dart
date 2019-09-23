@@ -3,6 +3,7 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/award_card.dart';
 
 class LogAwardsView extends StatefulWidget {
@@ -21,6 +22,7 @@ class _LogAwardsViewState extends State<LogAwardsView> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         padding: EdgeInsets.all(10),
         color: Theme.of(context).primaryColor,
@@ -28,47 +30,47 @@ class _LogAwardsViewState extends State<LogAwardsView> {
             child: Column(
           children: <Widget>[
             AwardCard(
-              awardName: "Most valuable players",
+              awardName: applicationLocalization.getText("log_award_mvp_title"),
               players: getTopMVPPlayers(),
               log: _log,
-              description: "Players which were most valuable in game. See help for more info.",
+              description:applicationLocalization.getText("log_award_mvp_description"),
             ),
             AwardCard(
-              awardName: "Top kills",
+              awardName: applicationLocalization.getText("log_award_kills_title"),
               players: getTopKillPlayers(),
               log: _log,
-              description: "Players which had most kills overall.",
+              description: applicationLocalization.getText("log_award_kills_description"),
             ),
             AwardCard(
-              awardName: "Top assists",
+              awardName: applicationLocalization.getText("log_award_assists_title"),
               players: getTopAssistsPlayers(),
               log: _log,
               description:
-                  "Players which had most asissts overall (without medics).",
+              applicationLocalization.getText("log_award_assists_descriptionn"),
             ),
             AwardCard(
-              awardName: "Top damage",
+              awardName: applicationLocalization.getText("log_award_damage_title"),
               players: getTopDamagePlayers(),
               log: _log,
-              description: "Players which dealed the most damage.",
+              description: applicationLocalization.getText("log_award_damage_description"),
             ),
             AwardCard(
-              awardName: "Top medic kills",
+              awardName: applicationLocalization.getText("log_award_medic_kills_title"),
               players: getTopDamagePlayers(),
               log: _log,
-              description: "Players which killed most medics.",
+              description: applicationLocalization.getText("log_award_medic_kills_description"),
             ),
             AwardCard(
-              awardName: "Top kills per deaths",
+              awardName: applicationLocalization.getText("log_award_kpd_title"),
               players: getTopKPDPlayers(),
               log: _log,
-              description: "Players which had best kills per deaths.",
+              description: applicationLocalization.getText("log_award_kpd_description"),
             ),
             AwardCard(
-              awardName: "Top kills & assists per deaths",
+              awardName: applicationLocalization.getText("log_award_kapd_title"),
               players: getTopKPDPlayers(),
               log: _log,
-              description: "Players which had best kills & assists per deaths.",
+              description: applicationLocalization.getText("log_award_kapd_description"),
             )
           ],
         )));
