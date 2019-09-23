@@ -100,7 +100,10 @@ class ApplicationLocalization {
       "log_played_at": "Played at:",
       "log_played": "Played:",
       "log_uploaded_by": "Uploaded by:",
-      "log_match_id": "Match id:"
+      "log_match_id": "Match id:",
+      "log_player": "Player",
+      "log_class": "Class",
+      "log_scroll_right_to_see_more":"Scroll right to see more stats"
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -192,7 +195,10 @@ class ApplicationLocalization {
       "log_played_at": "Grany o:",
       "log_played": "Grany:",
       "log_uploaded_by": "Zuploadowany przez:",
-      "log_match_id": "Id meczu:"
+      "log_match_id": "Id meczu:",
+      "log_player": "Gracz",
+      "log_class": "Klasa",
+      "log_scroll_right_to_see_more":"Przesuń w prawo aby zobaczyć więcej statystyk"
     }
   };
 

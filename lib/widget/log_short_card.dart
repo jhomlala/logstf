@@ -4,7 +4,6 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
-import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

@@ -26,7 +26,7 @@ class LogView extends StatefulWidget {
 
 class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  String _appBarTitle = "General stats";
+  String _appBarTitle = "";
   bool _saved = false;
 
   @override
@@ -46,7 +46,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  void _onTabChanged() {
+  void _onTabChanged( ) {
     var applicationLocalization = ApplicationLocalization.of(context);
     var index = _tabController.index;
     var tabName = "";
@@ -74,6 +74,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _setupDefaultAppBarTitle(context);
     return Scaffold(
         appBar: AppBar(
             title: Text(_appBarTitle),
@@ -134,6 +135,13 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                         child: Container(height: 40, child: ProgressBar())));
               }
             }));
+  }
+
+  void _setupDefaultAppBarTitle(BuildContext context) {
+      var applicationLocalization = ApplicationLocalization.of(context);
+    if (_appBarTitle == ""){
+      _appBarTitle = applicationLocalization.getText("log_general_stats");
+    }
   }
 
   void _onSaveClicked() async {

@@ -11,6 +11,7 @@ import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/player/log_player_detailed_view.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
@@ -55,6 +56,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
@@ -83,7 +85,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                     )))
           ])),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Text("Scroll right to see more stats",
+            Text(applicationLocalization.getText("log_scroll_right_to_see_more"),
                 style: TextStyle(color: Colors.white)),
             Icon(
               Icons.keyboard_arrow_right,
@@ -257,6 +259,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   List<TableRow> _getPlayerStickyRows() {
+    var applicationLocalization = ApplicationLocalization.of(context);
     List<TableRow> rows = List();
     rows.add(TableRow(children: [
       Container(
@@ -266,7 +269,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
           ),
           height: 30,
           child: Center(
-              child: Text("Player", style: TextStyle(color: Colors.white)))),
+              child: Text(applicationLocalization.getText("log_player"),
+                  style: TextStyle(color: Colors.white)))),
     ]));
     _playersSorted.forEach((Player player) {
       rows.add(_getPlayerStickyRow(player));
@@ -319,8 +323,11 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   Widget _getClassesColumn(List<Player> players) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     List<Widget> columnWidgets = List();
-    columnWidgets.add(_getHeaderCell("Class"));
+    columnWidgets.add(_getHeaderCell(
+        applicationLocalization.getText("log_class"),
+        headerValue: "Class"));
 
     int selectedPlayerIndex = _getSelectedPlayerIndex();
     for (int index = 0; index < players.length; index++) {
@@ -501,7 +508,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return Container(width: width, child: Column(children: columnWidgets));
   }
 
-  Widget _getHeaderCell(String value, {bool rightCorner = false}) {
+  Widget _getHeaderCell(String value,
+      {bool rightCorner = false, String headerValue}) {
     BoxDecoration decoration;
     if (rightCorner) {
       decoration = BoxDecoration(
@@ -515,7 +523,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     }
 
     List<Widget> widgets = List();
-    if (_currentFilter == value) {
+    if (_currentFilter == value ||
+        (_currentFilter != null && _currentFilter == headerValue)) {
       widgets.add(Icon(
         Icons.arrow_drop_down,
         color: Colors.white,
@@ -525,7 +534,11 @@ class _LogPlayersViewState extends State<LogPlayersView> {
 
     return InkWell(
         onTap: () {
-          _onHeaderClicked(value);
+          var clickValue = headerValue;
+          if (clickValue == null) {
+            clickValue = value;
+          }
+          _onHeaderClicked(clickValue);
         },
         child: Container(
             decoration: decoration,
@@ -556,6 +569,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
   }
 
   _onHeaderClicked(String value) {
+    print("header clicked: " + value);
     _playersSorted = _orderPlayersByField(_playersSorted, value);
     _currentFilter = value;
     setState(() {});
