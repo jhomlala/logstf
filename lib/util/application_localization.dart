@@ -147,6 +147,14 @@ class ApplicationLocalization {
       "log_player_matches":"Show matches",
       "log_player_observe":"Observe player",
       "log_player_observe_remove":"Remove from observed",
+      "log_damage_per_minute":"Damage per minute",
+      "log_kapd":"Kills & assists per death",
+      "log_kpd":"Kills per death",
+      "log_damage_taken_per_minute":"Damage taken per minute",
+      "log_medkits":"Medkits",
+      "log_global_average":"Global average",
+      "log_team_average":"Team average",
+      "log_opponent_team_average":"Opponent team average"
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -290,6 +298,14 @@ class ApplicationLocalization {
       "log_player_matches":"Pokaż mecze",
       "log_player_observe":"Obserwuj gracza",
       "log_player_observe_remove":"Usuń z obserwowanych",
+      "log_damage_per_minute":"Obrażenia na minutę",
+      "log_kapd":"Zabójstwa i asysty na śmierć",
+      "log_kpd":"Zabójstwa na śmierć",
+      "log_damage_taken_per_minute":"Obrażenia otrzymane na minutę",
+      "log_medkits":"Medkity",
+      "log_global_average":"Średnia globalna",
+      "log_team_average":"Średnia drużyny",
+      "log_opponent_team_average":"Średnia przecinwej drużyny"
     }
   };
 
