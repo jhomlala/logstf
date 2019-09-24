@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
+import 'package:logstf/util/application_localization.dart';
 
 import 'logs_button.dart';
 
@@ -19,6 +20,7 @@ class ObservePlayerButton extends StatefulWidget {
 class _ObservePlayerButtonState extends State<ObservePlayerButton> {
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return FutureBuilder(
         future: playersObservedLocalProvider
             .getPlayerObservedWithSteamId64(widget.steamId64),
@@ -30,10 +32,10 @@ class _ObservePlayerButtonState extends State<ObservePlayerButton> {
             PlayerObserved snapshotData = snapshot.data as PlayerObserved;
             if (snapshotData != null) {
               return _getPageButton(
-                  " Remove from observed", _removeObservedPlayer,
+                  applicationLocalization.getText("log_player_observe_remove"), _removeObservedPlayer,
                   backgroundColor: Theme.of(context).primaryColor);
             } else {
-              return _getPageButton("Observe", _observePlayer,
+              return _getPageButton(applicationLocalization.getText("log_player_observe"), _observePlayer,
                   backgroundColor: Theme.of(context).primaryColor);
             }
           } else {

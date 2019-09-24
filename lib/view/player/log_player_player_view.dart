@@ -7,6 +7,7 @@ import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -50,6 +51,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     super.build(context);
     return Container(
         color: Theme.of(context).primaryColor,
@@ -93,14 +95,13 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                         padding:
                                             EdgeInsets.only(top: 10, bottom: 5),
                                         child: Column(children: [
-                                          Text(
-                                              "Player has ${snapshot.data} matches in history"),
+                                          Text(applicationLocalization.getText("log_player_logs_tf_matches").replaceAll("<matches_count>", snapshot.data.toString())),
                                           Padding(
                                             padding: EdgeInsets.only(top: 10),
                                           ),
                                           Row(children: [
                                             _getPageButton(
-                                                "Matches", _onMatchesClicked,
+                                  applicationLocalization.getText("log_player_matches"), _onMatchesClicked,
                                                 backgroundColor:
                                                     Theme.of(context)
                                                         .primaryColor)

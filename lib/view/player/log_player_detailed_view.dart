@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/player/log_player_class_compare_view.dart';
 import 'package:logstf/view/player/log_player_general_view.dart';
 
@@ -27,18 +28,18 @@ class LogPlayerDetailedView extends StatefulWidget {
 class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  String _appBarTitle;
+  String _appBarTitle = "";
 
   @override
   void initState() {
     _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(_onTabChanged);
-    _onTabChanged();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    _setupDefaultAppBarTitle();
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarTitle),
@@ -79,31 +80,36 @@ class _LogPlayerDetailedViewState extends State<LogPlayerDetailedView>
   }
 
   void _onTabChanged() {
+    var applicationLocalization = ApplicationLocalization.of(context);
     int index = _tabController.index;
     String playerName = widget.log.getPlayerName(widget.player.steamId);
     var tabName = "";
     switch (index) {
       case 0:
-        tabName = "$playerName - Player overview";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_player_overview")}";
         break;
       case 1:
-        tabName = "$playerName - General stats";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_general_stats")}";
         break;
       case 2:
-        tabName = "$playerName - Class overview";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_class_overview")}";
         break;
       case 3:
-        tabName = "$playerName - Class compare";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_class_compare")}";
         break;
       case 4:
-        tabName = "$playerName - Match matrix";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_match_matrix")}";
         break;
       case 5:
-        tabName = "$playerName - Awards";
+        tabName = "$playerName - ${applicationLocalization.getText("log_player_awards")}";
         break;
     }
     setState(() {
       _appBarTitle = tabName;
     });
+  }
+
+  void _setupDefaultAppBarTitle() {
+    _onTabChanged();
   }
 }
