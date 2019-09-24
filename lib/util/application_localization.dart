@@ -119,7 +119,24 @@ class ApplicationLocalization {
       "log_award_kpd_title":"Top kills per deaths",
       "log_award_kpd_description":"Players which had best kills per deaths.",
       "log_award_kapd_title":"Top kills & assists per deaths",
-      "log_award_kapd_description":"Players which had best kills & assists per deaths."
+      "log_award_kapd_description":"Players which had best kills & assists per deaths.",
+      "log_seconds":"seconds",
+      "log_1st":"1st",
+      "log_2nd":"2nd",
+      "log_3rd":"3rd",
+      "log_nth":"<n>th",
+      "log_timeline_round_started":"<round_id> round started.",
+      "log_timeline_capped_point":"has capped point.",
+      "log_timeline_medic_drop":"medic has died and dropped uber.",
+      "log_timeline_medic_died":"medic has died.",
+      "log_timeline_medic_charged":"medic has charged uber.",
+      "log_timeline_won_round":"has won round.",
+      "log_timeline_picked_intel":"has picked up intelligence.",
+      "log_timeline_captured_intel":"has captured intelligence.",
+      "log_timeline_defended_intel":"has defended intelligence.",
+      "log_timeline_dropped_intel":"has dropped intelligence."
+
+
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -230,7 +247,23 @@ class ApplicationLocalization {
       "log_award_kpd_title":"Naj. zabójstw na śmierć",
       "log_award_kpd_description":"Gracze, którzy mieli najlepszą statystykę zabójstw na śmierć.",
       "log_award_kapd_title":"Naj. zabójstw i asyst na śmierć",
-      "log_award_kapd_description":"Gracze, którzy mieli najwięcej zabójstw i asyst na śmierć."
+      "log_award_kapd_description":"Gracze, którzy mieli najwięcej zabójstw i asyst na śmierć.",
+      "log_seconds":"sekund",
+      "log_1st":"1sza",
+      "log_2nd":"2ga",
+      "log_3rd":"3cia",
+      "log_nth":"<n>ta",
+      "log_timeline_round_started":"runda wystartowała.",
+      "log_timeline_capped_point":"przejął punkt.",
+      "log_timeline_medic_drop":"medyk umarł i zdropił ubera.",
+      "log_timeline_medic_died":"medyk umarł.",
+      "log_timeline_medic_charged":"medyk naładował ubera.",
+      "log_timeline_won_round":"wygrał rundę.",
+      "log_timeline_picked_intel":"podniósł intela.",
+      "log_timeline_captured_intel":"przejął intela.",
+      "log_timeline_defended_intel":"obronił intela.",
+      "log_timeline_dropped_intel":"upuścił intela."
+
     }
   };
 

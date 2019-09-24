@@ -3,6 +3,7 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/model/event.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -109,13 +110,14 @@ class _LogTimelineViewState extends State<LogTimelineView> {
   }
 
   String _getTime(Event event) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     if (event.type == "round_start") {
       return _formatTime(
           DateTime.fromMillisecondsSinceEpoch(event.time * 1000));
     } else {
       return _formatTime(DateTime.fromMillisecondsSinceEpoch(
               _currentRoundStartTime * 1000 + event.time * 1000)) +
-          " ( +${event.time} seconds )";
+          " ( +${event.time} ${applicationLocalization.getText("log_seconds")} )";
     }
   }
 
@@ -141,73 +143,73 @@ class _LogTimelineViewState extends State<LogTimelineView> {
 
   Widget _getEventDescription(Event event) {
     List<TextSpan> children = List();
-
+    var applicationLocalization = ApplicationLocalization.of(context);
     if (event.type == "round_start") {
       children.add(
-          TextSpan(text: "${_getRoundNumberName(event.team)} round started"));
+          TextSpan(text: "${_getRoundNumberName(event.team)} ${applicationLocalization.getText("log_timeline_round_started")}"));
     }
     if (event.type == "pointcap") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has capped point"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_capped_point")}"));
     }
     if (event.type == "drop") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " medic has died and dropped uber"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_medic_drop")}"));
     }
     if (event.type == "medic_death") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " medic has died"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_medic_died")}"));
     }
     if (event.type == "charge") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " medic has charged uber"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_medic_charged")}"));
     }
     if (event.type == "round_win") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has won round"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_won_round")}"));
     }
     if (event.type == "picked up") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has picked up intelligence"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_picked_intel")}"));
     }
     if (event.type == "captured") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has captured intelligence"));
+      children.add(TextSpan(text: "  ${applicationLocalization.getText("log_timeline_captured_intel")}"));
     }
     if (event.type == "defended") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has defended intelligence"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_defended_intel")}"));
     }
     if (event.type == "dropped") {
       children.add(TextSpan(
           text: _getTeamName(event.team),
           style: TextStyle(
               color: _getTeamColor(event.team), fontWeight: FontWeight.w600)));
-      children.add(TextSpan(text: " has dropped intelligence"));
+      children.add(TextSpan(text: " ${applicationLocalization.getText("log_timeline_dropped_intel")}"));
     }
 
     return RichText(
@@ -261,15 +263,18 @@ class _LogTimelineViewState extends State<LogTimelineView> {
   }
 
   String _getRoundNumberName(String roundId) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     if (roundId == "1") {
-      return "1st";
+      return applicationLocalization.getText("log_1st");
     }
     if (roundId == "2") {
-      return "2nd";
+      return applicationLocalization.getText("log_2nd");
     }
     if (roundId == "3") {
-      return "3rd";
+      return applicationLocalization.getText("log_3rd");
     }
-    return "${roundId}th";
+    return applicationLocalization
+        .getText("log_nth")
+        .replaceAll("<n>", roundId);
   }
 }
