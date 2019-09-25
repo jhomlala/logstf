@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/demoman_overview_card.dart';
 import 'package:logstf/widget/engineer_overview_card.dart';
 import 'package:logstf/widget/heavy_overview_card.dart';
@@ -28,6 +29,7 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
       color: Theme.of(context).primaryColor,
       child: Column(children: [
@@ -39,7 +41,7 @@ class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Class: ",
+                            "${applicationLocalization.getText("log_class")}: ",
                             style: TextStyle(fontSize: 16.0),
                           ),
                           _getClassesDropdown()

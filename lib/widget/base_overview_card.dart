@@ -3,6 +3,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/weapon_stats_widget.dart';
 
 import 'class_icon.dart';
@@ -145,6 +146,7 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard>
   }
 
   Widget getWeaponsCard(ClassStats classStats) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     List<Widget> weapons = getWeaponWidgets(classStats);
     return Card(
         child: Container(
@@ -154,13 +156,13 @@ abstract class BaseOverviewCardState<T extends BaseOverviewCard>
                 ClassIcon(playerClass: classStats.type),
                 Container(
                     child: Text(
-                  " Weapons stats",
+                  " ${applicationLocalization.getText("log_class_weapon_stats")}",
                   style: TextStyle(fontSize: 20),
                 ))
               ]),
               weapons.isEmpty
                   ? Container(
-                      height: 100, child: Center(child: Text("No weapon data")))
+                      height: 100, child: Center(child: Text(applicationLocalization.getText("log_class_no_weapon_data"))))
                   : Container(
                       height: 240,
                       child: ListView.builder(
