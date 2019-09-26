@@ -3,6 +3,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/base_overview_card.dart';
 
 import 'class_icon.dart';
@@ -28,6 +29,7 @@ class _DemomanOverviewCardState
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         child: Expanded(
             child: ListView(children: [
@@ -41,23 +43,23 @@ class _DemomanOverviewCardState
                     ClassIcon(playerClass: "demoman"),
                     Container(
                         child: Text(
-                      " Highlights",
-                      style: TextStyle(fontSize: 20),
-                    ))
+                          " ${applicationLocalization.getText("log_class_highlights")}",
+                          style: TextStyle(fontSize: 20),
+                        ))
                   ]),
-                  getStatRow("Time played: ", getTimePlayed(_classStats)),
+                  getStatRow("${applicationLocalization.getText("log_class_time_played")}: ", getTimePlayed(_classStats)),
                   Row(children: [
-                    getStatRow("Kills: ", _classStats.kills.toString()),
+                    getStatRow("${applicationLocalization.getText("log_kills")}: ", _classStats.kills.toString()),
                     getPositionRow(
-                        getPlayerKillsPosition(), "overall top kills", context)
+                        getPlayerKillsPosition(), "${applicationLocalization.getText("log_class_overall_top_kills")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Assists: ",
+                      "${applicationLocalization.getText("log_assists")}: ",
                       _classStats.assists.toString(),
                     ),
                     getPositionRow(getPlayerAssistsPosition(),
-                        "overall top assists", context)
+                        "${applicationLocalization.getText("log_class_overall_top_assists")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -65,24 +67,23 @@ class _DemomanOverviewCardState
                       getKillsPerDeath(_classStats).toStringAsFixed(1),
                     ),
                     getPositionRow(getPlayerKillsPerDeathPosition(),
-                        "overall top K/D", context)
+                        "${applicationLocalization.getText("log_class_overall_top_kpd")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
                       "KA/D: ",
-                      getKillsAndAssistsPerDeath(_classStats)
-                          .toStringAsFixed(1),
+                      getKillsAndAssistsPerDeath(_classStats).toStringAsFixed(1),
                     ),
                     getPositionRow(
-                        getPlayerKAPDPosition(), "overall top KA/D", context)
+                        getPlayerKAPDPosition(), "${applicationLocalization.getText("log_class_overall_top_kapd")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Damage: ",
+                      "${applicationLocalization.getText("log_damage")}: ",
                       _classStats.dmg.toString(),
                     ),
                     getPositionRow(getPlayerDamagePosition(),
-                        "overall top damage", context)
+                        "${applicationLocalization.getText("log_class_overall_top_damage")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
@@ -90,32 +91,32 @@ class _DemomanOverviewCardState
                       getDamagePerMinute(_classStats).toStringAsFixed(0),
                     ),
                     getPositionRow(
-                        getPlayerDAPMPosition(), "overall top DA/M", context)
+                        getPlayerDAPMPosition(), "${applicationLocalization.getText("log_class_overall_top_dapm")}", context)
                   ]),
                   Divider(),
                   Row(children: [
                     getStatRow(
-                      "Medics killed: ",
+                      "${applicationLocalization.getText("log_class_medics_killed")}: ",
                       getMedicsKilled().toString(),
                     ),
                     getPositionRow(getPlayerMedicsPickedPosition(),
-                        "top medics killed", context)
+                        "${applicationLocalization.getText("log_class_overall_top_medics_killed")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Demomans killed: ",
+                      "${applicationLocalization.getText("log_class_demomans_killed")}: ",
                       _getDemomansKilled().toString(),
                     ),
                     getPositionRow(_getDemomanKillsPosition(),
-                        "overal top demomans killed", context)
+                        "${applicationLocalization.getText("log_class_overall_top_demomans_killed")}", context)
                   ]),
                   Row(children: [
                     getStatRow(
-                      "Airshots: ",
+                      "${applicationLocalization.getText("log_class_airshots")}: ",
                       player.as.toString(),
                     ),
                     getPositionRow(getPlayerAirshotsPosition(),
-                        "overall top airshots", context)
+                        "${applicationLocalization.getText("log_class_overall_top_airshots")}", context)
                   ]),
                 ],
               ))),

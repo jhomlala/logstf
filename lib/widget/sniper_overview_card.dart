@@ -3,6 +3,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 
 import 'base_overview_card.dart';
 import 'class_icon.dart';
@@ -27,6 +28,7 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
 
   @override
   Widget build(BuildContext context) {
+    var applicationLocalization = ApplicationLocalization.of(context);
     return Container(
         child: Expanded(
             child: ListView(children: [
@@ -40,23 +42,23 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
                             ClassIcon(playerClass: "sniper"),
                             Container(
                                 child: Text(
-                                  " Highlights",
+                                  " ${applicationLocalization.getText("log_class_highlights")}",
                                   style: TextStyle(fontSize: 20),
                                 ))
                           ]),
-                          getStatRow("Time played: ", getTimePlayed(_classStats)),
+                          getStatRow("${applicationLocalization.getText("log_class_time_played")}: ", getTimePlayed(_classStats)),
                           Row(children: [
-                            getStatRow("Kills: ", _classStats.kills.toString()),
+                            getStatRow("${applicationLocalization.getText("log_kills")}: ", _classStats.kills.toString()),
                             getPositionRow(
-                                getPlayerKillsPosition(), "overall top kills", context)
+                                getPlayerKillsPosition(), "${applicationLocalization.getText("log_class_overall_top_kills")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Assists: ",
+                              "${applicationLocalization.getText("log_assists")}: ",
                               _classStats.assists.toString(),
                             ),
                             getPositionRow(getPlayerAssistsPosition(),
-                                "overall top assists", context)
+                                "${applicationLocalization.getText("log_class_overall_top_assists")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -64,7 +66,7 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
                               getKillsPerDeath(_classStats).toStringAsFixed(1),
                             ),
                             getPositionRow(getPlayerKillsPerDeathPosition(),
-                                "overall top K/D", context)
+                                "${applicationLocalization.getText("log_class_overall_top_kpd")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -72,15 +74,15 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
                               getKillsAndAssistsPerDeath(_classStats).toStringAsFixed(1),
                             ),
                             getPositionRow(
-                                getPlayerKAPDPosition(), "overall top KA/D", context)
+                                getPlayerKAPDPosition(), "${applicationLocalization.getText("log_class_overall_top_kapd")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Damage: ",
+                              "${applicationLocalization.getText("log_damage")}: ",
                               _classStats.dmg.toString(),
                             ),
                             getPositionRow(getPlayerDamagePosition(),
-                                "overall top damage", context)
+                                "${applicationLocalization.getText("log_class_overall_top_damage")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
@@ -88,37 +90,37 @@ class _SniperOverviewCardState extends BaseOverviewCardState<SniperOverviewCard>
                               getDamagePerMinute(_classStats).toStringAsFixed(0),
                             ),
                             getPositionRow(
-                                getPlayerDAPMPosition(), "overall top DA/M", context)
+                                getPlayerDAPMPosition(), "${applicationLocalization.getText("log_class_overall_top_dapm")}", context)
                           ]),
                           Divider(),
                           Row(children: [
                             getStatRow(
-                              "Medics killed: ",
+                              "${applicationLocalization.getText("log_class_medics_killed")}: ",
                               getMedicsKilled().toString(),
                             ),
                             getPositionRow(getPlayerMedicsPickedPosition(),
-                                "overall top medics killed", context)
+                                "${applicationLocalization.getText("log_class_overall_top_medics_killed")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Snipers killed: ",
+                              "${applicationLocalization.getText("log_class_snipers_killed")}: ",
                               _getSniperKills().toString(),
                             ),
-                            getPositionRow(_getSniperKilledPosition(), "overall top sniper killed", context)
+                            getPositionRow(_getSniperKilledPosition(), "${applicationLocalization.getText("log_class_overall_top_snipers_killed")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Headshots: ",
+                              "${applicationLocalization.getText("log_class_headshots")}: ",
                               player.headshots.toString(),
                             ),
-                            getPositionRow(_getHeadshotsPosition(), "overall top headshots", context)
+                            getPositionRow(_getHeadshotsPosition(), "${applicationLocalization.getText("log_class_overall_top_headshots")}", context)
                           ]),
                           Row(children: [
                             getStatRow(
-                              "Headshots hits: ",
+                              "${applicationLocalization.getText("log_class_headshots_hits")}: ",
                               player.headshots.toString(),
                             ),
-                            getPositionRow(_getHeadshotsHitsPosition(), "overall top headshots hits", context)
+                            getPositionRow(_getHeadshotsHitsPosition(), "${applicationLocalization.getText("log_class_overall_top_headshot_hits")}", context)
                           ]),
                         ],
                       ))),

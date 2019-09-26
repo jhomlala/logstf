@@ -182,7 +182,18 @@ class ApplicationLocalization {
       "log_class_scouts_killed":"Scouts killed",
       "log_class_overall_top_scouts_killed":"overall top scouts killed",
       "log_class_medkits_picked":"Medkits picked",
-      "log_class_overall_top_medkits_picked":"overall top medkits picked"
+      "log_class_overall_top_medkits_picked":"overall top medkits picked",
+      "log_class_heavies_killed":"Heavies killed",
+      "log_class_overall_top_heavies_killed":"overall top heavies killed",
+      "log_class_overall_top_dt":"overall top dt",
+      "log_class_demomans_killed":"Demomans killed",
+      "log_class_overall_top_demomans_killed":"overall top demomans killed",
+      "log_class_snipers_killed":"Snipers killed",
+      "log_class_overall_top_snipers_killed":"overall top snipers killed",
+      "log_class_headshots":"Headshots",
+      "log_class_overall_top_headshots":"overall top headshots",
+      "log_class_headshots_hits":"Headshot hits",
+      "log_class_overall_top_headshot_hits":"overall top headshots hits"
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -360,7 +371,18 @@ class ApplicationLocalization {
       "log_class_scouts_killed":"Skauci zabici",
       "log_class_overall_top_scouts_killed":"najwięcej zabitych skautów",
       "log_class_medkits_picked":"Podniesione medkity",
-      "log_class_overall_top_medkits_picked":"naj. pod. medkitów"
+      "log_class_overall_top_medkits_picked":"naj. pod. medkitów",
+      "log_class_heavies_killed":"Heavich zabitych",
+      "log_class_overall_top_heavies_killed":"najwięcej zabitych heavich",
+      "log_class_overall_top_dt":"największe DT",
+      "log_class_demomans_killed":"Demomanów zabitych",
+      "log_class_overall_top_demomans_killed":"naj. zabitych demomanów",
+      "log_class_snipers_killed":"Snajperzy zabici",
+      "log_class_overall_top_snipers_killed":"najwięcej zabitych sniperów",
+      "log_class_headshots":"Headshoty",
+      "log_class_overall_top_headshots":"najwięcej headshotów",
+      "log_class_headshots_hits":"Uderzenia headshot",
+      "log_class_overall_top_headshot_hits":"najwięcej uderzeń head."
     }
   };
 
