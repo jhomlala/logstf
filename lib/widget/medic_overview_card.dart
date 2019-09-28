@@ -4,6 +4,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'base_overview_card.dart';
 import 'class_icon.dart';
 import 'heal_spread_pie_chart.dart';
@@ -36,12 +37,13 @@ class _MedicOverviewCardState extends BaseOverviewCardState<MedicOverviewCard> {
             color: Theme.of(context).primaryColor,
             child: SingleChildScrollView(
               child: Column(
-                children: getHealSpreadWidgets(),
+                children: getMedicWidgets(),
               ),
             )));
   }
 
-  List<Widget> getHealSpreadWidgets() {
+  List<Widget> getMedicWidgets() {
+    var applicationLocalization = ApplicationLocalization.of(context);
     List<Widget> widgets = List();
     widgets.add(Card(
         child: Column(children: [
@@ -52,7 +54,7 @@ class _MedicOverviewCardState extends BaseOverviewCardState<MedicOverviewCard> {
         ClassIcon(playerClass: "medic"),
         Container(
             child: Text(
-          " Healing chart",
+          " ${applicationLocalization.getText("log_class_medic_healing_chart")}",
           style: TextStyle(fontSize: 20),
         ))
       ]),
@@ -70,9 +72,9 @@ class _MedicOverviewCardState extends BaseOverviewCardState<MedicOverviewCard> {
         ClassIcon(playerClass: "medic"),
         Container(
             child: Text(
-          " Highlights",
-          style: TextStyle(fontSize: 20),
-        ))
+              " ${applicationLocalization.getText("log_class_highlights")}",
+              style: TextStyle(fontSize: 20),
+            ))
       ]),
       MedicStatsWidget(player: player, log: log),
       Padding(
