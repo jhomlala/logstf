@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/pair.dart';
 
 class ComparisonCard extends StatelessWidget {
   final String title;
+  final String plural;
   final double playerValue;
   final double comparedPlayerValue;
   final String playerName;
@@ -18,11 +20,12 @@ class ComparisonCard extends StatelessWidget {
       this.playerName,
       this.comparedPlayerName,
       this.reversed = false,
-      this.decimalPlaces = 0})
+      this.decimalPlaces = 0, this.plural})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ApplicationLocalization applicationLocalization = ApplicationLocalization.of(context);
     String winnerText;
     Color playerColor;
     Color comparedPlayerColor;
@@ -45,7 +48,7 @@ class ComparisonCard extends StatelessWidget {
     comparedPlayerColor = colorsPair.second;
 
     percentage = _getPercentage();
-    winnerText = _getWinnerText();
+    winnerText = _getWinnerText(applicationLocalization);
 
     return Card(
       child: Column(children: [
@@ -63,7 +66,7 @@ class ComparisonCard extends StatelessWidget {
           padding: EdgeInsets.only(top: 5),
         ),
         _getWinnerDescriptionWidget(
-            winnerPlayer, loserPlayer, percentage, context),
+            winnerPlayer, loserPlayer, percentage, context,applicationLocalization),
         Padding(
           padding: EdgeInsets.only(top: 10),
         ),
@@ -105,13 +108,13 @@ class ComparisonCard extends StatelessWidget {
   }
 
   Widget _getWinnerDescriptionWidget(String winnerPlayer, String loserPlayer,
-      double percentage, BuildContext context) {
+      double percentage, BuildContext context, ApplicationLocalization applicationLocalization) {
     if (playerValue == comparedPlayerValue) {
       return Container();
     } else {
-      String phrase = "more";
+      String phrase = "${applicationLocalization.getText("log_compare_more")}";
       if (reversed) {
-        phrase = "less";
+        phrase = "${applicationLocalization.getText("log_compare_less")}";
       }
 
       return RichText(
@@ -127,11 +130,11 @@ class ComparisonCard extends StatelessWidget {
             new TextSpan(
                 text: "$winnerPlayer",
                 style: new TextStyle(fontWeight: FontWeight.bold)),
-            new TextSpan(text: " had"),
+            new TextSpan(text: " ${applicationLocalization.getText("log_compare_had")}"),
             new TextSpan(
                 text: " ${percentage.toStringAsFixed(0)}%",
                 style: new TextStyle(fontWeight: FontWeight.bold)),
-            new TextSpan(text: " $phrase ${title.toLowerCase()} than "),
+            new TextSpan(text: " $phrase $plural ${applicationLocalization.getText("log_compare_than")} "),
             new TextSpan(
                 text: "$loserPlayer.",
                 style: new TextStyle(fontWeight: FontWeight.bold)),
@@ -141,23 +144,23 @@ class ComparisonCard extends StatelessWidget {
     }
   }
 
-  String _getWinnerText() {
+  String _getWinnerText(ApplicationLocalization applicationLocalization) {
     if (reversed) {
       if (playerValue < comparedPlayerValue) {
-        return "$playerName wins!";
+        return "$playerName ${applicationLocalization.getText("log_compare_wins")}!";
       } else if (playerValue > comparedPlayerValue) {
-        return "$comparedPlayerName wins!";
+        return "$comparedPlayerName ${applicationLocalization.getText("log_compare_wins")}!";
       } else {
-        return "It's a tie!";
+        return "${applicationLocalization.getText("log_compare_tie")}!";
       }
     }
 
     if (playerValue > comparedPlayerValue) {
-      return "$playerName wins!";
+      return "$playerName ${applicationLocalization.getText("log_compare_wins")}!";
     } else if (playerValue < comparedPlayerValue) {
-      return "$comparedPlayerName wins!";
+      return "$comparedPlayerName ${applicationLocalization.getText("log_compare_wins")}!";
     } else {
-      return "It's a tie!";
+      return "${applicationLocalization.getText("log_compare_tie")}!";
     }
   }
 
@@ -175,9 +178,11 @@ class ComparisonCard extends StatelessWidget {
   double _getPercentage() {
     double playerValue = this.playerValue;
     double comparedPlayerValue = this.comparedPlayerValue;
-    if ((playerValue == 0 && comparedPlayerValue == 1) ||
-        (playerValue == 1 && comparedPlayerValue == 0)) {
-      return 100;
+    if (playerValue != 0 && comparedPlayerValue == 0) {
+      return playerValue * 100;
+    }
+    if (playerValue == 0 && comparedPlayerValue != 0) {
+      return comparedPlayerValue * 100;
     }
 
     if (reversed) {

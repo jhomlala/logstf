@@ -3,6 +3,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/comparison_card.dart';
 
 class LogPlayerClassCompareView extends StatefulWidget {
@@ -32,8 +33,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
         widget._log, _selectedClass, widget._player.steamId);
     if (_otherPlayersWithSelectedClass.isNotEmpty) {
       _selectedPlayer = _otherPlayersWithSelectedClass[0];
-    _playerName = widget._log.getPlayerName(widget._player.steamId);
-    _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
+      _playerName = widget._log.getPlayerName(widget._player.steamId);
+      _selectedPlayerName = widget._log.getPlayerName(_selectedPlayer.steamId);
     }
     super.initState();
   }
@@ -60,26 +61,30 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   }
 
   List<Widget> _getMainColumnWidgets() {
+    ApplicationLocalization applicationLocalization =
+        ApplicationLocalization.of(context);
     List<Widget> widgets = List();
-    widgets.add(_getClassAndPlayerSelectionRow());
+    widgets.add(_getClassAndPlayerSelectionRow(applicationLocalization));
     if (_otherPlayersWithSelectedClass.isNotEmpty) {
-      widgets.addAll(_getComparisonWidgets());
+      widgets.addAll(_getComparisonWidgets(applicationLocalization));
     } else {
-      widgets.add(_getNoPlayersWithClassCard());
+      widgets.add(_getNoPlayersWithClassCard(applicationLocalization));
     }
     return widgets;
   }
 
-  Widget _getNoPlayersWithClassCard() {
+  Widget _getNoPlayersWithClassCard(
+      ApplicationLocalization applicationLocalization) {
     return Card(
         child: Container(
             padding: EdgeInsets.all(10),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text("There is no other player with same class to compare")
+              Text(applicationLocalization.getText("log_compare_to_no_players"))
             ])));
   }
 
-  Widget _getClassAndPlayerSelectionRow() {
+  Widget _getClassAndPlayerSelectionRow(
+      ApplicationLocalization applicationLocalization) {
     return Card(
         child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -90,7 +95,7 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
-                    "Class:",
+                    "${applicationLocalization.getText("log_class")}:",
                     style: TextStyle(fontSize: 16),
                   ),
                   Padding(
@@ -102,7 +107,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
                   padding: EdgeInsets.only(top: 5),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Compare to:", style: TextStyle(fontSize: 16)),
+                  Text("${applicationLocalization.getText("log_compare_to")}:",
+                      style: TextStyle(fontSize: 16)),
                   Padding(
                     padding: EdgeInsets.only(left: 5),
                   ),
@@ -143,8 +149,12 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
   }
 
   Widget _getPlayersDropdown() {
-    if (_otherPlayersWithSelectedClass == null || _otherPlayersWithSelectedClass.isEmpty){
-      return Text("None", style: TextStyle(fontSize: 16),);
+    if (_otherPlayersWithSelectedClass == null ||
+        _otherPlayersWithSelectedClass.isEmpty) {
+      return Text(
+        "None",
+        style: TextStyle(fontSize: 16),
+      );
     }
 
     return DropdownButton<Player>(
@@ -171,18 +181,21 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     );
   }
 
-  List<Widget> _getComparisonWidgets() {
+  List<Widget> _getComparisonWidgets(
+      ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
 
     widgets.add(ComparisonCard(
-        title: "Kills",
+        title: "${applicationLocalization.getText("log_kills")}",
+        plural: "${applicationLocalization.getText("log_compare_kills")}",
         playerValue: widget._player.kills.toDouble(),
         comparedPlayerValue: _selectedPlayer.kills.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-      title: "Deaths",
+      title: "${applicationLocalization.getText("log_deaths")}",
+      plural: "${applicationLocalization.getText("log_class_medic_deaths_deaths")}",
       playerValue: widget._player.deaths.toDouble(),
       comparedPlayerValue: _selectedPlayer.deaths.toDouble(),
       playerName: _playerName,
@@ -191,28 +204,32 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     ));
 
     widgets.add(ComparisonCard(
-        title: "Assists",
+        title: "${applicationLocalization.getText("log_assists")}",
+        plural: "${applicationLocalization.getText("log_compare_assists")}",
         playerValue: widget._player.assists.toDouble(),
         comparedPlayerValue: _selectedPlayer.assists.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Damage",
+        title: "${applicationLocalization.getText("log_damage")}",
+        plural: "${applicationLocalization.getText("log_compare_damage")}",
         playerValue: widget._player.dmg.toDouble(),
         comparedPlayerValue: _selectedPlayer.dmg.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Damage per minute",
+        title: "${applicationLocalization.getText("log_damage_per_minute")}",
+        plural: "${applicationLocalization.getText("log_compare_dpm")}",
         playerValue: widget._player.dapm.toDouble(),
         comparedPlayerValue: _selectedPlayer.dapm.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-      title: "Kill & assists per death",
+      title: "${applicationLocalization.getText("log_kapd")}",
+      plural: "${applicationLocalization.getText("log_compare_kapd")}",
       playerValue: double.parse(widget._player.kapd),
       comparedPlayerValue: double.parse(_selectedPlayer.kapd),
       playerName: _playerName,
@@ -221,7 +238,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     ));
 
     widgets.add(ComparisonCard(
-      title: "Kill per death",
+      title: "${applicationLocalization.getText("log_kpd")}",
+      plural: "${applicationLocalization.getText("log_compare_kpd")}",
       playerValue: double.parse(widget._player.kpd),
       comparedPlayerValue: double.parse(_selectedPlayer.kpd),
       playerName: _playerName,
@@ -230,7 +248,8 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     ));
 
     widgets.add(ComparisonCard(
-      title: "Damage taken",
+      title: "${applicationLocalization.getText("log_damage_taken")}",
+      plural: "${applicationLocalization.getText("log_compare_damage_taken")}",
       playerValue: widget._player.dt.toDouble(),
       comparedPlayerValue: _selectedPlayer.dt.toDouble(),
       playerName: _playerName,
@@ -239,62 +258,69 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     ));
 
     widgets.add(ComparisonCard(
-        title: "Captured points",
+        title: "${applicationLocalization.getText("log_compare_captured_points")}",
+        plural: "${applicationLocalization.getText("log_compare_captured_points_captured_points")}",
         playerValue: widget._player.cpc.toDouble(),
         comparedPlayerValue: _selectedPlayer.cpc.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Inter captures",
+        title: "${applicationLocalization.getText("log_compare_captured_intel")}",
+        plural: "${applicationLocalization.getText("log_compare_captured_intel_captured_intel")}",
         playerValue: widget._player.ic.toDouble(),
         comparedPlayerValue: _selectedPlayer.ic.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Longest kill streak",
+        title: "${applicationLocalization.getText("log_compare_longest_kill_streak")}",
+        plural: "${applicationLocalization.getText("log_compare_longest_kill_streak_longest_kill_streak")}",
         playerValue: widget._player.lks.toDouble(),
         comparedPlayerValue: _selectedPlayer.lks.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Medkits picked",
+        title: "${applicationLocalization.getText("log_compare_medkits_picked_medkits_picked")}",
+        plural: "${applicationLocalization.getText("log_compare_medkits_picked_medkits_picked_medkits_picked")}",
         playerValue: widget._player.medkits.toDouble(),
         comparedPlayerValue: _selectedPlayer.medkits.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Restored HP from medkits",
+        title: "${applicationLocalization.getText("log_compare_restored_hp_from_medkits")}",
+        plural: "${applicationLocalization.getText("log_compare_restored_hp_from_medkits_restored_hp_from_medkits")}",
         playerValue: widget._player.medkitsHp.toDouble(),
         comparedPlayerValue: _selectedPlayer.medkitsHp.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     if (_selectedClass == "sniper") {
-      widgets.addAll(_getSniperComparisonCards());
+      widgets.addAll(_getSniperComparisonCards(applicationLocalization));
     }
 
     if (_selectedClass == "medic") {
-      widgets.addAll(_getMedicComparisonCards());
+      widgets.addAll(_getMedicComparisonCards(applicationLocalization));
     }
 
     return widgets;
   }
 
-  List<Widget> _getSniperComparisonCards() {
+  List<Widget> _getSniperComparisonCards(ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
     widgets.add(ComparisonCard(
-        title: "Headshots",
+        title: "${applicationLocalization.getText("log_headshots")}",
+        plural: "${applicationLocalization.getText("log_compare_headshots")}",
         playerValue: widget._player.headshots.toDouble(),
         comparedPlayerValue: _selectedPlayer.headshots.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-        title: "Headshots hit",
+        title: "${applicationLocalization.getText("log_class_headshots_hits")}",
+        plural: "${applicationLocalization.getText("log_compare_headshots_hits")}",
         playerValue: widget._player.headshotsHit.toDouble(),
         comparedPlayerValue: _selectedPlayer.headshotsHit.toDouble(),
         playerName: _playerName,
@@ -302,17 +328,20 @@ class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
     return widgets;
   }
 
-  List<Widget> _getMedicComparisonCards() {
+  List<Widget> _getMedicComparisonCards(ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
     widgets.add(ComparisonCard(
-        title: "Ubers",
+        title: "${applicationLocalization.getText(
+            "log_compare_ubers")}",
+        plural: "${applicationLocalization.getText("log_compare_ubers_ubers")}",
         playerValue: widget._player.ubers.toDouble(),
         comparedPlayerValue: _selectedPlayer.ubers.toDouble(),
         playerName: _playerName,
         comparedPlayerName: _selectedPlayerName));
 
     widgets.add(ComparisonCard(
-      title: "Drops",
+      title: "${applicationLocalization.getText("log_drops")}",
+      plural: "${applicationLocalization.getText("log_compare_drops")}",
       playerValue: widget._player.drops.toDouble(),
       comparedPlayerValue: _selectedPlayer.drops.toDouble(),
       playerName: _playerName,
