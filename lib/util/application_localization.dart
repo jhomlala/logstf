@@ -254,6 +254,11 @@ class ApplicationLocalization {
       "log_compare_ubers_ubers": "ubers",
       "log_compare_drops":"drops",
       "log_compare_ubers": "Ubers",
+      "log_matrix_class":"CLASS",
+      "log_matrix_kills":"KILLS",
+      "log_matrix_kills_and_assists":"KILLS + ASSISTS",
+      "log_matrix_deaths":"DEATHS",
+      "log_matrix_total":"Total"
 
     },
     'pl': {
@@ -503,6 +508,11 @@ class ApplicationLocalization {
       "log_compare_ubers_ubers": "uberów",
       "log_compare_drops":"dropów",
       "log_compare_ubers": "Ubery",
+      "log_matrix_class":"KLASA",
+      "log_matrix_kills":"ZABÓJSTWA",
+      "log_matrix_kills_and_assists":"ZAB. + ASYSTY",
+      "log_matrix_deaths":"ŚMIERCI",
+      "log_matrix_total":"Razem"
     }
   };
 

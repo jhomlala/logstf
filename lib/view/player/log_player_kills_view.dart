@@ -3,6 +3,7 @@ import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 
@@ -240,20 +241,22 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
   }
 
   TableRow _getHeaderTableRow() {
+    ApplicationLocalization applicationLocalization = ApplicationLocalization.of(context);
     return TableRow(children: [
-      TableHeaderWidget("CLASS", 1),
-      TableHeaderWidget("KILLS", 0),
-      TableHeaderWidget("KILLS + ASSISTS", 0),
-      TableHeaderWidget("DEATHS", 2),
+      TableHeaderWidget(applicationLocalization.getText("log_matrix_class"), 1),
+      TableHeaderWidget(applicationLocalization.getText("log_matrix_kills"), 0),
+      TableHeaderWidget(applicationLocalization.getText("log_matrix_kills_and_assists"), 0),
+      TableHeaderWidget(applicationLocalization.getText("log_matrix_deaths"), 2),
     ]);
   }
 
   TableRow getSummaryRow(
       int classKillSum, int classKillAssistsSum, int classDeathsSum) {
+    ApplicationLocalization applicationLocalization = ApplicationLocalization.of(context);
     return TableRow(children: [
       Container(
           padding: EdgeInsets.only(top: 5, bottom: 5),
-          child: Center(child: Text("Total"))),
+          child: Center(child: Text(applicationLocalization.getText("log_matrix_total")))),
       Container(
           padding: EdgeInsets.only(top: 5, bottom: 5),
           child: Center(child: Text("$classKillSum"))),
