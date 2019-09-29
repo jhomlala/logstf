@@ -46,7 +46,7 @@ class _LogAwardsViewState extends State<LogAwardsView> {
               players: getTopAssistsPlayers(),
               log: _log,
               description:
-              applicationLocalization.getText("log_award_assists_descriptionn"),
+              applicationLocalization.getText("log_award_assists_description"),
             ),
             AwardCard(
               awardName: applicationLocalization.getText("log_award_damage_title"),

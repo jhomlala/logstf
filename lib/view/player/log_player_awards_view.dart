@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/util/application_localization.dart';
 
 class LogPlayerAwardsView extends StatelessWidget {
   final Log _log;
@@ -15,61 +16,79 @@ class LogPlayerAwardsView extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
           child: Column(
-            children: getAwards(),
+            children: getAwards(context),
           ),
         ));
   }
 
-  List<Widget> getAwards() {
+  List<Widget> getAwards(BuildContext context) {
+    ApplicationLocalization applicationLocalization =
+        ApplicationLocalization.of(context);
     List<Widget> awards = List();
     awards.add(_getAwardCard(
-        "Most valuable players",
-        "Players which were most valuable in game. See help for more info.",
-        LogHelper.getPlayerSortedByMVPScore(_log)));
+        applicationLocalization.getText("log_award_mvp_title"),
+        applicationLocalization.getText("log_award_mvp_description"),
+        LogHelper.getPlayerSortedByMVPScore(_log),
+        context));
 
     awards.add(_getAwardCard(
-        "Top kills",
-        "Players which had most kills overall.",
-        LogHelper.getPlayersSortedByKills(_log)));
+        applicationLocalization.getText("log_award_kills_title"),
+        applicationLocalization.getText("log_award_kills_description"),
+        LogHelper.getPlayersSortedByKills(_log),
+        context));
 
     awards.add(_getAwardCard(
-        "Top assists",
-        "Players which had most asissts overall.",
-        LogHelper.getPlayersSortedByAssists(_log, true)));
+        applicationLocalization.getText("log_award_assists_title"),
+        applicationLocalization.getText("log_award_assists_description"),
+        LogHelper.getPlayersSortedByAssists(_log, true),
+        context));
 
     awards.add(_getAwardCard(
-        "Top damage",
-        "Players which dealed the most damage.",
-        LogHelper.getPlayersSortedByDamage(_log)));
+        applicationLocalization.getText("log_award_damage_title"),
+        applicationLocalization.getText("log_award_damage_description"),
+        LogHelper.getPlayersSortedByDamage(_log),
+        context));
 
     awards.add(_getAwardCard(
-        "Top medic kills",
-        "Players which killed most medics.",
-        LogHelper.getPlayersSortedByMedicKills(_log)));
+        applicationLocalization.getText("log_award_medic_kills_title"),
+        applicationLocalization.getText("log_award_medic_kills_description"),
+        LogHelper.getPlayersSortedByMedicKills(_log),
+        context));
 
     awards.add(_getAwardCard(
-        "Top kills per deaths",
-        "Players which had best kills per death.",
-        LogHelper.getPlayersSortedByKPD(_log)));
+        applicationLocalization.getText("log_award_kpd_title"),
+        applicationLocalization.getText("log_award_kpd_description"),
+        LogHelper.getPlayersSortedByKPD(_log),
+        context));
 
     awards.add(_getAwardCard(
-        "Top kills & assists per death",
-        "Players which had best kills & assists per deaths.",
-        LogHelper.getPlayersSortedByKPD(_log)));
+        applicationLocalization.getText("log_award_kapd_title"),
+        applicationLocalization.getText("log_award_kapd_description"),
+        LogHelper.getPlayersSortedByKPD(_log),
+        context));
 
     if (_player.dapm >= 500) {
       awards.add(_getSpecialAwardCard(
-          "500 DPM Club", "Players who had 500+ DPM in a game."));
+          applicationLocalization
+              .getText("log_player_awards_500_dpm_club_title"),
+          applicationLocalization
+              .getText("log_player_awards_500_dpm_club_description")));
     }
 
     if (_player.dmg >= 10000) {
       awards.add(_getSpecialAwardCard(
-          "10000 DMG Club", "Players who had 10k DMG in a game."));
+          applicationLocalization
+              .getText("log_player_awards_10k_damage_title"),
+          applicationLocalization
+              .getText("log_player_awards_10k_damage_description")));
     }
 
     if (_player.deaths == 0) {
       awards.add(_getSpecialAwardCard(
-          "Deathless", "Players who had 0 deaths in a game."));
+          applicationLocalization
+              .getText("log_player_awards_deathless_title"),
+          applicationLocalization
+              .getText("log_player_awards_10k_deathless_description")));
     }
 
     return awards;
@@ -96,8 +115,10 @@ class LogPlayerAwardsView extends StatelessWidget {
     );
   }
 
-  Card _getAwardCard(
-      String name, String description, List<Player> sortedPlayers) {
+  Card _getAwardCard(String name, String description,
+      List<Player> sortedPlayers, BuildContext context) {
+    ApplicationLocalization applicationLocalization =
+        ApplicationLocalization.of(context);
     int playerIndex = 0;
     for (int index = 0; index < sortedPlayers.length; index++) {
       if (sortedPlayers[index].steamId == _player.steamId) {
@@ -141,7 +162,7 @@ class LogPlayerAwardsView extends StatelessWidget {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(
-              "Position: $position",
+              "${applicationLocalization.getText("log_player_awards_position")}: $position",
               style: TextStyle(fontSize: 16),
             ),
             placeImage != null
