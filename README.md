@@ -64,22 +64,5 @@
 
   </tr>
   
-    <tr>
-    <td>
-  <img width="250px" src="https://github.com/jhomlala/logstf/blob/master/media/19.png">
-    </td>
-    <td>
-       <img width="250px" src="https://github.com/jhomlala/logstf/blob/master/media/20.png">
-    </td>
-    <td>
-       <img width="250px" src="https://github.com/jhomlala/logstf/blob/master/media/21.png">
-    </td>
-    <td>
-       <img width="250px" src="https://github.com/jhomlala/logstf/blob/master/media/22.png">
-    </td>
-      <td>
-       <img width="250px" src="https://github.com/jhomlala/logstf/blob/master/media/23.png">
-    </td>
-
-  </tr>
+   
 </table>
