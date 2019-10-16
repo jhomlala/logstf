@@ -256,7 +256,7 @@ class ApplicationLocalization {
       "log_compare_ubers": "Ubers",
       "log_matrix_class": "CLASS",
       "log_matrix_kills": "KILLS",
-      "log_matrix_kills_and_assists": "KILLS + ASSISTS",
+      "log_matrix_kills_and_assists": "K + A",
       "log_matrix_deaths": "DEATHS",
       "log_matrix_total": "Total",
       "log_player_awards_position": "Position",

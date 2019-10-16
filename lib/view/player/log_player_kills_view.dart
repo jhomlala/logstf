@@ -29,9 +29,9 @@ class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
                 child: Column(children: [
                   Table(
                     columnWidths: {
-                      0: FractionColumnWidth(0.25),
+                      0: FractionColumnWidth(0.28),
                       1: FractionColumnWidth(0.22),
-                      2: FractionColumnWidth(0.28),
+                      2: FractionColumnWidth(0.25),
                       3: FractionColumnWidth(0.25)
                     },
                     children: _getTableRows(),
