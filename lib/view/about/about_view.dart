@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:package_info/package_info.dart';
 
@@ -48,6 +49,7 @@ class _AboutViewState extends State<AboutView> {
   }
 
   List<Widget> _getWidgets() {
+    var applicationLocalization = ApplicationLocalization.of(context);
     double width = MediaQuery.of(context).size.width;
     List<Widget> widgets = List();
     widgets.add(
@@ -85,14 +87,14 @@ class _AboutViewState extends State<AboutView> {
       Container(
           width: 300,
           child: Text(
-            "If you encountered any problem, please report it in project page.",
+            applicationLocalization.getText("about_problems"),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14),
           )),
     );
 
     widgets.add(LogsButton(
-        text: "Project page",
+        text: applicationLocalization.getText("about_project_page"),
         backgroundColor: Colors.grey,
         onPressed: () {
           AppUtils.launchWebPage(AppConst.projectGithubUrl);
@@ -107,13 +109,13 @@ class _AboutViewState extends State<AboutView> {
       Container(
           width: 300,
           child: Text(
-            "Do you like this app? You can donate TF2 items to the author!",
+            applicationLocalization.getText("about_donate"),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
           )),
     );
     widgets.add(LogsButton(
-      text: "Send trade offer",
+      text: applicationLocalization.getText("about_send_trade"),
       backgroundColor: Colors.grey,
       onPressed: () {
         AppUtils.launchWebPage(AppConst.authorDonateUrl);
@@ -126,9 +128,9 @@ class _AboutViewState extends State<AboutView> {
     widgets.add(Container(
         width: width * 0.9,
         child: Text(
-          "Team Fortress, the Team Fortress logo, Steam, the Steam logo are trademarks and/or registered trademarks of Valve Corporation. Logs thanks to logs.tf created by zoob. Weapon images thanks to wiki.teamfortress.com.",
+          applicationLocalization.getText("about_team_fortress_privacy"),
           textAlign: TextAlign.center,
-          maxLines: 4,
+          maxLines: 5,
         )));
 
     widgets.add(Padding(
@@ -140,6 +142,7 @@ class _AboutViewState extends State<AboutView> {
 
   Widget _getOliWidget() {
     List<Widget> widgets = List();
+    var applicationLocalization = ApplicationLocalization.of(context);
     widgets.add(ClipOval(
       child: Image.network(
         AppConst.authorAvatarUrl,
@@ -161,7 +164,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(
       Text(
-        "Developer",
+        applicationLocalization.getText("about_developer"),
         style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
       ),
     );
@@ -191,6 +194,7 @@ class _AboutViewState extends State<AboutView> {
 
   Widget _getSupraWidget() {
     List<Widget> widgets = List();
+    var applicationLocalization = ApplicationLocalization.of(context);
     widgets.add(ClipOval(
       child: Image.network(
         AppConst.supraAvatarUrl,
@@ -212,7 +216,7 @@ class _AboutViewState extends State<AboutView> {
     );
     widgets.add(
       Text(
-        "Ideas, tests",
+        applicationLocalization.getText("about_ideas_tests"),
         style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
       ),
     );

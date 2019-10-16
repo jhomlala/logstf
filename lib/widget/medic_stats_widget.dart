@@ -135,7 +135,7 @@ class MedicStatsWidget extends StatelessWidget {
   _getAvgTimeToBuild(
       MedicStats medicStats, ApplicationLocalization applicationLocalization) {
     if (medicStats != null) {
-      return "${medicStats.avgTimeToBuild.toStringAsFixed(2)} ${medicStats.biggestAdvantageLost} ${applicationLocalization.getText("log_class_medic_seconds")})";
+      return "${medicStats.avgTimeToBuild.toStringAsFixed(2)} ${applicationLocalization.getText("log_class_medic_seconds")}";
     } else {
       return "no data";
     }
@@ -144,7 +144,7 @@ class MedicStatsWidget extends StatelessWidget {
   _getAvgTimeBeforeUsing(
       MedicStats medicStats, ApplicationLocalization applicationLocalization) {
     if (medicStats != null) {
-      return "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} ${medicStats.biggestAdvantageLost} ${applicationLocalization.getText("log_class_medic_seconds")}";
+      return "${medicStats.avgTimeBeforeUsing.toStringAsFixed(2)} ${applicationLocalization.getText("log_class_medic_seconds")}";
     } else {
       return "no data";
     }
