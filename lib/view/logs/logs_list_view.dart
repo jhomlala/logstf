@@ -1,6 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/bloc/player_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
@@ -9,8 +10,14 @@ import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sailor/sailor.dart';
 
 class LogsListView extends StatefulWidget {
+  final LogsSearchBloc logsSearchBloc;
+  final Sailor sailor;
+
+  LogsListView(this.logsSearchBloc, this.sailor);
+
   @override
   _LogsListViewState createState() => _LogsListViewState();
 }
@@ -20,6 +27,8 @@ class _LogsListViewState extends State<LogsListView>
   ScrollController _scrollController = new ScrollController();
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  LogsSearchBloc get logsSearchBloc => widget.logsSearchBloc;
 
   void _onRefresh() async {
     await logsSearchBloc.searchLogs(clearLogs: true);
@@ -83,8 +92,9 @@ class _LogsListViewState extends State<LogsListView>
                 } else {
                   var data = snapshot.data;
                   if (data == null || data.isEmpty) {
-                    widgets
-                        .add(EmptyCard(description: applicationLocalization.getText("logs_no_logs_found")));
+                    widgets.add(EmptyCard(
+                        description: applicationLocalization
+                            .getText("logs_no_logs_found")));
                   } else {
                     widgets.add(Expanded(
                         child: NotificationListener<ScrollNotification>(
@@ -105,7 +115,9 @@ class _LogsListViewState extends State<LogsListView>
                                     controller: _scrollController,
                                     itemBuilder: (context, position) {
                                       return LogShortCard(
-                                          logSearch: data[position], onLogClicked: onLogClicked,);
+                                        logSearch: data[position],
+                                        onLogClicked: onLogClicked,
+                                      );
                                     })))));
                   }
                 }
@@ -116,10 +128,10 @@ class _LogsListViewState extends State<LogsListView>
             }));
   }
 
-  void onLogClicked(int logId){
-      print("On log clicked: " + logId.toString());
+  void onLogClicked(int logId) {
+    print("On log clicked: " + logId.toString());
+    widget.sailor.navigate("/logView");
   }
-
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {

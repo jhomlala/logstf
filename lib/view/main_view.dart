@@ -14,10 +14,9 @@ import 'package:logstf/view/logs/logs_watch_list_view.dart';
 import 'logs/search/search_view.dart';
 
 class MainView extends StatefulWidget {
+  final LogsListView logsListView;
 
-  final LogView logView;
-
-  const MainView({ this.logView});
+  const MainView(this.logsListView);
 
   @override
   _MainViewState createState() => _MainViewState();
@@ -86,7 +85,8 @@ class _MainViewState extends State<MainView>
                 key: Key("mainViewOverflowMenu"),
                 onSelected: _select,
                 itemBuilder: (BuildContext context) {
-                  return _getMenuItems(context, applicationLocalization).map((MenuItem menuItem) {
+                  return _getMenuItems(context, applicationLocalization)
+                      .map((MenuItem menuItem) {
                     return PopupMenuItem<MenuItem>(
                       value: menuItem,
                       child: Text(menuItem.title),
@@ -114,13 +114,14 @@ class _MainViewState extends State<MainView>
                   )
                 ])),
         body: TabBarView(controller: tabController, children: [
-          widget.logView,
+          widget.logsListView,
           LogsWatchListView(),
           LogsSavedListView()
         ]));
   }
 
-  List<MenuItem> _getMenuItems(BuildContext context, ApplicationLocalization applicationLocalization) {
+  List<MenuItem> _getMenuItems(
+      BuildContext context, ApplicationLocalization applicationLocalization) {
     List<MenuItem> menuItems = List();
     menuItems.add(MenuItem(
         id: "menu_settings",

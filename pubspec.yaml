@@ -38,6 +38,7 @@ dependencies:
       url: https://github.com/AndreySouza1/inject.dart
       path: package/inject
   json_serializable: ^3.2.4
+  sailor: ^0.6.0
   flutter:
     sdk: flutter
 

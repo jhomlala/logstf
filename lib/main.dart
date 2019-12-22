@@ -3,7 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization_delegate.dart';
+import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/main_view.dart';
+import 'package:sailor/sailor.dart';
 import 'bloc/logs_saved_bloc.dart';
 import 'bloc/settings_bloc.dart';
 import 'di/app_component.dart';
@@ -22,8 +24,10 @@ void main() async {
 class PocketLogsApp extends StatefulWidget {
   // This widget is the root of your application.
   final MainView mainView;
+  final Sailor sailor;
+  final RoutingHelper routingHelper;
 
-  const PocketLogsApp( this.mainView);
+  const PocketLogsApp(this.mainView, this.sailor, this.routingHelper);
 
   @override
   State<StatefulWidget> createState() {
@@ -35,6 +39,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
   @override
   void initState() {
     super.initState();
+    widget.routingHelper.setupRoutes();
     settingsBloc.getAppSettings();
     logsSavedBloc.initLogs();
   }
@@ -49,6 +54,8 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
           return MaterialApp(
             key: Key("pocketLogsMaterialApp"),
             title: 'Pocket Logs',
+            navigatorKey: widget.sailor.navigatorKey,
+            onGenerateRoute: widget.sailor.generator(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 brightness: AppUtils.getBrightness(snapshot.data.appBrightness),

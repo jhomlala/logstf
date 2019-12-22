@@ -3,6 +3,8 @@ import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'bloc_provider.dart';
+
 class LogsSearchBloc {
   final BehaviorSubject<List<LogShort>> logsSearchSubject = BehaviorSubject();
 
@@ -103,6 +105,13 @@ class LogsSearchBloc {
     player = "";
     loading = true;
     clearLogs();
+  }
+}
+
+class LogsSearchBlocProvider extends BlocProvider<LogsSearchBloc> {
+  @override
+  LogsSearchBloc create() {
+    return LogsSearchBloc();
   }
 }
 

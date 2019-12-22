@@ -5,6 +5,8 @@ import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 
+import 'bloc_provider.dart';
+
 class LogDetailsBloc {
   BehaviorSubject<Log> logSubject = BehaviorSubject();
   BehaviorSubject<Player> selectedPlayerSubject = BehaviorSubject();
@@ -45,6 +47,13 @@ class LogDetailsBloc {
 
   void deleteLogFromDatabase(int logId) async {
     await logsLocalProvider.deleteLog(logId);
+  }
+}
+
+class LogDetailsBlocProvider extends BlocProvider<LogDetailsBloc>{
+  @override
+  LogDetailsBloc create() {
+    return LogDetailsBloc();
   }
 }
 

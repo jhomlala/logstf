@@ -6,6 +6,7 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
+import 'package:logstf/view/common/page_provider.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
 import 'package:logstf/widget/empty_card.dart';
@@ -186,4 +187,17 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   _onRetryPressed() {
     logDetailsBloc.selectLog(widget.logId);
   }
+}
+
+class LogViewProvider extends PageProvider<LogView>{
+
+  final LogDetailsBloc logDetailsBloc;
+
+  LogViewProvider(this.logDetailsBloc);
+
+  @override
+  LogView create() {
+    return LogView(logDetailsBloc: logDetailsBloc,);
+  }
+
 }

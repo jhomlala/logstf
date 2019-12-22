@@ -1,19 +1,22 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
+import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/bloc/player_search_bloc.dart';
 
 @module
 class BlocModule {
   @provide
-  Provider<LogDetailsBloc> provideLogDetailsBloc() {
-    return Provider<LogDetailsBloc>(() => LogDetailsBloc());
+  LogDetailsBlocProvider provideLogDetailsBlocProvider() {
+    return LogDetailsBlocProvider();
   }
-}
 
-typedef S ItemCreator<S>();
-class Provider<T> {
-  ItemCreator<T> creator;
-  Provider(this.creator);
-  T create() {
-    return creator();
+  @provide
+  PlayerSearchBlocProvider provideSearchPlayerBlocProvider() {
+    return PlayerSearchBlocProvider();
+  }
+
+  @provide
+  LogsSearchBlocProvider provideLogsSearchBlocProvider(){
+    return LogsSearchBlocProvider();
   }
 }

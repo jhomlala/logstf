@@ -1,27 +1,27 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
+import 'package:logstf/bloc/logs_search_bloc.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:logstf/view/logs/logs_list_view.dart';
 import 'package:logstf/view/main_view.dart';
-
-import 'bloc_module.dart';
+import 'package:sailor/sailor.dart';
 
 @module
 class PageModule {
   @provide
-  MainView provideMainPage(LogView logView) {
-    return MainView(
-      logView: logView,
-    );
+  MainView provideMainPage(LogsListView logsListView) {
+    return MainView(logsListView);
   }
 
   @provide
-  LogsListView provideLogsListPage() {
-    return LogsListView();
+  LogsListView provideLogsListPage(
+      LogsSearchBlocProvider logsSearchBlocProvider, Sailor sailor) {
+    return LogsListView(logsSearchBlocProvider.create(), sailor);
   }
 
   @provide
-  LogView provideLogPage(Provider<LogDetailsBloc> logDetailsBloc) {
-    return LogView(logDetailsBloc: logDetailsBloc.create());
+  LogViewProvider provideLogViewProvider(
+      LogDetailsBlocProvider logDetailsBlocProvider) {
+    return LogViewProvider(logDetailsBlocProvider.create());
   }
 }
