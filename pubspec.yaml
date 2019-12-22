@@ -20,7 +20,7 @@ dependencies:
   provider: ^3.1.0
   dio: ^3.0.1
   rxdart: ^0.22.2
-  intl: ^0.15.8
+  intl: ^0.16.0
   pie_chart: ^1.2.0
   timeago: ^2.0.19
   shared_preferences: ^0.5.3+4
@@ -33,7 +33,11 @@ dependencies:
   pull_to_refresh: ^1.5.6
   html: ^0.14.0+2
   timeline_list: ^0.0.5
-
+  inject:
+    git:
+      url: https://github.com/AndreySouza1/inject.dart
+      path: package/inject
+  json_serializable: ^3.2.4
   flutter:
     sdk: flutter
 
@@ -47,6 +51,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.7.1
+
+  inject_generator:
+    git:
+      url: https://github.com/AndreySouza1/inject.dart
+      path: package/inject_generator
+
 
 
 # For information on the generic Dart part of this file, see the
