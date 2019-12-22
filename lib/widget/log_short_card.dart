@@ -9,15 +9,15 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class LogShortCard extends StatelessWidget {
   final LogShort logSearch;
-
-  const LogShortCard({Key key, this.logSearch}) : super(key: key);
+  final Function onLogClicked;
+  const LogShortCard({Key key, this.logSearch, this.onLogClicked}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map, context);
     return InkWell(
         onTap: () async {
-          NavigationEvent navigationEvent =
+          /*NavigationEvent navigationEvent =
               await Navigator.push<NavigationEvent>(
                   context,
                   MaterialPageRoute(
@@ -26,7 +26,9 @@ class LogShortCard extends StatelessWidget {
               navigationEvent is SearchPlayerMatchesNavigationEvent) {
             logsSearchBloc.clearLogs();
             logsSearchBloc.searchLogs(player: navigationEvent.steamId);
-          }
+          }*/
+          onLogClicked(logSearch.id);
+
         },
         child: Card(
             margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),

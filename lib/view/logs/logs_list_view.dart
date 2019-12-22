@@ -105,7 +105,7 @@ class _LogsListViewState extends State<LogsListView>
                                     controller: _scrollController,
                                     itemBuilder: (context, position) {
                                       return LogShortCard(
-                                          logSearch: data[position]);
+                                          logSearch: data[position], onLogClicked: onLogClicked,);
                                     })))));
                   }
                 }
@@ -115,6 +115,11 @@ class _LogsListViewState extends State<LogsListView>
               return Column(children: widgets);
             }));
   }
+
+  void onLogClicked(int logId){
+      print("On log clicked: " + logId.toString());
+  }
+
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {

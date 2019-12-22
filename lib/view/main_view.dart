@@ -14,6 +14,11 @@ import 'package:logstf/view/logs/logs_watch_list_view.dart';
 import 'logs/search/search_view.dart';
 
 class MainView extends StatefulWidget {
+
+  final LogView logView;
+
+  const MainView({ this.logView});
+
   @override
   _MainViewState createState() => _MainViewState();
 }
@@ -109,7 +114,7 @@ class _MainViewState extends State<MainView>
                   )
                 ])),
         body: TabBarView(controller: tabController, children: [
-          LogsListView(),
+          widget.logView,
           LogsWatchListView(),
           LogsSavedListView()
         ]));

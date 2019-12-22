@@ -16,13 +16,14 @@ void main() async {
   var appComponent =
       await AppComponent.create(PageModule(), BlocModule(), CommonModule());
   runApp(appComponent.app);
-
-  runApp(PocketLogsApp());
 }
 
 @provide
 class PocketLogsApp extends StatefulWidget {
   // This widget is the root of your application.
+  final MainView mainView;
+
+  const PocketLogsApp( this.mainView);
 
   @override
   State<StatefulWidget> createState() {
@@ -52,7 +53,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
             theme: ThemeData(
                 brightness: AppUtils.getBrightness(snapshot.data.appBrightness),
                 primaryColor: Color(int.parse(snapshot.data.appColor))),
-            home: MainView(),
+            home: widget.mainView,
             localizationsDelegates: [
               const ApplicationLocalizationDelegate(),
               GlobalMaterialLocalizations.delegate,

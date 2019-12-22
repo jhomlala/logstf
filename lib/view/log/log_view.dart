@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
+
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
@@ -18,7 +19,8 @@ import 'log_timeline_view.dart';
 class LogView extends StatefulWidget {
   final int logId;
   final int selectePlayerSteamId;
-  const LogView({Key key, this.logId, this.selectePlayerSteamId}) : super(key: key);
+  final LogDetailsBloc logDetailsBloc;
+  const LogView({this.logId, this.selectePlayerSteamId, this.logDetailsBloc});
 
   @override
   _LogViewState createState() => _LogViewState();
@@ -32,6 +34,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    print("BLOC PROVIDED: " + widget.logDetailsBloc.hashCode.toString());
     logDetailsBloc.init();
     logDetailsBloc.selectLog(widget.logId);
 
