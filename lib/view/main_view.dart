@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/settings/settings_view.dart';
+import 'package:sailor/sailor.dart';
 import 'about/about_view.dart';
+import 'common/base_page.dart';
+import 'common/base_page_state.dart';
 import 'help/help_view.dart';
 import 'log/log_view.dart';
 import 'logs/logs_saved_list_view.dart';
@@ -13,16 +17,20 @@ import 'package:logstf/view/logs/logs_watch_list_view.dart';
 
 import 'logs/search/search_view.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends BasePage {
+  final Sailor sailor;
   final LogsListView logsListView;
 
-  const MainView(this.logsListView);
+  const MainView(
+    this.sailor,
+    this.logsListView,
+  );
 
   @override
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView>
+class _MainViewState extends BasePageState<MainView>
     with SingleTickerProviderStateMixin {
   TabController tabController;
 
@@ -51,13 +59,8 @@ class _MainViewState extends State<MainView>
         }
 
         if (logId != null) {
-          /*Navigator.push<NavigationEvent>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LogView(
-                        logId: logId,
-                        selectePlayerSteamId: playerSteamId,
-                      )));*/
+          getNavigator().navigate(RoutingHelper.logPageRoute,
+              params: {"logId": logId, "selectedPlayerSteamId": playerSteamId});
         }
       } catch (exception) {
         print(exception);

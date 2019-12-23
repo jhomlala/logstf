@@ -9,8 +9,8 @@ import 'package:sailor/sailor.dart';
 @module
 class PageModule {
   @provide
-  MainView provideMainPage(LogsListView logsListView) {
-    return MainView(logsListView);
+  MainView provideMainPage(Sailor sailor,LogsListView logsListView) {
+    return MainView(sailor,logsListView);
   }
 
   @provide
