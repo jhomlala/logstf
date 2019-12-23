@@ -5,6 +5,7 @@ import 'package:logstf/bloc/player_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
+import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
@@ -130,7 +131,8 @@ class _LogsListViewState extends State<LogsListView>
 
   void onLogClicked(int logId) {
     print("On log clicked: " + logId.toString());
-    widget.sailor.navigate("/logView");
+    widget.sailor
+        .navigate(RoutingHelper.logPageRoute, params: {"logId": logId});
   }
 
   bool _handleScrollNotification(ScrollNotification notification) {

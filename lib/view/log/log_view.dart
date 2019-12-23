@@ -6,6 +6,8 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
+import 'package:logstf/view/common/base_page.dart';
+import 'package:logstf/view/common/base_page_state.dart';
 import 'package:logstf/view/common/page_provider.dart';
 import 'package:logstf/view/log/log_general_stats_view.dart';
 import 'package:logstf/view/log/log_players_view.dart';
@@ -13,35 +15,50 @@ import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
 import 'package:logstf/view/log/log_awards_view.dart';
+import 'package:sailor/sailor.dart';
 
 import 'log_players_stats_matrix_view.dart';
 import 'log_timeline_view.dart';
 
-class LogView extends StatefulWidget {
-  final int logId;
-  final int selectePlayerSteamId;
+class LogView extends BasePage {
   final LogDetailsBloc logDetailsBloc;
-  const LogView({this.logId, this.selectePlayerSteamId, this.logDetailsBloc});
+
+  const LogView({this.logDetailsBloc});
 
   @override
   _LogViewState createState() => _LogViewState();
 }
 
-class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
+class _LogViewState extends BasePageState<LogView>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
   String _appBarTitle = "";
   bool _saved = false;
+  int _logId;
+  int _selectedPlayerSteamId;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    if (!initCompleted) {
+      _logId = Sailor.param<int>(context, "logId");
+      _selectedPlayerSteamId =
+          Sailor.param<int>(context, "selectedPlayerSteamId");
+      initAfterDependenciesProvided();
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState(){
     super.initState();
-
-    print("BLOC PROVIDED: " + widget.logDetailsBloc.hashCode.toString());
-    logDetailsBloc.init();
-    logDetailsBloc.selectLog(widget.logId);
-
     _tabController = TabController(length: 5, vsync: this);
     _tabController.addListener(_onTabChanged);
+  }
+
+  void initAfterDependenciesProvided() async {
+    super.initAfterDependenciesProvided();
+    logDetailsBloc.init();
+    logDetailsBloc.selectLog(_logId);
     _setupLogSavedState();
   }
 
@@ -51,7 +68,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  void _onTabChanged( ) {
+  void _onTabChanged() {
     var applicationLocalization = ApplicationLocalization.of(context);
     var index = _tabController.index;
     var tabName = "";
@@ -120,7 +137,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(
-                      description: ErrorHandler.handleError(snapshot.error, context),
+                      description:
+                          ErrorHandler.handleError(snapshot.error, context),
                       retry: true,
                       retryAction: _onRetryPressed,
                     ));
@@ -128,7 +146,7 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
               if (snapshot.hasData) {
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(),
-                  LogPlayersView(widget.selectePlayerSteamId),
+                  LogPlayersView(_selectedPlayerSteamId),
                   LogPlayersStatsMatrixView(),
                   LogAwardsView(),
                   LogTimelineView(),
@@ -143,8 +161,8 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void _setupDefaultAppBarTitle(BuildContext context) {
-      var applicationLocalization = ApplicationLocalization.of(context);
-    if (_appBarTitle == ""){
+    var applicationLocalization = ApplicationLocalization.of(context);
+    if (_appBarTitle == "") {
       _appBarTitle = applicationLocalization.getText("log_general_stats");
     }
   }
@@ -177,27 +195,25 @@ class _LogViewState extends State<LogView> with SingleTickerProviderStateMixin {
   }
 
   void _setupLogSavedState() {
-    logDetailsBloc
-        .getLogFromDatabase(widget.logId)
-        .then((logShort) => setState(() {
-              _saved = logShort != null;
-            }));
+    logDetailsBloc.getLogFromDatabase(_logId).then((logShort) => setState(() {
+          _saved = logShort != null;
+        }));
   }
 
   _onRetryPressed() {
-    logDetailsBloc.selectLog(widget.logId);
+    logDetailsBloc.selectLog(_logId);
   }
 }
 
-class LogViewProvider extends PageProvider<LogView>{
-
+class LogViewProvider extends PageProvider<LogView> {
   final LogDetailsBloc logDetailsBloc;
 
   LogViewProvider(this.logDetailsBloc);
 
   @override
   LogView create() {
-    return LogView(logDetailsBloc: logDetailsBloc,);
+    return LogView(
+      logDetailsBloc: logDetailsBloc,
+    );
   }
-
 }

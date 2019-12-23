@@ -51,13 +51,13 @@ class _MainViewState extends State<MainView>
         }
 
         if (logId != null) {
-          Navigator.push<NavigationEvent>(
+          /*Navigator.push<NavigationEvent>(
               context,
               MaterialPageRoute(
                   builder: (context) => LogView(
                         logId: logId,
                         selectePlayerSteamId: playerSteamId,
-                      )));
+                      )));*/
         }
       } catch (exception) {
         print(exception);
