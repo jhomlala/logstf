@@ -10,7 +10,7 @@ abstract class BasePageState<T extends BasePage> extends State<T> {
     return widget.sailor;
   }
 
-  void initAfterDependenciesProvided() {
+  void initOnDependenciesProvided() {
     initCompleted = true;
   }
 }

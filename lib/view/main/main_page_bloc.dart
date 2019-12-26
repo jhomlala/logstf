@@ -1,11 +1,12 @@
+import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'bloc_provider.dart';
+import '../../bloc/bloc_provider.dart';
 
-class LogsSearchBloc {
+class MainPageBloc {
   final BehaviorSubject<List<LogShort>> logsSearchSubject = BehaviorSubject();
 
   int offset = 0;
@@ -38,12 +39,19 @@ class LogsSearchBloc {
     }
   }
 
-  Future searchLogs(
-      {String map,
-      String uploader,
-      String title,
-      String player,
-      bool clearLogs = false}) async {
+  Future searchLogsFromSearchData(SearchData searchData) {
+    return searchLogs(map: searchData.map,
+        uploader: searchData.uploader,
+        title: searchData.title,
+        player: searchData.player);
+  }
+
+
+  Future searchLogs({String map,
+    String uploader,
+    String title,
+    String player,
+    bool clearLogs = false}) async {
     try {
       if (clearLogs) {
         logsSearchSubject.value.clear();
@@ -108,11 +116,11 @@ class LogsSearchBloc {
   }
 }
 
-class LogsSearchBlocProvider extends BlocProvider<LogsSearchBloc> {
+class MainPageBlocProvider extends BlocProvider<MainPageBloc> {
   @override
-  LogsSearchBloc create() {
-    return LogsSearchBloc();
+  MainPageBloc create() {
+    return MainPageBloc();
   }
 }
 
-final LogsSearchBloc logsSearchBloc = LogsSearchBloc();
+final MainPageBloc logsSearchBloc = MainPageBloc();

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/view/main/main_page_bloc.dart';
+import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/view/search/search_page_bloc.dart';
 import 'package:logstf/widget/logs_button.dart';
 
 class LogsSearchView extends StatefulWidget {
+  final SearchPageBloc searchPageBloc;
+  final Function onSearchAction;
+
+  const LogsSearchView(this.searchPageBloc, this.onSearchAction);
+
   @override
   _LogsSearchViewState createState() => _LogsSearchViewState();
 }
@@ -34,6 +41,14 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     super.initState();
     if (!_editingControllersInitialized) {
       _initEditingControllers();
+    }
+
+    SearchData searchData = widget.searchPageBloc.getSearchData();
+    if (searchData != null) {
+      _mapController.text = searchData.map;
+      _uploaderController.text = searchData.uploader;
+      _titleController.text = searchData.title;
+      _playerController.text = searchData.player;
     }
   }
 
@@ -96,7 +111,10 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         key: _playerKey,
         controller: _playerController,
         decoration: InputDecoration(
-            hintText: applicationLocalization.getText("log_search_player_steam_id"), labelText: applicationLocalization.getText("log_search_player_steam_id")),
+            hintText:
+                applicationLocalization.getText("log_search_player_steam_id"),
+            labelText:
+                applicationLocalization.getText("log_search_player_steam_id")),
       ),
     );
     formWidgets.add(Padding(
@@ -125,16 +143,16 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     var title = _titleController.text;
     var player = _playerController.text;
 
-    logsSearchBloc.clearLogs();
-    logsSearchBloc.searchLogs(
-        map: map, uploader: uploader, title: title, player: player);
-    Navigator.pop(context);
+    widget.onSearchAction(SearchData(
+        map: map,
+        uploader: uploader,
+        title: title,
+        player: player,
+        clearData: false));
   }
 
   void _onClearFiltersClicked() {
-    logsSearchBloc.clearFilters();
-    logsSearchBloc.searchLogs();
-    Navigator.pop(context);
+    widget.onSearchAction(SearchData(clearData: true));
   }
 
   void _initEditingControllers() {

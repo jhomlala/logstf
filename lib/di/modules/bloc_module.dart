@@ -1,7 +1,8 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
-import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/view/main/main_page_bloc.dart';
 import 'package:logstf/bloc/player_search_bloc.dart';
+import 'package:logstf/view/search/search_page_bloc.dart';
 
 @module
 class BlocModule {
@@ -16,7 +17,12 @@ class BlocModule {
   }
 
   @provide
-  LogsSearchBlocProvider provideLogsSearchBlocProvider(){
-    return LogsSearchBlocProvider();
+  MainPageBlocProvider provideLogsSearchBlocProvider(){
+    return MainPageBlocProvider();
+  }
+
+  @provide
+  SearchPageBlocProvider provideSearchPageBlocProvider(){
+    return SearchPageBlocProvider();
   }
 }

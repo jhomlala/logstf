@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:logstf/view/main_view.dart';
+import 'package:logstf/view/main/main_page.dart';
 
 import 'test_helper.dart';
 
@@ -11,7 +11,7 @@ main() {
 
 void testAppBar() {
   testWidgets("AppBar Tests", (WidgetTester tester) async {
-    await setupWidget(tester, MainView());
+    await setupWidget(tester, MainPage());
     expectOneWidgetByKey("mainViewAppBar");
     expectOneWidgetWithText("Pocket Logs");
     expectOneWidgetByKey("mainViewSearchIcon");
@@ -21,7 +21,7 @@ void testAppBar() {
 
 void testTabBar() {
   testWidgets("TabBar Tests", (WidgetTester tester) async {
-    await setupWidget(tester, MainView());
+    await setupWidget(tester, MainPage());
     expectOneWidgetByKey("mainViewTabBar");
     expectNWidgetsByType(3, Tab);
     expectOneWidgetByType(TabBarView);

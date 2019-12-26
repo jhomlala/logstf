@@ -4,6 +4,7 @@ import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/common/base_page.dart';
@@ -40,10 +41,10 @@ class _LogViewState extends BasePageState<LogView>
   @override
   void didChangeDependencies() {
     if (!initCompleted) {
-      _logId = Sailor.param<int>(context, "logId");
+      _logId = Sailor.param<int>(context, AppConst.logIdParameter);
       _selectedPlayerSteamId =
-          Sailor.param<int>(context, "selectedPlayerSteamId");
-      initAfterDependenciesProvided();
+          Sailor.param<int>(context, AppConst.selectedPlayerSteamId);
+      initOnDependenciesProvided();
     }
     super.didChangeDependencies();
   }
@@ -55,8 +56,8 @@ class _LogViewState extends BasePageState<LogView>
     _tabController.addListener(_onTabChanged);
   }
 
-  void initAfterDependenciesProvided() async {
-    super.initAfterDependenciesProvided();
+  void initOnDependenciesProvided() async {
+    super.initOnDependenciesProvided();
     logDetailsBloc.init();
     logDetailsBloc.selectLog(_logId);
     _setupLogSavedState();

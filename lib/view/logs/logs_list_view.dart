@@ -1,6 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/view/main/main_page_bloc.dart';
 import 'package:logstf/bloc/player_search_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
@@ -14,10 +14,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sailor/sailor.dart';
 
 class LogsListView extends StatefulWidget {
-  final LogsSearchBloc logsSearchBloc;
-  final Sailor sailor;
+  final MainPageBloc mainPageBloc;
+  final Function onLogClicked;
 
-  LogsListView(this.logsSearchBloc, this.sailor);
+  LogsListView(this.mainPageBloc, this.onLogClicked);
 
   @override
   _LogsListViewState createState() => _LogsListViewState();
@@ -29,16 +29,16 @@ class _LogsListViewState extends State<LogsListView>
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  LogsSearchBloc get logsSearchBloc => widget.logsSearchBloc;
+  MainPageBloc get mainPageBloc => widget.mainPageBloc;
 
   void _onRefresh() async {
-    await logsSearchBloc.searchLogs(clearLogs: true);
+    await mainPageBloc.searchLogs(clearLogs: true);
     _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
-    logsSearchBloc.initLogs();
+    mainPageBloc.initLogs();
     super.initState();
   }
 
@@ -55,11 +55,11 @@ class _LogsListViewState extends State<LogsListView>
     return Container(
         color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(
-            stream: logsSearchBloc.logsSearchSubject.stream,
-            initialData: logsSearchBloc.logsSearchSubject.value,
+            stream: mainPageBloc.logsSearchSubject.stream,
+            initialData: mainPageBloc.logsSearchSubject.value,
             builder: (context, snapshot) {
               List<Widget> widgets = List();
-              if (logsSearchBloc.isAnyFilterActive()) {
+              if (mainPageBloc.isAnyFilterActive()) {
                 widgets.add(Card(
                     margin: EdgeInsets.only(left: 10, right: 10, top: 5),
                     child: ExpandablePanel(
@@ -73,15 +73,15 @@ class _LogsListViewState extends State<LogsListView>
                                       .getText("logs_active_filters"),
                                   style: TextStyle(fontSize: 24)))),
                       expanded: FiltersCard(
-                        map: logsSearchBloc.map,
-                        uploader: logsSearchBloc.uploader,
-                        title: logsSearchBloc.title,
-                        player: logsSearchBloc.player,
+                        map: mainPageBloc.map,
+                        uploader: mainPageBloc.uploader,
+                        title: mainPageBloc.title,
+                        player: mainPageBloc.player,
                       ),
                     )));
               }
 
-              if (!logsSearchBloc.loading) {
+              if (!mainPageBloc.loading) {
                 if (snapshot.hasError) {
                   print("Error: " + snapshot.error.toString());
                   widgets.add(EmptyCard(
@@ -117,7 +117,7 @@ class _LogsListViewState extends State<LogsListView>
                                     itemBuilder: (context, position) {
                                       return LogShortCard(
                                         logSearch: data[position],
-                                        onLogClicked: onLogClicked,
+                                        onLogClicked: widget.onLogClicked,
                                       );
                                     })))));
                   }
@@ -129,21 +129,15 @@ class _LogsListViewState extends State<LogsListView>
             }));
   }
 
-  void onLogClicked(int logId) {
-    print("On log clicked: " + logId.toString());
-    widget.sailor
-        .navigate(RoutingHelper.logPageRoute, params: {"logId": logId});
-  }
-
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {
       if (_scrollController.position.extentAfter == 0 &&
-          !logsSearchBloc.loading) {
-        logsSearchBloc.searchLogs(
-            map: logsSearchBloc.map,
-            player: logsSearchBloc.player,
-            uploader: logsSearchBloc.uploader,
-            title: logsSearchBloc.title);
+          !mainPageBloc.loading) {
+        mainPageBloc.searchLogs(
+            map: mainPageBloc.map,
+            player: mainPageBloc.player,
+            uploader: mainPageBloc.uploader,
+            title: mainPageBloc.title);
       }
     }
     return false;
@@ -153,10 +147,10 @@ class _LogsListViewState extends State<LogsListView>
   bool get wantKeepAlive => true;
 
   _onRetryPressed() {
-    logsSearchBloc.searchLogs(
-        map: logsSearchBloc.map,
-        player: logsSearchBloc.player,
-        uploader: logsSearchBloc.uploader,
-        title: logsSearchBloc.title);
+    mainPageBloc.searchLogs(
+        map: mainPageBloc.map,
+        player: mainPageBloc.player,
+        uploader: mainPageBloc.uploader,
+        title: mainPageBloc.title);
   }
 }

@@ -1,4 +1,9 @@
 class AppConst {
+  static const String logIdParameter = "logId";
+  static const String selectedPlayerSteamId = "selectedPlayerSteamId";
+  static const String searchDataParameter = "searchData";
+
+
   static const int logsLimit = 1000;
   static const String highlanderMode = "Highlander";
   static const String sixesMode = "6v6";

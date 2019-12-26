@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/logs_search_bloc.dart';
+import 'package:logstf/view/main/main_page_bloc.dart';
 import 'package:logstf/bloc/steam_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
