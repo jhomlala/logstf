@@ -1,6 +1,7 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/view/log/log_view.dart';
@@ -18,8 +19,14 @@ class PageModule {
       Sailor sailor,
       MainPageBlocProvider mainPageBlocProvider,
       AppStateManager appStateManager,
-      LogsSavedPlayersFragmentBlocProvider logsSavedPlayersFragmentBlocProvider) {
-    return MainPage(sailor, mainPageBlocProvider.create(), appStateManager, logsSavedPlayersFragmentBlocProvider.create());
+      LogsSavedPlayersFragmentBlocProvider logsSavedPlayersFragmentBlocProvider,
+      LogsSavedLogsFragmentBlocProvider logsSavedLogsFragmentBlocProvider) {
+    return MainPage(
+        sailor,
+        mainPageBlocProvider.create(),
+        appStateManager,
+        logsSavedPlayersFragmentBlocProvider.create(),
+        logsSavedLogsFragmentBlocProvider.create());
   }
 
   @provide
@@ -36,7 +43,9 @@ class PageModule {
 
   @provide
   PlayerSearchResultsPageProvider providePlayerSearchResultsPageProvider(
-      Sailor sailor, PlayerSearchResultsPageBlocProvider playerSearchResultsPageBlocProvider) {
-    return PlayerSearchResultsPageProvider(sailor,playerSearchResultsPageBlocProvider.create());
+      Sailor sailor,
+      PlayerSearchResultsPageBlocProvider playerSearchResultsPageBlocProvider) {
+    return PlayerSearchResultsPageProvider(
+        sailor, playerSearchResultsPageBlocProvider.create());
   }
 }

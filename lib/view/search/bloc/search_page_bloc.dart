@@ -1,4 +1,4 @@
-import 'package:logstf/bloc/bloc_provider.dart';
+import 'package:logstf/view/common/bloc_provider.dart';
 import 'package:logstf/model/internal/search_data.dart';
 
 class SearchPageBloc {

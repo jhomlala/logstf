@@ -1,5 +1,6 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/event_bus.dart';
@@ -46,4 +47,9 @@ class CommonModule {
     return LogsRemoteProvider();
   }
 
+  @provide
+  @singleton
+  LogsLocalProvider provideLogsLocalProvider(){
+    return LogsLocalProvider();
+  }
 }

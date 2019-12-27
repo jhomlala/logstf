@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/view/main/widget/logs_saved_list_view.dart';
+import 'package:logstf/view/main/widget/logs_saved_logs_fragment.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
@@ -16,7 +16,7 @@ main() {
 
 void testStreamBuilderProgressBar() async {
   testWidgets("Stream builder progress bar test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsSavedListView());
+    await setupWidgetWithScaffold(tester, LogsSavedLogsFragment());
     logsSavedBloc.loading = true;
     logsSavedBloc.savedLogsSubject.value = List();
     await pauseTester(tester);
@@ -26,7 +26,7 @@ void testStreamBuilderProgressBar() async {
 
 void testStreamBuilderEmpty() async {
   testWidgets("Stream builder empty test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsSavedListView());
+    await setupWidgetWithScaffold(tester, LogsSavedLogsFragment());
     logsSavedBloc.loading = false;
     logsSavedBloc.savedLogsSubject.value = List();
     await pauseTester(tester);
@@ -39,7 +39,7 @@ void testStreamBuilderEmpty() async {
 
 void testStreamBuilderFilled() async {
   testWidgets("Stream builder filled test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsSavedListView());
+    await setupWidgetWithScaffold(tester, LogsSavedLogsFragment());
     var list = List<LogShort>();
     list.add(setupMockupLogShort());
     list.add(setupMockupLogShort());

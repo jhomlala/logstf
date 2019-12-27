@@ -21,7 +21,7 @@ main() {
 void testPlayersStreamBuilderEmpty() async {
   testWidgets("Stream builder with players empty test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     playersObservedBloc.loading = false;
     playersObservedBloc.playersObservedSubject.value = List();
     await pauseTester(tester);
@@ -33,7 +33,7 @@ void testPlayersStreamBuilderEmpty() async {
 void testPlayersFilledStreamBuilder() async {
   testWidgets("Stream builder with players filled test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
     players.add(player);
@@ -49,7 +49,7 @@ void testPlayersFilledStreamBuilder() async {
 void testPlayerLogsLoadingStreamBuilder() {
   testWidgets("Stream builder with player logs loading test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
     players.add(player);
@@ -66,7 +66,7 @@ void testPlayerLogsLoadingStreamBuilder() {
 void testPlayerLogsStreamBuilder() {
   testWidgets("Stream builder with player logs filled test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
     players.add(player);
@@ -87,7 +87,7 @@ void testPlayerLogsStreamBuilder() {
 void testPlayerLogsErrorStreamBuilder() {
   testWidgets("Stream builder with player logs error test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
     players.add(player);
@@ -104,7 +104,7 @@ void testPlayerLogsErrorStreamBuilder() {
 void testPlayerLogsEmptyStreamBuilder() {
   testWidgets("Stream builder with player logs empty test",
       (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsWatchListView());
+    await setupWidgetWithScaffold(tester, LogsSavedPlayersFragment());
     PlayerObserved player = setupMockPlayerObserved();
     List<PlayerObserved> players = List();
     players.add(player);

@@ -5,7 +5,7 @@ import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 
-import 'bloc_provider.dart';
+import '../view/common/bloc_provider.dart';
 
 class LogDetailsBloc {
   BehaviorSubject<Log> logSubject = BehaviorSubject();

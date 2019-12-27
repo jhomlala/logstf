@@ -8,6 +8,7 @@ import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/routing_helper.dart';
+import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'package:sailor/sailor.dart';
@@ -16,7 +17,7 @@ import '../../common/base_page.dart';
 import '../../common/base_page_state.dart';
 import '../../help/help_view.dart';
 import '../../log/log_view.dart';
-import '../widget/logs_saved_list_view.dart';
+import '../widget/logs_saved_logs_fragment.dart';
 import 'package:logstf/view/main/widget/logs_list_view.dart';
 import 'package:logstf/view/main/widget/logs_saved_players_fragment.dart';
 
@@ -28,9 +29,14 @@ class MainPage extends BasePage {
   final MainPageBloc mainPageBloc;
   final AppStateManager appStateManager;
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
+  final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
 
-  const MainPage(this.sailor, this.mainPageBloc, this.appStateManager,
-      this.logsSavedPlayersFragmentBloc);
+  const MainPage(
+      this.sailor,
+      this.mainPageBloc,
+      this.appStateManager,
+      this.logsSavedPlayersFragmentBloc,
+      this.logsSavedLogsFragmentBloc);
 
   @override
   _MainViewPage createState() => _MainViewPage();
@@ -122,8 +128,8 @@ class _MainViewPage extends BasePageState<MainPage>
                 ])),
         body: TabBarView(controller: _tabController, children: [
           LogsListView(mainPageBloc, onLogClicked),
-          LogsWatchListView(widget.logsSavedPlayersFragmentBloc),
-          LogsSavedListView()
+          LogsSavedPlayersFragment(widget.logsSavedPlayersFragmentBloc),
+          LogsSavedLogsFragment(widget.logsSavedLogsFragmentBloc)
         ]));
   }
 

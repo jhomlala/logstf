@@ -8,17 +8,17 @@ import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
-class LogsWatchListView extends StatefulWidget {
+class LogsSavedPlayersFragment extends StatefulWidget {
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
 
-  const LogsWatchListView(this.logsSavedPlayersFragmentBloc);
+  const LogsSavedPlayersFragment(this.logsSavedPlayersFragmentBloc);
 
   @override
-  _LogsWatchListViewState createState() => _LogsWatchListViewState();
+  _LogsSavedPlayersFragmentState createState() => _LogsSavedPlayersFragmentState();
 }
 
-class _LogsWatchListViewState extends State<LogsWatchListView>
-    with AutomaticKeepAliveClientMixin<LogsWatchListView> {
+class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
+    with AutomaticKeepAliveClientMixin<LogsSavedPlayersFragment> {
   LogsSavedPlayersFragmentBloc get logsSavedPlayersFragmentBloc =>
       widget.logsSavedPlayersFragmentBloc;
   PlayerObserved _selectedPlayer;

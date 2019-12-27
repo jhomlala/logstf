@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:logstf/bloc/bloc_provider.dart';
+import 'package:logstf/view/common/bloc_provider.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';

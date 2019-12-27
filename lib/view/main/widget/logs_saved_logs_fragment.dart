@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
-class LogsSavedListView extends StatefulWidget {
+class LogsSavedLogsFragment extends StatefulWidget {
+  final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
+
+  const LogsSavedLogsFragment(this.logsSavedLogsFragmentBloc);
+
   @override
-  _LogsSavedListViewState createState() => _LogsSavedListViewState();
+  _LogsSavedLogsFragmentState createState() => _LogsSavedLogsFragmentState();
 }
 
-class _LogsSavedListViewState extends State<LogsSavedListView>
-    with AutomaticKeepAliveClientMixin<LogsSavedListView> {
+class _LogsSavedLogsFragmentState extends State<LogsSavedLogsFragment>
+    with AutomaticKeepAliveClientMixin<LogsSavedLogsFragment> {
+  LogsSavedLogsFragmentBloc get logsSavedLogsFragmentBloc =>
+      widget.logsSavedLogsFragmentBloc;
+
   @override
   void initState() {
-    logsSavedBloc.initLogs();
+    logsSavedLogsFragmentBloc.initLogs();
     super.initState();
   }
 
@@ -27,10 +34,10 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
     return Container(
         color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(
-            stream: logsSavedBloc.savedLogsSubject,
-            initialData: logsSavedBloc.savedLogsSubject.value,
+            stream: logsSavedLogsFragmentBloc.savedLogsSubject,
+            initialData: logsSavedLogsFragmentBloc.savedLogsSubject.value,
             builder: (context, snapshot) {
-              if (!logsSavedBloc.loading) {
+              if (!logsSavedLogsFragmentBloc.loading) {
                 var data = snapshot.data;
                 if (data == null || data.isEmpty) {
                   return EmptyCard(
@@ -45,8 +52,9 @@ class _LogsSavedListViewState extends State<LogsSavedListView>
                           key: Key(data[index].id.toString()),
                           child: LogShortCard(logSearch: data[index]),
                           onDismissed: (direction) {
-                            logsSavedBloc.deleteSavedLog(data[index].id);
-                            logsSavedBloc.removeLog(data[index]);
+                            logsSavedLogsFragmentBloc
+                                .deleteSavedLog(data[index].id);
+                            logsSavedLogsFragmentBloc.removeLog(data[index]);
                           },
                         );
                       });

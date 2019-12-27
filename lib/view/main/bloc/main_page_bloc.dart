@@ -6,7 +6,7 @@ import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../bloc/bloc_provider.dart';
+import '../../common/bloc_provider.dart';
 
 class MainPageBloc {
   final BehaviorSubject<List<LogShort>> logsSearchSubject = BehaviorSubject();
