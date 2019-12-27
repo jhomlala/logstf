@@ -79,7 +79,10 @@ class _SearchPageState extends BasePageState<SearchPage>
     getNavigator().pop(searchData);
   }
 
-  void _onWillPop() {}
+  Future<bool> _onWillPop() async{
+    getNavigator().pop();
+    return false;
+  }
 }
 
 class SearchPageProvider extends PageProvider<SearchPage> {

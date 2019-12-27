@@ -83,16 +83,7 @@ class _MainViewPage extends BasePageState<MainPage>
               IconButton(
                   key: Key("mainViewSearchIcon"),
                   icon: Icon(Icons.search),
-                  onPressed: () async {
-                    SearchData searchData = await getNavigator()
-                        .navigate(RoutingHelper.searchPageRoute, params: {
-                      AppConst.searchDataParameter:
-                          widget.appStateManager.searchData
-                    });
-                    widget.appStateManager.searchData = searchData;
-                    mainPageBloc.clearLogs();
-                    mainPageBloc.searchLogsFromSearchData(searchData);
-                  }),
+                  onPressed: _onSearchClicked),
               PopupMenuButton<MenuItem>(
                 key: Key("mainViewOverflowMenu"),
                 onSelected: _select,
@@ -166,8 +157,20 @@ class _MainViewPage extends BasePageState<MainPage>
   }
 
   void onLogClicked(int logId) {
-    print("On log clicked: " + logId.toString());
-    widget.sailor
+    getNavigator()
         .navigate(RoutingHelper.logPageRoute, params: {"logId": logId});
+  }
+
+  void _onSearchClicked() async {
+    SearchData searchData = await getNavigator()
+        .navigate(RoutingHelper.searchPageRoute, params: {
+      AppConst.searchDataParameter:
+      widget.appStateManager.searchData
+    });
+    if (searchData != null) {
+      widget.appStateManager.searchData = searchData;
+      mainPageBloc.clearLogs();
+      mainPageBloc.searchLogsFromSearchData(searchData);
+    }
   }
 }

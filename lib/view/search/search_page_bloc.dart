@@ -5,7 +5,9 @@ class SearchPageBloc {
   SearchData _searchData;
 
   setSearchData(SearchData searchData){
-    if (searchData == null){
+    if (searchData != null){
+      _searchData = searchData;
+    } else {
       _searchData = SearchData();
     }
   }

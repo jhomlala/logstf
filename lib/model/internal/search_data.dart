@@ -12,4 +12,10 @@ class SearchData {
       this.player,
       this.clearData = false});
 
+  @override
+  String toString() {
+    return 'SearchData{map: $map, uploader: $uploader, title: $title, player: $player, clearData: $clearData}';
+  }
+
+
 }
