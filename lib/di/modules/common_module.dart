@@ -1,5 +1,6 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
@@ -27,7 +28,14 @@ class CommonModule {
 
   @provide
   @singleton
-  AppStateManager provideAppStateManager() {
-    return AppStateManager();
+  AppStateManager provideAppStateManager(
+      PlayersObservedLocalProvider playersObservedLocalProvider) {
+    return AppStateManager(playersObservedLocalProvider);
+  }
+
+  @provide
+  @singleton
+  PlayersObservedLocalProvider providePlayersObservedLocalProvider() {
+    return PlayersObservedLocalProvider();
   }
 }

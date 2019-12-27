@@ -15,6 +15,7 @@ import 'di/modules/page_module.dart';
 import 'model/app_settings.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var appComponent =
       await AppComponent.create(PageModule(), BlocModule(), CommonModule());
   runApp(appComponent.app);

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/bloc/main_page_bloc.dart';
-import 'package:logstf/bloc/players_observed_bloc.dart';
-import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/player_search_result.dart';
 import 'package:logstf/widget/logs_button.dart';
 
@@ -9,9 +6,10 @@ class PlayerSearchRowWidget extends StatefulWidget {
   final PlayerSearchResult playerSearchResult;
   final Function onObservePlayerClicked;
   final Function onSearchLogsClicked;
+  final bool isObserved;
 
   const PlayerSearchRowWidget(this.playerSearchResult,
-      this.onObservePlayerClicked, this.onSearchLogsClicked);
+      this.onObservePlayerClicked, this.onSearchLogsClicked, this.isObserved);
 
   @override
   State<StatefulWidget> createState() {
@@ -24,15 +22,7 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
 
   @override
   void initState() {
-    playersObservedBloc
-        .getPlayerObserved(widget.playerSearchResult.steamId)
-        .then((PlayerObserved playerObserved) {
-      if (mounted) {
-        setState(() {
-          isObserved = playerObserved != null;
-        });
-      }
-    });
+    isObserved = widget.isObserved;
     super.initState();
   }
 
@@ -79,7 +69,7 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
           backgroundColor: Theme
               .of(context)
               .primaryColor,
-          onPressed: () => widget.onObservePlayerClicked(widget.playerSearchResult)
+          onPressed: () => _onObservePlayerClicked(context)
       ));
     }
     list.add(Padding(
@@ -95,12 +85,6 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
     return list;
   }
 
-  _onSearchLogsClicked(BuildContext context) {
-    logsSearchBloc.clearFilters();
-    logsSearchBloc.searchLogs(player: widget.playerSearchResult.steamId);
-    Navigator.of(context).pop();
-  }
-
   Widget _getImage(String url) {
     if (url != null) {
       return Image.network(widget.playerSearchResult.avatarUrl);
@@ -110,11 +94,9 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
   }
 
   void _onObservePlayerClicked(BuildContext context) {
-    playersObservedBloc.addPlayerObserved(PlayerObserved(
-        name: widget.playerSearchResult.playerNames.first,
-        steamid64: widget.playerSearchResult.steamId));
     setState(() {
       isObserved = true;
     });
+    widget.onObservePlayerClicked(widget.playerSearchResult);
   }
 }

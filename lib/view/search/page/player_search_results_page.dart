@@ -66,8 +66,13 @@ class _PlayerSearchResultsPageState
                     return ListView.builder(
                       itemCount: items.length,
                       itemBuilder: (context, position) {
-                        return PlayerSearchRowWidget(items[position],
-                            _onObservePlayerClicked, _onSearchLogsClicked);
+                        PlayerSearchResult playerSearchResult = items[position];
+                        return PlayerSearchRowWidget(
+                            playerSearchResult,
+                            _onObservePlayerClicked,
+                            _onSearchLogsClicked,
+                            playerSearchResultsPageBloc
+                                .isPlayerObserved(playerSearchResult));
                       },
                     );
                   } else {
@@ -79,11 +84,10 @@ class _PlayerSearchResultsPageState
   }
 
   void _onObservePlayerClicked(PlayerSearchResult playerSearchResult) {
-    print("Observe: " + playerSearchResult.toString());
+    playerSearchResultsPageBloc.observePlayer(playerSearchResult);
   }
 
   void _onSearchLogsClicked(PlayerSearchResult playerSearchResult) {
-    print("Search logs: " + playerSearchResult.toString());
     getNavigator().pop(SearchData(player: playerSearchResult.steamId));
   }
 }
