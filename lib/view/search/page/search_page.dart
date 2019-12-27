@@ -79,9 +79,13 @@ class _SearchPageState extends BasePageState<SearchPage>
     getNavigator().pop(searchData);
   }
 
-  void _onPlayerSearchAction(String playerName) {
-    getNavigator().navigate(RoutingHelper.playerSearchResultsRoute,
+  void _onPlayerSearchAction(String playerName) async {
+    SearchData searchData = await getNavigator().navigate(
+        RoutingHelper.playerSearchResultsRoute,
         params: {AppConst.playerNameParameter: playerName});
+    if (searchData != null){
+      getNavigator().pop(searchData);
+    }
   }
 
   Future<bool> _onWillPop() async {

@@ -7,9 +7,11 @@ import 'package:logstf/widget/logs_button.dart';
 
 class PlayerSearchRowWidget extends StatefulWidget {
   final PlayerSearchResult playerSearchResult;
+  final Function onObservePlayerClicked;
+  final Function onSearchLogsClicked;
 
-  const PlayerSearchRowWidget({Key key, this.playerSearchResult})
-      : super(key: key);
+  const PlayerSearchRowWidget(this.playerSearchResult,
+      this.onObservePlayerClicked, this.onSearchLogsClicked);
 
   @override
   State<StatefulWidget> createState() {
@@ -50,7 +52,10 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
               _getImage(widget.playerSearchResult.avatarUrl),
               Padding(padding: EdgeInsets.only(left: 5)),
               Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.8,
                   child: Text(
                     widget.playerSearchResult.playerNames.join(", "),
                     maxLines: 5,
@@ -70,11 +75,11 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
       list.add(Text("Player is observed"));
     } else {
       list.add(LogsButton(
-        text: "Observe player",
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          _onObservePlayerClicked(context);
-        },
+          text: "Observe player",
+          backgroundColor: Theme
+              .of(context)
+              .primaryColor,
+          onPressed: () => widget.onObservePlayerClicked(widget.playerSearchResult)
       ));
     }
     list.add(Padding(
@@ -82,10 +87,10 @@ class _PlayerSearchRowWidgetState extends State<PlayerSearchRowWidget> {
     ));
     list.add(LogsButton(
       text: "Search logs with player",
-      backgroundColor: Theme.of(context).primaryColor,
-      onPressed: () {
-        _onSearchLogsClicked(context);
-      },
+      backgroundColor: Theme
+          .of(context)
+          .primaryColor,
+      onPressed: () => widget.onSearchLogsClicked(widget.playerSearchResult),
     ));
     return list;
   }

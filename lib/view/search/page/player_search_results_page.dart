@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/player_search_result.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/view/common/base_page.dart';
@@ -65,8 +66,8 @@ class _PlayerSearchResultsPageState
                     return ListView.builder(
                       itemCount: items.length,
                       itemBuilder: (context, position) {
-                        return PlayerSearchRowWidget(
-                            playerSearchResult: items[position]);
+                        return PlayerSearchRowWidget(items[position],
+                            _onObservePlayerClicked, _onSearchLogsClicked);
                       },
                     );
                   } else {
@@ -75,6 +76,15 @@ class _PlayerSearchResultsPageState
                 }
               },
             )));
+  }
+
+  void _onObservePlayerClicked(PlayerSearchResult playerSearchResult) {
+    print("Observe: " + playerSearchResult.toString());
+  }
+
+  void _onSearchLogsClicked(PlayerSearchResult playerSearchResult) {
+    print("Search logs: " + playerSearchResult.toString());
+    getNavigator().pop(SearchData(player: playerSearchResult.steamId));
   }
 }
 
