@@ -8,6 +8,7 @@ import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/routing_helper.dart';
+import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/settings/settings_view.dart';
@@ -18,7 +19,7 @@ import '../../common/base_page_state.dart';
 import '../../help/help_view.dart';
 import '../../log/log_view.dart';
 import '../widget/logs_saved_logs_fragment.dart';
-import 'package:logstf/view/main/widget/logs_list_view.dart';
+import 'package:logstf/view/main/widget/logs_list_fragment.dart';
 import 'package:logstf/view/main/widget/logs_saved_players_fragment.dart';
 
 import '../../search/page/search_page.dart';
@@ -28,6 +29,7 @@ class MainPage extends BasePage {
   final Sailor sailor;
   final MainPageBloc mainPageBloc;
   final AppStateManager appStateManager;
+  final LogsListFragmentBloc logsListFragmentBloc;
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
   final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
 
@@ -35,6 +37,7 @@ class MainPage extends BasePage {
       this.sailor,
       this.mainPageBloc,
       this.appStateManager,
+      this.logsListFragmentBloc,
       this.logsSavedPlayersFragmentBloc,
       this.logsSavedLogsFragmentBloc);
 
@@ -127,7 +130,7 @@ class _MainViewPage extends BasePageState<MainPage>
                   )
                 ])),
         body: TabBarView(controller: _tabController, children: [
-          LogsListView(mainPageBloc, onLogClicked),
+          LogsListFragment(widget.logsListFragmentBloc, onLogClicked),
           LogsSavedPlayersFragment(widget.logsSavedPlayersFragmentBloc),
           LogsSavedLogsFragment(widget.logsSavedLogsFragmentBloc)
         ]));
@@ -178,8 +181,8 @@ class _MainViewPage extends BasePageState<MainPage>
     });
     if (searchData != null) {
       widget.appStateManager.searchData = searchData;
-      mainPageBloc.clearLogs();
-      mainPageBloc.searchLogsFromSearchData(searchData);
+      widget.logsListFragmentBloc.clearFilters();
+      widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
     }
   }
 }

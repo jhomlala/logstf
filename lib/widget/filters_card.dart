@@ -8,8 +8,9 @@ class FiltersCard extends StatelessWidget {
   final String uploader;
   final String title;
   final String player;
+  final Function onClearClicked;
 
-  const FiltersCard({Key key, this.map, this.uploader, this.title, this.player})
+  const FiltersCard({Key key, this.map, this.uploader, this.title, this.player, this.onClearClicked})
       : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class FiltersCard extends StatelessWidget {
                 color: Colors.red,
               ),
               onPressed: () {
-                logsSearchBloc.clearFilters();
+                onClearClicked();
               },
             ))
           ]));

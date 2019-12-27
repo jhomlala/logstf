@@ -40,22 +40,17 @@ class _LogsSearchViewState extends State<LogsSearchView> {
   void initState() {
     super.initState();
     if (!_editingControllersInitialized) {
-      _initEditingControllers();
-    }
-
-    SearchData searchData = widget.searchPageBloc.getSearchData();
-    if (searchData != null) {
-      _mapController.text = searchData.map;
-      _uploaderController.text = searchData.uploader;
-      _titleController.text = searchData.title;
-      _playerController.text = searchData.player;
+      SearchData searchData = widget.searchPageBloc.getSearchData();
+      _initEditingControllers(searchData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme
+          .of(context)
+          .primaryColor,
       child: ListView(children: [
         Card(
             margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -112,9 +107,9 @@ class _LogsSearchViewState extends State<LogsSearchView> {
         controller: _playerController,
         decoration: InputDecoration(
             hintText:
-                applicationLocalization.getText("log_search_player_steam_id"),
+            applicationLocalization.getText("log_search_player_steam_id"),
             labelText:
-                applicationLocalization.getText("log_search_player_steam_id")),
+            applicationLocalization.getText("log_search_player_steam_id")),
       ),
     );
     formWidgets.add(Padding(
@@ -130,7 +125,9 @@ class _LogsSearchViewState extends State<LogsSearchView> {
       LogsButton(
         text: applicationLocalization.getText("log_search_search"),
         onPressed: _onSendClicked,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
       ),
     ]));
 
@@ -155,11 +152,12 @@ class _LogsSearchViewState extends State<LogsSearchView> {
     widget.onSearchAction(SearchData(clearData: true));
   }
 
-  void _initEditingControllers() {
-    _mapController.text = logsSearchBloc.map;
-    _uploaderController.text = logsSearchBloc.uploader;
-    _playerController.text = logsSearchBloc.player;
-    _titleController.text = logsSearchBloc.title;
-    _editingControllersInitialized = true;
+  void _initEditingControllers(SearchData searchData) {
+    if (searchData != null) {
+      _mapController.text = searchData.map;
+      _uploaderController.text = searchData.uploader;
+      _titleController.text = searchData.title;
+      _playerController.text = searchData.player;
+    }
   }
 }

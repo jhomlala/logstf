@@ -5,6 +5,7 @@ import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/event_bus.dart';
+import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
@@ -50,5 +51,10 @@ class BlocModule {
   LogsSavedLogsFragmentBlocProvider provideLogsSavedLogsFragmentBlocProvider(
       LogsLocalProvider logsLocalProvider) {
     return LogsSavedLogsFragmentBlocProvider(logsLocalProvider);
+  }
+
+  @provide
+  LogsListFragmentBlocProvider provideLogsListFragmentBlocProvider(LogsRemoteProvider logsRemoteProvider){
+    return LogsListFragmentBlocProvider(logsRemoteProvider);
   }
 }

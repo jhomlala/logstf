@@ -1,6 +1,6 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/bloc/main_page_bloc.dart';
+import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
@@ -10,32 +10,32 @@ import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class LogsListView extends StatefulWidget {
-  final MainPageBloc mainPageBloc;
+class LogsListFragment extends StatefulWidget {
+  final LogsListFragmentBloc logsListFragmentBloc;
   final Function onLogClicked;
 
-  LogsListView(this.mainPageBloc, this.onLogClicked);
+  LogsListFragment(this.logsListFragmentBloc, this.onLogClicked);
 
   @override
-  _LogsListViewState createState() => _LogsListViewState();
+  _LogsListFragmentState createState() => _LogsListFragmentState();
 }
 
-class _LogsListViewState extends State<LogsListView>
-    with AutomaticKeepAliveClientMixin<LogsListView> {
+class _LogsListFragmentState extends State<LogsListFragment>
+    with AutomaticKeepAliveClientMixin<LogsListFragment> {
   ScrollController _scrollController = new ScrollController();
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  MainPageBloc get mainPageBloc => widget.mainPageBloc;
+  LogsListFragmentBloc get logsListFragmentBloc => widget.logsListFragmentBloc;
 
   void _onRefresh() async {
-    await mainPageBloc.searchLogs(clearLogs: true);
+    await logsListFragmentBloc.searchLogs(clearLogs: true);
     _refreshController.refreshCompleted();
   }
 
   @override
   void initState() {
-    mainPageBloc.initLogs();
+    logsListFragmentBloc.initLogs();
     super.initState();
   }
 
@@ -52,11 +52,11 @@ class _LogsListViewState extends State<LogsListView>
     return Container(
         color: Theme.of(context).primaryColor,
         child: StreamBuilder<List<LogShort>>(
-            stream: mainPageBloc.logsSearchSubject.stream,
-            initialData: mainPageBloc.logsSearchSubject.value,
+            stream: logsListFragmentBloc.logsSearchSubject.stream,
+            initialData: logsListFragmentBloc.logsSearchSubject.value,
             builder: (context, snapshot) {
               List<Widget> widgets = List();
-              if (mainPageBloc.isAnyFilterActive()) {
+              if (logsListFragmentBloc.isAnyFilterActive()) {
                 widgets.add(Card(
                     margin: EdgeInsets.only(left: 10, right: 10, top: 5),
                     child: ExpandablePanel(
@@ -70,15 +70,16 @@ class _LogsListViewState extends State<LogsListView>
                                       .getText("logs_active_filters"),
                                   style: TextStyle(fontSize: 24)))),
                       expanded: FiltersCard(
-                        map: mainPageBloc.map,
-                        uploader: mainPageBloc.uploader,
-                        title: mainPageBloc.title,
-                        player: mainPageBloc.player,
+                        map: logsListFragmentBloc.map,
+                        uploader: logsListFragmentBloc.uploader,
+                        title: logsListFragmentBloc.title,
+                        player: logsListFragmentBloc.player,
+                        onClearClicked: _onClearClicked,
                       ),
                     )));
               }
 
-              if (!mainPageBloc.loading) {
+              if (!logsListFragmentBloc.loading) {
                 if (snapshot.hasError) {
                   print("Error: " + snapshot.error.toString());
                   widgets.add(EmptyCard(
@@ -126,15 +127,20 @@ class _LogsListViewState extends State<LogsListView>
             }));
   }
 
+  _onClearClicked() {
+    logsListFragmentBloc.clearFilters();
+    logsListFragmentBloc.searchLogs();
+  }
+
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {
       if (_scrollController.position.extentAfter == 0 &&
-          !mainPageBloc.loading) {
-        mainPageBloc.searchLogs(
-            map: mainPageBloc.map,
-            player: mainPageBloc.player,
-            uploader: mainPageBloc.uploader,
-            title: mainPageBloc.title);
+          !logsListFragmentBloc.loading) {
+        logsListFragmentBloc.searchLogs(
+            map: logsListFragmentBloc.map,
+            player: logsListFragmentBloc.player,
+            uploader: logsListFragmentBloc.uploader,
+            title: logsListFragmentBloc.title);
       }
     }
     return false;
@@ -144,10 +150,10 @@ class _LogsListViewState extends State<LogsListView>
   bool get wantKeepAlive => true;
 
   _onRetryPressed() {
-    mainPageBloc.searchLogs(
-        map: mainPageBloc.map,
-        player: mainPageBloc.player,
-        uploader: mainPageBloc.uploader,
-        title: mainPageBloc.title);
+    logsListFragmentBloc.searchLogs(
+        map: logsListFragmentBloc.map,
+        player: logsListFragmentBloc.player,
+        uploader: logsListFragmentBloc.uploader,
+        title: logsListFragmentBloc.title);
   }
 }

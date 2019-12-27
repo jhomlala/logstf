@@ -2,7 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/view/main/widget/logs_list_view.dart';
+import 'package:logstf/view/main/widget/logs_list_fragment.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
@@ -20,14 +20,14 @@ main() {
 
 void testStreamBuilderProgressBar() async {
   testWidgets("Stream builder progress bar test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsListView());
+    await setupWidgetWithScaffold(tester, LogsListFragment());
     expectOneWidgetByType(ProgressBar);
   });
 }
 
 void testStreamBuilderError() async {
   testWidgets("Stream builder empty test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsListView());
+    await setupWidgetWithScaffold(tester, LogsListFragment());
     logsSearchBloc.logsSearchSubject.addError(Error());
     await pauseTester(tester);
     expectOneWidgetByType(EmptyCard);
@@ -36,7 +36,7 @@ void testStreamBuilderError() async {
 
 void testStreamBuilderFilled() async {
   testWidgets("Stream builder filled test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsListView());
+    await setupWidgetWithScaffold(tester, LogsListFragment());
     var list = List<LogShort>();
     list.add(setupMockupLogShort());
     list.add(setupMockupLogShort());
@@ -49,7 +49,7 @@ void testStreamBuilderFilled() async {
 
 void testStreamBuilderEmpty() async {
   testWidgets("Stream builder empty test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsListView());
+    await setupWidgetWithScaffold(tester, LogsListFragment());
     logsSearchBloc.loading = false;
     logsSearchBloc.logsSearchSubject.value = List();
     await pauseTester(tester);
@@ -61,7 +61,7 @@ void testStreamBuilderEmpty() async {
 
 void testFiltersCard() {
   testWidgets("Filters card test", (WidgetTester tester) async {
-    await setupWidgetWithScaffold(tester, LogsListView());
+    await setupWidgetWithScaffold(tester, LogsListFragment());
     logsSearchBloc.searchLogs(
         map: "test", player: "test", title: "test", uploader: "test");
     await pauseTester(tester);
