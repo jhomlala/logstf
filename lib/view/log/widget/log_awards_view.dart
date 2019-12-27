@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
@@ -7,16 +6,19 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/award_card.dart';
 
 class LogAwardsView extends StatefulWidget {
+  final Log log;
+
+  const LogAwardsView( this.log);
+
   @override
   _LogAwardsViewState createState() => _LogAwardsViewState();
 }
 
 class _LogAwardsViewState extends State<LogAwardsView> {
-  Log _log;
+  Log get _log => widget.log;
 
   @override
   void initState() {
-    _log = logDetailsBloc.logSubject.value;
     super.initState();
   }
 
@@ -33,55 +35,66 @@ class _LogAwardsViewState extends State<LogAwardsView> {
               awardName: applicationLocalization.getText("log_award_mvp_title"),
               players: getTopMVPPlayers(),
               log: _log,
-              description:applicationLocalization.getText("log_award_mvp_description"),
+              description:
+                  applicationLocalization.getText("log_award_mvp_description"),
             ),
             AwardCard(
-              awardName: applicationLocalization.getText("log_award_kills_title"),
+              awardName:
+                  applicationLocalization.getText("log_award_kills_title"),
               players: getTopKillPlayers(),
               log: _log,
-              description: applicationLocalization.getText("log_award_kills_description"),
+              description: applicationLocalization
+                  .getText("log_award_kills_description"),
             ),
             AwardCard(
-              awardName: applicationLocalization.getText("log_award_assists_title"),
+              awardName:
+                  applicationLocalization.getText("log_award_assists_title"),
               players: getTopAssistsPlayers(),
               log: _log,
-              description:
-              applicationLocalization.getText("log_award_assists_description"),
+              description: applicationLocalization
+                  .getText("log_award_assists_description"),
             ),
             AwardCard(
-              awardName: applicationLocalization.getText("log_award_damage_title"),
+              awardName:
+                  applicationLocalization.getText("log_award_damage_title"),
               players: getTopDamagePlayers(),
               log: _log,
-              description: applicationLocalization.getText("log_award_damage_description"),
+              description: applicationLocalization
+                  .getText("log_award_damage_description"),
             ),
             AwardCard(
-              awardName: applicationLocalization.getText("log_award_medic_kills_title"),
+              awardName: applicationLocalization
+                  .getText("log_award_medic_kills_title"),
               players: getTopDamagePlayers(),
               log: _log,
-              description: applicationLocalization.getText("log_award_medic_kills_description"),
+              description: applicationLocalization
+                  .getText("log_award_medic_kills_description"),
             ),
             AwardCard(
               awardName: applicationLocalization.getText("log_award_kpd_title"),
               players: getTopKPDPlayers(),
               log: _log,
-              description: applicationLocalization.getText("log_award_kpd_description"),
+              description:
+                  applicationLocalization.getText("log_award_kpd_description"),
             ),
             AwardCard(
-              awardName: applicationLocalization.getText("log_award_kapd_title"),
+              awardName:
+                  applicationLocalization.getText("log_award_kapd_title"),
               players: getTopKPDPlayers(),
               log: _log,
-              description: applicationLocalization.getText("log_award_kapd_description"),
+              description:
+                  applicationLocalization.getText("log_award_kapd_description"),
             )
           ],
         )));
   }
 
-  List<Player> getTopList(List<Player> sortedList){
+  List<Player> getTopList(List<Player> sortedList) {
     int count = sortedList.length;
-    if (count <= 3){
+    if (count <= 3) {
       return sortedList;
     } else {
-      return sortedList.sublist(0,3);
+      return sortedList.sublist(0, 3);
     }
   }
 

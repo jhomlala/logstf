@@ -17,7 +17,7 @@ import '../../about/about_view.dart';
 import '../../common/base_page.dart';
 import '../../common/base_page_state.dart';
 import '../../help/help_view.dart';
-import '../../log/log_view.dart';
+import '../../log/page/log_page.dart';
 import '../widget/logs_saved_logs_fragment.dart';
 import 'package:logstf/view/main/widget/logs_list_fragment.dart';
 import 'package:logstf/view/main/widget/logs_saved_players_fragment.dart';
@@ -27,7 +27,6 @@ import '../bloc/main_page_bloc.dart';
 
 class MainPage extends BasePage {
   final Sailor sailor;
-  final MainPageBloc mainPageBloc;
   final AppStateManager appStateManager;
   final LogsListFragmentBloc logsListFragmentBloc;
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
@@ -35,7 +34,6 @@ class MainPage extends BasePage {
 
   const MainPage(
       this.sailor,
-      this.mainPageBloc,
       this.appStateManager,
       this.logsListFragmentBloc,
       this.logsSavedPlayersFragmentBloc,
@@ -47,7 +45,6 @@ class MainPage extends BasePage {
 
 class _MainViewPage extends BasePageState<MainPage>
     with SingleTickerProviderStateMixin {
-  MainPageBloc get mainPageBloc => widget.mainPageBloc;
   TabController _tabController;
 
   @override

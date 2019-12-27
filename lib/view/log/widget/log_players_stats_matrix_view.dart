@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/model/class_kill.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
@@ -10,12 +9,16 @@ import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersStatsMatrixView extends StatefulWidget {
+  final Log log;
+
+  const LogPlayersStatsMatrixView(this.log);
+
   @override
   _LogPlayersStatsMatrixState createState() => _LogPlayersStatsMatrixState();
 }
 
 class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
-  Log _log;
+  Log get _log => widget.log;
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   List<MapEntry<String, ClassKill>> _currentStatsList;
@@ -24,7 +27,6 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
 
   @override
   void initState() {
-    _log = logDetailsBloc.logSubject.value;
     _players = _log.players;
     _playerNames = _log.names;
     super.initState();
@@ -72,7 +74,8 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
     }
   }
 
-  List<TableRow> _getTableRows(ApplicationLocalization applicationLocalization) {
+  List<TableRow> _getTableRows(
+      ApplicationLocalization applicationLocalization) {
     List<TableRow> rows = List();
     rows.add(_getHeaderRow(applicationLocalization));
     _currentStatsList.forEach((MapEntry<String, ClassKill> entry) {

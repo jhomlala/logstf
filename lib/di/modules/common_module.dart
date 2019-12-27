@@ -5,7 +5,7 @@ import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
-import 'package:logstf/view/log/log_view.dart';
+import 'package:logstf/view/log/page/log_page.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
 import 'package:sailor/sailor.dart';

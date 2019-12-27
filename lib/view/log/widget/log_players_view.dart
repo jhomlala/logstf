@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/helper/stats_manager.dart';
 
 import 'package:logstf/model/average_player_stats.dart';
@@ -17,16 +16,17 @@ import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersView extends StatefulWidget {
+  final Log log;
   final int selectedPlayerSteamId;
 
-  const LogPlayersView(this.selectedPlayerSteamId);
+  const LogPlayersView(this.log,this.selectedPlayerSteamId);
 
   @override
   _LogPlayersViewState createState() => _LogPlayersViewState();
 }
 
 class _LogPlayersViewState extends State<LogPlayersView> {
-  Log _log = logDetailsBloc.logSubject.value;
+  Log get _log => widget.log;
   Map<String, Player> _players;
   Map<String, String> _playerNames;
   HashMap<String, AveragePlayerStats> _averagePlayerStatsMap;

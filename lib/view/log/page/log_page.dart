@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
+import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
@@ -10,27 +10,27 @@ import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/view/common/base_page.dart';
 import 'package:logstf/view/common/base_page_state.dart';
 import 'package:logstf/view/common/page_provider.dart';
-import 'package:logstf/view/log/log_general_stats_view.dart';
-import 'package:logstf/view/log/log_players_view.dart';
+import 'package:logstf/view/log/widget/log_awards_view.dart';
+import 'package:logstf/view/log/widget/log_general_stats_view.dart';
+import 'package:logstf/view/log/widget/log_players_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
-import 'package:logstf/view/log/log_awards_view.dart';
 import 'package:sailor/sailor.dart';
 
-import 'log_players_stats_matrix_view.dart';
-import 'log_timeline_view.dart';
+import '../widget/log_players_stats_matrix_view.dart';
+import '../widget/log_timeline_view.dart';
 
-class LogView extends BasePage {
+class LogPage extends BasePage {
   final LogDetailsBloc logDetailsBloc;
 
-  const LogView({this.logDetailsBloc});
+  const LogPage({this.logDetailsBloc});
 
   @override
   _LogViewState createState() => _LogViewState();
 }
 
-class _LogViewState extends BasePageState<LogView>
+class _LogViewState extends BasePageState<LogPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   String _appBarTitle = "";
@@ -145,12 +145,13 @@ class _LogViewState extends BasePageState<LogView>
                     ));
               }
               if (snapshot.hasData) {
+                Log log = snapshot.data;
                 return TabBarView(controller: _tabController, children: [
-                  LogGeneralStatsView(),
-                  LogPlayersView(_selectedPlayerSteamId),
-                  LogPlayersStatsMatrixView(),
-                  LogAwardsView(),
-                  LogTimelineView(),
+                  LogGeneralStatsView(log),
+                  LogPlayersView(log,_selectedPlayerSteamId),
+                  LogPlayersStatsMatrixView(log),
+                  LogAwardsView(log),
+                  LogTimelineView(log),
                 ]);
               } else {
                 return Container(
@@ -206,14 +207,14 @@ class _LogViewState extends BasePageState<LogView>
   }
 }
 
-class LogViewProvider extends PageProvider<LogView> {
+class LogViewProvider extends PageProvider<LogPage> {
   final LogDetailsBloc logDetailsBloc;
 
   LogViewProvider(this.logDetailsBloc);
 
   @override
-  LogView create() {
-    return LogView(
+  LogPage create() {
+    return LogPage(
       logDetailsBloc: logDetailsBloc,
     );
   }

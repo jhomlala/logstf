@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/model/event.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/util/app_utils.dart';
@@ -8,6 +7,9 @@ import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
 class LogTimelineView extends StatefulWidget {
+  final Log log;
+
+  const LogTimelineView(this.log);
   @override
   State<StatefulWidget> createState() {
     return _LogTimelineViewState();
@@ -15,13 +17,12 @@ class LogTimelineView extends StatefulWidget {
 }
 
 class _LogTimelineViewState extends State<LogTimelineView> {
-  Log _log;
+  Log get _log => widget.log;
   List<Event> _events;
   int _currentRoundStartTime;
 
   @override
   void initState() {
-    _log = logDetailsBloc.logSubject.value;
     _events = _getEvents();
     super.initState();
   }

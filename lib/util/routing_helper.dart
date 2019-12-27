@@ -1,5 +1,5 @@
 import 'package:logstf/model/internal/search_data.dart';
-import 'package:logstf/view/log/log_view.dart';
+import 'package:logstf/view/log/page/log_page.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
 import 'package:sailor/sailor.dart';

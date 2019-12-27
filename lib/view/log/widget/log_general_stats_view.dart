@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/bloc/log_details_bloc.dart';
-
 import 'package:intl/intl.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
@@ -11,12 +9,16 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsView extends StatefulWidget {
+  final Log log;
+
+  const LogGeneralStatsView(this.log);
+
   @override
   _LogGeneralStatsViewState createState() => _LogGeneralStatsViewState();
 }
 
 class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
-  Log _log = logDetailsBloc.logSubject.value;
+  Log get _log => widget.log;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                       child: Container(
                           padding: EdgeInsets.only(bottom: 1),
                           child: Table(
-                            children: _getTeamStatsTableRows(applicationLocalization),
+                            children:
+                                _getTeamStatsTableRows(applicationLocalization),
                           ))))),
           Container(
               margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -57,10 +60,10 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
                   elevation: 10.0,
                   child: Column(
                     children: [
-                      _getMapWidget(context,applicationLocalization),
-                      _getMatchTypeWidget(context,applicationLocalization),
+                      _getMapWidget(context, applicationLocalization),
+                      _getMatchTypeWidget(context, applicationLocalization),
                       _getTimestampWidget(applicationLocalization),
-                      _getTimeWidget(context,applicationLocalization),
+                      _getTimeWidget(context, applicationLocalization),
                       _getUploaderWidget(applicationLocalization),
                       _getMatchIdWidget(applicationLocalization)
                     ],
@@ -76,7 +79,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
     );
   }
 
-  Widget _getMapWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
+  Widget _getMapWidget(
+      BuildContext context, ApplicationLocalization applicationLocalization) {
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -90,7 +94,8 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getTimeWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
+  Widget _getTimeWidget(
+      BuildContext context, ApplicationLocalization applicationLocalization) {
     var length = _log.length;
     var lengthHours = (length / 3600).floor();
     var lengthMinutes = ((length - lengthHours * 3600) / 60).floor();
@@ -134,9 +139,10 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  Widget _getMatchTypeWidget(BuildContext context, ApplicationLocalization applicationLocalization) {
-    MatchType matchType =
-        LogHelper.getMatchType(_log.players.values.length, _log.info.map, context);
+  Widget _getMatchTypeWidget(
+      BuildContext context, ApplicationLocalization applicationLocalization) {
+    MatchType matchType = LogHelper.getMatchType(
+        _log.players.values.length, _log.info.map, context);
     return Container(
         margin: EdgeInsets.all(5),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -186,26 +192,41 @@ class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
         ]));
   }
 
-  List<TableRow> _getTeamStatsTableRows(ApplicationLocalization applicationLocalization) {
+  List<TableRow> _getTeamStatsTableRows(
+      ApplicationLocalization applicationLocalization) {
     List<TableRow> tableRows = List();
     tableRows.add(_getHeaderRow(applicationLocalization));
-    tableRows.add(_getRow(applicationLocalization.getText("log_kills"), "${LogHelper.getKillsSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_kills"),
+        "${LogHelper.getKillsSum(_log, "Red")}",
         "${LogHelper.getKillsSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_deaths"), "${LogHelper.getDeathsSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_deaths"),
+        "${LogHelper.getDeathsSum(_log, "Red")}",
         "${LogHelper.getDeathsSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_assists"), "${LogHelper.getAssistsSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_assists"),
+        "${LogHelper.getAssistsSum(_log, "Red")}",
         "${LogHelper.getAssistsSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_damage"), "${LogHelper.getDamageSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_damage"),
+        "${LogHelper.getDamageSum(_log, "Red")}",
         "${LogHelper.getDamageSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         applicationLocalization.getText("log_damage_taken"),
         "${LogHelper.getDamageTakenSum(_log, "Red")}",
         "${LogHelper.getDamageTakenSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_caps"), "${LogHelper.getCapSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_caps"),
+        "${LogHelper.getCapSum(_log, "Red")}",
         "${LogHelper.getCapSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_charges"), "${LogHelper.getChargeSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_charges"),
+        "${LogHelper.getChargeSum(_log, "Red")}",
         "${LogHelper.getChargeSum(_log, "Blue")}"));
-    tableRows.add(_getRow(applicationLocalization.getText("log_drops"), "${LogHelper.getDropSum(_log, "Red")}",
+    tableRows.add(_getRow(
+        applicationLocalization.getText("log_drops"),
+        "${LogHelper.getDropSum(_log, "Red")}",
         "${LogHelper.getDropSum(_log, "Blue")}"));
     tableRows.add(_getRow(
         "KA/D",
