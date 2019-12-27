@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logstf/main.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/model/navigation_event.dart';
@@ -7,6 +8,7 @@ import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/routing_helper.dart';
+import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'package:sailor/sailor.dart';
 import '../../about/about_view.dart';
@@ -16,7 +18,7 @@ import '../../help/help_view.dart';
 import '../../log/log_view.dart';
 import '../widget/logs_saved_list_view.dart';
 import 'package:logstf/view/main/widget/logs_list_view.dart';
-import 'package:logstf/view/main/widget/logs_watch_list_view.dart';
+import 'package:logstf/view/main/widget/logs_saved_players_fragment.dart';
 
 import '../../search/page/search_page.dart';
 import '../bloc/main_page_bloc.dart';
@@ -25,8 +27,10 @@ class MainPage extends BasePage {
   final Sailor sailor;
   final MainPageBloc mainPageBloc;
   final AppStateManager appStateManager;
+  final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
 
-  const MainPage(this.sailor, this.mainPageBloc, this.appStateManager);
+  const MainPage(this.sailor, this.mainPageBloc, this.appStateManager,
+      this.logsSavedPlayersFragmentBloc);
 
   @override
   _MainViewPage createState() => _MainViewPage();
@@ -118,7 +122,7 @@ class _MainViewPage extends BasePageState<MainPage>
                 ])),
         body: TabBarView(controller: _tabController, children: [
           LogsListView(mainPageBloc, onLogClicked),
-          LogsWatchListView(),
+          LogsWatchListView(widget.logsSavedPlayersFragmentBloc),
           LogsSavedListView()
         ]));
   }
@@ -164,8 +168,7 @@ class _MainViewPage extends BasePageState<MainPage>
   void _onSearchClicked() async {
     SearchData searchData = await getNavigator()
         .navigate(RoutingHelper.searchPageRoute, params: {
-      AppConst.searchDataParameter:
-      widget.appStateManager.searchData
+      AppConst.searchDataParameter: widget.appStateManager.searchData
     });
     if (searchData != null) {
       widget.appStateManager.searchData = searchData;

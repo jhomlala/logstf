@@ -1,6 +1,7 @@
 import 'package:inject/inject.dart';
 import 'package:logstf/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/view/log/log_view.dart';
 import 'package:logstf/view/search/bloc/player_search_results_page_bloc.dart';
@@ -16,8 +17,9 @@ class PageModule {
   MainPage provideMainPage(
       Sailor sailor,
       MainPageBlocProvider mainPageBlocProvider,
-      AppStateManager appStateManager) {
-    return MainPage(sailor, mainPageBlocProvider.create(), appStateManager);
+      AppStateManager appStateManager,
+      LogsSavedPlayersFragmentBlocProvider logsSavedPlayersFragmentBlocProvider) {
+    return MainPage(sailor, mainPageBlocProvider.create(), appStateManager, logsSavedPlayersFragmentBlocProvider.create());
   }
 
   @provide

@@ -1,5 +1,7 @@
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:rxdart/rxdart.dart';
@@ -8,6 +10,8 @@ import '../../../bloc/bloc_provider.dart';
 
 class MainPageBloc {
   final BehaviorSubject<List<LogShort>> logsSearchSubject = BehaviorSubject();
+  final BehaviorSubject<List<PlayerObserved>> playersObservedSubject =
+  BehaviorSubject<List<PlayerObserved>>();
 
   int offset = 0;
   bool loading = false;
@@ -17,8 +21,10 @@ class MainPageBloc {
   String title = "";
   String player = "";
 
+
   void dispose() async {
     logsSearchSubject.close();
+    playersObservedSubject.close();
   }
 
   void clearLogs() {
@@ -40,12 +46,12 @@ class MainPageBloc {
   }
 
   Future searchLogsFromSearchData(SearchData searchData) {
-    return searchLogs(map: searchData.map,
+    return searchLogs(
+        map: searchData.map,
         uploader: searchData.uploader,
         title: searchData.title,
         player: searchData.player);
   }
-
 
   Future searchLogs({String map,
     String uploader,
@@ -114,9 +120,12 @@ class MainPageBloc {
     loading = true;
     clearLogs();
   }
+
+
 }
 
 class MainPageBlocProvider extends BlocProvider<MainPageBloc> {
+
   @override
   MainPageBloc create() {
     return MainPageBloc();

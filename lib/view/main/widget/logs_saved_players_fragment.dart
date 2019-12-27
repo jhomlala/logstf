@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/logs_player_observed_bloc.dart';
-import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
+import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 
 class LogsWatchListView extends StatefulWidget {
+  final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
+
+  const LogsWatchListView(this.logsSavedPlayersFragmentBloc);
+
   @override
   _LogsWatchListViewState createState() => _LogsWatchListViewState();
 }
 
 class _LogsWatchListViewState extends State<LogsWatchListView>
     with AutomaticKeepAliveClientMixin<LogsWatchListView> {
+  LogsSavedPlayersFragmentBloc get logsSavedPlayersFragmentBloc =>
+      widget.logsSavedPlayersFragmentBloc;
   PlayerObserved _selectedPlayer;
   ScrollController _controller = new ScrollController();
 
   @override
   void initState() {
     super.initState();
-    playersObservedBloc.getPlayersObserved();
+    logsSavedPlayersFragmentBloc.getPlayersObserved();
   }
 
   @override
@@ -38,7 +43,7 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
     return Container(
         color: Theme.of(context).primaryColor,
         child: StreamBuilder(
-            stream: playersObservedBloc.playersObservedSubject.stream,
+            stream: logsSavedPlayersFragmentBloc.playersObservedSubject,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.none ||
                   snapshot.connectionState == ConnectionState.waiting) {
@@ -47,17 +52,17 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
                 List<PlayerObserved> observedPlayers = snapshot.data;
                 if (_selectedPlayer == null && observedPlayers.length > 0) {
                   _selectedPlayer = observedPlayers[0];
-                  logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
+                  logsSavedPlayersFragmentBloc.searchLogs(_selectedPlayer.steamid64);
                 }
                 return Column(children: [
                   _getPlayersChooserCard(
                       snapshot.data, applicationLocalization),
                   StreamBuilder<List<LogShort>>(
-                      stream: logsPlayerObservedBloc.logsSearchSubject,
+                      stream: logsSavedPlayersFragmentBloc.logsSearchSubject,
                       initialData:
-                          logsPlayerObservedBloc.logsSearchSubject.value,
+                      logsSavedPlayersFragmentBloc.logsSearchSubject.value,
                       builder: (context, snapshot) {
-                        if (!logsPlayerObservedBloc.loading) {
+                        if (!logsSavedPlayersFragmentBloc.loading) {
                           if (snapshot.hasError) {
                             return EmptyCard(
                               description: ErrorHandler.handleError(
@@ -118,8 +123,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
           );
         }).toList(),
         onChanged: (value) {
-          logsPlayerObservedBloc.clearLogs();
-          logsPlayerObservedBloc.searchLogs(value.steamid64);
+          logsSavedPlayersFragmentBloc.clearLogs();
+          logsSavedPlayersFragmentBloc.searchLogs(value.steamid64);
           setState(() {
             _selectedPlayer = value;
           });
@@ -145,8 +150,8 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
             color: Colors.grey,
           ),
           onPressed: () {
-            playersObservedBloc.deletePlayerObserved(_selectedPlayer.id);
-            logsPlayerObservedBloc.clearLogs();
+            logsSavedPlayersFragmentBloc.deletePlayerObserved(_selectedPlayer);
+            logsSavedPlayersFragmentBloc.clearLogs();
             _selectedPlayer = null;
           },
         )
@@ -174,14 +179,14 @@ class _LogsWatchListViewState extends State<LogsWatchListView>
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification is ScrollEndNotification) {
       if (_controller.position.extentAfter == 0 &&
-          !logsPlayerObservedBloc.loading) {
-        logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
+          !logsSavedPlayersFragmentBloc.loading) {
+        logsSavedPlayersFragmentBloc.searchLogs(_selectedPlayer.steamid64);
       }
     }
     return false;
   }
 
   _onRetryPressed() {
-    logsPlayerObservedBloc.searchLogs(_selectedPlayer.steamid64);
+    logsSavedPlayersFragmentBloc.searchLogs(_selectedPlayer.steamid64);
   }
 }

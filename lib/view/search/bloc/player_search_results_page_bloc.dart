@@ -1,9 +1,11 @@
 import 'package:logstf/bloc/bloc_provider.dart';
+import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/player_search_result.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_player_search_provider.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/view/common/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,9 +34,11 @@ class PlayerSearchResultsPageBloc extends BaseBloc {
     playersObservedLocalProvider.createPlayerObserved(PlayerObserved(
         name: playerSearchResult.playerNames.first,
         steamid64: playerSearchResult.steamId));
-    observedPlayers.add(PlayerObserved(
+    PlayerObserved playerObserved = PlayerObserved(
         name: playerSearchResult.playerNames.first,
-        steamid64: playerSearchResult.steamId));
+        steamid64: playerSearchResult.steamId);
+    observedPlayers.add(playerObserved);
+    RxBus.post(PlayerObservedAddedEvent(playerObserved));
   }
 
   void getObservedPlayers() async {
@@ -50,8 +54,11 @@ class PlayerSearchResultsPageBloc extends BaseBloc {
   }
 
   bool isPlayerObserved(PlayerSearchResult playerSearchResult) {
-    return observedPlayers.where((playerObserved) =>
-            playerObserved.steamid64 == playerSearchResult.steamId).length > 0;
+    return observedPlayers
+            .where((playerObserved) =>
+                playerObserved.steamid64 == playerSearchResult.steamId)
+            .length >
+        0;
   }
 }
 
