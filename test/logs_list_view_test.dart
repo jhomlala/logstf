@@ -1,8 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:logstf/view/main/main_page_bloc.dart';
+import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/view/logs/logs_list_view.dart';
+import 'package:logstf/view/main/widget/logs_list_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';

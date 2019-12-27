@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/main_page_bloc.dart';
+import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/navigation_event.dart';

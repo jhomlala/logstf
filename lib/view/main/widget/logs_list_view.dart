@@ -1,17 +1,14 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/main_page_bloc.dart';
-import 'package:logstf/bloc/player_search_bloc.dart';
+import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
-import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/filters_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:sailor/sailor.dart';
 
 class LogsListView extends StatefulWidget {
   final MainPageBloc mainPageBloc;

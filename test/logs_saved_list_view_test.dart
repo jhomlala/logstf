@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/view/logs/logs_saved_list_view.dart';
+import 'package:logstf/view/main/widget/logs_saved_list_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';

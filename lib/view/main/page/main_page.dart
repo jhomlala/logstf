@@ -9,17 +9,17 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/settings/settings_view.dart';
 import 'package:sailor/sailor.dart';
-import '../about/about_view.dart';
-import '../common/base_page.dart';
-import '../common/base_page_state.dart';
-import '../help/help_view.dart';
-import '../log/log_view.dart';
-import '../logs/logs_saved_list_view.dart';
-import 'package:logstf/view/logs/logs_list_view.dart';
-import 'package:logstf/view/logs/logs_watch_list_view.dart';
+import '../../about/about_view.dart';
+import '../../common/base_page.dart';
+import '../../common/base_page_state.dart';
+import '../../help/help_view.dart';
+import '../../log/log_view.dart';
+import '../widget/logs_saved_list_view.dart';
+import 'package:logstf/view/main/widget/logs_list_view.dart';
+import 'package:logstf/view/main/widget/logs_watch_list_view.dart';
 
-import '../search/search_page.dart';
-import 'main_page_bloc.dart';
+import '../../search/page/search_page.dart';
+import '../bloc/main_page_bloc.dart';
 
 class MainPage extends BasePage {
   final Sailor sailor;
@@ -35,12 +35,12 @@ class MainPage extends BasePage {
 class _MainViewPage extends BasePageState<MainPage>
     with SingleTickerProviderStateMixin {
   MainPageBloc get mainPageBloc => widget.mainPageBloc;
-  TabController tabController;
+  TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     callGetDeepLinkLogId();
   }
 
@@ -100,7 +100,7 @@ class _MainViewPage extends BasePageState<MainPage>
             ],
             bottom: TabBar(
                 key: Key("mainViewTabBar"),
-                controller: tabController,
+                controller: _tabController,
                 indicatorColor: Colors.white,
                 tabs: [
                   Tab(
@@ -116,7 +116,7 @@ class _MainViewPage extends BasePageState<MainPage>
                     icon: Icon(Icons.favorite),
                   )
                 ])),
-        body: TabBarView(controller: tabController, children: [
+        body: TabBarView(controller: _tabController, children: [
           LogsListView(mainPageBloc, onLogClicked),
           LogsWatchListView(),
           LogsSavedListView()

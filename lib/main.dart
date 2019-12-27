@@ -4,7 +4,7 @@ import 'package:inject/inject.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization_delegate.dart';
 import 'package:logstf/util/routing_helper.dart';
-import 'package:logstf/view/main/main_page.dart';
+import 'package:logstf/view/main/page/main_page.dart';
 import 'package:sailor/sailor.dart';
 import 'bloc/logs_saved_bloc.dart';
 import 'bloc/settings_bloc.dart';

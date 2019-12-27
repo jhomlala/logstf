@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/main_page_bloc.dart';
+import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/view/search/search_page_bloc.dart';
+import 'package:logstf/view/search/bloc/search_page_bloc.dart';
 import 'package:logstf/widget/logs_button.dart';
 
 class LogsSearchView extends StatefulWidget {

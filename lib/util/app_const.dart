@@ -2,6 +2,7 @@ class AppConst {
   static const String logIdParameter = "logId";
   static const String selectedPlayerSteamId = "selectedPlayerSteamId";
   static const String searchDataParameter = "searchData";
+  static const String playerNameParameter = "playerName";
 
 
   static const int logsLimit = 1000;

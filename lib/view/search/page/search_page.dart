@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/app_const.dart';
-import 'package:logstf/view/main/main_page_bloc.dart';
+import 'package:logstf/util/routing_helper.dart';
+import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/common/base_page.dart';
 import 'package:logstf/view/common/base_page_state.dart';
 import 'package:logstf/view/common/page_provider.dart';
-import 'package:logstf/view/logs/search/player_search_view.dart';
-import 'package:logstf/view/search/search_page_bloc.dart';
+import 'package:logstf/view/search/widget/player_search_view.dart';
+import 'package:logstf/view/search/bloc/search_page_bloc.dart';
 import 'package:sailor/sailor.dart';
 
-import '../logs/search/logs_search_view.dart';
+import '../widget/logs_search_view.dart';
 
 class SearchPage extends BasePage {
   final SearchPageBloc searchPageBloc;
@@ -69,17 +70,21 @@ class _SearchPageState extends BasePageState<SearchPage>
                       ),
                     ])),
             body: TabBarView(controller: _tabController, children: [
-              LogsSearchView(searchPageBloc, onSearchAction),
-              PlayerSearchView()
+              LogsSearchView(searchPageBloc, _onLogsSearchAction),
+              PlayerSearchView(_onPlayerSearchAction)
             ])));
   }
 
-  void onSearchAction(SearchData searchData) {
-    print("ON search clicked: " + searchData.toString());
+  void _onLogsSearchAction(SearchData searchData) {
     getNavigator().pop(searchData);
   }
 
-  Future<bool> _onWillPop() async{
+  void _onPlayerSearchAction(String playerName) {
+    getNavigator().navigate(RoutingHelper.playerSearchResultsRoute,
+        params: {AppConst.playerNameParameter: playerName});
+  }
+
+  Future<bool> _onWillPop() async {
     getNavigator().pop();
     return false;
   }

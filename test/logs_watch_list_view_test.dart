@@ -3,7 +3,7 @@ import 'package:logstf/bloc/logs_player_observed_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
-import 'package:logstf/view/logs/logs_watch_list_view.dart';
+import 'package:logstf/view/main/widget/logs_watch_list_view.dart';
 import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/log_short_card.dart';
 import 'package:logstf/widget/progress_bar.dart';
