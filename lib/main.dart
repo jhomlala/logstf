@@ -42,7 +42,6 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
     super.initState();
     widget.routingHelper.setupRoutes();
     settingsBloc.getAppSettings();
-    logsSavedBloc.initLogs();
   }
 
   @override

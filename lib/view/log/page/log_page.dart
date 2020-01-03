@@ -9,7 +9,6 @@ import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 
-import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/util/app_const.dart';
@@ -190,7 +189,6 @@ class _LogViewState extends BasePageState<LogPage>
 
   void _removeSavedLog(Log log, LogShort logShort) {
     logDetailsBloc.deleteLogFromDatabase(log.id);
-    logsSavedBloc.removeLog(logShort);
     RxBus.post(LogSavedEvent(logShort, false));
     setState(() {
       _saved = false;
@@ -199,7 +197,6 @@ class _LogViewState extends BasePageState<LogPage>
 
   void _saveLog(LogShort logShort) {
     logDetailsBloc.createLogInDatabase(logShort);
-    logsSavedBloc.addLog(logShort);
     RxBus.post(LogSavedEvent(logShort, true));
     setState(() {
       _saved = true;
@@ -218,8 +215,6 @@ class _LogViewState extends BasePageState<LogPage>
 
   void _onPlayerClicked(Log log, Player player,
       HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
-
-
     print("1Average player stats map: " + averagePlayersStatsMap.toString());
     SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent =
         await getNavigator().navigate(RoutingHelper.logPlayerRoute, params: {
