@@ -6,12 +6,10 @@ import 'package:logstf/helper/stats_manager.dart';
 
 import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/log.dart';
-import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/view/player/page/log_player_page.dart';
+
 import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
@@ -306,7 +304,11 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return TableRow(children: [
       InkWell(
           onTap: () {
-            widget.onPlayerClicked(_log, player, _averagePlayerStatsMap);
+            widget.onPlayerClicked(
+                _log,
+                player,
+                HashMap<String, AveragePlayerStats>()
+                    .addAll(_averagePlayerStatsMap));
           },
           child: _getPlayerNameWidget(player)),
     ]);

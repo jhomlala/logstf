@@ -33,12 +33,8 @@ class MainPage extends BasePage {
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
   final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
 
-  const MainPage(
-      this.sailor,
-      this.appStateManager,
-      this.logsListFragmentBloc,
-      this.logsSavedPlayersFragmentBloc,
-      this.logsSavedLogsFragmentBloc);
+  const MainPage(this.sailor, this.appStateManager, this.logsListFragmentBloc,
+      this.logsSavedPlayersFragmentBloc, this.logsSavedLogsFragmentBloc);
 
   @override
   _MainViewPage createState() => _MainViewPage();
@@ -167,10 +163,18 @@ class _MainViewPage extends BasePageState<MainPage>
     }
   }
 
-  void onLogClicked(int logId) async  {
-    SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent = await getNavigator()
-        .navigate(RoutingHelper.logPageRoute, params: {"logId": logId});
-    print("SEARCH PLAYER: " + searchPlayerMatchesNavigationEvent.toString());
+  void onLogClicked(int logId) async {
+    SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent =
+        await getNavigator().navigate(RoutingHelper.logPageRoute,
+            params: {AppConst.logIdParameter: logId});
+    if (searchPlayerMatchesNavigationEvent != null) {
+      SearchData searchData =
+          SearchData(player: searchPlayerMatchesNavigationEvent.steamId, clearData: true);
+      widget.appStateManager.searchData = searchData;
+      widget.logsListFragmentBloc.clearFilters();
+      widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
+      print("Search data set with player: " + searchData.toString());
+    }
   }
 
   void _onSearchClicked() async {

@@ -4,7 +4,6 @@ import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
-import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/view/log/page/log_page.dart';
 import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
 import 'package:logstf/view/player/page/log_player_page.dart';
