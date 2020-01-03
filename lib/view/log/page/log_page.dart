@@ -1,4 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:logstf/model/average_player_stats.dart';
+import 'package:logstf/model/player.dart';
+import 'package:logstf/model/search_player_matches_navigation_event.dart';
+import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 
 import 'package:logstf/bloc/logs_saved_bloc.dart';
@@ -24,7 +30,7 @@ import '../widget/log_timeline_view.dart';
 class LogPage extends BasePage {
   final LogDetailsBloc logDetailsBloc;
 
-  const LogPage({this.logDetailsBloc});
+  const LogPage(Sailor sailor, this.logDetailsBloc) : super(sailor: sailor);
 
   @override
   _LogViewState createState() => _LogViewState();
@@ -50,7 +56,7 @@ class _LogViewState extends BasePageState<LogPage>
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _tabController = TabController(length: 5, vsync: this);
     _tabController.addListener(_onTabChanged);
@@ -148,7 +154,7 @@ class _LogViewState extends BasePageState<LogPage>
                 Log log = snapshot.data;
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsView(log),
-                  LogPlayersView(log,_selectedPlayerSteamId),
+                  LogPlayersView(log, _selectedPlayerSteamId, _onPlayerClicked),
                   LogPlayersStatsMatrixView(log),
                   LogAwardsView(log),
                   LogTimelineView(log),
@@ -205,17 +211,35 @@ class _LogViewState extends BasePageState<LogPage>
   _onRetryPressed() {
     logDetailsBloc.selectLog(_logId);
   }
+
+  void _onPlayerClicked(Log log, Player player,
+      HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
+    SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent =
+        await getNavigator().navigate(RoutingHelper.logPlayerRoute, params: {
+      AppConst.logParameter: log,
+      AppConst.playerParameter: player,
+      AppConst.averagePlayersStatsMapParameter: averagePlayersStatsMap
+    });
+    if (searchPlayerMatchesNavigationEvent != null) {
+      getNavigator().pop(searchPlayerMatchesNavigationEvent);
+    }
+  }
 }
 
 class LogViewProvider extends PageProvider<LogPage> {
+  final Sailor sailor;
   final LogDetailsBloc logDetailsBloc;
 
-  LogViewProvider(this.logDetailsBloc);
+  LogViewProvider(
+    this.sailor,
+    this.logDetailsBloc,
+  );
 
   @override
   LogPage create() {
     return LogPage(
-      logDetailsBloc: logDetailsBloc,
+      sailor,
+      logDetailsBloc,
     );
   }
 }

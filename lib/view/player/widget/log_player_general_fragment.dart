@@ -6,19 +6,19 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 
-class LogPlayerGeneralView extends StatefulWidget {
+class LogPlayerGeneralFragment extends StatefulWidget {
   final Player player;
   final HashMap<String, AveragePlayerStats> averagePlayersStatsMap;
   final int length;
 
-  const LogPlayerGeneralView(
+  const LogPlayerGeneralFragment(
       this.player, this.averagePlayersStatsMap, this.length);
 
   @override
-  _LogPlayerGeneralViewState createState() => _LogPlayerGeneralViewState();
+  _LogPlayerGeneralFragmentState createState() => _LogPlayerGeneralFragmentState();
 }
 
-class _LogPlayerGeneralViewState extends State<LogPlayerGeneralView> {
+class _LogPlayerGeneralFragmentState extends State<LogPlayerGeneralFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(

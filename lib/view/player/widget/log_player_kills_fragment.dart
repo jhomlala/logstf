@@ -7,17 +7,17 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:logstf/widget/table_header_widget.dart';
 
-class LogPlayerKillsView extends StatefulWidget {
+class LogPlayerKillsFragment extends StatefulWidget {
   final Log log;
   final Player player;
 
-  const LogPlayerKillsView(this.log, this.player);
+  const LogPlayerKillsFragment(this.log, this.player);
 
   @override
-  _LogPlayerKillsViewState createState() => _LogPlayerKillsViewState();
+  _LogPlayerKillsFragmentState createState() => _LogPlayerKillsFragmentState();
 }
 
-class _LogPlayerKillsViewState extends State<LogPlayerKillsView> {
+class _LogPlayerKillsFragmentState extends State<LogPlayerKillsFragment> {
   @override
   Widget build(BuildContext context) {
     return Container(

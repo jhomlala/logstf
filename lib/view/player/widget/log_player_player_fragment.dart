@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/bloc/main_page_bloc.dart';
-import 'package:logstf/bloc/steam_bloc.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
@@ -8,30 +6,38 @@ import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
+import 'package:logstf/widget/empty_card.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:logstf/widget/observe_player_button.dart';
 import 'package:logstf/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LogPlayerPlayerView extends StatefulWidget {
+class LogPlayerPlayerFragment extends StatefulWidget {
   final Player player;
   final Log log;
+  final LogPlayerPlayerFragmentBloc logPlayerPlayerFragmentBloc;
+  final Function onSearchLogClicked;
 
-  LogPlayerPlayerView(this.player, this.log);
+  LogPlayerPlayerFragment(
+      this.player, this.log, this.logPlayerPlayerFragmentBloc, this.onSearchLogClicked);
 
   @override
-  _LogPlayerPlayerViewState createState() => _LogPlayerPlayerViewState();
+  _LogPlayerPlayerFragmentState createState() =>
+      _LogPlayerPlayerFragmentState();
 }
 
-class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
-    with AutomaticKeepAliveClientMixin<LogPlayerPlayerView> {
+class _LogPlayerPlayerFragmentState extends State<LogPlayerPlayerFragment>
+    with AutomaticKeepAliveClientMixin<LogPlayerPlayerFragment> {
   BehaviorSubject<int> _matchesCountSubject = BehaviorSubject();
   int _steamId64;
 
   @override
   void initState() {
     _steamId64 = AppUtils.convertSteamId3ToSteamId64(widget.player.steamId);
-    logsSearchBloc.getPlayerMatchesCount(_steamId64.toString()).then((value) {
+    widget.logPlayerPlayerFragmentBloc
+        .getPlayerMatchesCount(_steamId64.toString())
+        .then((value) {
       _matchesCountSubject.value = value;
     });
     _getPlayer();
@@ -40,7 +46,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
 
   _getPlayer() async {
     int steamId64 = AppUtils.convertSteamId3ToSteamId64(widget.player.steamId);
-    steamBloc.getSteamPlayer(steamId64.toString());
+    widget.logPlayerPlayerFragmentBloc.getSteamPlayer(steamId64.toString());
   }
 
   @override
@@ -57,8 +63,15 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.only(left: 10, right: 10, top: 10),
         child: StreamBuilder<SteamPlayer>(
-            stream: steamBloc.steamPlayerSubject.stream,
+            stream:
+                widget.logPlayerPlayerFragmentBloc.steamPlayerSubject.stream,
             builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return EmptyCard(
+                  description: "Failed to select user profile",
+                  retry: false,
+                );
+              }
               if (snapshot.data == null) {
                 return ProgressBar();
               } else {
@@ -95,13 +108,19 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                         padding:
                                             EdgeInsets.only(top: 10, bottom: 5),
                                         child: Column(children: [
-                                          Text(applicationLocalization.getText("log_player_logs_tf_matches").replaceAll("<matches_count>", snapshot.data.toString())),
+                                          Text(applicationLocalization
+                                              .getText(
+                                                  "log_player_logs_tf_matches")
+                                              .replaceAll("<matches_count>",
+                                                  snapshot.data.toString())),
                                           Padding(
                                             padding: EdgeInsets.only(top: 10),
                                           ),
                                           Row(children: [
                                             _getPageButton(
-                                  applicationLocalization.getText("log_player_matches"), _onMatchesClicked,
+                                                applicationLocalization.getText(
+                                                    "log_player_matches"),
+                                                _onMatchesClicked,
                                                 backgroundColor:
                                                     Theme.of(context)
                                                         .primaryColor)
@@ -148,7 +167,6 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
                                     ]),
                               ])
                             ]))));
-                //return Text("Player: " + snapshot.data.toString());
               }
             }));
   }
@@ -166,8 +184,7 @@ class _LogPlayerPlayerViewState extends State<LogPlayerPlayerView>
   }
 
   void _onMatchesClicked() {
-    Navigator.pop(
-        context, SearchPlayerMatchesNavigationEvent(_steamId64.toString()));
+    widget.onSearchLogClicked(_steamId64.toString());
   }
 
   void _onSteamClicked() {

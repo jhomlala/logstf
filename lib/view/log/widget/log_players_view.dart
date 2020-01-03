@@ -11,15 +11,17 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/view/player/log_player_detailed_view.dart';
+import 'package:logstf/view/player/page/log_player_page.dart';
 import 'package:logstf/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersView extends StatefulWidget {
   final Log log;
   final int selectedPlayerSteamId;
+  final Function onPlayerClicked;
 
-  const LogPlayersView(this.log,this.selectedPlayerSteamId);
+  const LogPlayersView(
+      this.log, this.selectedPlayerSteamId, this.onPlayerClicked);
 
   @override
   _LogPlayersViewState createState() => _LogPlayersViewState();
@@ -85,7 +87,8 @@ class _LogPlayersViewState extends State<LogPlayersView> {
                     )))
           ])),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Text(applicationLocalization.getText("log_scroll_right_to_see_more"),
+            Text(
+                applicationLocalization.getText("log_scroll_right_to_see_more"),
                 style: TextStyle(color: Colors.white)),
             Icon(
               Icons.keyboard_arrow_right,
@@ -93,19 +96,6 @@ class _LogPlayersViewState extends State<LogPlayersView> {
             )
           ])
         ])));
-  }
-
-  void _onPlayerClicked(Player player) async {
-    NavigationEvent navigationEvent = await Navigator.push<NavigationEvent>(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                LogPlayerDetailedView(_log, player, _averagePlayerStatsMap)));
-
-    if (navigationEvent != null &&
-        navigationEvent is SearchPlayerMatchesNavigationEvent) {
-      Navigator.pop(context, navigationEvent);
-    }
   }
 
   List<Player> _orderPlayersByField(List<Player> players, String filterName) {
@@ -316,7 +306,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return TableRow(children: [
       InkWell(
           onTap: () {
-            _onPlayerClicked(player);
+            widget.onPlayerClicked(_log, player, _averagePlayerStatsMap);
           },
           child: _getPlayerNameWidget(player)),
     ]);

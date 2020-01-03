@@ -1,4 +1,5 @@
 import 'package:inject/inject.dart';
+import 'package:logstf/repository/remote/steam_remote_provider.dart';
 import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
@@ -9,6 +10,7 @@ import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
+import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
 import 'package:logstf/view/search/bloc/player_search_results_page_bloc.dart';
 import 'package:logstf/view/search/bloc/search_page_bloc.dart';
 
@@ -54,7 +56,17 @@ class BlocModule {
   }
 
   @provide
-  LogsListFragmentBlocProvider provideLogsListFragmentBlocProvider(LogsRemoteProvider logsRemoteProvider){
+  LogsListFragmentBlocProvider provideLogsListFragmentBlocProvider(
+      LogsRemoteProvider logsRemoteProvider) {
     return LogsListFragmentBlocProvider(logsRemoteProvider);
+  }
+
+  @provide
+  LogPlayerPlayerFragmentBlocProvider
+      provideLogPlayerPlayerFragmentBlocProvider(
+          LogsRemoteProvider logsRemoteProvider,
+          SteamRemoteProvider steamRemoteProvider) {
+    return LogPlayerPlayerFragmentBlocProvider(
+        logsRemoteProvider, steamRemoteProvider);
   }
 }

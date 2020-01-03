@@ -13,17 +13,17 @@ import 'package:logstf/widget/sniper_overview_card.dart';
 import 'package:logstf/widget/soldier_overview_widget.dart';
 import 'package:logstf/widget/spy_overview_card.dart';
 
-class LogPlayerClassOverview extends StatefulWidget {
+class LogPlayerClassOverviewFragment extends StatefulWidget {
   final Log log;
   final Player player;
 
-  const LogPlayerClassOverview(this.log, this.player);
+  const LogPlayerClassOverviewFragment(this.log, this.player);
 
   @override
-  _LogPlayerClassOverviewState createState() => _LogPlayerClassOverviewState();
+  _LogPlayerClassOverviewFragmentState createState() => _LogPlayerClassOverviewFragmentState();
 }
 
-class _LogPlayerClassOverviewState extends State<LogPlayerClassOverview> {
+class _LogPlayerClassOverviewFragmentState extends State<LogPlayerClassOverviewFragment> {
   List<String> _classes;
   String _selectedClass;
 

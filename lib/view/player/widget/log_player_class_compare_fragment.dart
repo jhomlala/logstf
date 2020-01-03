@@ -6,18 +6,18 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/comparison_card.dart';
 
-class LogPlayerClassCompareView extends StatefulWidget {
+class LogPlayerClassCompareFragment extends StatefulWidget {
   final Log _log;
   final Player _player;
 
-  const LogPlayerClassCompareView(this._log, this._player);
+  const LogPlayerClassCompareFragment(this._log, this._player);
 
   @override
-  _LogPlayerClassCompareViewState createState() =>
-      _LogPlayerClassCompareViewState();
+  _LogPlayerClassCompareFragmentState createState() =>
+      _LogPlayerClassCompareFragmentState();
 }
 
-class _LogPlayerClassCompareViewState extends State<LogPlayerClassCompareView> {
+class _LogPlayerClassCompareFragmentState extends State<LogPlayerClassCompareFragment> {
   List<String> _classes;
   String _selectedClass;
   List<Player> _otherPlayersWithSelectedClass;

@@ -6,6 +6,8 @@ import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/view/log/page/log_page.dart';
+import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
+import 'package:logstf/view/player/page/log_player_page.dart';
 import 'package:logstf/view/search/bloc/player_search_results_page_bloc.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
@@ -32,8 +34,8 @@ class PageModule {
 
   @provide
   LogViewProvider provideLogViewProvider(
-      LogDetailsBlocProvider logDetailsBlocProvider) {
-    return LogViewProvider(logDetailsBlocProvider.create());
+      Sailor sailor, LogDetailsBlocProvider logDetailsBlocProvider) {
+    return LogViewProvider(sailor, logDetailsBlocProvider.create());
   }
 
   @provide
@@ -48,5 +50,11 @@ class PageModule {
       PlayerSearchResultsPageBlocProvider playerSearchResultsPageBlocProvider) {
     return PlayerSearchResultsPageProvider(
         sailor, playerSearchResultsPageBlocProvider.create());
+  }
+
+  @provide
+  LogPlayerPageProvider provideLogPlayerPageProvider(Sailor sailor,
+      LogPlayerPlayerFragmentBlocProvider logPlayerPlayerFragmentBlocProvider) {
+    return LogPlayerPageProvider(sailor,logPlayerPlayerFragmentBlocProvider.create());
   }
 }

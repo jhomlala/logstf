@@ -4,11 +4,11 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
-class LogPlayerAwardsView extends StatelessWidget {
+class LogPlayerAwardsFragment extends StatelessWidget {
   final Log _log;
   final Player _player;
 
-  const LogPlayerAwardsView(this._log, this._player);
+  const LogPlayerAwardsFragment(this._log, this._player);
 
   @override
   Widget build(BuildContext context) {

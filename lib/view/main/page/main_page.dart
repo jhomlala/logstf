@@ -4,6 +4,7 @@ import 'package:logstf/main.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/menu_item.dart';
 import 'package:logstf/model/navigation_event.dart';
+import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
@@ -166,9 +167,10 @@ class _MainViewPage extends BasePageState<MainPage>
     }
   }
 
-  void onLogClicked(int logId) {
-    getNavigator()
+  void onLogClicked(int logId) async  {
+    SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent = await getNavigator()
         .navigate(RoutingHelper.logPageRoute, params: {"logId": logId});
+    print("SEARCH PLAYER: " + searchPlayerMatchesNavigationEvent.toString());
   }
 
   void _onSearchClicked() async {

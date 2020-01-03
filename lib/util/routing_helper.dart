@@ -1,5 +1,11 @@
+import 'dart:collection';
+
+import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/internal/search_data.dart';
+import 'package:logstf/model/log.dart';
+import 'package:logstf/model/player.dart';
 import 'package:logstf/view/log/page/log_page.dart';
+import 'package:logstf/view/player/page/log_player_page.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
 import 'package:sailor/sailor.dart';
@@ -11,13 +17,15 @@ class RoutingHelper {
   final LogViewProvider logViewProvider;
   final SearchPageProvider searchPageProvider;
   final PlayerSearchResultsPageProvider playerSearchResultsPageProvider;
+  final LogPlayerPageProvider logPlayerPageProvider;
 
   static const String logPageRoute = "/log";
   static const String searchPageRoute = "/search";
   static const String playerSearchResultsRoute = "/search/player/results";
+  static const String logPlayerRoute = "/log/player";
 
   RoutingHelper(this.sailor, this.logViewProvider, this.searchPageProvider,
-      this.playerSearchResultsPageProvider);
+      this.playerSearchResultsPageProvider, this.logPlayerPageProvider);
 
   void setupRoutes() {
     print("Setup routes!");
@@ -53,6 +61,20 @@ class RoutingHelper {
         params: [
           SailorParam<String>(
               name: AppConst.playerNameParameter, defaultValue: ""),
+        ]));
+
+    sailor.addRoute(SailorRoute(
+        name: logPlayerRoute,
+        builder: (context, args, params) {
+          return logPlayerPageProvider.create();
+        },
+        params: [
+          SailorParam<Log>(
+              name: AppConst.logParameter),
+          SailorParam<Player>(
+              name: AppConst.playerParameter),
+          SailorParam<HashMap<String, AveragePlayerStats>>(
+              name: AppConst.averagePlayersStatsMapParameter),
         ]));
   }
 }
