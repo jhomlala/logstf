@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:logstf/model/internal/log_saved_event.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/view/common/base_bloc.dart';
 import 'package:logstf/view/common/bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -11,7 +14,15 @@ class LogsSavedLogsFragmentBloc extends BaseBloc {
   final LogsLocalProvider logsLocalProvider;
   var loading = false;
 
-  LogsSavedLogsFragmentBloc(this.logsLocalProvider);
+  LogsSavedLogsFragmentBloc(this.logsLocalProvider) {
+    StreamSubscription subscription =
+        RxBus.register<LogSavedEvent>().listen((event) {
+      print("Refresh saved logs!");
+      clearLogs();
+      getSavedLogs();
+    });
+    addSubscription(subscription);
+  }
 
   void dispose() async {
     await savedLogsSubject.drain();
@@ -70,6 +81,7 @@ class LogsSavedLogsFragmentBlocProvider
   final LogsLocalProvider logsLocalProvider;
 
   LogsSavedLogsFragmentBlocProvider(this.logsLocalProvider);
+
   @override
   LogsSavedLogsFragmentBloc create() {
     return LogsSavedLogsFragmentBloc(logsLocalProvider);

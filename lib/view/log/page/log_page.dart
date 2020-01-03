@@ -2,8 +2,10 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:logstf/model/average_player_stats.dart';
+import 'package:logstf/model/internal/log_saved_event.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 
@@ -189,6 +191,7 @@ class _LogViewState extends BasePageState<LogPage>
   void _removeSavedLog(Log log, LogShort logShort) {
     logDetailsBloc.deleteLogFromDatabase(log.id);
     logsSavedBloc.removeLog(logShort);
+    RxBus.post(LogSavedEvent(logShort, false));
     setState(() {
       _saved = false;
     });
@@ -197,6 +200,7 @@ class _LogViewState extends BasePageState<LogPage>
   void _saveLog(LogShort logShort) {
     logDetailsBloc.createLogInDatabase(logShort);
     logsSavedBloc.addLog(logShort);
+    RxBus.post(LogSavedEvent(logShort, true));
     setState(() {
       _saved = true;
     });
