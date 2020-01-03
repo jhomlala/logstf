@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/players_observed_bloc.dart';
 import 'package:logstf/model/player_observed.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/util/application_localization.dart';
 
 import 'logs_button.dart';
 
 class ObservePlayerButton extends StatefulWidget {
+  final Future<PlayerObserved> playerObserved;
   final String steamId64;
   final String playerName;
+  final Function onObservePlayerClicked;
+  final Function onRemovePlayerObserveClicked;
 
-  const ObservePlayerButton({Key key, this.steamId64, this.playerName})
+  const ObservePlayerButton(
+      {Key key,
+      this.steamId64,
+      this.playerName,
+      this.playerObserved,
+      this.onObservePlayerClicked,
+      this.onRemovePlayerObserveClicked})
       : super(key: key);
 
   @override
@@ -22,8 +29,7 @@ class _ObservePlayerButtonState extends State<ObservePlayerButton> {
   Widget build(BuildContext context) {
     var applicationLocalization = ApplicationLocalization.of(context);
     return FutureBuilder(
-        future: playersObservedLocalProvider
-            .getPlayerObservedWithSteamId64(widget.steamId64),
+        future: widget.playerObserved,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.none ||
               snapshot.connectionState == ConnectionState.waiting) {
@@ -32,10 +38,13 @@ class _ObservePlayerButtonState extends State<ObservePlayerButton> {
             PlayerObserved snapshotData = snapshot.data as PlayerObserved;
             if (snapshotData != null) {
               return _getPageButton(
-                  applicationLocalization.getText("log_player_observe_remove"), _removeObservedPlayer,
+                  applicationLocalization.getText("log_player_observe_remove"),
+                  _removeObservedPlayer,
                   backgroundColor: Theme.of(context).primaryColor);
             } else {
-              return _getPageButton(applicationLocalization.getText("log_player_observe"), _observePlayer,
+              return _getPageButton(
+                  applicationLocalization.getText("log_player_observe"),
+                  _observePlayer,
                   backgroundColor: Theme.of(context).primaryColor);
             }
           } else {
@@ -57,22 +66,10 @@ class _ObservePlayerButtonState extends State<ObservePlayerButton> {
   }
 
   void _observePlayer() async {
-    PlayerObserved playerObserved =
-        await playersObservedBloc.getPlayerObserved(widget.steamId64);
-    if (playerObserved == null) {
-      playerObserved = PlayerObserved(
-          id: DateTime.now().millisecondsSinceEpoch,
-          name: widget.playerName,
-          steamid64: widget.steamId64);
-      await playersObservedBloc.addPlayerObserved(playerObserved);
-      setState(() {});
-    }
+    widget.onObservePlayerClicked(widget.steamId64, widget.playerName);
   }
 
   void _removeObservedPlayer() async {
-    PlayerObserved playerObserved =
-        await playersObservedBloc.getPlayerObserved(widget.steamId64);
-    playersObservedBloc.deletePlayerObserved(playerObserved.id);
-    setState(() {});
+    widget.onRemovePlayerObserveClicked(widget.steamId64);
   }
 }

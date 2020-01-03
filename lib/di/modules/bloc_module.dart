@@ -65,8 +65,9 @@ class BlocModule {
   LogPlayerPlayerFragmentBlocProvider
       provideLogPlayerPlayerFragmentBlocProvider(
           LogsRemoteProvider logsRemoteProvider,
-          SteamRemoteProvider steamRemoteProvider) {
+          SteamRemoteProvider steamRemoteProvider,
+          PlayersObservedLocalProvider playersObservedLocalProvider) {
     return LogPlayerPlayerFragmentBlocProvider(
-        logsRemoteProvider, steamRemoteProvider);
+        logsRemoteProvider, steamRemoteProvider, playersObservedLocalProvider);
   }
 }

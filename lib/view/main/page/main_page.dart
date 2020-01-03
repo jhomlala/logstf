@@ -125,8 +125,8 @@ class _MainViewPage extends BasePageState<MainPage>
                 ])),
         body: TabBarView(controller: _tabController, children: [
           LogsListFragment(widget.logsListFragmentBloc, onLogClicked),
-          LogsSavedPlayersFragment(widget.logsSavedPlayersFragmentBloc),
-          LogsSavedLogsFragment(widget.logsSavedLogsFragmentBloc)
+          LogsSavedPlayersFragment(widget.logsSavedPlayersFragmentBloc, onLogClicked),
+          LogsSavedLogsFragment(widget.logsSavedLogsFragmentBloc, onLogClicked)
         ]));
   }
 

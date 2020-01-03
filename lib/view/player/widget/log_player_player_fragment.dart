@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
@@ -19,8 +18,8 @@ class LogPlayerPlayerFragment extends StatefulWidget {
   final LogPlayerPlayerFragmentBloc logPlayerPlayerFragmentBloc;
   final Function onSearchLogClicked;
 
-  LogPlayerPlayerFragment(
-      this.player, this.log, this.logPlayerPlayerFragmentBloc, this.onSearchLogClicked);
+  LogPlayerPlayerFragment(this.player, this.log,
+      this.logPlayerPlayerFragmentBloc, this.onSearchLogClicked);
 
   @override
   _LogPlayerPlayerFragmentState createState() =>
@@ -31,6 +30,9 @@ class _LogPlayerPlayerFragmentState extends State<LogPlayerPlayerFragment>
     with AutomaticKeepAliveClientMixin<LogPlayerPlayerFragment> {
   BehaviorSubject<int> _matchesCountSubject = BehaviorSubject();
   int _steamId64;
+
+  LogPlayerPlayerFragmentBloc get _logPlayerPlayerFragmentBloc =>
+      widget.logPlayerPlayerFragmentBloc;
 
   @override
   void initState() {
@@ -63,8 +65,7 @@ class _LogPlayerPlayerFragmentState extends State<LogPlayerPlayerFragment>
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.only(left: 10, right: 10, top: 10),
         child: StreamBuilder<SteamPlayer>(
-            stream:
-                widget.logPlayerPlayerFragmentBloc.steamPlayerSubject.stream,
+            stream: _logPlayerPlayerFragmentBloc.steamPlayerSubject.stream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return EmptyCard(
@@ -131,6 +132,15 @@ class _LogPlayerPlayerFragmentState extends State<LogPlayerPlayerFragment>
                                               playerName: widget.log
                                                   .getPlayerName(
                                                       widget.player.steamId),
+                                              playerObserved:
+                                                  _logPlayerPlayerFragmentBloc
+                                                      .getPlayerObserved(
+                                                          _steamId64
+                                                              .toString()),
+                                              onObservePlayerClicked:
+                                                  _onObservePlayerClicked,
+                                              onRemovePlayerObserveClicked:
+                                                  _onRemovePlayerObserveClicked,
                                             ),
                                           ]),
                                         ]));
@@ -169,6 +179,16 @@ class _LogPlayerPlayerFragmentState extends State<LogPlayerPlayerFragment>
                             ]))));
               }
             }));
+  }
+
+  _onObservePlayerClicked(String steamId64, String playerName) async {
+    await _logPlayerPlayerFragmentBloc.observePlayer(steamId64, playerName);
+    setState(() {});
+  }
+
+  _onRemovePlayerObserveClicked(String steamId64) async {
+    await _logPlayerPlayerFragmentBloc.removeObservedPlayer(steamId64);
+    setState(() {});
   }
 
   Widget _getPageButton(String text, Function action,

@@ -9,8 +9,10 @@ import 'package:logstf/widget/progress_bar.dart';
 
 class LogsSavedLogsFragment extends StatefulWidget {
   final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
+  final Function onLogClicked;
 
-  const LogsSavedLogsFragment(this.logsSavedLogsFragmentBloc);
+  const LogsSavedLogsFragment(
+      this.logsSavedLogsFragmentBloc, this.onLogClicked);
 
   @override
   _LogsSavedLogsFragmentState createState() => _LogsSavedLogsFragmentState();
@@ -50,7 +52,10 @@ class _LogsSavedLogsFragmentState extends State<LogsSavedLogsFragment>
                       itemBuilder: (context, index) {
                         return Dismissible(
                           key: Key(data[index].id.toString()),
-                          child: LogShortCard(logSearch: data[index]),
+                          child: LogShortCard(
+                            logSearch: data[index],
+                            onLogClicked: widget.onLogClicked,
+                          ),
                           onDismissed: (direction) {
                             logsSavedLogsFragmentBloc
                                 .deleteSavedLog(data[index].id);

@@ -304,11 +304,7 @@ class _LogPlayersViewState extends State<LogPlayersView> {
     return TableRow(children: [
       InkWell(
           onTap: () {
-            widget.onPlayerClicked(
-                _log,
-                player,
-                HashMap<String, AveragePlayerStats>()
-                    .addAll(_averagePlayerStatsMap));
+            widget.onPlayerClicked(_log, player, _averagePlayerStatsMap);
           },
           child: _getPlayerNameWidget(player)),
     ]);

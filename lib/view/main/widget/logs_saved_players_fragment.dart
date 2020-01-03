@@ -10,11 +10,14 @@ import 'package:logstf/widget/progress_bar.dart';
 
 class LogsSavedPlayersFragment extends StatefulWidget {
   final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
+  final Function onLogClicked;
 
-  const LogsSavedPlayersFragment(this.logsSavedPlayersFragmentBloc);
+  const LogsSavedPlayersFragment(
+      this.logsSavedPlayersFragmentBloc, this.onLogClicked);
 
   @override
-  _LogsSavedPlayersFragmentState createState() => _LogsSavedPlayersFragmentState();
+  _LogsSavedPlayersFragmentState createState() =>
+      _LogsSavedPlayersFragmentState();
 }
 
 class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
@@ -52,7 +55,8 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
                 List<PlayerObserved> observedPlayers = snapshot.data;
                 if (_selectedPlayer == null && observedPlayers.length > 0) {
                   _selectedPlayer = observedPlayers[0];
-                  logsSavedPlayersFragmentBloc.searchLogs(_selectedPlayer.steamid64);
+                  logsSavedPlayersFragmentBloc
+                      .searchLogs(_selectedPlayer.steamid64);
                 }
                 return Column(children: [
                   _getPlayersChooserCard(
@@ -60,7 +64,7 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
                   StreamBuilder<List<LogShort>>(
                       stream: logsSavedPlayersFragmentBloc.logsSearchSubject,
                       initialData:
-                      logsSavedPlayersFragmentBloc.logsSearchSubject.value,
+                          logsSavedPlayersFragmentBloc.logsSearchSubject.value,
                       builder: (context, snapshot) {
                         if (!logsSavedPlayersFragmentBloc.loading) {
                           if (snapshot.hasError) {
@@ -87,7 +91,9 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
                                         itemCount: snapshot.data.length,
                                         itemBuilder: (context, index) {
                                           return LogShortCard(
-                                              logSearch: data[index]);
+                                            logSearch: data[index],
+                                            onLogClicked: widget.onLogClicked,
+                                          );
                                         })));
                           }
                         } else {
