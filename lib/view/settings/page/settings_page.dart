@@ -4,19 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:logstf/bloc/logs_player_observed_bloc.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/bloc/players_observed_bloc.dart';
-import 'package:logstf/bloc/settings_bloc.dart';
+import 'package:logstf/view/common/page_provider.dart';
+import 'package:logstf/view/settings/bloc/settings_bloc.dart';
 import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/view/common/base_page.dart';
+import 'package:logstf/view/common/base_page_state.dart';
 import 'package:logstf/widget/logs_button.dart';
+import 'package:sailor/sailor.dart';
 
-class SettingsView extends StatefulWidget {
+class SettingsPage extends BasePage {
+  final SettingsBloc settingsBloc;
+
+  SettingsPage(Sailor sailor, this.settingsBloc): super(sailor: sailor);
+
   @override
-  _SettingsViewState createState() => _SettingsViewState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
+class _SettingsPageState extends BasePageState<SettingsPage> {
+  SettingsBloc get _settingsBloc => widget.settingsBloc;
   String _selectedColor = "";
   String _selectedBrightness = "Light";
   Map<String, Color> _availableColors = Map();
@@ -256,4 +265,15 @@ class _SettingsViewState extends State<SettingsView> {
       }
     });
   }
+}
+
+class SettingsPageProvider extends PageProvider<SettingsPage>{
+  final Sailor sailor;
+  final SettingsBloc settingsBloc;
+  SettingsPageProvider(this.sailor, this.settingsBloc);
+  @override
+  SettingsPage create() {
+   return SettingsPage(sailor,settingsBloc);
+  }
+
 }

@@ -10,6 +10,7 @@ import 'package:logstf/view/log/page/log_page.dart';
 import 'package:logstf/view/player/page/log_player_page.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
+import 'package:logstf/view/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 
 @module
@@ -27,9 +28,15 @@ class CommonModule {
       LogViewProvider logViewProvider,
       SearchPageProvider searchPageProvider,
       PlayerSearchResultsPageProvider playerSearchResultsPageProvider,
-      LogPlayerPageProvider logPlayerPageProvider) {
-    return RoutingHelper(sailor, logViewProvider, searchPageProvider,
-        playerSearchResultsPageProvider, logPlayerPageProvider);
+      LogPlayerPageProvider logPlayerPageProvider,
+      SettingsPageProvider settingsPageProvider) {
+    return RoutingHelper(
+        sailor,
+        logViewProvider,
+        searchPageProvider,
+        playerSearchResultsPageProvider,
+        logPlayerPageProvider,
+        settingsPageProvider);
   }
 
   @provide

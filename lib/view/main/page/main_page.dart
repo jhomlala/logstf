@@ -12,7 +12,7 @@ import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
-import 'package:logstf/view/settings/settings_view.dart';
+import 'package:logstf/view/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 import '../../about/about_view.dart';
 import '../../common/base_page.dart';
@@ -150,8 +150,7 @@ class _MainViewPage extends BasePageState<MainPage>
 
   void _select(MenuItem menuItem) {
     if (menuItem.id == "menu_settings") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SettingsView()));
+      getNavigator().navigate(RoutingHelper.settingsRoute);
     }
     if (menuItem.id == "menu_about") {
       Navigator.push(

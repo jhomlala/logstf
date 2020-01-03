@@ -12,6 +12,8 @@ import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
 import 'package:logstf/view/main/page/main_page.dart';
 import 'package:logstf/view/search/bloc/search_page_bloc.dart';
+import 'package:logstf/view/settings/bloc/settings_bloc.dart';
+import 'package:logstf/view/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 
 @module
@@ -55,5 +57,10 @@ class PageModule {
   LogPlayerPageProvider provideLogPlayerPageProvider(Sailor sailor,
       LogPlayerPlayerFragmentBlocProvider logPlayerPlayerFragmentBlocProvider) {
     return LogPlayerPageProvider(sailor,logPlayerPlayerFragmentBlocProvider.create());
+  }
+
+  @provide
+  SettingsPageProvider provideSettingsPage(Sailor sailor, SettingsBlocProvider settingsBlocProvider){
+    return SettingsPageProvider(sailor, settingsBlocProvider.create());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/repository/local/settings_local_provider.dart';
+import 'package:logstf/view/common/bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsBloc {
@@ -24,4 +25,13 @@ class SettingsBloc {
   }
 }
 
+
 final SettingsBloc settingsBloc = SettingsBloc();
+
+class SettingsBlocProvider extends BlocProvider<SettingsBloc>{
+  @override
+  SettingsBloc create() {
+   return SettingsBloc();
+  }
+
+}

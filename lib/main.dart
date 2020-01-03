@@ -7,7 +7,7 @@ import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/view/main/page/main_page.dart';
 import 'package:sailor/sailor.dart';
 import 'bloc/logs_saved_bloc.dart';
-import 'bloc/settings_bloc.dart';
+import 'view/settings/bloc/settings_bloc.dart';
 import 'di/app_component.dart';
 import 'di/modules/bloc_module.dart';
 import 'di/modules/common_module.dart';

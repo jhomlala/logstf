@@ -13,6 +13,7 @@ import 'package:logstf/view/main/bloc/main_page_bloc.dart';
 import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
 import 'package:logstf/view/search/bloc/player_search_results_page_bloc.dart';
 import 'package:logstf/view/search/bloc/search_page_bloc.dart';
+import 'package:logstf/view/settings/bloc/settings_bloc.dart';
 
 @module
 class BlocModule {
@@ -69,5 +70,10 @@ class BlocModule {
           PlayersObservedLocalProvider playersObservedLocalProvider) {
     return LogPlayerPlayerFragmentBlocProvider(
         logsRemoteProvider, steamRemoteProvider, playersObservedLocalProvider);
+  }
+
+  @provide
+  SettingsBlocProvider provideSettingsBlocProvider(){
+    return SettingsBlocProvider();
   }
 }

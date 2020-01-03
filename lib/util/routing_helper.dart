@@ -8,6 +8,7 @@ import 'package:logstf/view/log/page/log_page.dart';
 import 'package:logstf/view/player/page/log_player_page.dart';
 import 'package:logstf/view/search/page/player_search_results_page.dart';
 import 'package:logstf/view/search/page/search_page.dart';
+import 'package:logstf/view/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 
 import 'app_const.dart';
@@ -18,14 +19,21 @@ class RoutingHelper {
   final SearchPageProvider searchPageProvider;
   final PlayerSearchResultsPageProvider playerSearchResultsPageProvider;
   final LogPlayerPageProvider logPlayerPageProvider;
+  final SettingsPageProvider settingsPageProvider;
 
   static const String logPageRoute = "/log";
   static const String searchPageRoute = "/search";
   static const String playerSearchResultsRoute = "/search/player/results";
   static const String logPlayerRoute = "/log/player";
+  static const String settingsRoute = "/settings";
 
-  RoutingHelper(this.sailor, this.logViewProvider, this.searchPageProvider,
-      this.playerSearchResultsPageProvider, this.logPlayerPageProvider);
+  RoutingHelper(
+      this.sailor,
+      this.logViewProvider,
+      this.searchPageProvider,
+      this.playerSearchResultsPageProvider,
+      this.logPlayerPageProvider,
+      this.settingsPageProvider);
 
   void setupRoutes() {
     print("Setup routes!");
@@ -69,12 +77,17 @@ class RoutingHelper {
           return logPlayerPageProvider.create();
         },
         params: [
-          SailorParam<Log>(
-              name: AppConst.logParameter),
-          SailorParam<Player>(
-              name: AppConst.playerParameter),
+          SailorParam<Log>(name: AppConst.logParameter),
+          SailorParam<Player>(name: AppConst.playerParameter),
           SailorParam<HashMap<String, AveragePlayerStats>>(
               name: AppConst.averagePlayersStatsMapParameter),
         ]));
+
+    sailor.addRoute(SailorRoute(
+      name: settingsRoute,
+      builder: (context, args, params) {
+        return settingsPageProvider.create();
+      },
+    ));
   }
 }
