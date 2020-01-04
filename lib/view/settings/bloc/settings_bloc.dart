@@ -32,9 +32,23 @@ class SettingsBloc {
     appSettingsSubject.value = appSettings;
     settingsLocalProvider.saveAppSettings(appSettings);
   }
-}
 
-SettingsBloc settingsBloc = null;
+  Future<int> getPlayersObservedCount() async {
+    return playersObservedLocalProvider.getPlayersObservedCount();
+  }
+
+  Future<int> getSavedLogsCount() async {
+    return logsLocalProvider.getLogsCount();
+  }
+
+  Future deleteSavedLogs() async {
+    return logsLocalProvider.deleteLogs();
+  }
+
+  Future deleteSavedPlayers() async {
+    return playersObservedLocalProvider.deletePlayersObserved();
+  }
+}
 
 class SettingsBlocProvider extends BlocProvider<SettingsBloc> {
   final PlayersObservedLocalProvider playersObservedLocalProvider;

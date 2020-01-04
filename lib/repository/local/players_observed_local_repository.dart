@@ -71,4 +71,11 @@ class PlayersObservedLocalRepository {
     var res = await db.delete(AppConst.playerObservedTableName);
         return res;
     }
+
+  Future<int> getPlayersObservedCount() async {
+    final db = await database;
+    var countRaw = await db.rawQuery("SELECT COUNT(*) FROM ${AppConst.playerObservedTableName}");
+    return Sqflite.firstIntValue(countRaw);
+  }
+
 }

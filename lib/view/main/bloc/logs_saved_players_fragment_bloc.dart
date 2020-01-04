@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:logstf/model/internal/players_observed_clear_event.dart';
 import 'package:logstf/view/common/bloc_provider.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/log_short.dart';
@@ -23,15 +24,25 @@ class LogsSavedPlayersFragmentBloc extends BaseBloc {
 
   LogsSavedPlayersFragmentBloc(
       this.logsRemoteProvider, this.playersObservedLocalProvider) {
-    StreamSubscription subscription =
+    StreamSubscription playerAddedEventSubscription =
         RxBus.register<PlayerObservedAddedEvent>().listen((event) {
       List<PlayerObserved> playersObserved = playersObservedSubject.value;
       if (playersObserved == null) {
         playersObserved = List();
       }
+      print("Player obseved added!");
       playersObserved.add(event.playerObserved);
+      playersObservedSubject.add(playersObserved);
     });
-    addSubscription(subscription);
+    addSubscription(playerAddedEventSubscription);
+
+    StreamSubscription playersClearEventSubscription = RxBus.register<PlayersObservedClearEvent>().listen((event){
+      playersObservedSubject.value = List();
+      logsSearchSubject.value = List();
+      print("Players cleared!");
+    });
+    addSubscription(playersClearEventSubscription);
+
   }
 
   void getPlayersObserved() async {

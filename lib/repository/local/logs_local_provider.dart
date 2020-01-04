@@ -24,6 +24,10 @@ class LogsLocalProvider {
   Future<int> deleteLogs() {
     return _logsLocalRepository.deleteLogs();
   }
+
+  Future<int> getLogsCount(){
+    return _logsLocalRepository.getLogsCount();
+  }
 }
 
 final LogsLocalProvider logsLocalProvider = LogsLocalProvider();

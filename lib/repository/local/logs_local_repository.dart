@@ -58,4 +58,11 @@ class LogsLocalRepository {
     var res = await db.delete(AppConst.logShortTableName);
     return res;
   }
+
+  Future<int> getLogsCount() async {
+    final db = await database;
+    var countRaw =
+        await db.rawQuery("SELECT COUNT(*) FROM ${AppConst.logShortTableName}");
+    return Sqflite.firstIntValue(countRaw);
+  }
 }

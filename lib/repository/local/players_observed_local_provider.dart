@@ -29,6 +29,10 @@ class PlayersObservedLocalProvider {
   Future<int> deletePlayersObserved() {
     return _playersObservedLocalRepository.deletePlayersObserved();
   }
+
+  Future<int> getPlayersObservedCount(){
+    return _playersObservedLocalRepository.getPlayersObservedCount();
+  }
 }
 
 final PlayersObservedLocalProvider playersObservedLocalProvider =

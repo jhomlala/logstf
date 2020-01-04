@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:logstf/bloc/logs_player_observed_bloc.dart';
-import 'package:logstf/bloc/logs_saved_bloc.dart';
-import 'package:logstf/bloc/players_observed_bloc.dart';
+import 'package:logstf/model/internal/players_observed_clear_event.dart';
+import 'package:logstf/model/internal/saved_logs_clear_event.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/view/common/page_provider.dart';
 import 'package:logstf/view/settings/bloc/settings_bloc.dart';
 import 'package:logstf/model/app_settings.dart';
-import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/view/common/base_page.dart';
 import 'package:logstf/view/common/base_page_state.dart';
@@ -18,7 +14,7 @@ import 'package:sailor/sailor.dart';
 class SettingsPage extends BasePage {
   final SettingsBloc settingsBloc;
 
-  SettingsPage(Sailor sailor, this.settingsBloc): super(sailor: sailor);
+  SettingsPage(Sailor sailor, this.settingsBloc) : super(sailor: sailor);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -33,39 +29,30 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
   AppSettings _appSettings;
   int _observedPlayersCount = 0;
   int _savedLogsCount = 0;
-  StreamSubscription _playersObservedSubscription;
-  StreamSubscription _savedLogsSubscription;
 
   @override
   void initState() {
-    _playersObservedSubscription = playersObservedBloc.playersObservedSubject
-        .listen((List<PlayerObserved> observedPlayers) {
+    _settingsBloc.getAppSettings();
+    _settingsBloc.getPlayersObservedCount().then((value) {
       if (mounted) {
         setState(() {
-          _observedPlayersCount = observedPlayers.length;
+          _observedPlayersCount = value;
         });
       }
     });
 
-    playersObservedBloc.getPlayersObserved();
-
-    _savedLogsSubscription =
-        logsSavedBloc.savedLogsSubject.listen((List<LogShort> logs) {
+    _settingsBloc.getSavedLogsCount().then((value) {
       if (mounted) {
         setState(() {
-          _savedLogsCount = logs.length;
+          _savedLogsCount = value;
         });
       }
     });
-    logsSavedBloc.getSavedLogs();
-
     super.initState();
   }
 
   @override
   void dispose() {
-    _playersObservedSubscription.cancel();
-    _savedLogsSubscription.cancel();
     super.dispose();
   }
 
@@ -75,24 +62,26 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
     _initColors(applicationLocalization);
     _initBrightnesses(applicationLocalization);
 
-    return StreamBuilder(
-        initialData: settingsBloc.appSettingsSubject.value,
-        stream: settingsBloc.appSettingsSubject,
-        builder: (context, snapshot) {
-          _appSettings = snapshot.data;
-          _setSelectedColor(_appSettings);
-          _setSelectedBrightness(_appSettings);
-          return Scaffold(
-              appBar: AppBar(
-                  elevation: 0.0,
-                  title:
-                      Text(applicationLocalization.getText("menu_settings"))),
-              body: Container(
-                  color: Theme.of(context).primaryColor,
-                  child: Column(children: [
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      child: Container(
+    return Scaffold(
+        appBar: AppBar(
+            elevation: 0.0,
+            title: Text(applicationLocalization.getText("menu_settings"))),
+        body: Container(
+            color: Theme.of(context).primaryColor,
+            child: Column(children: [
+              Card(
+                  margin: EdgeInsets.all(10),
+                  child: StreamBuilder(
+                    stream: _settingsBloc.appSettingsSubject,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("No data!");
+                      }
+                      _appSettings = snapshot.data;
+                      _setSelectedColor(_appSettings);
+                      _setSelectedBrightness(_appSettings);
+
+                      return Container(
                           margin: EdgeInsets.all(10),
                           child:
                               Column(mainAxisSize: MainAxisSize.min, children: [
@@ -163,19 +152,26 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
                                 },
                               )
                             ])
-                          ])),
-                    )
-                  ])));
-        });
+                          ]));
+                    },
+                  ))
+            ])));
   }
 
-  void _clearObservedPlayers() {
-    playersObservedBloc.deletePlayersObserved();
-    logsPlayerObservedBloc.clearLogs();
+  void _clearObservedPlayers() async {
+    await _settingsBloc.deleteSavedPlayers();
+    RxBus.post(PlayersObservedClearEvent());
+    setState(() {
+      _observedPlayersCount = 0;
+    });
   }
 
-  void _clearSavedLogs() {
-    logsSavedBloc.deleteSavedLogs();
+  void _clearSavedLogs() async {
+    await _settingsBloc.deleteSavedLogs();
+    RxBus.post(SavedLogsClearEvent());
+    setState(() {
+      _savedLogsCount = 0;
+    });
   }
 
   Widget _getColorDropdownButton() {
@@ -194,7 +190,7 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
           String colorValue = _availableColors[value].value.toString();
 
           _appSettings.appColor = colorValue;
-          settingsBloc.saveAppSettings(_appSettings);
+          _settingsBloc.saveAppSettings(_appSettings);
           setState(() {
             _selectedColor = colorValue;
           });
@@ -216,7 +212,7 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
         onChanged: (value) {
           Brightness brightness = _availableBrightness[value];
           _appSettings.appBrightness = brightness.index.toString();
-          settingsBloc.saveAppSettings(_appSettings);
+          _settingsBloc.saveAppSettings(_appSettings);
           setState(() {
             _selectedBrightness = value;
           });
@@ -267,13 +263,14 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
   }
 }
 
-class SettingsPageProvider extends PageProvider<SettingsPage>{
+class SettingsPageProvider extends PageProvider<SettingsPage> {
   final Sailor sailor;
   final SettingsBloc settingsBloc;
+
   SettingsPageProvider(this.sailor, this.settingsBloc);
+
   @override
   SettingsPage create() {
-   return SettingsPage(sailor,settingsBloc);
+    return SettingsPage(sailor, settingsBloc);
   }
-
 }

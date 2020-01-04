@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:logstf/model/internal/log_saved_event.dart';
+import 'package:logstf/model/internal/saved_logs_clear_event.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/util/event_bus.dart';
@@ -15,13 +15,20 @@ class LogsSavedLogsFragmentBloc extends BaseBloc {
   var loading = false;
 
   LogsSavedLogsFragmentBloc(this.logsLocalProvider) {
-    StreamSubscription subscription =
+    StreamSubscription logSavedEventSubscription =
         RxBus.register<LogSavedEvent>().listen((event) {
       print("Refresh saved logs!");
       clearLogs();
       getSavedLogs();
     });
-    addSubscription(subscription);
+    addSubscription(logSavedEventSubscription);
+
+    StreamSubscription savedLogsClearEventSubscription =
+        RxBus.register<SavedLogsClearEvent>().listen((event) {
+          print("Clear saved logs");
+          clearLogs();
+        });
+    addSubscription(savedLogsClearEventSubscription);
   }
 
   void dispose() async {
