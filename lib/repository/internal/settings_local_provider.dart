@@ -1,5 +1,5 @@
 import 'package:logstf/model/internal/app_settings.dart';
-import 'package:logstf/repository/local/settings_local_repository.dart';
+import 'package:logstf/repository/internal/settings_local_repository.dart';
 
 class SettingsLocalProvider {
   SettingsLocalRepository _settingsLocalRepository = SettingsLocalRepository();
@@ -13,4 +13,3 @@ class SettingsLocalProvider {
   }
 }
 
-final SettingsLocalProvider settingsLocalProvider = SettingsLocalProvider();

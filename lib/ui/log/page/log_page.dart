@@ -44,6 +44,7 @@ class _LogViewState extends BasePageState<LogPage>
   bool _saved = false;
   int _logId;
   int _selectedPlayerSteamId;
+  LogDetailsBloc get logDetailsBloc => widget.logDetailsBloc;
 
   @override
   void didChangeDependencies() {

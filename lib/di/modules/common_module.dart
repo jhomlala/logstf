@@ -1,13 +1,13 @@
 import 'package:inject/inject.dart';
-import 'package:logstf/repository/local/app_state_manager.dart';
-import 'package:logstf/repository/local/logs_local_provider.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
-import 'package:logstf/repository/local/settings_local_provider.dart';
-import 'package:logstf/repository/remote/logs_remote_provider.dart';
-import 'package:logstf/repository/remote/steam_remote_provider.dart';
+import 'package:logstf/repository/external/logs_player_search_provider.dart';
+import 'package:logstf/repository/internal/app_state_manager.dart';
+import 'package:logstf/repository/internal/logs_local_provider.dart';
+import 'package:logstf/repository/internal/players_observed_local_provider.dart';
+import 'package:logstf/repository/internal/settings_local_provider.dart';
+import 'package:logstf/repository/external/logs_remote_provider.dart';
+import 'package:logstf/repository/external/steam_remote_provider.dart';
 import 'package:logstf/ui/about/page/about_page.dart';
 import 'package:logstf/ui/help/page/help_page.dart';
-import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/log/page/log_page.dart';
 import 'package:logstf/ui/player/page/log_player_page.dart';
@@ -80,5 +80,10 @@ class CommonModule {
   @singleton
   SettingsLocalProvider provideSettingsLocalProvider() {
     return SettingsLocalProvider();
+  }
+
+  @provide
+  @singleton LogsSearchPlayerProvider provideLogsSearchPlayerProvider(){
+    return LogsSearchPlayerProvider();
   }
 }

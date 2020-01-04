@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
 import 'package:logstf/pocket_logs_app_bloc.dart';
-import 'package:logstf/repository/local/settings_local_provider.dart';
+import 'package:logstf/repository/internal/settings_local_provider.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization_delegate.dart';
 import 'package:logstf/util/routing_helper.dart';

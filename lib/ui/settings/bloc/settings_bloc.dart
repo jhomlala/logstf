@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/app_settings.dart';
-import 'package:logstf/repository/local/logs_local_provider.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
-import 'package:logstf/repository/local/settings_local_provider.dart';
+import 'package:logstf/repository/internal/logs_local_provider.dart';
+import 'package:logstf/repository/internal/players_observed_local_provider.dart';
+import 'package:logstf/repository/internal/settings_local_provider.dart';
 import 'package:logstf/ui/common/bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
 

@@ -30,4 +30,3 @@ class LogsLocalProvider {
   }
 }
 
-final LogsLocalProvider logsLocalProvider = LogsLocalProvider();

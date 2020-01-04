@@ -1,5 +1,5 @@
 import 'package:logstf/model/external/steam_players_response.dart';
-import 'package:logstf/repository/remote/steam_remote_repository.dart';
+import 'package:logstf/repository/external/steam_remote_repository.dart';
 
 class SteamRemoteProvider{
   final SteamRemoteRepository _repository = SteamRemoteRepository();
@@ -8,5 +8,3 @@ class SteamRemoteProvider{
     return _repository.getSteamPlayers(steamIds);
   }
 }
-
-final SteamRemoteProvider steamRemoteProvider = SteamRemoteProvider();

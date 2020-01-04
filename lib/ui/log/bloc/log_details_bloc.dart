@@ -1,15 +1,19 @@
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/repository/local/logs_local_provider.dart';
+import 'package:logstf/repository/internal/logs_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:logstf/repository/remote/logs_remote_provider.dart';
+import 'package:logstf/repository/external/logs_remote_provider.dart';
 
 import '../../common/bloc_provider.dart';
 
 class LogDetailsBloc {
+  final LogsRemoteProvider logsRemoteProvider;
+  final LogsLocalProvider logsLocalProvider;
   BehaviorSubject<Log> logSubject = BehaviorSubject();
   BehaviorSubject<Player> selectedPlayerSubject = BehaviorSubject();
+
+  LogDetailsBloc(this.logsRemoteProvider, this.logsLocalProvider);
 
   void init(){
     logSubject = BehaviorSubject();
@@ -51,10 +55,14 @@ class LogDetailsBloc {
 }
 
 class LogDetailsBlocProvider extends BlocProvider<LogDetailsBloc>{
+  final LogsRemoteProvider logsRemoteProvider;
+  final LogsLocalProvider logsLocalProvider;
+
+  LogDetailsBlocProvider(this.logsRemoteProvider, this.logsLocalProvider);
+
   @override
   LogDetailsBloc create() {
-    return LogDetailsBloc();
+    return LogDetailsBloc(logsRemoteProvider, logsLocalProvider);
   }
 }
 
-final LogDetailsBloc logDetailsBloc = LogDetailsBloc();

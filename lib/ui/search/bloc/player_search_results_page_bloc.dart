@@ -2,9 +2,9 @@ import 'package:logstf/ui/common/bloc_provider.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/internal/player_observed.dart';
 import 'package:logstf/model/external/player_search_result.dart';
-import 'package:logstf/repository/local/app_state_manager.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
-import 'package:logstf/repository/remote/logs_player_search_provider.dart';
+import 'package:logstf/repository/internal/app_state_manager.dart';
+import 'package:logstf/repository/internal/players_observed_local_provider.dart';
+import 'package:logstf/repository/external/logs_player_search_provider.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/ui/common/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -12,14 +12,15 @@ import 'package:rxdart/rxdart.dart';
 class PlayerSearchResultsPageBloc extends BaseBloc {
   final AppStateManager appStateManager;
   final PlayersObservedLocalProvider playersObservedLocalProvider;
+  final LogsSearchPlayerProvider logsSearchPlayerProvider;
   final BehaviorSubject<List<PlayerSearchResult>> playersSearchSubject =
       BehaviorSubject();
   final List<PlayerObserved> observedPlayers = List();
   String playerName;
   bool loading = false;
 
-  PlayerSearchResultsPageBloc(
-      this.appStateManager, this.playersObservedLocalProvider) {
+  PlayerSearchResultsPageBloc(this.appStateManager,
+      this.playersObservedLocalProvider, this.logsSearchPlayerProvider) {
     getObservedPlayers();
   }
 
@@ -66,13 +67,14 @@ class PlayerSearchResultsPageBlocProvider
     extends BlocProvider<PlayerSearchResultsPageBloc> {
   final AppStateManager appStateManager;
   final PlayersObservedLocalProvider playersObservedLocalProvider;
+  final LogsSearchPlayerProvider logsSearchPlayerProvider;
 
-  PlayerSearchResultsPageBlocProvider(
-      this.appStateManager, this.playersObservedLocalProvider);
+  PlayerSearchResultsPageBlocProvider(this.appStateManager,
+      this.playersObservedLocalProvider, this.logsSearchPlayerProvider);
 
   @override
   PlayerSearchResultsPageBloc create() {
-    return PlayerSearchResultsPageBloc(
-        appStateManager, this.playersObservedLocalProvider);
+    return PlayerSearchResultsPageBloc(appStateManager,
+        this.playersObservedLocalProvider, this.logsSearchPlayerProvider);
   }
 }

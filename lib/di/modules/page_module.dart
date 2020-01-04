@@ -2,7 +2,7 @@ import 'package:inject/inject.dart';
 import 'package:logstf/ui/about/page/about_page.dart';
 import 'package:logstf/ui/help/page/help_page.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
-import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/repository/internal/app_state_manager.dart';
 import 'package:logstf/ui/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';

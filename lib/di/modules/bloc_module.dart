@@ -1,11 +1,12 @@
 import 'package:inject/inject.dart';
-import 'package:logstf/repository/local/settings_local_provider.dart';
-import 'package:logstf/repository/remote/steam_remote_provider.dart';
+import 'package:logstf/repository/external/logs_player_search_provider.dart';
+import 'package:logstf/repository/internal/settings_local_provider.dart';
+import 'package:logstf/repository/external/steam_remote_provider.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
-import 'package:logstf/repository/local/app_state_manager.dart';
-import 'package:logstf/repository/local/logs_local_provider.dart';
-import 'package:logstf/repository/local/players_observed_local_provider.dart';
-import 'package:logstf/repository/remote/logs_remote_provider.dart';
+import 'package:logstf/repository/internal/app_state_manager.dart';
+import 'package:logstf/repository/internal/logs_local_provider.dart';
+import 'package:logstf/repository/internal/players_observed_local_provider.dart';
+import 'package:logstf/repository/external/logs_remote_provider.dart';
 import 'package:logstf/ui/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';
@@ -18,8 +19,8 @@ import 'package:logstf/ui/settings/bloc/settings_bloc.dart';
 @module
 class BlocModule {
   @provide
-  LogDetailsBlocProvider provideLogDetailsBlocProvider() {
-    return LogDetailsBlocProvider();
+  LogDetailsBlocProvider provideLogDetailsBlocProvider(LogsRemoteProvider logsRemoteProvider, LogsLocalProvider logsLocalProvider) {
+    return LogDetailsBlocProvider(logsRemoteProvider, logsLocalProvider);
   }
 
   @provide
@@ -36,9 +37,10 @@ class BlocModule {
   PlayerSearchResultsPageBlocProvider
       providePlayerSearchResultsPageBlocProvider(
           AppStateManager appStateManager,
-          PlayersObservedLocalProvider playersObservedLocalProvider) {
-    return PlayerSearchResultsPageBlocProvider(
-        appStateManager, playersObservedLocalProvider);
+          PlayersObservedLocalProvider playersObservedLocalProvider,
+          LogsSearchPlayerProvider logsSearchPlayerProvider) {
+    return PlayerSearchResultsPageBlocProvider(appStateManager,
+        playersObservedLocalProvider, logsSearchPlayerProvider);
   }
 
   @provide

@@ -1,5 +1,5 @@
 import 'package:logstf/model/internal/player_observed.dart';
-import 'package:logstf/repository/local/players_observed_local_repository.dart';
+import 'package:logstf/repository/internal/players_observed_local_repository.dart';
 
 class PlayersObservedLocalProvider {
   PlayersObservedLocalRepository _playersObservedLocalRepository =
@@ -34,6 +34,3 @@ class PlayersObservedLocalProvider {
     return _playersObservedLocalRepository.getPlayersObservedCount();
   }
 }
-
-final PlayersObservedLocalProvider playersObservedLocalProvider =
-    PlayersObservedLocalProvider();

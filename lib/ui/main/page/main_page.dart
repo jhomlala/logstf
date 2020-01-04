@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/internal/menu_item.dart';
 import 'package:logstf/model/internal/search_player_matches_event.dart';
-import 'package:logstf/repository/local/app_state_manager.dart';
+import 'package:logstf/repository/internal/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/routing_helper.dart';

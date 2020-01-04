@@ -9,6 +9,3 @@ class LogsSearchPlayerProvider {
     return _repository.searchPlayers(playerName);
   }
 }
-
-final LogsSearchPlayerProvider logsSearchPlayerProvider =
-    LogsSearchPlayerProvider();
