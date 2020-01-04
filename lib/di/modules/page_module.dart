@@ -1,4 +1,6 @@
 import 'package:inject/inject.dart';
+import 'package:logstf/ui/about/page/about_page.dart';
+import 'package:logstf/ui/help/page/help_page.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/ui/main/bloc/logs_list_fragment_bloc.dart';
@@ -60,7 +62,17 @@ class PageModule {
   }
 
   @provide
-  SettingsPageProvider provideSettingsPage(Sailor sailor, SettingsBlocProvider settingsBlocProvider){
+  SettingsPageProvider provideSettingsPageProvider(Sailor sailor, SettingsBlocProvider settingsBlocProvider){
     return SettingsPageProvider(sailor, settingsBlocProvider.create());
+  }
+
+  @provide
+  HelpPageProvider provideHelpPageProvider(){
+    return HelpPageProvider();
+  }
+
+  @provide
+  AboutPageProvider provideAboutPageProvider(){
+    return AboutPageProvider();
   }
 }

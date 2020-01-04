@@ -1,21 +1,32 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:logstf/ui/common/base_page.dart';
+import 'package:logstf/ui/common/base_page_state.dart';
+import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/util/application_localization.dart';
 
-class HelpView extends StatelessWidget {
+class HelpPage extends BasePage {
+  @override
+  State<StatefulWidget> createState() {
+    return _HelpPageState();
+  }
+}
+
+class _HelpPageState extends BasePageState<HelpPage> {
   @override
   Widget build(BuildContext context) {
     var applicationLocalization = ApplicationLocalization.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text( applicationLocalization.getText("menu_help"))),
+      appBar: AppBar(title: Text(applicationLocalization.getText("menu_help"))),
       body: Container(
           color: Theme.of(context).primaryColor,
-          child: ListView(children: _getHelpWidgets(context,applicationLocalization))),
+          child: ListView(
+              children: _getHelpWidgets(context, applicationLocalization))),
     );
   }
 
-  List<Widget> _getHelpWidgets(BuildContext context,ApplicationLocalization applicationLocalization) {
-
+  List<Widget> _getHelpWidgets(
+      BuildContext context, ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
     widgets.add(_getHelpQuestion(
         context,
@@ -63,5 +74,12 @@ class HelpView extends StatelessWidget {
                   description,
                   maxLines: 50,
                 ))));
+  }
+}
+
+class HelpPageProvider extends PageProvider<HelpPage> {
+  @override
+  HelpPage create() {
+    return HelpPage();
   }
 }

@@ -217,7 +217,7 @@ class _LogViewState extends BasePageState<LogPage>
       HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
     print("1Average player stats map: " + averagePlayersStatsMap.toString());
     SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent =
-        await getNavigator().navigate(RoutingHelper.logPlayerRoute, params: {
+        await getNavigator().navigate(RoutingHelper.logPlayerPageRoute, params: {
       AppConst.logParameter: log,
       AppConst.playerParameter: player,
       AppConst.averagePlayersStatsMapParameter: averagePlayersStatsMap

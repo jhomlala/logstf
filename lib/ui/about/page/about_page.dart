@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/ui/common/base_page.dart';
+import 'package:logstf/ui/common/base_page_state.dart';
+import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/widget/logs_button.dart';
 import 'package:package_info/package_info.dart';
 
-class AboutView extends StatefulWidget {
+class AboutPage extends BasePage {
   @override
   State<StatefulWidget> createState() {
-    return _AboutViewState();
+    return _AboutPageState();
   }
 }
 
-class _AboutViewState extends State<AboutView> {
+class _AboutPageState extends BasePageState<AboutPage> {
   PackageInfo _packageInfo;
 
   @override
@@ -243,4 +246,12 @@ class _AboutViewState extends State<AboutView> {
     return Container(
         margin: EdgeInsets.only(left: 5), child: Column(children: widgets));
   }
+}
+
+class AboutPageProvider extends PageProvider<AboutPage>{
+  @override
+  AboutPage create() {
+    return AboutPage();
+  }
+
 }

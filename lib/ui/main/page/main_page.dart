@@ -14,10 +14,10 @@ import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/ui/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
-import '../../about/about_view.dart';
+import '../../about/page/about_page.dart';
 import '../../common/base_page.dart';
 import '../../common/base_page_state.dart';
-import '../../help/help_view.dart';
+import '../../help/page/help_page.dart';
 import '../../log/page/log_page.dart';
 import '../widget/logs_saved_logs_fragment.dart';
 import 'package:logstf/ui/main/widget/logs_list_fragment.dart';
@@ -125,7 +125,8 @@ class _MainViewPage extends BasePageState<MainPage>
                 ])),
         body: TabBarView(controller: _tabController, children: [
           LogsListFragment(widget.logsListFragmentBloc, onLogClicked),
-          LogsSavedPlayersFragment(widget.logsSavedPlayersFragmentBloc, onLogClicked),
+          LogsSavedPlayersFragment(
+              widget.logsSavedPlayersFragmentBloc, onLogClicked),
           LogsSavedLogsFragment(widget.logsSavedLogsFragmentBloc, onLogClicked)
         ]));
   }
@@ -150,15 +151,13 @@ class _MainViewPage extends BasePageState<MainPage>
 
   void _select(MenuItem menuItem) {
     if (menuItem.id == "menu_settings") {
-      getNavigator().navigate(RoutingHelper.settingsRoute);
+      getNavigator().navigate(RoutingHelper.settingsPageRoute);
     }
     if (menuItem.id == "menu_about") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AboutView()));
+      getNavigator().navigate(RoutingHelper.aboutPageRoute);
     }
     if (menuItem.id == "menu_help") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HelpView()));
+      getNavigator().navigate(RoutingHelper.helpPageRoute);
     }
   }
 
@@ -167,8 +166,8 @@ class _MainViewPage extends BasePageState<MainPage>
         await getNavigator().navigate(RoutingHelper.logPageRoute,
             params: {AppConst.logIdParameter: logId});
     if (searchPlayerMatchesNavigationEvent != null) {
-      SearchData searchData =
-          SearchData(player: searchPlayerMatchesNavigationEvent.steamId, clearData: true);
+      SearchData searchData = SearchData(
+          player: searchPlayerMatchesNavigationEvent.steamId, clearData: true);
       widget.appStateManager.searchData = searchData;
       widget.logsListFragmentBloc.clearFilters();
       widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);

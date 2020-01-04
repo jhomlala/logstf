@@ -5,6 +5,8 @@ import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/repository/remote/steam_remote_provider.dart';
+import 'package:logstf/ui/about/page/about_page.dart';
+import 'package:logstf/ui/help/page/help_page.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/log/page/log_page.dart';
@@ -30,14 +32,18 @@ class CommonModule {
       SearchPageProvider searchPageProvider,
       PlayerSearchResultsPageProvider playerSearchResultsPageProvider,
       LogPlayerPageProvider logPlayerPageProvider,
-      SettingsPageProvider settingsPageProvider) {
+      SettingsPageProvider settingsPageProvider,
+      HelpPageProvider helpPageProvider,
+      AboutPageProvider aboutPageProvider) {
     return RoutingHelper(
         sailor,
         logViewProvider,
         searchPageProvider,
         playerSearchResultsPageProvider,
         logPlayerPageProvider,
-        settingsPageProvider);
+        settingsPageProvider,
+        helpPageProvider,
+        aboutPageProvider);
   }
 
   @provide
@@ -72,7 +78,7 @@ class CommonModule {
 
   @provide
   @singleton
-  SettingsLocalProvider provideSettingsLocalProvider(){
+  SettingsLocalProvider provideSettingsLocalProvider() {
     return SettingsLocalProvider();
   }
 }

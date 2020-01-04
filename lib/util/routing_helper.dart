@@ -4,6 +4,8 @@ import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/ui/about/page/about_page.dart';
+import 'package:logstf/ui/help/page/help_page.dart';
 import 'package:logstf/ui/log/page/log_page.dart';
 import 'package:logstf/ui/player/page/log_player_page.dart';
 import 'package:logstf/ui/search/page/player_search_results_page.dart';
@@ -20,12 +22,16 @@ class RoutingHelper {
   final PlayerSearchResultsPageProvider playerSearchResultsPageProvider;
   final LogPlayerPageProvider logPlayerPageProvider;
   final SettingsPageProvider settingsPageProvider;
+  final HelpPageProvider helpPageProvider;
+  final AboutPageProvider aboutPageProvider;
 
   static const String logPageRoute = "/log";
   static const String searchPageRoute = "/search";
-  static const String playerSearchResultsRoute = "/search/player/results";
-  static const String logPlayerRoute = "/log/player";
-  static const String settingsRoute = "/settings";
+  static const String playerSearchResultsPageRoute = "/search/player/results";
+  static const String logPlayerPageRoute = "/log/player";
+  static const String settingsPageRoute = "/settings";
+  static const String helpPageRoute = "/help";
+  static const String aboutPageRoute = "/about";
 
   RoutingHelper(
       this.sailor,
@@ -33,7 +39,9 @@ class RoutingHelper {
       this.searchPageProvider,
       this.playerSearchResultsPageProvider,
       this.logPlayerPageProvider,
-      this.settingsPageProvider);
+      this.settingsPageProvider,
+      this.helpPageProvider,
+      this.aboutPageProvider);
 
   void setupRoutes() {
     print("Setup routes!");
@@ -62,7 +70,7 @@ class RoutingHelper {
         ]));
 
     sailor.addRoute(SailorRoute(
-        name: playerSearchResultsRoute,
+        name: playerSearchResultsPageRoute,
         builder: (context, args, params) {
           return playerSearchResultsPageProvider.create();
         },
@@ -72,7 +80,7 @@ class RoutingHelper {
         ]));
 
     sailor.addRoute(SailorRoute(
-        name: logPlayerRoute,
+        name: logPlayerPageRoute,
         builder: (context, args, params) {
           return logPlayerPageProvider.create();
         },
@@ -84,9 +92,16 @@ class RoutingHelper {
         ]));
 
     sailor.addRoute(SailorRoute(
-      name: settingsRoute,
+      name: helpPageRoute,
       builder: (context, args, params) {
-        return settingsPageProvider.create();
+        return helpPageProvider.create();
+      },
+    ));
+
+    sailor.addRoute(SailorRoute(
+      name: aboutPageRoute,
+      builder: (context, args, params) {
+        return aboutPageProvider.create();
       },
     ));
   }
