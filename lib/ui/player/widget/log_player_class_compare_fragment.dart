@@ -4,7 +4,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/comparison_card.dart';
+import 'package:logstf/ui/common/widget/comparison_card.dart';
 
 class LogPlayerClassCompareFragment extends StatefulWidget {
   final Log _log;

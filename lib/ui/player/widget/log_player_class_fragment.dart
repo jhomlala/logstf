@@ -3,15 +3,15 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/demoman_overview_card.dart';
-import 'package:logstf/widget/engineer_overview_card.dart';
-import 'package:logstf/widget/heavy_overview_card.dart';
-import 'package:logstf/widget/medic_overview_card.dart';
-import 'package:logstf/widget/pyro_overview_card.dart';
-import 'package:logstf/widget/scout_overview_card.dart';
-import 'package:logstf/widget/sniper_overview_card.dart';
-import 'package:logstf/widget/soldier_overview_widget.dart';
-import 'package:logstf/widget/spy_overview_card.dart';
+import 'package:logstf/ui/common/widget/demoman_overview_card.dart';
+import 'package:logstf/ui/common/widget/engineer_overview_card.dart';
+import 'package:logstf/ui/common/widget/heavy_overview_card.dart';
+import 'package:logstf/ui/common/widget/medic_overview_card.dart';
+import 'package:logstf/ui/common/widget/pyro_overview_card.dart';
+import 'package:logstf/ui/common/widget/scout_overview_card.dart';
+import 'package:logstf/ui/common/widget/sniper_overview_card.dart';
+import 'package:logstf/ui/common/widget/soldier_overview_widget.dart';
+import 'package:logstf/ui/common/widget/spy_overview_card.dart';
 
 class LogPlayerClassOverviewFragment extends StatefulWidget {
   final Log log;

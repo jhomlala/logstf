@@ -3,7 +3,7 @@ import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/award_card.dart';
+import 'package:logstf/ui/common/widget/award_card.dart';
 
 class LogAwardsView extends StatefulWidget {
   final Log log;

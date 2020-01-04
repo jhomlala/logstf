@@ -5,7 +5,7 @@ import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/logs_button.dart';
+import 'package:logstf/ui/common/widget/logs_button.dart';
 import 'package:package_info/package_info.dart';
 
 class AboutPage extends BasePage {

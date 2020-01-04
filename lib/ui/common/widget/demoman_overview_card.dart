@@ -4,7 +4,7 @@ import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/base_overview_card.dart';
+import 'package:logstf/ui/common/widget/base_overview_card.dart';
 
 import 'class_icon.dart';
 

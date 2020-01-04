@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/search/page/player_search_results_page.dart';
-import 'package:logstf/widget/logs_button.dart';
+import 'package:logstf/ui/common/widget/logs_button.dart';
 
 class PlayerSearchView extends StatefulWidget {
   final Function playerSearchAction;

@@ -20,8 +20,8 @@ import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/ui/log/widget/log_awards_view.dart';
 import 'package:logstf/ui/log/widget/log_general_stats_view.dart';
 import 'package:logstf/ui/log/widget/log_players_view.dart';
-import 'package:logstf/widget/empty_card.dart';
-import 'package:logstf/widget/progress_bar.dart';
+import 'package:logstf/ui/common/widget/empty_card.dart';
+import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 import 'package:sailor/sailor.dart';
 

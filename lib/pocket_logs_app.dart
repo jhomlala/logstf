@@ -12,7 +12,6 @@ import 'model/app_settings.dart';
 
 @provide
 class PocketLogsApp extends StatefulWidget {
-  // This widget is the root of your application.
   final MainPage mainView;
   final Sailor sailor;
   final RoutingHelper routingHelper;

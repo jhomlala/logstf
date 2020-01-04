@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/bloc/logs_saved_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/ui/main/widget/logs_saved_logs_fragment.dart';
-import 'package:logstf/widget/empty_card.dart';
-import 'package:logstf/widget/log_short_card.dart';
-import 'package:logstf/widget/progress_bar.dart';
+import 'package:logstf/ui/common/widget/empty_card.dart';
+import 'package:logstf/ui/common/widget/log_short_card.dart';
+import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 import 'test_helper.dart';
 

@@ -8,7 +8,7 @@ import 'package:logstf/model/app_settings.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
-import 'package:logstf/widget/logs_button.dart';
+import 'package:logstf/ui/common/widget/logs_button.dart';
 import 'package:sailor/sailor.dart';
 
 class SettingsPage extends BasePage {

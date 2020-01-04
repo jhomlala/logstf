@@ -6,9 +6,9 @@ import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/ui/search/bloc/player_search_results_page_bloc.dart';
-import 'package:logstf/widget/empty_card.dart';
-import 'package:logstf/widget/player_search_row_widget.dart';
-import 'package:logstf/widget/progress_bar.dart';
+import 'package:logstf/ui/common/widget/empty_card.dart';
+import 'package:logstf/ui/common/widget/player_search_row_widget.dart';
+import 'package:logstf/ui/common/widget/progress_bar.dart';
 import 'package:sailor/sailor.dart';
 
 class PlayerSearchResultsPage extends BasePage {

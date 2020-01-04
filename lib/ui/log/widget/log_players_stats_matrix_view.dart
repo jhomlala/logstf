@@ -5,7 +5,7 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/widget/class_icon.dart';
+import 'package:logstf/ui/common/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
 class LogPlayersStatsMatrixView extends StatefulWidget {
