@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:inject/inject.dart';
 import 'package:logstf/repository/external/player_remote_repository_provider.dart';
+import 'package:logstf/repository/internal/app_database_provider.dart';
 import 'package:logstf/repository/internal/app_state_manager.dart';
 import 'package:logstf/repository/internal/logs_local_provider.dart';
 import 'package:logstf/repository/internal/players_observed_local_provider.dart';
@@ -36,6 +37,12 @@ class CommonModule {
 
   @provide
   @singleton
+  AppDatabase provideAppDatabase() {
+    return AppDatabase();
+  }
+
+  @provide
+  @singleton
   RoutingHelper provideRoutingHelper(
       Sailor sailor,
       LogViewProvider logViewProvider,
@@ -64,8 +71,9 @@ class CommonModule {
 
   @provide
   @singleton
-  PlayersObservedLocalProvider providePlayersObservedLocalProvider() {
-    return PlayersObservedLocalProvider();
+  PlayersObservedLocalProvider providePlayersObservedLocalProvider(
+      AppDatabase appDatabase) {
+    return PlayersObservedLocalProvider(appDatabase);
   }
 
   @provide
@@ -76,8 +84,8 @@ class CommonModule {
 
   @provide
   @singleton
-  LogsLocalProvider provideLogsLocalProvider() {
-    return LogsLocalProvider();
+  LogsLocalProvider provideLogsLocalProvider(AppDatabase appDatabase) {
+    return LogsLocalProvider(appDatabase);
   }
 
   @provide

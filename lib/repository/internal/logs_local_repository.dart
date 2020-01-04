@@ -5,15 +5,14 @@ import 'package:sqflite/sqflite.dart';
 import 'app_database_provider.dart';
 
 class LogsLocalRepository {
-  LogsLocalRepository._();
+  final AppDatabase appDatabase;
+  Database _database;
 
-  static final LogsLocalRepository db = LogsLocalRepository._();
-  static Database _database;
+  LogsLocalRepository(this.appDatabase);
 
   Future<Database> get database async {
     if (_database != null) return _database;
-
-    _database = await AppDatabase.database;
+    _database = await appDatabase.database;
     await _database.execute("CREATE TABLE IF NOT EXISTS LogShort ("
         "id INTEGER PRIMARY KEY,"
         "title TEXT,"

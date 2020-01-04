@@ -1,9 +1,14 @@
 import 'package:logstf/model/internal/log_short.dart';
+import 'package:logstf/repository/internal/app_database_provider.dart';
 
 import 'logs_local_repository.dart';
 
 class LogsLocalProvider {
-  LogsLocalRepository _logsLocalRepository = LogsLocalRepository.db;
+  LogsLocalRepository _logsLocalRepository;
+
+  LogsLocalProvider(AppDatabase appDatabase) {
+    _logsLocalRepository = LogsLocalRepository(appDatabase);
+  }
 
   Future<int> createLog(LogShort logShort) {
     return _logsLocalRepository.createLog(logShort);
@@ -25,8 +30,7 @@ class LogsLocalProvider {
     return _logsLocalRepository.deleteLogs();
   }
 
-  Future<int> getLogsCount(){
+  Future<int> getLogsCount() {
     return _logsLocalRepository.getLogsCount();
   }
 }
-

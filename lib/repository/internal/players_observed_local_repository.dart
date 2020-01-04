@@ -5,16 +5,14 @@ import 'package:sqflite/sqflite.dart';
 import 'app_database_provider.dart';
 
 class PlayersObservedLocalRepository {
-  PlayersObservedLocalRepository._();
+  final AppDatabase appDatabase;
+  Database _database;
 
-  static final PlayersObservedLocalRepository db =
-  PlayersObservedLocalRepository._();
-  static Database _database;
+  PlayersObservedLocalRepository(this.appDatabase);
 
   Future<Database> get database async {
     if (_database != null) return _database;
-
-    _database = await AppDatabase.database;
+    _database = await appDatabase.database;
     if (_database != null) {
       await _database.execute("CREATE TABLE IF NOT EXISTS PlayerObserved ("
           "id INTEGER PRIMARY KEY,"
@@ -35,9 +33,8 @@ class PlayersObservedLocalRepository {
 
   Future<PlayerObserved> getPlayerObserved(int id) async {
     final db = await database;
-    var res =
-    await db.query(
-        AppConst.playerObservedTableName, where: "id = ?", whereArgs: [id]);
+    var res = await db.query(AppConst.playerObservedTableName,
+        where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? PlayerObserved.fromJson(res.first) : null;
   }
 
@@ -60,22 +57,21 @@ class PlayersObservedLocalRepository {
 
   Future<int> deletePlayerObserved(int id) async {
     final db = await database;
-    var res =
-    await db.delete(
-        AppConst.playerObservedTableName, where: "id = ?", whereArgs: [id]);
+    var res = await db.delete(AppConst.playerObservedTableName,
+        where: "id = ?", whereArgs: [id]);
     return res;
   }
 
   Future<int> deletePlayersObserved() async {
     final db = await database;
     var res = await db.delete(AppConst.playerObservedTableName);
-        return res;
-    }
+    return res;
+  }
 
   Future<int> getPlayersObservedCount() async {
     final db = await database;
-    var countRaw = await db.rawQuery("SELECT COUNT(*) FROM ${AppConst.playerObservedTableName}");
+    var countRaw = await db
+        .rawQuery("SELECT COUNT(*) FROM ${AppConst.playerObservedTableName}");
     return Sqflite.firstIntValue(countRaw);
   }
-
 }

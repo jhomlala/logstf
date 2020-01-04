@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/app_settings.dart';
+import 'package:logstf/model/internal/app_settings_changed_event.dart';
 import 'package:logstf/repository/internal/logs_local_provider.dart';
 import 'package:logstf/repository/internal/players_observed_local_provider.dart';
 import 'package:logstf/repository/internal/settings_local_provider.dart';
 import 'package:logstf/ui/common/bloc_provider.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SettingsBloc {
@@ -29,8 +31,10 @@ class SettingsBloc {
   }
 
   void saveAppSettings(AppSettings appSettings) {
+    print("Save app settings" + appSettings.toString());
     appSettingsSubject.value = appSettings;
     settingsLocalProvider.saveAppSettings(appSettings);
+    RxBus.post(AppSettingsChangedEvent(appSettings));
   }
 
   Future<int> getPlayersObservedCount() async {

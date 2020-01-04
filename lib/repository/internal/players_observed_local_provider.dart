@@ -1,9 +1,14 @@
 import 'package:logstf/model/internal/player_observed.dart';
+import 'package:logstf/repository/internal/app_database_provider.dart';
 import 'package:logstf/repository/internal/players_observed_local_repository.dart';
 
 class PlayersObservedLocalProvider {
-  PlayersObservedLocalRepository _playersObservedLocalRepository =
-      PlayersObservedLocalRepository.db;
+  PlayersObservedLocalRepository _playersObservedLocalRepository;
+
+  PlayersObservedLocalProvider(AppDatabase appDatabase) {
+    _playersObservedLocalRepository =
+        PlayersObservedLocalRepository(appDatabase);
+  }
 
   Future<int> createPlayerObserved(PlayerObserved playerObserved) {
     return _playersObservedLocalRepository.createPlayerObserved(playerObserved);
@@ -30,7 +35,7 @@ class PlayersObservedLocalProvider {
     return _playersObservedLocalRepository.deletePlayersObserved();
   }
 
-  Future<int> getPlayersObservedCount(){
+  Future<int> getPlayersObservedCount() {
     return _playersObservedLocalRepository.getPlayersObservedCount();
   }
 }

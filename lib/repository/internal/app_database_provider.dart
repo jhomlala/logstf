@@ -6,16 +6,15 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class AppDatabase {
-  static Database _database;
+  Database _database;
 
-  static Future<Database> get database async {
+  Future<Database> get database async {
     if (_database != null) return _database;
-
     _database = await _initDatabase();
     return _database;
   }
 
-  static Future<Database> _initDatabase() async {
+  Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, AppConst.internalDatabaseName);
     return await openDatabase(path, version: 1);

@@ -41,7 +41,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
   Widget build(BuildContext context) {
     return StreamBuilder(
         initialData: AppSettings(
-            appColor: Colors.deepPurple.value.toString(), appBrightness: "0"),
+            appColor: Colors.deepPurple.value.toString(), appBrightness: "1"),
         stream: pocketLogsAppBloc.appSettingsSubject,
         builder: (context, snapshot) {
           return MaterialApp(
