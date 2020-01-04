@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/view/main/bloc/main_page_bloc.dart';
+import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
-import 'package:logstf/view/log/page/log_page.dart';
+import 'package:logstf/ui/log/page/log_page.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogShortCard extends StatelessWidget {

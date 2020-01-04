@@ -4,11 +4,11 @@ import 'package:logstf/model/average_player_stats.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
-import 'package:logstf/view/log/page/log_page.dart';
-import 'package:logstf/view/player/page/log_player_page.dart';
-import 'package:logstf/view/search/page/player_search_results_page.dart';
-import 'package:logstf/view/search/page/search_page.dart';
-import 'package:logstf/view/settings/page/settings_page.dart';
+import 'package:logstf/ui/log/page/log_page.dart';
+import 'package:logstf/ui/player/page/log_player_page.dart';
+import 'package:logstf/ui/search/page/player_search_results_page.dart';
+import 'package:logstf/ui/search/page/search_page.dart';
+import 'package:logstf/ui/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 
 import 'app_const.dart';

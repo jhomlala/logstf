@@ -6,7 +6,7 @@ import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization_delegate.dart';
 import 'package:logstf/util/routing_helper.dart';
-import 'package:logstf/view/main/page/main_page.dart';
+import 'package:logstf/ui/main/page/main_page.dart';
 import 'package:sailor/sailor.dart';
 import 'model/app_settings.dart';
 

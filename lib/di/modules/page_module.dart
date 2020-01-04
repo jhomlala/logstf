@@ -1,19 +1,19 @@
 import 'package:inject/inject.dart';
-import 'package:logstf/view/log/bloc/log_details_bloc.dart';
+import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
-import 'package:logstf/view/main/bloc/logs_list_fragment_bloc.dart';
-import 'package:logstf/view/main/bloc/logs_saved_logs_fragment_bloc.dart';
-import 'package:logstf/view/main/bloc/logs_saved_players_fragment_bloc.dart';
-import 'package:logstf/view/log/page/log_page.dart';
-import 'package:logstf/view/player/bloc/log_player_player_fragment_bloc.dart';
-import 'package:logstf/view/player/page/log_player_page.dart';
-import 'package:logstf/view/search/bloc/player_search_results_page_bloc.dart';
-import 'package:logstf/view/search/page/player_search_results_page.dart';
-import 'package:logstf/view/search/page/search_page.dart';
-import 'package:logstf/view/main/page/main_page.dart';
-import 'package:logstf/view/search/bloc/search_page_bloc.dart';
-import 'package:logstf/view/settings/bloc/settings_bloc.dart';
-import 'package:logstf/view/settings/page/settings_page.dart';
+import 'package:logstf/ui/main/bloc/logs_list_fragment_bloc.dart';
+import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
+import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';
+import 'package:logstf/ui/log/page/log_page.dart';
+import 'package:logstf/ui/player/bloc/log_player_player_fragment_bloc.dart';
+import 'package:logstf/ui/player/page/log_player_page.dart';
+import 'package:logstf/ui/search/bloc/player_search_results_page_bloc.dart';
+import 'package:logstf/ui/search/page/player_search_results_page.dart';
+import 'package:logstf/ui/search/page/search_page.dart';
+import 'package:logstf/ui/main/page/main_page.dart';
+import 'package:logstf/ui/search/bloc/search_page_bloc.dart';
+import 'package:logstf/ui/settings/bloc/settings_bloc.dart';
+import 'package:logstf/ui/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
 
 @module
