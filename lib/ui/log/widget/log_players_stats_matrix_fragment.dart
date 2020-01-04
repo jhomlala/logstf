@@ -8,16 +8,16 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
-class LogPlayersStatsMatrixView extends StatefulWidget {
+class LogPlayersStatsMatrixFragment extends StatefulWidget {
   final Log log;
 
-  const LogPlayersStatsMatrixView(this.log);
+  const LogPlayersStatsMatrixFragment(this.log);
 
   @override
   _LogPlayersStatsMatrixState createState() => _LogPlayersStatsMatrixState();
 }
 
-class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixView> {
+class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixFragment> {
   Log get _log => widget.log;
   Map<String, Player> _players;
   Map<String, String> _playerNames;

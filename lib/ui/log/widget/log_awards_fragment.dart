@@ -5,16 +5,16 @@ import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/widget/award_card.dart';
 
-class LogAwardsView extends StatefulWidget {
+class LogAwardsFragment extends StatefulWidget {
   final Log log;
 
-  const LogAwardsView( this.log);
+  const LogAwardsFragment( this.log);
 
   @override
-  _LogAwardsViewState createState() => _LogAwardsViewState();
+  _LogAwardsFragmentState createState() => _LogAwardsFragmentState();
 }
 
-class _LogAwardsViewState extends State<LogAwardsView> {
+class _LogAwardsFragmentState extends State<LogAwardsFragment> {
   Log get _log => widget.log;
 
   @override

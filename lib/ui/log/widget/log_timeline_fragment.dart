@@ -6,17 +6,17 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
-class LogTimelineView extends StatefulWidget {
+class LogTimelineFragment extends StatefulWidget {
   final Log log;
 
-  const LogTimelineView(this.log);
+  const LogTimelineFragment(this.log);
   @override
   State<StatefulWidget> createState() {
-    return _LogTimelineViewState();
+    return _LogTimelineFragmentState();
   }
 }
 
-class _LogTimelineViewState extends State<LogTimelineView> {
+class _LogTimelineFragmentState extends State<LogTimelineFragment> {
   Log get _log => widget.log;
   List<Event> _events;
   int _currentRoundStartTime;

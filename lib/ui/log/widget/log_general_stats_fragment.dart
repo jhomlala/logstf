@@ -8,16 +8,16 @@ import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/widget/teams_score_table_widget.dart';
 
-class LogGeneralStatsView extends StatefulWidget {
+class LogGeneralStatsFragment extends StatefulWidget {
   final Log log;
 
-  const LogGeneralStatsView(this.log);
+  const LogGeneralStatsFragment(this.log);
 
   @override
-  _LogGeneralStatsViewState createState() => _LogGeneralStatsViewState();
+  _LogGeneralStatsFragmentState createState() => _LogGeneralStatsFragmentState();
 }
 
-class _LogGeneralStatsViewState extends State<LogGeneralStatsView> {
+class _LogGeneralStatsFragmentState extends State<LogGeneralStatsFragment> {
   Log get _log => widget.log;
 
   @override

@@ -13,19 +13,19 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
 
-class LogPlayersView extends StatefulWidget {
+class LogPlayersFragment extends StatefulWidget {
   final Log log;
   final int selectedPlayerSteamId;
   final Function onPlayerClicked;
 
-  const LogPlayersView(
+  const LogPlayersFragment(
       this.log, this.selectedPlayerSteamId, this.onPlayerClicked);
 
   @override
-  _LogPlayersViewState createState() => _LogPlayersViewState();
+  _LogPlayersFragmentState createState() => _LogPlayersFragmentState();
 }
 
-class _LogPlayersViewState extends State<LogPlayersView> {
+class _LogPlayersFragmentState extends State<LogPlayersFragment> {
   Log get _log => widget.log;
   Map<String, Player> _players;
   Map<String, String> _playerNames;

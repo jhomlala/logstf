@@ -17,16 +17,16 @@ import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
-import 'package:logstf/ui/log/widget/log_awards_view.dart';
-import 'package:logstf/ui/log/widget/log_general_stats_view.dart';
-import 'package:logstf/ui/log/widget/log_players_view.dart';
+import 'package:logstf/ui/log/widget/log_awards_fragment.dart';
+import 'package:logstf/ui/log/widget/log_general_stats_fragment.dart';
+import 'package:logstf/ui/log/widget/log_players_fragment.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 import 'package:sailor/sailor.dart';
 
-import '../widget/log_players_stats_matrix_view.dart';
-import '../widget/log_timeline_view.dart';
+import '../widget/log_players_stats_matrix_fragment.dart';
+import '../widget/log_timeline_fragment.dart';
 
 class LogPage extends BasePage {
   final LogDetailsBloc logDetailsBloc;
@@ -154,11 +154,11 @@ class _LogViewState extends BasePageState<LogPage>
               if (snapshot.hasData) {
                 Log log = snapshot.data;
                 return TabBarView(controller: _tabController, children: [
-                  LogGeneralStatsView(log),
-                  LogPlayersView(log, _selectedPlayerSteamId, _onPlayerClicked),
-                  LogPlayersStatsMatrixView(log),
-                  LogAwardsView(log),
-                  LogTimelineView(log),
+                  LogGeneralStatsFragment(log),
+                  LogPlayersFragment(log, _selectedPlayerSteamId, _onPlayerClicked),
+                  LogPlayersStatsMatrixFragment(log),
+                  LogAwardsFragment(log),
+                  LogTimelineFragment(log),
                 ]);
               } else {
                 return Container(
