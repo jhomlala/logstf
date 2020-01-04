@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/routing_helper.dart';
-import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
-import 'package:logstf/ui/search/widget/player_search_view.dart';
+import 'package:logstf/ui/search/fragment/player_search_fragment.dart';
 import 'package:logstf/ui/search/bloc/search_page_bloc.dart';
 import 'package:sailor/sailor.dart';
 
-import '../widget/logs_search_view.dart';
+import '../fragment/logs_search_fragment.dart';
 
 class SearchPage extends BasePage {
   final SearchPageBloc searchPageBloc;
@@ -70,8 +69,8 @@ class _SearchPageState extends BasePageState<SearchPage>
                       ),
                     ])),
             body: TabBarView(controller: _tabController, children: [
-              LogsSearchView(searchPageBloc, _onLogsSearchAction),
-              PlayerSearchView(_onPlayerSearchAction)
+              LogsSearchFragment(searchPageBloc, _onLogsSearchAction),
+              PlayerSearchFragment(_onPlayerSearchAction)
             ])));
   }
 
@@ -83,7 +82,7 @@ class _SearchPageState extends BasePageState<SearchPage>
     SearchData searchData = await getNavigator().navigate(
         RoutingHelper.playerSearchResultsPageRoute,
         params: {AppConst.playerNameParameter: playerName});
-    if (searchData != null){
+    if (searchData != null) {
       getNavigator().pop(searchData);
     }
   }

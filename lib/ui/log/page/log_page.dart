@@ -17,16 +17,16 @@ import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
-import 'package:logstf/ui/log/widget/log_awards_fragment.dart';
-import 'package:logstf/ui/log/widget/log_general_stats_fragment.dart';
-import 'package:logstf/ui/log/widget/log_players_fragment.dart';
+import 'package:logstf/ui/log/fragment/log_awards_fragment.dart';
+import 'package:logstf/ui/log/fragment/log_general_stats_fragment.dart';
+import 'package:logstf/ui/log/fragment/log_players_fragment.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 import 'package:sailor/sailor.dart';
 
-import '../widget/log_players_stats_matrix_fragment.dart';
-import '../widget/log_timeline_fragment.dart';
+import '../fragment/log_players_stats_matrix_fragment.dart';
+import '../fragment/log_timeline_fragment.dart';
 
 class LogPage extends BasePage {
   final LogDetailsBloc logDetailsBloc;

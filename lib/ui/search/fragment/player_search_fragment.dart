@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/ui/search/page/player_search_results_page.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';
 
-class PlayerSearchView extends StatefulWidget {
+class PlayerSearchFragment extends StatefulWidget {
   final Function playerSearchAction;
 
-  const PlayerSearchView(this.playerSearchAction);
+  const PlayerSearchFragment(this.playerSearchAction);
 
   @override
-  _PlayerSearchViewState createState() => _PlayerSearchViewState();
+  _PlayerSearchFragmentState createState() => _PlayerSearchFragmentState();
 }
 
-class _PlayerSearchViewState extends State<PlayerSearchView> {
+class _PlayerSearchFragmentState extends State<PlayerSearchFragment> {
   final TextEditingController _playerNameController = TextEditingController();
 
   @override

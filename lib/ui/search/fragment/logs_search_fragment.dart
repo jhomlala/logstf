@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/search/bloc/search_page_bloc.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';
 
-class LogsSearchView extends StatefulWidget {
+class LogsSearchFragment extends StatefulWidget {
   final SearchPageBloc searchPageBloc;
   final Function onSearchAction;
 
-  const LogsSearchView(this.searchPageBloc, this.onSearchAction);
+  const LogsSearchFragment(this.searchPageBloc, this.onSearchAction);
 
   @override
-  _LogsSearchViewState createState() => _LogsSearchViewState();
+  _LogsSearchFragmentState createState() => _LogsSearchFragmentState();
 }
 
-class _LogsSearchViewState extends State<LogsSearchView> {
+class _LogsSearchFragmentState extends State<LogsSearchFragment> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final GlobalKey _mapKey = GlobalKey<FormFieldState>();
   final GlobalKey _uploaderKey = GlobalKey<FormFieldState>();

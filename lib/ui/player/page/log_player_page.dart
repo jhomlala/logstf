@@ -11,20 +11,21 @@ import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/ui/player/bloc/log_player_player_fragment_bloc.dart';
-import 'package:logstf/ui/player/widget/log_player_class_compare_fragment.dart';
-import 'package:logstf/ui/player/widget/log_player_general_fragment.dart';
+import 'package:logstf/ui/player/fragment/log_player_class_compare_fragment.dart';
+import 'package:logstf/ui/player/fragment/log_player_general_fragment.dart';
 import 'package:sailor/sailor.dart';
 
-import '../widget/log_player_awards_fragment.dart';
-import '../widget/log_player_class_fragment.dart';
-import '../widget/log_player_kills_fragment.dart';
-import '../widget/log_player_player_fragment.dart';
+import '../fragment/log_player_awards_fragment.dart';
+import '../fragment/log_player_class_fragment.dart';
+import '../fragment/log_player_kills_fragment.dart';
+import '../fragment/log_player_player_fragment.dart';
 
 class LogPlayerPage extends BasePage {
   final Sailor sailor;
   final LogPlayerPlayerFragmentBloc logPlayerPlayerFragmentBloc;
 
-  LogPlayerPage(this.sailor, this.logPlayerPlayerFragmentBloc): super(sailor: sailor);
+  LogPlayerPage(this.sailor, this.logPlayerPlayerFragmentBloc)
+      : super(sailor: sailor);
 
   @override
   _LogPlayerPageState createState() => _LogPlayerPageState();
@@ -90,11 +91,11 @@ class _LogPlayerPageState extends BasePageState<LogPlayerPage>
       ),
       body: Container(
           child: TabBarView(controller: _tabController, children: [
-        LogPlayerPlayerFragment(player, log, widget.logPlayerPlayerFragmentBloc, _onSearchPlayerLogsClicked),
-        LogPlayerGeneralFragment(
-            player, averagePlayersStatsMap, log.length),
+        LogPlayerPlayerFragment(player, log, widget.logPlayerPlayerFragmentBloc,
+            _onSearchPlayerLogsClicked),
+        LogPlayerGeneralFragment(player, averagePlayersStatsMap, log.length),
         LogPlayerClassOverviewFragment(log, player),
-        LogPlayerClassCompareFragment(log,player),
+        LogPlayerClassCompareFragment(log, player),
         LogPlayerKillsFragment(log, player),
         LogPlayerAwardsFragment(log, player)
       ])),
@@ -141,7 +142,7 @@ class _LogPlayerPageState extends BasePageState<LogPlayerPage>
     _onTabChanged();
   }
 
-  void _onSearchPlayerLogsClicked(String steamId64){
+  void _onSearchPlayerLogsClicked(String steamId64) {
     getNavigator().pop(SearchPlayerMatchesNavigationEvent(steamId64));
   }
 }
@@ -150,10 +151,10 @@ class LogPlayerPageProvider extends PageProvider<LogPlayerPage> {
   final Sailor sailor;
   final LogPlayerPlayerFragmentBloc logPlayerPlayerFragmentBloc;
 
-  LogPlayerPageProvider(this.sailor,this.logPlayerPlayerFragmentBloc);
+  LogPlayerPageProvider(this.sailor, this.logPlayerPlayerFragmentBloc);
 
   @override
   LogPlayerPage create() {
-    return LogPlayerPage(sailor,logPlayerPlayerFragmentBloc);
+    return LogPlayerPage(sailor, logPlayerPlayerFragmentBloc);
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:logstf/main.dart';
+
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/menu_item.dart';
-import 'package:logstf/model/navigation_event.dart';
 import 'package:logstf/model/search_player_matches_navigation_event.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/util/app_const.dart';
@@ -12,19 +11,13 @@ import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/main/bloc/logs_list_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';
-import 'package:logstf/ui/settings/page/settings_page.dart';
 import 'package:sailor/sailor.dart';
-import '../../about/page/about_page.dart';
+
 import '../../common/base_page.dart';
 import '../../common/base_page_state.dart';
-import '../../help/page/help_page.dart';
-import '../../log/page/log_page.dart';
-import '../widget/logs_saved_logs_fragment.dart';
-import 'package:logstf/ui/main/widget/logs_list_fragment.dart';
-import 'package:logstf/ui/main/widget/logs_saved_players_fragment.dart';
-
-import '../../search/page/search_page.dart';
-import '../bloc/main_page_bloc.dart';
+import '../fragment/logs_saved_logs_fragment.dart';
+import 'package:logstf/ui/main/fragment/logs_list_fragment.dart';
+import 'package:logstf/ui/main/fragment/logs_saved_players_fragment.dart';
 
 class MainPage extends BasePage {
   final Sailor sailor;
