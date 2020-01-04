@@ -1,4 +1,4 @@
-import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/model/internal/player_observed.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:sqflite/sqflite.dart';
 

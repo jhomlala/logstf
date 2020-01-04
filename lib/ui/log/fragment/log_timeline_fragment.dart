@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/event.dart';
-import 'package:logstf/model/log.dart';
+import 'package:logstf/model/external/event.dart';
+import 'package:logstf/model/external/log.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:timeline_list/timeline.dart';

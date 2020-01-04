@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/log/widget/award_card.dart';
 

@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/model/average_player_stats.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 

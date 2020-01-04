@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 
 class AwardCard extends StatelessWidget {
   final String awardName;

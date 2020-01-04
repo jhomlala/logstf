@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/class_stats.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/class_stats.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/ui/player/widget/demoman_overview_card.dart';
 import 'package:logstf/ui/player/widget/engineer_overview_card.dart';
 import 'package:logstf/ui/player/widget/pyro_overview_card.dart';

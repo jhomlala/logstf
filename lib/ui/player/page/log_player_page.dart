@@ -1,10 +1,10 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/model/average_player_stats.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
-import 'package:logstf/model/search_player_matches_navigation_event.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
+import 'package:logstf/model/internal/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/common/base_page.dart';

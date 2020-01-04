@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/player_search_result.dart';
+import 'package:logstf/model/external/player_search_result.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';
 
 class PlayerSearchRowWidget extends StatefulWidget {

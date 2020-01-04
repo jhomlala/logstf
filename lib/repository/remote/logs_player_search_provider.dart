@@ -1,4 +1,4 @@
-import 'package:logstf/model/player_search_result.dart';
+import 'package:logstf/model/external/player_search_result.dart';
 
 import 'logs_player_search_repository.dart';
 

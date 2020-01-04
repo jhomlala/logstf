@@ -16,6 +16,4 @@ class SearchData {
   String toString() {
     return 'SearchData{map: $map, uploader: $uploader, title: $title, player: $player, clearData: $clearData}';
   }
-
-
 }

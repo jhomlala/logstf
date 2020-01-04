@@ -1,4 +1,4 @@
-import 'package:logstf/model/weapon.dart';
+import 'package:logstf/model/external/weapon.dart';
 
 class ClassStats{
   final String type;

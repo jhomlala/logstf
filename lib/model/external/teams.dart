@@ -1,4 +1,4 @@
-import 'package:logstf/model/team_general_stats.dart';
+import 'package:logstf/model/external/team_general_stats.dart';
 
 class Teams {
   final TeamGeneralStats red;

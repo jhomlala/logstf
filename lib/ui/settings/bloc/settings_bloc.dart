@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/app_settings.dart';
+import 'package:logstf/model/internal/app_settings.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/local/settings_local_provider.dart';

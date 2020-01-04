@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:logstf/helper/stats_manager.dart';
 
-import 'package:logstf/model/average_player_stats.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
 

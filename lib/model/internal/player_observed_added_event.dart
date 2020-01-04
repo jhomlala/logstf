@@ -1,4 +1,4 @@
-import '../player_observed.dart';
+import 'player_observed.dart';
 
 class PlayerObservedAddedEvent{
   PlayerObserved playerObserved;

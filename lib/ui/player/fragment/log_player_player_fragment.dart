@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
-import 'package:logstf/model/steam_player.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
+import 'package:logstf/model/external/steam_player.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';

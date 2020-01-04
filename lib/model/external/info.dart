@@ -1,4 +1,4 @@
-import 'package:logstf/model/uploader.dart';
+import 'package:logstf/model/external/uploader.dart';
 
 class Info {
   final String map;

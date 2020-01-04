@@ -1,4 +1,4 @@
-import '../log_short.dart';
+import 'log_short.dart';
 
 class LogSavedEvent {
   final LogShort logShort;

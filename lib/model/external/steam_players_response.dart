@@ -1,4 +1,4 @@
-import 'package:logstf/model/steam_players.dart';
+import 'package:logstf/model/external/steam_players.dart';
 
 class SteamPlayersResponse {
   SteamPlayers response;

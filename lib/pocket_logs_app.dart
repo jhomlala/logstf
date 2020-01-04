@@ -8,7 +8,7 @@ import 'package:logstf/util/application_localization_delegate.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/main/page/main_page.dart';
 import 'package:sailor/sailor.dart';
-import 'model/app_settings.dart';
+import 'model/internal/app_settings.dart';
 
 @provide
 class PocketLogsApp extends StatefulWidget {

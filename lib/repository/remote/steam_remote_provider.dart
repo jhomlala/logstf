@@ -1,4 +1,4 @@
-import 'package:logstf/model/steam_players_response.dart';
+import 'package:logstf/model/external/steam_players_response.dart';
 import 'package:logstf/repository/remote/steam_remote_repository.dart';
 
 class SteamRemoteProvider{

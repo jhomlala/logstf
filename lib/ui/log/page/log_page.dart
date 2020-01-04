@@ -1,16 +1,16 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/model/average_player_stats.dart';
-import 'package:logstf/model/internal/log_saved_event.dart';
-import 'package:logstf/model/player.dart';
-import 'package:logstf/model/search_player_matches_navigation_event.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
+import 'package:logstf/model/internal/saved_log_added_event.dart';
+import 'package:logstf/model/external/player.dart';
+import 'package:logstf/model/internal/search_player_matches_navigation_event.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
 
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';

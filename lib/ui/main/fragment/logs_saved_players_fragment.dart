@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/model/internal/log_short.dart';
+import 'package:logstf/model/internal/player_observed.dart';
 import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';

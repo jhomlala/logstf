@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/class_stats.dart';
-import 'package:logstf/model/log.dart';
+import 'package:logstf/model/external/class_stats.dart';
+import 'package:logstf/model/external/log.dart';
 
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
 import '../../common/widget/class_icon.dart';

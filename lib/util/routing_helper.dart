@@ -1,9 +1,9 @@
 import 'dart:collection';
 
-import 'package:logstf/model/average_player_stats.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/internal/search_data.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/ui/about/page/about_page.dart';
 import 'package:logstf/ui/help/page/help_page.dart';
 import 'package:logstf/ui/log/page/log_page.dart';

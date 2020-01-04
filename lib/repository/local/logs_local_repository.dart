@@ -1,4 +1,4 @@
-import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/util/app_const.dart';
 import 'package:sqflite/sqflite.dart';
 

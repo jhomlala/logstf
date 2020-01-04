@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:logstf/model/class_kill.dart';
-import 'package:logstf/model/class_stats.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/player.dart';
-import 'package:logstf/model/player_observed.dart';
+import 'package:logstf/model/external/class_kill.dart';
+import 'package:logstf/model/external/class_stats.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/internal/log_short.dart';
+import 'package:logstf/model/external/player.dart';
+import 'package:logstf/model/internal/player_observed.dart';
 
 expectNWidgetByKey(int widgets, String key) {
   expect(find.byKey(Key(key)), findsNWidgets(widgets));

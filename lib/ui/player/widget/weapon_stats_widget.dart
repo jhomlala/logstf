@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/weapon.dart';
+import 'package:logstf/model/external/weapon.dart';
 import 'package:logstf/util/application_localization.dart';
 
 class WeaponStatsWidget extends StatelessWidget {

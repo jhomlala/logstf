@@ -1,10 +1,10 @@
-import 'package:logstf/model/class_kill.dart';
-import 'package:logstf/model/info.dart';
-import 'package:logstf/model/player.dart';
-import 'package:logstf/model/round.dart';
-import 'package:logstf/model/teams.dart';
+import 'package:logstf/model/external/class_kill.dart';
+import 'package:logstf/model/external/info.dart';
+import 'package:logstf/model/external/player.dart';
+import 'package:logstf/model/external/round.dart';
+import 'package:logstf/model/external/teams.dart';
 
-import 'log_short.dart';
+import '../internal/log_short.dart';
 
 class Log {
   final Teams teams;

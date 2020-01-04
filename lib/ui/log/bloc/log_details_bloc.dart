@@ -1,6 +1,6 @@
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/internal/log_short.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';

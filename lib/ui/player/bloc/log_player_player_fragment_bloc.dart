@@ -1,7 +1,7 @@
 import 'package:logstf/model/internal/player_observed_added_event.dart';
-import 'package:logstf/model/player_observed.dart';
-import 'package:logstf/model/steam_player.dart';
-import 'package:logstf/model/steam_players_response.dart';
+import 'package:logstf/model/internal/player_observed.dart';
+import 'package:logstf/model/external/steam_player.dart';
+import 'package:logstf/model/external/steam_players_response.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/repository/remote/steam_remote_provider.dart';

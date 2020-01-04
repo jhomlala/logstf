@@ -1,6 +1,6 @@
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/logs_search_response.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/internal/log_short.dart';
+import 'package:logstf/model/external/logs_search_response.dart';
 import 'package:logstf/repository/remote/logs_remote_repository.dart';
 import 'package:logstf/util/app_const.dart';
 

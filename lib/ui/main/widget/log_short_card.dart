@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/internal/log_short.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogShortCard extends StatelessWidget {

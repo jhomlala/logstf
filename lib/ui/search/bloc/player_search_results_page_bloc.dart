@@ -1,7 +1,7 @@
 import 'package:logstf/ui/common/bloc_provider.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
-import 'package:logstf/model/player_observed.dart';
-import 'package:logstf/model/player_search_result.dart';
+import 'package:logstf/model/internal/player_observed.dart';
+import 'package:logstf/model/external/player_search_result.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
 import 'package:logstf/repository/remote/logs_player_search_provider.dart';

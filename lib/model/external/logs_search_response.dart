@@ -1,4 +1,4 @@
-import 'log_short.dart';
+import '../internal/log_short.dart';
 import 'logs_search_parameters.dart';
 
 class LogsSearchResponse {

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:logstf/model/internal/log_saved_event.dart';
+import 'package:logstf/model/internal/saved_log_added_event.dart';
 import 'package:logstf/model/internal/saved_logs_clear_event.dart';
-import 'package:logstf/model/log_short.dart';
+import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/ui/common/base_bloc.dart';

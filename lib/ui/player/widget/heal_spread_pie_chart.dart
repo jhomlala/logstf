@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/model/heal_spread.dart';
+import 'package:logstf/model/external/heal_spread.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../common/widget/class_icon.dart';

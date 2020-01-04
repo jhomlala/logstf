@@ -1,4 +1,4 @@
-import 'package:logstf/model/steam_player.dart';
+import 'package:logstf/model/external/steam_player.dart';
 
 class SteamPlayers{
   List<SteamPlayer> players;

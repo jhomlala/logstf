@@ -1,6 +1,6 @@
-import 'package:logstf/model/event.dart';
-import 'package:logstf/model/round_player.dart';
-import 'package:logstf/model/teams.dart';
+import 'package:logstf/model/external/event.dart';
+import 'package:logstf/model/external/round_player.dart';
+import 'package:logstf/model/external/teams.dart';
 
 class Round {
   final int startTime;

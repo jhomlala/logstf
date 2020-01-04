@@ -1,5 +1,5 @@
-import 'package:logstf/model/class_stats.dart';
-import 'package:logstf/model/ubertypes.dart';
+import 'package:logstf/model/external/class_stats.dart';
+import 'package:logstf/model/external/ubertypes.dart';
 
 import 'medic_stats.dart';
 
