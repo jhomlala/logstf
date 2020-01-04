@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
 import 'package:logstf/util/application_localization.dart';
 
 class FiltersCard extends StatelessWidget {

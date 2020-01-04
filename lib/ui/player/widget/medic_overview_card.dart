@@ -5,10 +5,11 @@ import 'package:logstf/model/heal_spread.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'base_overview_card.dart';
-import 'class_icon.dart';
+
+import '../../common/widget/class_icon.dart';
 import 'heal_spread_pie_chart.dart';
 import 'medic_stats_widget.dart';
+import 'base_overview_card.dart';
 
 class MedicOverviewCard extends BaseOverviewCard {
   MedicOverviewCard(Player player, Log log) : super(player, log);

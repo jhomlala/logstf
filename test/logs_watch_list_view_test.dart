@@ -5,7 +5,7 @@ import 'package:logstf/model/log_short.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/ui/main/widget/logs_saved_players_fragment.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
-import 'package:logstf/ui/common/widget/log_short_card.dart';
+import 'package:logstf/ui/main/widget/log_short_card.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 import 'test_helper.dart';
 

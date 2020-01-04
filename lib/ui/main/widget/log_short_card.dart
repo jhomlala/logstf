@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
+
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/log_short.dart';
-import 'package:logstf/model/navigation_event.dart';
-import 'package:logstf/model/search_player_matches_navigation_event.dart';
-import 'package:logstf/ui/log/page/log_page.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class LogShortCard extends StatelessWidget {
@@ -17,18 +14,7 @@ class LogShortCard extends StatelessWidget {
     var matchType = LogHelper.getMatchType(logSearch.players, logSearch.map, context);
     return InkWell(
         onTap: () async {
-          /*NavigationEvent navigationEvent =
-              await Navigator.push<NavigationEvent>(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LogView(logId: logSearch.id)));
-          if (navigationEvent != null &&
-              navigationEvent is SearchPlayerMatchesNavigationEvent) {
-            logsSearchBloc.clearLogs();
-            logsSearchBloc.searchLogs(player: navigationEvent.steamId);
-          }*/
           onLogClicked(logSearch.id);
-
         },
         child: Card(
             margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),

@@ -1,3 +1,4 @@
+import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/model/steam_player.dart';
 import 'package:logstf/model/steam_players_response.dart';
@@ -6,6 +7,7 @@ import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/repository/remote/steam_remote_provider.dart';
 import 'package:logstf/ui/common/base_bloc.dart';
 import 'package:logstf/ui/common/bloc_provider.dart';
+import 'package:logstf/util/event_bus.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LogPlayerPlayerFragmentBloc extends BaseBloc {
@@ -46,7 +48,7 @@ class LogPlayerPlayerFragmentBloc extends BaseBloc {
     }
   }
 
-  Future<PlayerObserved> getPlayerObserved(String steamId64) async{
+  Future<PlayerObserved> getPlayerObserved(String steamId64) async {
     return playersObservedLocalProvider
         .getPlayerObservedWithSteamId64(steamId64);
   }
@@ -59,6 +61,7 @@ class LogPlayerPlayerFragmentBloc extends BaseBloc {
           name: playerName,
           steamid64: steamId64);
       await playersObservedLocalProvider.createPlayerObserved(playerObserved);
+      RxBus.post(PlayerObservedAddedEvent(playerObserved));
     }
   }
 

@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'base_overview_card.dart';
-import 'class_icon.dart';
 
-class ScoutOverviewCard extends BaseOverviewCard {
-  ScoutOverviewCard(Player player, Log log) : super(player, log);
+import 'base_overview_card.dart';
+import 'package:logstf/ui/common/widget/class_icon.dart';
+
+class EngineerOverviewCard extends BaseOverviewCard {
+  EngineerOverviewCard(Player player, Log log) : super(player, log);
 
   @override
-  State<StatefulWidget> createState() {
-    return _ScoutOverviewCardState();
-  }
+  _EngineerOverviewCardState createState() => _EngineerOverviewCardState();
 }
 
-class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
+class _EngineerOverviewCardState
+    extends BaseOverviewCardState<EngineerOverviewCard> {
   ClassStats _classStats;
 
   @override
   void initState() {
     _classStats = widget.player.classStats.toList().where((classStats) {
-      return classStats.type == "scout";
+      return classStats.type == "engineer";
     }).first;
     super.initState();
   }
@@ -40,12 +39,12 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "scout"),
+                    ClassIcon(playerClass: "engineer"),
                     Container(
                         child: Text(
-                            " ${applicationLocalization.getText("log_class_highlights")}" ,
-                      style: TextStyle(fontSize: 20),
-                    ))
+                          " ${applicationLocalization.getText("log_class_highlights")}",
+                          style: TextStyle(fontSize: 20),
+                        ))
                   ]),
                   getStatRow("${applicationLocalization.getText("log_class_time_played")}: ", getTimePlayed(_classStats)),
                   Row(children: [
@@ -96,54 +95,14 @@ class _ScoutOverviewCardState extends BaseOverviewCardState<ScoutOverviewCard> {
                   Divider(),
                   Row(children: [
                     getStatRow(
-                      "${applicationLocalization.getText("log_class_medics_killed")}: ",
-                      getMedicsKilled().toString(),
-                    ),
-                    getPositionRow(getPlayerMedicsPickedPosition(),
-                        "${applicationLocalization.getText("log_class_overall_top_medics_killed")}", context)
-                  ]),
-                  Row(children: [
-                    getStatRow("${applicationLocalization.getText("log_class_scouts_killed")}: ", getScoutKills().toString()),
-                    getPositionRow(_getScoutKilledPosition(),
-                        "${applicationLocalization.getText("log_class_overall_top_scouts_killed")}", context)
-                  ]),
-                  Row(children: [
-                    getStatRow(
                       "${applicationLocalization.getText("log_class_caps")}: ",
                       player.cpc.toString(),
                     ),
                     getPositionRow(getPlayerCapPosition(), "${applicationLocalization.getText("log_class_overall_top_caps")}", context)
                   ]),
-                  Row(children: [
-                    getStatRow(
-                      "${applicationLocalization.getText("log_class_medkits_picked")}: ",
-                      player.medkits.toString(),
-                    ),
-                    getPositionRow(_getPlayerMedkitsPickedPosition(),
-                        "${applicationLocalization.getText("log_class_overall_top_medkits_picked")}", context)
-                  ]),
                 ],
               ))),
       getWeaponsCard(_classStats)
     ])));
-  }
-
-  int getScoutKills() {
-    if (log.classKills.containsKey(player.steamId)){
-      return log.classKills[player.steamId].scout;
-    } else {
-      return 0;
-    }
-
-  }
-
-  int _getScoutKilledPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByScoutKills(log);
-    return getPlayerPositionInSortedPlayersList(sortedPlayers);
-  }
-
-  int _getPlayerMedkitsPickedPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedByMedkits(log);
-    return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 }

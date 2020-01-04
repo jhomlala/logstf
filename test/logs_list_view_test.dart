@@ -4,8 +4,8 @@ import 'package:logstf/ui/main/bloc/main_page_bloc.dart';
 import 'package:logstf/model/log_short.dart';
 import 'package:logstf/ui/main/widget/logs_list_fragment.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
-import 'package:logstf/ui/common/widget/filters_card.dart';
-import 'package:logstf/ui/common/widget/log_short_card.dart';
+import 'package:logstf/ui/main/widget/filters_card.dart';
+import 'package:logstf/ui/main/widget/log_short_card.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 import 'test_helper.dart';

@@ -5,7 +5,7 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/util/error_handler.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_players_fragment_bloc.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
-import 'package:logstf/ui/common/widget/log_short_card.dart';
+import 'package:logstf/ui/main/widget/log_short_card.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 
 class LogsSavedPlayersFragment extends StatefulWidget {

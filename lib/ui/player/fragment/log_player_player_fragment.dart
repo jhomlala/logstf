@@ -8,7 +8,7 @@ import 'package:logstf/util/application_localization.dart';
 import 'package:logstf/ui/player/bloc/log_player_player_fragment_bloc.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';
-import 'package:logstf/ui/common/widget/observe_player_button.dart';
+import 'package:logstf/ui/player/widget/observe_player_button.dart';
 import 'package:logstf/ui/common/widget/progress_bar.dart';
 import 'package:rxdart/rxdart.dart';
 

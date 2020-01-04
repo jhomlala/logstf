@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
-import 'base_overview_card.dart';
-import 'class_icon.dart';
 
-class EngineerOverviewCard extends BaseOverviewCard {
-  EngineerOverviewCard(Player player, Log log) : super(player, log);
+import '../../common/widget/class_icon.dart';
+import 'base_overview_card.dart';
+
+class HeavyOverviewCard extends BaseOverviewCard {
+  HeavyOverviewCard(Player player, Log log) : super(player, log);
 
   @override
-  _EngineerOverviewCardState createState() => _EngineerOverviewCardState();
+  _HeavyOverviewCardState createState() => _HeavyOverviewCardState();
 }
 
-class _EngineerOverviewCardState
-    extends BaseOverviewCardState<EngineerOverviewCard> {
+class _HeavyOverviewCardState extends BaseOverviewCardState<HeavyOverviewCard> {
   ClassStats _classStats;
 
   @override
   void initState() {
     _classStats = widget.player.classStats.toList().where((classStats) {
-      return classStats.type == "engineer";
+      return classStats.type == "heavyweapons";
     }).first;
     super.initState();
   }
@@ -39,7 +40,7 @@ class _EngineerOverviewCardState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "engineer"),
+                    ClassIcon(playerClass: "heavyweapons"),
                     Container(
                         child: Text(
                           " ${applicationLocalization.getText("log_class_highlights")}",
@@ -95,14 +96,49 @@ class _EngineerOverviewCardState
                   Divider(),
                   Row(children: [
                     getStatRow(
-                      "${applicationLocalization.getText("log_class_caps")}: ",
-                      player.cpc.toString(),
+                      "${applicationLocalization.getText("log_class_medics_killed")}: ",
+                      getMedicsKilled().toString(),
                     ),
-                    getPositionRow(getPlayerCapPosition(), "${applicationLocalization.getText("log_class_overall_top_caps")}", context)
+                    getPositionRow(getPlayerMedicsPickedPosition(),
+                        "${applicationLocalization.getText("log_class_overall_top_medics_killed")}", context)
+                  ]),
+                  Row(children: [
+                    getStatRow(
+                      "${applicationLocalization.getText("log_class_heavies_killed")}: ",
+                      _getHeavyKills().toString(),
+                    ),
+                    getPositionRow(_getHeavyKillsPosition(),
+                        "${applicationLocalization.getText("log_class_overall_top_heavies_killed")}", context)
+                  ]),
+                  Row(children: [
+                    getStatRow(
+                      "DT: ",
+                      player.dt.toString(),
+                    ),
+                    getPositionRow(
+                        _getDamageTakenPosition(), "${applicationLocalization.getText("log_class_overall_top_dt")}", context)
                   ]),
                 ],
               ))),
       getWeaponsCard(_classStats)
     ])));
+  }
+
+  int _getDamageTakenPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByDT(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
+  }
+
+  int _getHeavyKills() {
+    if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
+      return log.classKills[player.steamId].heavyweapons;
+    } else {
+      return 0;
+    }
+  }
+
+  int _getHeavyKillsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByHeavyKills(log);
+    return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 }

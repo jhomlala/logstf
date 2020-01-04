@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/player_observed.dart';
 import 'package:logstf/util/application_localization.dart';
 
-import 'logs_button.dart';
+import '../../common/widget/logs_button.dart';
 
 class ObservePlayerButton extends StatefulWidget {
   final Future<PlayerObserved> playerObserved;

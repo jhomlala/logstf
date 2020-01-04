@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/class_stats.dart';
 import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
+import 'package:logstf/ui/player/widget/demoman_overview_card.dart';
+import 'package:logstf/ui/player/widget/engineer_overview_card.dart';
+import 'package:logstf/ui/player/widget/pyro_overview_card.dart';
+import 'package:logstf/ui/player/widget/soldier_overview_widget.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/ui/common/widget/demoman_overview_card.dart';
-import 'package:logstf/ui/common/widget/engineer_overview_card.dart';
-import 'package:logstf/ui/common/widget/heavy_overview_card.dart';
-import 'package:logstf/ui/common/widget/medic_overview_card.dart';
-import 'package:logstf/ui/common/widget/pyro_overview_card.dart';
-import 'package:logstf/ui/common/widget/scout_overview_card.dart';
-import 'package:logstf/ui/common/widget/sniper_overview_card.dart';
-import 'package:logstf/ui/common/widget/soldier_overview_widget.dart';
-import 'package:logstf/ui/common/widget/spy_overview_card.dart';
+
+import 'package:logstf/ui/player/widget/heavy_overview_card.dart';
+import 'package:logstf/ui/player/widget/medic_overview_card.dart';
+
+import 'package:logstf/ui/player/widget/scout_overview_card.dart';
+import 'package:logstf/ui/player/widget/sniper_overview_card.dart';
+
+import 'package:logstf/ui/player/widget/spy_overview_card.dart';
 
 class LogPlayerClassOverviewFragment extends StatefulWidget {
   final Log log;
@@ -20,10 +23,12 @@ class LogPlayerClassOverviewFragment extends StatefulWidget {
   const LogPlayerClassOverviewFragment(this.log, this.player);
 
   @override
-  _LogPlayerClassOverviewFragmentState createState() => _LogPlayerClassOverviewFragmentState();
+  _LogPlayerClassOverviewFragmentState createState() =>
+      _LogPlayerClassOverviewFragmentState();
 }
 
-class _LogPlayerClassOverviewFragmentState extends State<LogPlayerClassOverviewFragment> {
+class _LogPlayerClassOverviewFragmentState
+    extends State<LogPlayerClassOverviewFragment> {
   List<String> _classes;
   String _selectedClass;
 
@@ -67,17 +72,17 @@ class _LogPlayerClassOverviewFragmentState extends State<LogPlayerClassOverviewF
     if (_selectedClass == "heavyweapons") {
       return HeavyOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "engineer"){
-      return EngineerOverviewCard(widget.player,widget.log);
+    if (_selectedClass == "engineer") {
+      return EngineerOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "medic"){
-      return MedicOverviewCard(widget.player,widget.log);
+    if (_selectedClass == "medic") {
+      return MedicOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "sniper"){
-      return SniperOverviewCard(widget.player,widget.log);
+    if (_selectedClass == "sniper") {
+      return SniperOverviewCard(widget.player, widget.log);
     }
-    if (_selectedClass == "spy"){
-      return SpyOverviewCard(widget.player,widget.log);
+    if (_selectedClass == "spy") {
+      return SpyOverviewCard(widget.player, widget.log);
     }
 
     return Container();

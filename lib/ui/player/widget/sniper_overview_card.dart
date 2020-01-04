@@ -5,8 +5,8 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
+import '../../common/widget/class_icon.dart';
 import 'base_overview_card.dart';
-import 'class_icon.dart';
 
 class SniperOverviewCard extends BaseOverviewCard {
   SniperOverviewCard(Player player, Log log) : super(player, log);

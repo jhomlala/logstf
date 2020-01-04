@@ -5,24 +5,26 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
-import 'base_overview_card.dart';
-import 'class_icon.dart';
 
-class SoldierOverviewWidget extends BaseOverviewCard {
-  SoldierOverviewWidget(Player player, Log log) : super(player, log);
+import 'package:logstf/ui/common/widget/class_icon.dart';
+
+import 'base_overview_card.dart';
+
+class DemomanOverviewCard extends BaseOverviewCard {
+  DemomanOverviewCard(Player player, Log log) : super(player, log);
 
   @override
-  _SoldierOverviewWidgetState createState() => _SoldierOverviewWidgetState();
+  _DemomanOverviewCardState createState() => _DemomanOverviewCardState();
 }
 
-class _SoldierOverviewWidgetState
-    extends BaseOverviewCardState<SoldierOverviewWidget> {
+class _DemomanOverviewCardState
+    extends BaseOverviewCardState<DemomanOverviewCard> {
   ClassStats _classStats;
 
   @override
   void initState() {
     _classStats = widget.player.classStats.toList().where((classStats) {
-      return classStats.type == "soldier";
+      return classStats.type == "demoman";
     }).first;
     super.initState();
   }
@@ -30,7 +32,9 @@ class _SoldierOverviewWidgetState
   @override
   Widget build(BuildContext context) {
     var applicationLocalization = ApplicationLocalization.of(context);
-    return Expanded(child: ListView(children: [
+    return Container(
+        child: Expanded(
+            child: ListView(children: [
       Card(
           child: Container(
               margin: EdgeInsets.all(10),
@@ -38,12 +42,12 @@ class _SoldierOverviewWidgetState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ClassIcon(playerClass: "soldier"),
+                    ClassIcon(playerClass: "demoman"),
                     Container(
                         child: Text(
-                      " ${applicationLocalization.getText("log_class_highlights")}",
-                      style: TextStyle(fontSize: 20),
-                    ))
+                          " ${applicationLocalization.getText("log_class_highlights")}",
+                          style: TextStyle(fontSize: 20),
+                        ))
                   ]),
                   getStatRow("${applicationLocalization.getText("log_class_time_played")}: ", getTimePlayed(_classStats)),
                   Row(children: [
@@ -102,44 +106,36 @@ class _SoldierOverviewWidgetState
                   ]),
                   Row(children: [
                     getStatRow(
+                      "${applicationLocalization.getText("log_class_demomans_killed")}: ",
+                      _getDemomansKilled().toString(),
+                    ),
+                    getPositionRow(_getDemomanKillsPosition(),
+                        "${applicationLocalization.getText("log_class_overall_top_demomans_killed")}", context)
+                  ]),
+                  Row(children: [
+                    getStatRow(
                       "${applicationLocalization.getText("log_class_airshots")}: ",
                       player.as.toString(),
                     ),
-                    getPositionRow(
-                        getPlayerAirshotsPosition(), "${applicationLocalization.getText("log_class_overall_top_airshots")}", context)
-                  ]),
-                  Row(children: [
-                    getStatRow(
-                      "${applicationLocalization.getText("log_class_caps")}: ",
-                      player.cpc.toString(),
-                    ),
-                    getPositionRow(getPlayerCapPosition(), "${applicationLocalization.getText("log_class_overall_top_caps")}", context)
-                  ]),
-                  Row(children: [
-                    getStatRow(
-                      "${applicationLocalization.getText("log_class_soldiers_killed")}: ",
-                      _getSoldierKills().toString(),
-                    ),
-                    getPositionRow(_getSoldierKilledPosition(),
-                        "${applicationLocalization.getText("log_class_overall_top_soldiers_killed")}", context)
+                    getPositionRow(getPlayerAirshotsPosition(),
+                        "${applicationLocalization.getText("log_class_overall_top_airshots")}", context)
                   ]),
                 ],
               ))),
       getWeaponsCard(_classStats)
-    ]));
+    ])));
   }
 
-
-  int _getSoldierKills() {
+  int _getDemomansKilled() {
     if (log.classKills != null && log.classKills.containsKey(player.steamId)) {
-      return log.classKills[player.steamId].soldier;
+      return log.classKills[player.steamId].demoman;
     } else {
       return 0;
     }
   }
 
-  int _getSoldierKilledPosition() {
-    var sortedPlayers = LogHelper.getPlayersSortedBySoldierKills(log);
+  int _getDemomanKillsPosition() {
+    var sortedPlayers = LogHelper.getPlayersSortedByDemomanKills(log);
     return getPlayerPositionInSortedPlayersList(sortedPlayers);
   }
 }

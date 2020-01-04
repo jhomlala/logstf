@@ -6,7 +6,7 @@ import 'package:logstf/model/log.dart';
 import 'package:logstf/model/match_type.dart';
 import 'package:logstf/util/app_utils.dart';
 import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/ui/common/widget/teams_score_table_widget.dart';
+import 'package:logstf/ui/log/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsFragment extends StatefulWidget {
   final Log log;

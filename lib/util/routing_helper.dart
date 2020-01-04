@@ -92,6 +92,13 @@ class RoutingHelper {
         ]));
 
     sailor.addRoute(SailorRoute(
+      name: settingsPageRoute,
+      builder: (context, args, params) {
+        return settingsPageProvider.create();
+      },
+    ));
+
+    sailor.addRoute(SailorRoute(
       name: helpPageRoute,
       builder: (context, args, params) {
         return helpPageProvider.create();
