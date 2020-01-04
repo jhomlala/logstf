@@ -1,7 +1,6 @@
 
 import 'package:inject/inject.dart';
-import 'package:logstf/main.dart';
-
+import '../pocket_logs_app.dart';
 import 'modules/bloc_module.dart';
 import 'modules/common_module.dart';
 import 'modules/page_module.dart';

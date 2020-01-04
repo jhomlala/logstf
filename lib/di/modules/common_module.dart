@@ -2,6 +2,7 @@ import 'package:inject/inject.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
 import 'package:logstf/repository/local/logs_local_provider.dart';
 import 'package:logstf/repository/local/players_observed_local_provider.dart';
+import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:logstf/repository/remote/logs_remote_provider.dart';
 import 'package:logstf/repository/remote/steam_remote_provider.dart';
 import 'package:logstf/util/event_bus.dart';
@@ -67,5 +68,11 @@ class CommonModule {
   @singleton
   SteamRemoteProvider provideSteamRemoteProvider() {
     return SteamRemoteProvider();
+  }
+
+  @provide
+  @singleton
+  SettingsLocalProvider provideSettingsLocalProvider(){
+    return SettingsLocalProvider();
   }
 }

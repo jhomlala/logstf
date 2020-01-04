@@ -1,4 +1,5 @@
 import 'package:inject/inject.dart';
+import 'package:logstf/repository/local/settings_local_provider.dart';
 import 'package:logstf/repository/remote/steam_remote_provider.dart';
 import 'package:logstf/view/log/bloc/log_details_bloc.dart';
 import 'package:logstf/repository/local/app_state_manager.dart';
@@ -73,7 +74,12 @@ class BlocModule {
   }
 
   @provide
-  SettingsBlocProvider provideSettingsBlocProvider(){
-    return SettingsBlocProvider();
+  SettingsBlocProvider provideSettingsBlocProvider(
+    PlayersObservedLocalProvider playersObservedLocalProvider,
+    LogsLocalProvider logsLocalProvider,
+    SettingsLocalProvider settingsLocalProvider,
+  ) {
+    return SettingsBlocProvider(
+        playersObservedLocalProvider, logsLocalProvider, settingsLocalProvider);
   }
 }
