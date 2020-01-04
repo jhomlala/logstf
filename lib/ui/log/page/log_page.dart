@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/internal/saved_log_added_event.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/model/internal/search_player_matches_navigation_event.dart';
+import 'package:logstf/model/internal/search_player_matches_event.dart';
 import 'package:logstf/util/event_bus.dart';
 import 'package:logstf/util/routing_helper.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
@@ -216,7 +216,7 @@ class _LogViewState extends BasePageState<LogPage>
   void _onPlayerClicked(Log log, Player player,
       HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
     print("1Average player stats map: " + averagePlayersStatsMap.toString());
-    SearchPlayerMatchesNavigationEvent searchPlayerMatchesNavigationEvent =
+    SearchPlayerMatchesEvent searchPlayerMatchesNavigationEvent =
         await getNavigator().navigate(RoutingHelper.logPlayerPageRoute, params: {
       AppConst.logParameter: log,
       AppConst.playerParameter: player,
