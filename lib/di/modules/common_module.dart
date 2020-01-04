@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:inject/inject.dart';
-import 'package:logstf/repository/external/logs_player_search_provider.dart';
+import 'package:logstf/repository/external/player_remote_repository_provider.dart';
 import 'package:logstf/repository/internal/app_state_manager.dart';
 import 'package:logstf/repository/internal/logs_local_provider.dart';
 import 'package:logstf/repository/internal/players_observed_local_provider.dart';
@@ -22,6 +23,15 @@ class CommonModule {
   @singleton
   Sailor provideSailor() {
     return Sailor();
+  }
+
+  @provide
+  @singleton
+  Dio provideDio() {
+    Dio dio = new Dio();
+    dio.options.connectTimeout = 5000;
+    dio.options.receiveTimeout = 5000;
+    return dio;
   }
 
   @provide
@@ -60,8 +70,8 @@ class CommonModule {
 
   @provide
   @singleton
-  LogsRemoteProvider provideLogsRemoteProvider() {
-    return LogsRemoteProvider();
+  LogsRemoteProvider provideLogsRemoteProvider(Dio dio) {
+    return LogsRemoteProvider(dio);
   }
 
   @provide
@@ -72,8 +82,8 @@ class CommonModule {
 
   @provide
   @singleton
-  SteamRemoteProvider provideSteamRemoteProvider() {
-    return SteamRemoteProvider();
+  SteamRemoteProvider provideSteamRemoteProvider(Dio dio) {
+    return SteamRemoteProvider(dio);
   }
 
   @provide
@@ -83,7 +93,8 @@ class CommonModule {
   }
 
   @provide
-  @singleton LogsSearchPlayerProvider provideLogsSearchPlayerProvider(){
-    return LogsSearchPlayerProvider();
+  @singleton
+  PlayerRemoteRepositoryProvider provideLogsSearchPlayerProvider(Dio dio) {
+    return PlayerRemoteRepositoryProvider(dio);
   }
 }

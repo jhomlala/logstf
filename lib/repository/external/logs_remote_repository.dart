@@ -8,11 +8,14 @@ import 'package:logstf/util/app_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogsRemoteRepository {
-  Dio _dio = Dio();
+
+  final Dio dio;
+
+  LogsRemoteRepository(this.dio);
 
   Future<Log> getLog(int logId) async {
     Uri uri = Uri.parse("${AppConst.baseLogsUrl}/json/$logId");
-    Response response = await _dio.request(uri.toString());
+    Response response = await dio.request(uri.toString());
     return Log.fromJson(response.data, logId);
   }
 
@@ -20,7 +23,7 @@ class LogsRemoteRepository {
       String title, String player, int offset, int limit) async {
     String url =
         buildSearchLogsUrl(offset, limit, map, uploader, title, player);
-    Response response = await _dio.request(url);
+    Response response = await dio.request(url);
     return LogsSearchResponse.fromJson(response.data);
   }
 

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/model/external/logs_search_response.dart';
@@ -5,7 +6,11 @@ import 'package:logstf/repository/external/logs_remote_repository.dart';
 import 'package:logstf/util/app_const.dart';
 
 class LogsRemoteProvider {
-  LogsRemoteRepository _logsRepository = LogsRemoteRepository();
+  LogsRemoteRepository _logsRepository;
+
+  LogsRemoteProvider(Dio dio) {
+    _logsRepository = LogsRemoteRepository(dio);
+  }
 
   Future<Log> getLog(int logId) {
     return _logsRepository.getLog(logId);
@@ -26,4 +31,3 @@ class LogsRemoteProvider {
     return _logsRepository.getSavedLog(logId);
   }
 }
-

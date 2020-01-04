@@ -4,8 +4,10 @@ import 'package:html/parser.dart';
 import 'package:logstf/model/external/player_search_result.dart';
 import 'package:logstf/util/app_utils.dart';
 
-class LogsPlayerSearchRepository {
-  Dio dio = Dio();
+class PlayerRemoteRepository {
+  final Dio dio;
+
+  PlayerRemoteRepository(this.dio);
 
   Future<List<PlayerSearchResult>> searchPlayers(String playerName) async {
     List<PlayerSearchResult> results = List();

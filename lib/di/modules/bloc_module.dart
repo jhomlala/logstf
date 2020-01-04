@@ -1,5 +1,5 @@
 import 'package:inject/inject.dart';
-import 'package:logstf/repository/external/logs_player_search_provider.dart';
+import 'package:logstf/repository/external/player_remote_repository_provider.dart';
 import 'package:logstf/repository/internal/settings_local_provider.dart';
 import 'package:logstf/repository/external/steam_remote_provider.dart';
 import 'package:logstf/ui/log/bloc/log_details_bloc.dart';
@@ -38,7 +38,7 @@ class BlocModule {
       providePlayerSearchResultsPageBlocProvider(
           AppStateManager appStateManager,
           PlayersObservedLocalProvider playersObservedLocalProvider,
-          LogsSearchPlayerProvider logsSearchPlayerProvider) {
+          PlayerRemoteRepositoryProvider logsSearchPlayerProvider) {
     return PlayerSearchResultsPageBlocProvider(appStateManager,
         playersObservedLocalProvider, logsSearchPlayerProvider);
   }
