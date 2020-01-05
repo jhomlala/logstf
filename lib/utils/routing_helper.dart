@@ -18,7 +18,7 @@ import 'app_const.dart';
 
 class RoutingHelper {
   final Sailor sailor;
-  final LogViewProvider logViewProvider;
+  final LogDetailsPageProvider logViewProvider;
   final SearchPageProvider searchPageProvider;
   final PlayerSearchResultsPageProvider playerSearchResultsPageProvider;
   final LogPlayerPageProvider logPlayerPageProvider;

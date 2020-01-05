@@ -45,7 +45,7 @@ class CommonModule {
   @singleton
   RoutingHelper provideRoutingHelper(
       Sailor sailor,
-      LogViewProvider logViewProvider,
+      LogDetailsPageProvider logViewProvider,
       SearchPageProvider searchPageProvider,
       PlayerSearchResultsPageProvider playerSearchResultsPageProvider,
       LogPlayerPageProvider logPlayerPageProvider,

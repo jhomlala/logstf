@@ -36,9 +36,9 @@ class PageModule {
   }
 
   @provide
-  LogViewProvider provideLogViewProvider(
+  LogDetailsPageProvider provideLogDetailsPageProvider(
       Sailor sailor, LogDetailsBlocProvider logDetailsBlocProvider) {
-    return LogViewProvider(sailor, logDetailsBlocProvider.create());
+    return LogDetailsPageProvider(sailor, logDetailsBlocProvider);
   }
 
   @provide

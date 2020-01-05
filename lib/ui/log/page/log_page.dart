@@ -34,16 +34,17 @@ class LogPage extends BasePage {
   const LogPage(Sailor sailor, this.logDetailsBloc) : super(sailor: sailor);
 
   @override
-  _LogViewState createState() => _LogViewState();
+  _LogDetailsPageState createState() => _LogDetailsPageState();
 }
 
-class _LogViewState extends BasePageState<LogPage>
+class _LogDetailsPageState extends BasePageState<LogPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   String _appBarTitle = "";
   bool _saved = false;
   int _logId;
   int _selectedPlayerSteamId;
+
   LogDetailsBloc get logDetailsBloc => widget.logDetailsBloc;
 
   @override
@@ -155,7 +156,8 @@ class _LogViewState extends BasePageState<LogPage>
                 Log log = snapshot.data;
                 return TabBarView(controller: _tabController, children: [
                   LogGeneralStatsFragment(log),
-                  LogPlayersFragment(log, _selectedPlayerSteamId, _onPlayerClicked),
+                  LogPlayersFragment(
+                      log, _selectedPlayerSteamId, _onPlayerClicked),
                   LogPlayersStatsMatrixFragment(log),
                   LogAwardsFragment(log),
                   LogTimelineFragment(log),
@@ -216,7 +218,8 @@ class _LogViewState extends BasePageState<LogPage>
   void _onPlayerClicked(Log log, Player player,
       HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
     SearchPlayerMatchesEvent searchPlayerMatchesNavigationEvent =
-        await getNavigator().navigate(RoutingHelper.logPlayerPageRoute, params: {
+        await getNavigator()
+            .navigate(RoutingHelper.logPlayerPageRoute, params: {
       AppConst.logParameter: log,
       AppConst.playerParameter: player,
       AppConst.averagePlayersStatsMapParameter: averagePlayersStatsMap
@@ -227,20 +230,20 @@ class _LogViewState extends BasePageState<LogPage>
   }
 }
 
-class LogViewProvider extends PageProvider<LogPage> {
+class LogDetailsPageProvider extends PageProvider<LogPage> {
   final Sailor sailor;
-  final LogDetailsBloc logDetailsBloc;
+  final LogDetailsBlocProvider logDetailsBlocProvider;
 
-  LogViewProvider(
+  LogDetailsPageProvider(
     this.sailor,
-    this.logDetailsBloc,
+    this.logDetailsBlocProvider,
   );
 
   @override
   LogPage create() {
     return LogPage(
       sailor,
-      logDetailsBloc,
+      logDetailsBlocProvider.create(),
     );
   }
 }
