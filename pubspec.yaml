@@ -39,6 +39,7 @@ dependencies:
       path: package/inject
   json_serializable: ^3.2.4
   sailor: ^0.6.0
+  fimber: ^0.4.0
   flutter:
     sdk: flutter
 

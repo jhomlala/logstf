@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/app_settings_changed_event.dart';
 import 'package:logstf/repository/internal/settings_local_provider.dart';
 import 'package:logstf/ui/common/base_bloc.dart';

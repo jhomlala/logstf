@@ -1,3 +1,4 @@
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:inject/inject.dart';
@@ -35,6 +36,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
     widget.routingHelper.setupRoutes();
     pocketLogsAppBloc = PocketLogsAppBloc(widget.settingsLocalProvider);
     pocketLogsAppBloc.getAppSettings();
+    Fimber.d("App init completed");
   }
 
   @override

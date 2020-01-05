@@ -1,3 +1,4 @@
+import 'package:fimber/fimber_base.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
 import 'package:logstf/model/internal/player_observed.dart';
 import 'package:logstf/model/external/steam_player.dart';
@@ -44,6 +45,8 @@ class LogPlayerPlayerFragmentBloc extends BaseBloc {
         steamPlayerSubject.value = players[0];
       }
     } catch (exception, stackTrace) {
+      Fimber.e("Exception when selecting steam player",
+          ex: exception, stacktrace: stackTrace);
       steamPlayerSubject.addError(exception);
     }
   }
