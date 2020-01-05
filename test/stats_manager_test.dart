@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/helper/stats_manager.dart';
-import 'package:logstf/model/average_player_stats.dart';
-import 'package:logstf/model/class_stats.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/internal/average_player_stats.dart';
+import 'package:logstf/model/external/class_stats.dart';
+import 'package:logstf/model/external/player.dart';
 
 main() {
   testAverageStats();

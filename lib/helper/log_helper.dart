@@ -1,11 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:logstf/model/class_kill.dart';
-import 'package:logstf/model/heal_spread.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/match_type.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/class_kill.dart';
+import 'package:logstf/model/external/heal_spread.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/internal/match_type.dart';
+import 'package:logstf/model/external/player.dart';
 import 'package:logstf/util/application_localization.dart';
 
 class LogHelper {
@@ -646,8 +646,7 @@ class LogHelper {
     return player != null &&
         player.classStats
                 .where((classStats) => classStats.type == className)
-                .length >
-            0;
+                .isNotEmpty;
   }
 
   static ClassKill getClassKill(Log log, Player player) {
@@ -958,8 +957,8 @@ class LogHelper {
     return MatchType(matchType, color);
   }
 
-  static getDamagePerMinute(Player player, int length) {
-    var damage = player.dmg;
+  static double getDamagePerMinute(Player player, int length) {
+    final damage = player.dmg;
     return damage / (length / 60);
   }
 

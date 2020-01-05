@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logstf/helper/log_helper.dart';
-import 'package:logstf/model/class_kill.dart';
-import 'package:logstf/model/heal_spread.dart';
-import 'package:logstf/model/log.dart';
-import 'package:logstf/model/player.dart';
+import 'package:logstf/model/external/class_kill.dart';
+import 'package:logstf/model/external/heal_spread.dart';
+import 'package:logstf/model/external/log.dart';
+import 'package:logstf/model/external/player.dart';
 
 import 'test_helper.dart';
 
@@ -220,9 +220,9 @@ void testGetHealSpreadMapWithNames() {
     Log log = setupMockLog();
     Map<String, int> healSpreadMap =
         LogHelper.getHealSpreadMapWithNames(log, "4");
-    test("Heal spread map is not null and has valid values)", (){
+    test("Heal spread map is not null and has valid values)", () {
       expect(healSpreadMap != null, true);
-      expect(healSpreadMap.length > 0, true);
+      expect(healSpreadMap.isNotEmpty, true);
     });
   });
 }
