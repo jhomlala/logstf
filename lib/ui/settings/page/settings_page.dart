@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/players_observed_clear_event.dart';
 import 'package:logstf/model/internal/saved_logs_clear_event.dart';
-import 'package:logstf/util/event_bus.dart';
+import 'package:logstf/utils/event_bus.dart';
 import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/ui/settings/bloc/settings_bloc.dart';
 import 'package:logstf/model/internal/app_settings.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';

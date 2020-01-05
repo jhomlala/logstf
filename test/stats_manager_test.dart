@@ -79,7 +79,7 @@ void testAverageStats() {
     players.add(secondPlayer);
 
     AveragePlayerStats averagePlayerStats =
-        StatsManager.getAveragePlayerStatsForAllPlayers(players, 1764);
+        StatsHelper.getAveragePlayerStatsForAllPlayers(players, 1764);
 
     test("Average player stats are not null", () {
       expect(averagePlayerStats != null, true);
@@ -136,7 +136,7 @@ void testAverageStats() {
     });
 
     AveragePlayerStats averagePlayerStatsWithEmptyPlayers =
-        StatsManager.getAveragePlayerStatsForAllPlayers(null, 0);
+        StatsHelper.getAveragePlayerStatsForAllPlayers(null, 0);
     test("Average players is not null when players list is null", () {
       expect(averagePlayerStatsWithEmptyPlayers != null, true);
     });
@@ -200,7 +200,7 @@ void testAverageStatsForTeam() {
     players.add(secondPlayer);
 
     AveragePlayerStats averagePlayerStats =
-        StatsManager.getAveragePlayerStatsForTeam(players, 1764, "Red");
+        StatsHelper.getAveragePlayerStatsForTeam(players, 1764, "Red");
 
     test("Average player stats are not null", () {
       expect(averagePlayerStats != null, true);
@@ -257,7 +257,7 @@ void testAverageStatsForTeam() {
     });
 
     AveragePlayerStats averagePlayerStatsWithEmptyPlayers =
-        StatsManager.getAveragePlayerStatsForAllPlayers(null, 0);
+        StatsHelper.getAveragePlayerStatsForAllPlayers(null, 0);
     test("Average players is not null when players list is null", () {
       expect(averagePlayerStatsWithEmptyPlayers != null, true);
     });
@@ -271,13 +271,13 @@ void testGetKills() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Kills from team is not null and have valid value", () {
-      List<int> killsFromRed = StatsManager.getKills(players, team: "Red");
+      List<int> killsFromRed = StatsHelper.getKills(players, team: "Red");
       expect(killsFromRed.length, 2);
       expect(killsFromRed != null, true);
     });
 
     test("Kills from invalid team is not null and have valid value", () {
-      List<int> killsFromBlue = StatsManager.getKills(players, team: "Blue");
+      List<int> killsFromBlue = StatsHelper.getKills(players, team: "Blue");
       expect(killsFromBlue.length, 0);
       expect(killsFromBlue != null, true);
     });
@@ -291,14 +291,14 @@ void testGetAssists() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Assists from team is not null and have valid value", () {
-      List<int> assistsFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> assistsFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(assistsFromRed.length, 2);
       expect(assistsFromRed != null, true);
     });
 
     test("Assists from invalid team is not null and have valid value", () {
       List<int> assistsFromBlue =
-          StatsManager.getAssists(players, team: "Blue");
+          StatsHelper.getAssists(players, team: "Blue");
       expect(assistsFromBlue.length, 0);
       expect(assistsFromBlue != null, true);
     });
@@ -312,13 +312,13 @@ void testGetDeaths() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Deaths from team is not null and have valid value", () {
-      List<int> deathsFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> deathsFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(deathsFromRed.length, 2);
       expect(deathsFromRed != null, true);
     });
 
     test("Deaths from invalid team is not null and have valid value", () {
-      List<int> deathsFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> deathsFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(deathsFromBlue.length, 0);
       expect(deathsFromBlue != null, true);
     });
@@ -332,13 +332,13 @@ void testGetDmg() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Dmg from team is not null and have valid value", () {
-      List<int> dmgFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> dmgFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(dmgFromRed.length, 2);
       expect(dmgFromRed != null, true);
     });
 
     test("Dmg from invalid team is not null and have valid value", () {
-      List<int> dmgFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> dmgFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(dmgFromBlue.length, 0);
       expect(dmgFromBlue != null, true);
     });
@@ -352,13 +352,13 @@ void testGetDapm() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Dapm from team is not null and have valid value", () {
-      List<int> dapmFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> dapmFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(dapmFromRed.length, 2);
       expect(dapmFromRed != null, true);
     });
 
     test("Dapm from invalid team is not null and have valid value", () {
-      List<int> dapmFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> dapmFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(dapmFromBlue.length, 0);
       expect(dapmFromBlue != null, true);
     });
@@ -372,13 +372,13 @@ void testGetKapd() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Kapd from team is not null and have valid value", () {
-      List<int> kapdFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> kapdFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(kapdFromRed.length, 2);
       expect(kapdFromRed != null, true);
     });
 
     test("Kapd from invalid team is not null and have valid value", () {
-      List<int> kapdFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> kapdFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(kapdFromBlue.length, 0);
       expect(kapdFromBlue != null, true);
     });
@@ -392,13 +392,13 @@ void testGetDt() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Dt from team is not null and have valid value", () {
-      List<int> dtFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> dtFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(dtFromRed.length, 2);
       expect(dtFromRed != null, true);
     });
 
     test("Dt from invalid team is not null and have valid value", () {
-      List<int> dtFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> dtFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(dtFromBlue.length, 0);
       expect(dtFromBlue != null, true);
     });
@@ -412,13 +412,13 @@ void testGetDtpm() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Dtpm from team is not null and have valid value", () {
-      List<int> dtpmFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> dtpmFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(dtpmFromRed.length, 2);
       expect(dtpmFromRed != null, true);
     });
 
     test("Dtpm from invalid team is not null and have valid value", () {
-      List<int> dtpmFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> dtpmFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(dtpmFromBlue.length, 0);
       expect(dtpmFromBlue != null, true);
     });
@@ -432,13 +432,13 @@ void testGetKpd() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Kpd from team is not null and have valid value", () {
-      List<int> kpdFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> kpdFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(kpdFromRed.length, 2);
       expect(kpdFromRed != null, true);
     });
 
     test("Kpd from invalid team is not null and have valid value", () {
-      List<int> kpdFromBlue = StatsManager.getAssists(players, team: "Blue");
+      List<int> kpdFromBlue = StatsHelper.getAssists(players, team: "Blue");
       expect(kpdFromBlue.length, 0);
       expect(kpdFromBlue != null, true);
     });
@@ -452,14 +452,14 @@ void testGetMedkits() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Medkits from team is not null and have valid value", () {
-      List<int> medkitsFromRed = StatsManager.getAssists(players, team: "Red");
+      List<int> medkitsFromRed = StatsHelper.getAssists(players, team: "Red");
       expect(medkitsFromRed.length, 2);
       expect(medkitsFromRed != null, true);
     });
 
     test("Medkits from invalid team is not null and have valid value", () {
       List<int> medkitsFromBlue =
-          StatsManager.getAssists(players, team: "Blue");
+          StatsHelper.getAssists(players, team: "Blue");
       expect(medkitsFromBlue.length, 0);
       expect(medkitsFromBlue != null, true);
     });
@@ -473,13 +473,13 @@ void testFilterTeam() {
     List<Player> players = List()..add(firstPlayer)..add(secondPlayer);
 
     test("Valid filtered team is not null and have valid value", () {
-      List<Player> playersFromRed = StatsManager.filterTeam(players, "Red");
+      List<Player> playersFromRed = StatsHelper.filterTeam(players, "Red");
       expect(playersFromRed.length, 2);
       expect(playersFromRed != null, true);
     });
 
     test("Invalid filtered team is not null and have valid value", () {
-      List<Player> playersFromRed = StatsManager.filterTeam(players, "Blue");
+      List<Player> playersFromRed = StatsHelper.filterTeam(players, "Blue");
       expect(playersFromRed.length, 0);
       expect(playersFromRed != null, true);
     });
@@ -489,14 +489,14 @@ void testFilterTeam() {
 void testGetAverage() {
   group("Get average test", () {
     List<int> values = List()..add(1)..add(2)..add(3);
-    double average = StatsManager.getAverage(values);
+    double average = StatsHelper.getAverage(values);
 
     test("Average is not null and have valid value in normal case", () {
       expect(average, 2);
       expect(average != null, true);
     });
 
-    double averageInvalid = StatsManager.getAverage(null);
+    double averageInvalid = StatsHelper.getAverage(null);
     test("Average is not null and have valid value values are null", () {
       expect(averageInvalid, isNaN);
       expect(averageInvalid != null, true);
@@ -507,7 +507,7 @@ void testGetAverage() {
 void testGetAverageFromDouble() {
   group("Get average double test", () {
     List<double> values = List()..add(1.5)..add(2.5)..add(3);
-    double average = StatsManager.getAverageFromDouble(values);
+    double average = StatsHelper.getAverageFromDouble(values);
 
     print("Average: " + average.toString());
     test("Average is not null and have valid value in normal case", () {
@@ -515,7 +515,7 @@ void testGetAverageFromDouble() {
       expect(average != null, true);
     });
 
-    double averageInvalid = StatsManager.getAverageFromDouble(null);
+    double averageInvalid = StatsHelper.getAverageFromDouble(null);
     test("Average is not null and have valid value values are null", () {
       expect(averageInvalid, isNaN);
       expect(averageInvalid != null, true);

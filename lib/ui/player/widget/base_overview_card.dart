@@ -4,7 +4,7 @@ import 'package:logstf/model/external/class_stats.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/external/player.dart';
 import 'package:logstf/ui/common/widget/class_icon.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/ui/player/widget/weapon_stats_widget.dart';
 
 

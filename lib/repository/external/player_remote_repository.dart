@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:logstf/model/external/player_search_result.dart';
-import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/utils/app_utils.dart';
 
 class PlayerRemoteRepository {
   final Dio dio;

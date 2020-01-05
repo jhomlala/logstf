@@ -3,8 +3,8 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/app_utils.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/app_utils.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 class LogPlayerGeneralFragment extends StatefulWidget {
   final Player player;

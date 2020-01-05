@@ -58,21 +58,23 @@ class PageModule {
   @provide
   LogPlayerPageProvider provideLogPlayerPageProvider(Sailor sailor,
       LogPlayerPlayerFragmentBlocProvider logPlayerPlayerFragmentBlocProvider) {
-    return LogPlayerPageProvider(sailor,logPlayerPlayerFragmentBlocProvider.create());
+    return LogPlayerPageProvider(
+        sailor, logPlayerPlayerFragmentBlocProvider.create());
   }
 
   @provide
-  SettingsPageProvider provideSettingsPageProvider(Sailor sailor, SettingsBlocProvider settingsBlocProvider){
+  SettingsPageProvider provideSettingsPageProvider(
+      Sailor sailor, SettingsBlocProvider settingsBlocProvider) {
     return SettingsPageProvider(sailor, settingsBlocProvider.create());
   }
 
   @provide
-  HelpPageProvider provideHelpPageProvider(){
+  HelpPageProvider provideHelpPageProvider() {
     return HelpPageProvider();
   }
 
   @provide
-  AboutPageProvider provideAboutPageProvider(){
+  AboutPageProvider provideAboutPageProvider() {
     return AboutPageProvider();
   }
 }

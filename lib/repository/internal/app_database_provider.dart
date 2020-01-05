@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';

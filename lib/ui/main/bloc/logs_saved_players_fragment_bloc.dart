@@ -8,8 +8,8 @@ import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/model/internal/player_observed.dart';
 import 'package:logstf/repository/internal/players_observed_local_provider.dart';
 import 'package:logstf/repository/external/logs_remote_provider.dart';
-import 'package:logstf/util/app_const.dart';
-import 'package:logstf/util/event_bus.dart';
+import 'package:logstf/utils/app_const.dart';
+import 'package:logstf/utils/event_bus.dart';
 import 'package:logstf/ui/common/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 

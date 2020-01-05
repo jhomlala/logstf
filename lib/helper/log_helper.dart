@@ -6,7 +6,7 @@ import 'package:logstf/model/external/heal_spread.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/internal/match_type.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 class LogHelper {
   static HashMap<String, String> _weaponNames = HashMap();

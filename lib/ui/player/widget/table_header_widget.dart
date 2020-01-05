@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/utils/app_utils.dart';
 
 class TableHeaderWidget extends StatelessWidget {
   final String headerName;

@@ -6,7 +6,7 @@ import 'package:logstf/ui/player/widget/demoman_overview_card.dart';
 import 'package:logstf/ui/player/widget/engineer_overview_card.dart';
 import 'package:logstf/ui/player/widget/pyro_overview_card.dart';
 import 'package:logstf/ui/player/widget/soldier_overview_widget.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 import 'package:logstf/ui/player/widget/heavy_overview_card.dart';
 import 'package:logstf/ui/player/widget/medic_overview_card.dart';

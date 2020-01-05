@@ -7,8 +7,8 @@ import 'package:logstf/helper/stats_manager.dart';
 import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/app_utils.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/app_utils.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 import 'package:logstf/ui/common/widget/class_icon.dart';
 import 'package:marquee/marquee.dart';
@@ -45,11 +45,11 @@ class _LogPlayersFragmentState extends State<LogPlayersFragment> {
     var length = _log.length;
     _averagePlayerStatsMap = HashMap();
     _averagePlayerStatsMap["ALL"] =
-        StatsManager.getAveragePlayerStatsForAllPlayers(
+        StatsHelper.getAveragePlayerStatsForAllPlayers(
             _players.values.toList(), length);
-    _averagePlayerStatsMap["Red"] = StatsManager.getAveragePlayerStatsForTeam(
+    _averagePlayerStatsMap["Red"] = StatsHelper.getAveragePlayerStatsForTeam(
         _players.values.toList(), length, "Red");
-    _averagePlayerStatsMap["Blue"] = StatsManager.getAveragePlayerStatsForTeam(
+    _averagePlayerStatsMap["Blue"] = StatsHelper.getAveragePlayerStatsForTeam(
         _players.values.toList(), length, "Blue");
     _playersSorted = _orderPlayersByField(_players.values.toList(), "Kills");
   }

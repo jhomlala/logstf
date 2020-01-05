@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logstf/model/external/steam_players_response.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 
 class SteamRemoteRepository {
   final Dio dio;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 class LogPlayerAwardsFragment extends StatelessWidget {
   final Log _log;

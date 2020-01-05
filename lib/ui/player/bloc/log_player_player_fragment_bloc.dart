@@ -8,7 +8,7 @@ import 'package:logstf/repository/external/logs_remote_provider.dart';
 import 'package:logstf/repository/external/steam_remote_provider.dart';
 import 'package:logstf/ui/common/base_bloc.dart';
 import 'package:logstf/ui/common/bloc_provider.dart';
-import 'package:logstf/util/event_bus.dart';
+import 'package:logstf/utils/event_bus.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LogPlayerPlayerFragmentBloc extends BaseBloc {

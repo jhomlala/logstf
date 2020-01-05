@@ -19,7 +19,9 @@ import 'package:logstf/ui/settings/bloc/settings_bloc.dart';
 @module
 class BlocModule {
   @provide
-  LogDetailsBlocProvider provideLogDetailsBlocProvider(LogsRemoteProvider logsRemoteProvider, LogsLocalProvider logsLocalProvider) {
+  LogDetailsBlocProvider provideLogDetailsBlocProvider(
+      LogsRemoteProvider logsRemoteProvider,
+      LogsLocalProvider logsLocalProvider) {
     return LogDetailsBlocProvider(logsRemoteProvider, logsLocalProvider);
   }
 

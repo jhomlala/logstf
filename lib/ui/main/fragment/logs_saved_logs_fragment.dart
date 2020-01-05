@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logstf/model/internal/log_short.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/ui/main/bloc/logs_saved_logs_fragment_bloc.dart';
 import 'package:logstf/ui/common/widget/empty_card.dart';
 import 'package:logstf/ui/main/widget/log_short_card.dart';

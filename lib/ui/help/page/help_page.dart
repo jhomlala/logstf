@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 class HelpPage extends BasePage {
   @override

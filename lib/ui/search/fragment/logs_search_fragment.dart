@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/search_data.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/ui/search/bloc/search_page_bloc.dart';
 import 'package:logstf/ui/common/widget/logs_button.dart';
 

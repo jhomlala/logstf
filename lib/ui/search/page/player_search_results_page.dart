@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/external/player_search_result.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 import 'package:logstf/ui/common/base_page.dart';
 import 'package:logstf/ui/common/base_page_state.dart';
 import 'package:logstf/ui/common/page_provider.dart';

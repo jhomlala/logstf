@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:logstf/helper/log_helper.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/internal/match_type.dart';
-import 'package:logstf/util/app_utils.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/app_utils.dart';
+import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/ui/log/widget/teams_score_table_widget.dart';
 
 class LogGeneralStatsFragment extends StatefulWidget {

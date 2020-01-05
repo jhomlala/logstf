@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/util/application_localization.dart';
-import 'package:logstf/util/pair.dart';
+import 'package:logstf/utils/application_localization.dart';
+import 'package:logstf/utils/pair.dart';
 
 class ComparisonCard extends StatelessWidget {
   final String title;

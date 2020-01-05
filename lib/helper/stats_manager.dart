@@ -1,11 +1,11 @@
 import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/app_utils.dart';
+import 'package:logstf/utils/app_utils.dart';
 
-class StatsManager {
+class StatsHelper {
   static AveragePlayerStats getAveragePlayerStatsForAllPlayers(
       List<Player> players, int length) {
-    if (players == null){
+    if (players == null) {
       players = List<Player>();
     }
     double averageKills = getAverage(getKills(players));
@@ -125,7 +125,7 @@ class StatsManager {
   }
 
   static double getAverage(List<int> values) {
-    if (values == null){
+    if (values == null) {
       values = List();
     }
     var valuesSum = 0.0;
@@ -136,7 +136,7 @@ class StatsManager {
   }
 
   static double getAverageFromDouble(List<double> values) {
-    if (values == null){
+    if (values == null) {
       values = List();
     }
     var valuesSum = 0.0;

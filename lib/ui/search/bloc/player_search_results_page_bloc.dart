@@ -5,7 +5,7 @@ import 'package:logstf/model/external/player_search_result.dart';
 import 'package:logstf/repository/internal/app_state_manager.dart';
 import 'package:logstf/repository/internal/players_observed_local_provider.dart';
 import 'package:logstf/repository/external/player_remote_repository_provider.dart';
-import 'package:logstf/util/event_bus.dart';
+import 'package:logstf/utils/event_bus.dart';
 import 'package:logstf/ui/common/base_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 

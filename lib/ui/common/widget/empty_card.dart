@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 import 'logs_button.dart';
 

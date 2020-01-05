@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/internal/log_short.dart';
 import 'package:logstf/model/external/logs_search_response.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogsRemoteRepository {

@@ -10,7 +10,7 @@ import 'package:logstf/repository/external/logs_remote_provider.dart';
 import 'package:logstf/repository/external/steam_remote_provider.dart';
 import 'package:logstf/ui/about/page/about_page.dart';
 import 'package:logstf/ui/help/page/help_page.dart';
-import 'package:logstf/util/routing_helper.dart';
+import 'package:logstf/utils/routing_helper.dart';
 import 'package:logstf/ui/log/page/log_page.dart';
 import 'package:logstf/ui/player/page/log_player_page.dart';
 import 'package:logstf/ui/search/page/player_search_results_page.dart';

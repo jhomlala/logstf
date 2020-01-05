@@ -1,5 +1,5 @@
 import 'package:logstf/model/internal/log_short.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'app_database_provider.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:logstf/model/external/log.dart';
 import 'package:logstf/model/external/medic_stats.dart';
 import 'package:logstf/model/external/player.dart';
-import 'package:logstf/util/application_localization.dart';
+import 'package:logstf/utils/application_localization.dart';
 
 class MedicStatsWidget extends StatelessWidget {
   final Player player;

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:logstf/model/internal/app_settings.dart';
-import 'package:logstf/util/app_const.dart';
+import 'package:logstf/utils/app_const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsLocalRepository {
