@@ -6,6 +6,7 @@ import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/internal/menu_item.dart';
 import 'package:logstf/model/internal/search_player_matches_event.dart';
 import 'package:logstf/repository/internal/app_state_manager.dart';
+import 'package:logstf/ui/common/page_provider.dart';
 import 'package:logstf/utils/app_const.dart';
 import 'package:logstf/utils/application_localization.dart';
 import 'package:logstf/utils/routing_helper.dart';
@@ -67,7 +68,8 @@ class _MainViewPage extends BasePageState<MainPage>
               params: {"logId": logId, "selectedPlayerSteamId": playerSteamId});
         }
       } catch (exception, stackTrace) {
-        Fimber.e("Exception on callGetDeppLinkLogId", ex: exception, stacktrace: stackTrace);
+        Fimber.e("Exception on callGetDeppLinkLogId",
+            ex: exception, stacktrace: stackTrace);
       }
     }
   }
@@ -178,5 +180,22 @@ class _MainViewPage extends BasePageState<MainPage>
       widget.logsListFragmentBloc.clearFilters();
       await widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
     }
+  }
+}
+
+class MainPageProvider extends PageProvider<MainPage> {
+  final Sailor sailor;
+  final AppStateManager appStateManager;
+  final LogsListFragmentBloc logsListFragmentBloc;
+  final LogsSavedPlayersFragmentBloc logsSavedPlayersFragmentBloc;
+  final LogsSavedLogsFragmentBloc logsSavedLogsFragmentBloc;
+
+  MainPageProvider(this.sailor, this.appStateManager, this.logsListFragmentBloc,
+      this.logsSavedPlayersFragmentBloc, this.logsSavedLogsFragmentBloc);
+
+  @override
+  MainPage create() {
+    return MainPage(sailor, appStateManager, logsListFragmentBloc,
+        logsSavedPlayersFragmentBloc, logsSavedLogsFragmentBloc);
   }
 }

@@ -13,12 +13,12 @@ import 'model/internal/app_settings.dart';
 
 @provide
 class PocketLogsApp extends StatefulWidget {
-  final MainPage mainView;
+  final MainPageProvider mainPageProvider;
   final Sailor sailor;
   final RoutingHelper routingHelper;
   final SettingsLocalProvider settingsLocalProvider;
 
-  const PocketLogsApp(this.mainView, this.sailor, this.routingHelper,
+  const PocketLogsApp(this.mainPageProvider, this.sailor, this.routingHelper,
       this.settingsLocalProvider);
 
   @override
@@ -55,7 +55,7 @@ class _PocketLogsAppState extends State<PocketLogsApp> {
             theme: ThemeData(
                 brightness: AppUtils.getBrightness(snapshot.data.appBrightness),
                 primaryColor: Color(int.parse(snapshot.data.appColor))),
-            home: widget.mainView,
+            home: widget.mainPageProvider.create(),
             localizationsDelegates: [
               const ApplicationLocalizationDelegate(),
               GlobalMaterialLocalizations.delegate,

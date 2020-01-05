@@ -21,13 +21,13 @@ import 'package:sailor/sailor.dart';
 @module
 class PageModule {
   @provide
-  MainPage provideMainPage(
+  MainPageProvider provideMainPageProvider(
       Sailor sailor,
       AppStateManager appStateManager,
       LogsListFragmentBlocProvider logsListFragmentBlocProvider,
       LogsSavedPlayersFragmentBlocProvider logsSavedPlayersFragmentBlocProvider,
       LogsSavedLogsFragmentBlocProvider logsSavedLogsFragmentBlocProvider) {
-    return MainPage(
+    return MainPageProvider(
         sailor,
         appStateManager,
         logsListFragmentBlocProvider.create(),
