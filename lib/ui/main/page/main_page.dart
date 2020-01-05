@@ -63,7 +63,7 @@ class _MainViewPage extends BasePageState<MainPage>
         }
 
         if (logId != null) {
-          getNavigator().navigate(RoutingHelper.logPageRoute,
+          await getNavigator().navigate(RoutingHelper.logPageRoute,
               params: {"logId": logId, "selectedPlayerSteamId": playerSteamId});
         }
       } catch (exception, stackTrace) {
@@ -164,7 +164,7 @@ class _MainViewPage extends BasePageState<MainPage>
           player: searchPlayerMatchesNavigationEvent.steamId, clearData: true);
       widget.appStateManager.searchData = searchData;
       widget.logsListFragmentBloc.clearFilters();
-      widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
+      await widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
     }
   }
 
@@ -176,7 +176,7 @@ class _MainViewPage extends BasePageState<MainPage>
     if (searchData != null) {
       widget.appStateManager.searchData = searchData;
       widget.logsListFragmentBloc.clearFilters();
-      widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
+      await widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
     }
   }
 }

@@ -41,7 +41,7 @@ class LogPlayerPlayerFragmentBloc extends BaseBloc {
       SteamPlayersResponse response =
           await steamRemoteProvider.getSteamPlayers(steamId);
       var players = response.response.players;
-      if (players != null && players.length > 0) {
+      if (players != null && players.isNotEmpty) {
         steamPlayerSubject.value = players[0];
       }
     } catch (exception, stackTrace) {

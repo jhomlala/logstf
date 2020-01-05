@@ -37,7 +37,7 @@ class SteamPlayer {
     this.loccityid,
   });
 
-  factory SteamPlayer.fromJson(Map<String, dynamic> json) => new SteamPlayer(
+  factory SteamPlayer.fromJson(Map<String, dynamic> json) => SteamPlayer(
     steamid: json["steamid"],
     communityvisibilitystate: json["communityvisibilitystate"],
     profilestate: json["profilestate"],

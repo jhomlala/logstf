@@ -5,7 +5,7 @@ class PlayerObserved{
 
   PlayerObserved({this.id,this.name, this.steamid64});
 
-  factory PlayerObserved.fromJson(Map<String, dynamic> json) => new PlayerObserved(
+  factory PlayerObserved.fromJson(Map<String, dynamic> json) => PlayerObserved(
     id: json["id"],
     name: json["name"],
     steamid64: json["steamid64"],

@@ -134,9 +134,9 @@ class _LogPlayerClassCompareFragmentState extends State<LogPlayerClassCompareFra
         iconSize: 20.0,
         value: _selectedClass,
         items: _classes.map((String value) {
-          return new DropdownMenuItem<String>(
+          return DropdownMenuItem<String>(
             value: value,
-            child: new Text(_formatClassName(value),
+            child: Text(_formatClassName(value),
                 style: TextStyle(fontSize: 16)),
           );
         }).toList(),
@@ -163,7 +163,7 @@ class _LogPlayerClassCompareFragmentState extends State<LogPlayerClassCompareFra
       iconSize: 20.0,
       value: _selectedPlayer,
       items: _otherPlayersWithSelectedClass.map((Player player) {
-        return new DropdownMenuItem<Player>(
+        return DropdownMenuItem<Player>(
           value: player,
           child: Text(widget._log.getPlayerName(player.steamId),
               overflow: TextOverflow.ellipsis,

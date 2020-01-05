@@ -31,7 +31,7 @@ class LogsSavedLogsFragmentBloc extends BaseBloc {
 
   void dispose() async {
     await savedLogsSubject.drain();
-    savedLogsSubject.close();
+    await savedLogsSubject.close();
   }
 
   void saveLog(LogShort log) {

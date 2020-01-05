@@ -9,7 +9,7 @@ import 'model/internal/app_settings.dart';
 
 class PocketLogsAppBloc extends BaseBloc {
   final SettingsLocalProvider settingsLocalProvider;
-  final BehaviorSubject<AppSettings> appSettingsSubject = new BehaviorSubject();
+  final BehaviorSubject<AppSettings> appSettingsSubject = BehaviorSubject();
 
   PocketLogsAppBloc(this.settingsLocalProvider) {
     StreamSubscription appSettingsChangedEventSubscription =

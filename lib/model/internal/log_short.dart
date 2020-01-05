@@ -15,10 +15,10 @@ class LogShort {
     this.players,
   });
 
-  factory LogShort.placeholder(int id) => new LogShort(
+  factory LogShort.placeholder(int id) =>  LogShort(
       id: -1, title: null, map: null, date: null, views: null, players: null);
 
-  factory LogShort.fromJson(Map<String, dynamic> json) => new LogShort(
+  factory LogShort.fromJson(Map<String, dynamic> json) =>  LogShort(
         id: json["id"],
         title: json["title"],
         map: json["map"],

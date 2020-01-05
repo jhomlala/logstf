@@ -6,7 +6,7 @@ import 'modules/common_module.dart';
 import 'modules/page_module.dart';
 
 import 'app_component.inject.dart' as g;
-@Injector(const [PageModule, BlocModule, CommonModule])
+@Injector([PageModule, BlocModule, CommonModule])
 abstract class AppComponent {
   @provide
   PocketLogsApp get app;

@@ -646,8 +646,7 @@ class LogHelper {
     return player != null &&
         player.classStats
                 .where((classStats) => classStats.type == className)
-                .length >
-            0;
+                .isNotEmpty;
   }
 
   static ClassKill getClassKill(Log log, Player player) {

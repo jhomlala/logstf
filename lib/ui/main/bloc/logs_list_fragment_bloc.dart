@@ -101,7 +101,7 @@ class LogsListFragmentBloc extends BaseBloc {
       logsSearchSubject.value.clear();
     }
     offset = 0;
-    logsSearchSubject.value = new List<LogShort>();
+    logsSearchSubject.value = List<LogShort>();
   }
 }
 

@@ -68,10 +68,10 @@ class _LogsSearchFragmentState extends State<LogsSearchFragment> {
 
   List<Widget> _getFormWidget(BuildContext context) {
     var applicationLocalization = ApplicationLocalization.of(context);
-    List<Widget> formWidgets = new List();
+    List<Widget> formWidgets = List();
 
     formWidgets.add(
-      new TextFormField(
+       TextFormField(
         key: _mapKey,
         controller: _mapController,
         decoration: InputDecoration(
@@ -81,7 +81,7 @@ class _LogsSearchFragmentState extends State<LogsSearchFragment> {
     );
 
     formWidgets.add(
-      new TextFormField(
+       TextFormField(
         key: _uploaderKey,
         controller: _uploaderController,
         decoration: InputDecoration(
@@ -91,7 +91,7 @@ class _LogsSearchFragmentState extends State<LogsSearchFragment> {
     );
 
     formWidgets.add(
-      new TextFormField(
+       TextFormField(
         key: _titleKey,
         controller: _titleController,
         decoration: InputDecoration(
@@ -101,7 +101,7 @@ class _LogsSearchFragmentState extends State<LogsSearchFragment> {
     );
 
     formWidgets.add(
-      new TextFormField(
+       TextFormField(
         key: _playerKey,
         controller: _playerController,
         decoration: InputDecoration(

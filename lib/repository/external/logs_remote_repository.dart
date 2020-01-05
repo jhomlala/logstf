@@ -54,7 +54,7 @@ class LogsRemoteRepository {
 
   saveLog(Log log) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("log_${log.id}", json.encode(log.setupShortLog()));
+    await prefs.setString("log_${log.id}", json.encode(log.setupShortLog()));
   }
 
   Future<LogShort> getSavedLog(int logId) async {

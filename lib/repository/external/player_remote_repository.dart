@@ -42,7 +42,7 @@ class PlayerRemoteRepository {
               }
 
               playerNames = playerNameElement.text
-                  .replaceAll(new RegExp(r"\s+\b|\b\s"), "")
+                  .replaceAll(RegExp(r"\s+\b|\b\s"), "")
                   .split(",");
 
               playerNames = List()

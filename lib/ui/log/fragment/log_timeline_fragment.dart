@@ -215,7 +215,7 @@ class _LogTimelineFragmentState extends State<LogTimelineFragment> {
 
     return RichText(
         text: TextSpan(
-            style: new TextStyle(
+            style: TextStyle(
                 fontSize: 12.0, color: Theme.of(context).textTheme.body1.color),
             children: children));
   }

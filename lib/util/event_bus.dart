@@ -27,7 +27,7 @@ class Bus {
 }
 
 class RxBus {
-  static final RxBus _singleton = new RxBus._internal();
+  static final RxBus _singleton = RxBus._internal();
 
   factory RxBus() {
     return _singleton;

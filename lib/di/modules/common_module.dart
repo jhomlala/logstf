@@ -29,7 +29,7 @@ class CommonModule {
   @provide
   @singleton
   Dio provideDio() {
-    Dio dio = new Dio();
+    Dio dio = Dio();
     dio.options.connectTimeout = 5000;
     dio.options.receiveTimeout = 5000;
     return dio;

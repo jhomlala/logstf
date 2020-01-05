@@ -73,7 +73,7 @@ class Player {
       steamId: steamId,
       team: json["team"],
       classStats: (json["class_stats"] as List)
-          .map((i) => new ClassStats.fromJson(i))
+          .map((i) => ClassStats.fromJson(i))
           .toList(),
       kills: json["kills"],
       deaths: json["deaths"],

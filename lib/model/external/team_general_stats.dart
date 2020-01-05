@@ -9,7 +9,7 @@ class TeamGeneralStats{
   final int caps;
 
   TeamGeneralStats({this.score, this.kills, this.deaths, this.dmg, this.charges, this.drops, this.firstCaps, this.caps});
-  factory TeamGeneralStats.fromJson(Map<String, dynamic> json) => new TeamGeneralStats(
+  factory TeamGeneralStats.fromJson(Map<String, dynamic> json) => TeamGeneralStats(
     score: json["score"],
     kills: json["kills"],
     deaths: json["deaths"],

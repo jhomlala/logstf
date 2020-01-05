@@ -17,6 +17,6 @@ class SettingsLocalRepository {
 
   void saveAppSettings(AppSettings appSettings) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(AppConst.settingsKey, json.encode(appSettings.toJson()));
+    await prefs.setString(AppConst.settingsKey, json.encode(appSettings.toJson()));
   }
 }

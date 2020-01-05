@@ -22,7 +22,7 @@ class LogsListFragment extends StatefulWidget {
 
 class _LogsListFragmentState extends State<LogsListFragment>
     with AutomaticKeepAliveClientMixin<LogsListFragment> {
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _scrollController = ScrollController();
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 

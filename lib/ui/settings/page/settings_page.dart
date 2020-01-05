@@ -181,9 +181,9 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
         iconSize: 20.0,
         value: _selectedColor,
         items: _availableColors.keys.map((String value) {
-          return new DropdownMenuItem<String>(
+          return DropdownMenuItem<String>(
             value: value,
-            child: new Text(value, style: TextStyle(fontSize: 16)),
+            child: Text(value, style: TextStyle(fontSize: 16)),
           );
         }).toList(),
         onChanged: (value) {
@@ -204,9 +204,9 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
         iconSize: 20.0,
         value: _selectedBrightness,
         items: _availableBrightness.keys.map((String value) {
-          return new DropdownMenuItem<String>(
+          return DropdownMenuItem<String>(
             value: value,
-            child: new Text(value, style: TextStyle(fontSize: 16)),
+            child: Text(value, style: TextStyle(fontSize: 16)),
           );
         }).toList(),
         onChanged: (value) {

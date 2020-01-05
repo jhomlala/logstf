@@ -57,8 +57,7 @@ class PlayerSearchResultsPageBloc extends BaseBloc {
     return observedPlayers
             .where((playerObserved) =>
                 playerObserved.steamid64 == playerSearchResult.steamId)
-            .length >
-        0;
+            .isNotEmpty;
   }
 }
 

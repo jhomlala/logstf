@@ -7,7 +7,7 @@ class SteamPlayersResponse {
     this.response,
   });
 
-  factory SteamPlayersResponse.fromJson(Map<String, dynamic> json) => new SteamPlayersResponse(
+  factory SteamPlayersResponse.fromJson(Map<String, dynamic> json) =>  SteamPlayersResponse(
     response: SteamPlayers.fromJson(json["response"]),
   );
 

@@ -6,7 +6,7 @@ class Teams {
 
   Teams({this.red, this.blue});
 
-  factory Teams.fromJson(Map<String, dynamic> json) => new Teams(
+  factory Teams.fromJson(Map<String, dynamic> json) =>  Teams(
       red: TeamGeneralStats.fromJson(json["Red"]),
       blue: TeamGeneralStats.fromJson(json["Blue"]));
 }

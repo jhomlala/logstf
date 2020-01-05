@@ -21,8 +21,8 @@ class LogDetailsBloc {
   }
 
   void dispose() async {
-    logSubject.close();
-    selectedPlayerSubject.close();
+    await logSubject.close();
+    await selectedPlayerSubject.close();
   }
 
   void selectLog(int logId) async {

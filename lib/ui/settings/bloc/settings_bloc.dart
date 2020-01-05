@@ -18,7 +18,7 @@ class SettingsBloc {
       this.settingsLocalProvider);
 
   void dispose() async {
-    appSettingsSubject.close();
+    await appSettingsSubject.close();
   }
 
   void getAppSettings() async {

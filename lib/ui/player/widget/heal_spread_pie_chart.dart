@@ -41,7 +41,7 @@ class _HealSpreadPieChartState extends State<HealSpreadPieChart> {
       return Center(child: Text("No heal data"));
     }
 
-    Map<String, double> dataMap = new Map();
+    Map<String, double> dataMap = Map();
     widget.healSpreadList.forEach((healSpread) {
       dataMap[healSpread.name] = healSpread.percentage;
     });

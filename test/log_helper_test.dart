@@ -220,9 +220,9 @@ void testGetHealSpreadMapWithNames() {
     Log log = setupMockLog();
     Map<String, int> healSpreadMap =
         LogHelper.getHealSpreadMapWithNames(log, "4");
-    test("Heal spread map is not null and has valid values)", (){
+    test("Heal spread map is not null and has valid values)", () {
       expect(healSpreadMap != null, true);
-      expect(healSpreadMap.length > 0, true);
+      expect(healSpreadMap.isNotEmpty, true);
     });
   });
 }

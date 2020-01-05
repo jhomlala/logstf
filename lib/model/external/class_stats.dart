@@ -17,7 +17,7 @@ class ClassStats{
     assists: json["assists"],
     deaths: json["deaths"],
     dmg: json["dmg"],
-    weapon: new Map.from(json["weapon"]).map((k, v) => new MapEntry<String, Weapon>(k, Weapon.fromJson(v))),
+    weapon: Map.from(json["weapon"]).map((k, v) => MapEntry<String, Weapon>(k, Weapon.fromJson(v))),
     totalTime: json["total_time"]
   );
 

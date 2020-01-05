@@ -12,8 +12,8 @@ class LogsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
       color: backgroundColor,
-      shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(30.0)),
+      shape:  RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0)),
       child: Text(
         text,
         style: TextStyle(color: Colors.white),

@@ -102,9 +102,9 @@ class _LogPlayerClassOverviewFragmentState
         iconSize: 20.0,
         value: _selectedClass,
         items: _classes.map((String value) {
-          return new DropdownMenuItem<String>(
+          return DropdownMenuItem<String>(
             value: value,
-            child: new Text(_formatClassName(value),
+            child:Text(_formatClassName(value),
                 style: TextStyle(fontSize: 16)),
           );
         }).toList(),

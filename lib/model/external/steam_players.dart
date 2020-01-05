@@ -7,12 +7,12 @@ class SteamPlayers{
     this.players,
   });
 
-  factory SteamPlayers.fromJson(Map<String, dynamic> json) => new SteamPlayers(
-    players: new List<SteamPlayer>.from(json["players"].map((x) => SteamPlayer.fromJson(x))),
+  factory SteamPlayers.fromJson(Map<String, dynamic> json) => SteamPlayers(
+    players:  List<SteamPlayer>.from(json["players"].map((x) => SteamPlayer.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "players": new List<dynamic>.from(players.map((x) => x.toJson())),
+    "players":  List<dynamic>.from(players.map((x) => x.toJson())),
   };
 
 }

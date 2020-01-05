@@ -254,9 +254,9 @@ class _LogPlayersStatsMatrixState extends State<LogPlayersStatsMatrixFragment> {
     return DropdownButton<String>(
       value: _statType,
       items: _dropdownValues.map((String value) {
-        return new DropdownMenuItem<String>(
+        return DropdownMenuItem<String>(
           value: value,
-          child: new Text(
+          child: Text(
             value,
             style: TextStyle(fontSize: 16.0),
           ),

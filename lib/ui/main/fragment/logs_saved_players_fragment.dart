@@ -25,7 +25,7 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
   LogsSavedPlayersFragmentBloc get logsSavedPlayersFragmentBloc =>
       widget.logsSavedPlayersFragmentBloc;
   PlayerObserved _selectedPlayer;
-  ScrollController _controller = new ScrollController();
+  ScrollController _controller = ScrollController();
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
                 return Text(applicationLocalization.getText("loading"));
               } else {
                 List<PlayerObserved> observedPlayers = snapshot.data;
-                if (_selectedPlayer == null && observedPlayers.length > 0) {
+                if (_selectedPlayer == null && observedPlayers.isNotEmpty) {
                   _selectedPlayer = observedPlayers[0];
                   logsSavedPlayersFragmentBloc
                       .searchLogs(_selectedPlayer.steamid64);
@@ -110,9 +110,8 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
 
   Widget _getPlayersDropdown(List<PlayerObserved> players) {
     if (players
-            .where((PlayerObserved player) => player == _selectedPlayer)
-            .length ==
-        0) {
+        .where((PlayerObserved player) => player == _selectedPlayer)
+        .isEmpty) {
       _selectedPlayer = players[0];
     }
 
@@ -123,9 +122,9 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
         iconSize: 20.0,
         value: _selectedPlayer,
         items: players.map((PlayerObserved value) {
-          return new DropdownMenuItem<PlayerObserved>(
+          return DropdownMenuItem<PlayerObserved>(
             value: value,
-            child: new Text(value.name, style: TextStyle(fontSize: 16)),
+            child: Text(value.name, style: TextStyle(fontSize: 16)),
           );
         }).toList(),
         onChanged: (value) {
@@ -140,7 +139,7 @@ class _LogsSavedPlayersFragmentState extends State<LogsSavedPlayersFragment>
   Widget _getPlayersChooserCard(List<PlayerObserved> playersObserved,
       ApplicationLocalization applicationLocalization) {
     List<Widget> widgets = List();
-    if (playersObserved.length > 0) {
+    if (playersObserved.isNotEmpty) {
       widgets.add(Padding(
         padding: EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
         child: Text(

@@ -20,12 +20,14 @@ class ComparisonCard extends StatelessWidget {
       this.playerName,
       this.comparedPlayerName,
       this.reversed = false,
-      this.decimalPlaces = 0, this.plural})
+      this.decimalPlaces = 0,
+      this.plural})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ApplicationLocalization applicationLocalization = ApplicationLocalization.of(context);
+    ApplicationLocalization applicationLocalization =
+        ApplicationLocalization.of(context);
     String winnerText;
     Color playerColor;
     Color comparedPlayerColor;
@@ -65,8 +67,8 @@ class ComparisonCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 5),
         ),
-        _getWinnerDescriptionWidget(
-            winnerPlayer, loserPlayer, percentage, context,applicationLocalization),
+        _getWinnerDescriptionWidget(winnerPlayer, loserPlayer, percentage,
+            context, applicationLocalization),
         Padding(
           padding: EdgeInsets.only(top: 10),
         ),
@@ -107,8 +109,12 @@ class ComparisonCard extends StatelessWidget {
     );
   }
 
-  Widget _getWinnerDescriptionWidget(String winnerPlayer, String loserPlayer,
-      double percentage, BuildContext context, ApplicationLocalization applicationLocalization) {
+  Widget _getWinnerDescriptionWidget(
+      String winnerPlayer,
+      String loserPlayer,
+      double percentage,
+      BuildContext context,
+      ApplicationLocalization applicationLocalization) {
     if (playerValue == comparedPlayerValue) {
       return Container();
     } else {
@@ -119,25 +125,28 @@ class ComparisonCard extends StatelessWidget {
 
       return RichText(
         textAlign: TextAlign.center,
-        text: new TextSpan(
+        text: TextSpan(
           // Note: Styles for TextSpans must be explicitly defined.
           // Child text spans will inherit styles from parent
-          style: new TextStyle(
+          style: TextStyle(
               fontSize: 14.0,
               color: Theme.of(context).textTheme.body1.color,
               fontStyle: FontStyle.italic),
           children: <TextSpan>[
-            new TextSpan(
+            TextSpan(
                 text: "$winnerPlayer",
-                style: new TextStyle(fontWeight: FontWeight.bold)),
-            new TextSpan(text: " ${applicationLocalization.getText("log_compare_had")}"),
-            new TextSpan(
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            TextSpan(
+                text: " ${applicationLocalization.getText("log_compare_had")}"),
+            TextSpan(
                 text: " ${percentage.toStringAsFixed(0)}%",
-                style: new TextStyle(fontWeight: FontWeight.bold)),
-            new TextSpan(text: " $phrase $plural ${applicationLocalization.getText("log_compare_than")} "),
-            new TextSpan(
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            TextSpan(
+                text:
+                    " $phrase $plural ${applicationLocalization.getText("log_compare_than")} "),
+            TextSpan(
                 text: "$loserPlayer.",
-                style: new TextStyle(fontWeight: FontWeight.bold)),
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
       );

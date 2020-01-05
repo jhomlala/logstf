@@ -62,7 +62,7 @@ class _PlayerSearchResultsPageState
                 } else {
                   var items =
                       playerSearchResultsPageBloc.playersSearchSubject.value;
-                  if (items != null && items.length > 0) {
+                  if (items != null && items.isNotEmpty) {
                     return ListView.builder(
                       itemCount: items.length,
                       itemBuilder: (context, position) {
