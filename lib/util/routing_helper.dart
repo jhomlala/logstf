@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:fimber/fimber.dart';
 import 'package:logstf/model/internal/average_player_stats.dart';
 import 'package:logstf/model/internal/search_data.dart';
 import 'package:logstf/model/external/log.dart';
@@ -44,7 +45,7 @@ class RoutingHelper {
       this.aboutPageProvider);
 
   void setupRoutes() {
-    print("Setup routes!");
+    Fimber.d("Setup sailor routes");
 
     ///Log page
     sailor.addRoute(SailorRoute(

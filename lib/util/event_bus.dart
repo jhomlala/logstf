@@ -80,7 +80,7 @@ class RxBus {
       }
     });
   }
-  
+
   static void destroy({tag}) {
     var toRemove = [];
     _list.forEach((rxBus) {

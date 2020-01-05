@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fimber/fimber_base.dart';
 import 'package:logstf/model/internal/players_observed_clear_event.dart';
 import 'package:logstf/ui/common/bloc_provider.dart';
 import 'package:logstf/model/internal/player_observed_added_event.dart';
@@ -30,19 +31,17 @@ class LogsSavedPlayersFragmentBloc extends BaseBloc {
       if (playersObserved == null) {
         playersObserved = List();
       }
-      print("Player obseved added!");
       playersObserved.add(event.playerObserved);
       playersObservedSubject.add(playersObserved);
     });
     addSubscription(playerAddedEventSubscription);
 
-    StreamSubscription playersClearEventSubscription = RxBus.register<PlayersObservedClearEvent>().listen((event){
+    StreamSubscription playersClearEventSubscription =
+        RxBus.register<PlayersObservedClearEvent>().listen((event) {
       playersObservedSubject.value = List();
       logsSearchSubject.value = List();
-      print("Players cleared!");
     });
     addSubscription(playersClearEventSubscription);
-
   }
 
   void getPlayersObserved() async {
@@ -78,8 +77,9 @@ class LogsSavedPlayersFragmentBloc extends BaseBloc {
       }
 
       loading = false;
-    } catch (exception) {
-      print("Exception ${exception.toString()}");
+    } catch (exception, stackTrace) {
+      Fimber.e("Exception when selecting logs: ",
+          ex: exception, stacktrace: stackTrace);
       loading = false;
       logsSearchSubject.addError(exception);
     }

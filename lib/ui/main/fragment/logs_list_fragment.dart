@@ -81,7 +81,6 @@ class _LogsListFragmentState extends State<LogsListFragment>
 
               if (!logsListFragmentBloc.loading) {
                 if (snapshot.hasError) {
-                  print("Error: " + snapshot.error.toString());
                   widgets.add(EmptyCard(
                     description:
                         ErrorHandler.handleError(snapshot.error, context),

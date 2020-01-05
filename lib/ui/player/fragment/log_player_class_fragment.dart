@@ -91,7 +91,6 @@ class _LogPlayerClassOverviewFragmentState
   @override
   void initState() {
     super.initState();
-    print("init state");
     _classes = _getPlayerClasses();
     _selectedClass = _classes[0];
   }

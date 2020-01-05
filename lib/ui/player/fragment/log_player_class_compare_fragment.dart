@@ -173,7 +173,6 @@ class _LogPlayerClassCompareFragmentState extends State<LogPlayerClassCompareFra
         );
       }).toList(),
       onChanged: (value) {
-        print("Selected.");
         setState(() {
           _selectedPlayer = value;
         });

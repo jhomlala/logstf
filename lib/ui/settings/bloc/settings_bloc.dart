@@ -31,7 +31,6 @@ class SettingsBloc {
   }
 
   void saveAppSettings(AppSettings appSettings) {
-    print("Save app settings" + appSettings.toString());
     appSettingsSubject.value = appSettings;
     settingsLocalProvider.saveAppSettings(appSettings);
     RxBus.post(AppSettingsChangedEvent(appSettings));

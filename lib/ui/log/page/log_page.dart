@@ -142,7 +142,6 @@ class _LogViewState extends BasePageState<LogPage>
             stream: logDetailsBloc.logSubject,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                print("Error: " + snapshot.error.toString());
                 return Container(
                     color: Theme.of(context).primaryColor,
                     child: EmptyCard(
@@ -216,7 +215,6 @@ class _LogViewState extends BasePageState<LogPage>
 
   void _onPlayerClicked(Log log, Player player,
       HashMap<String, AveragePlayerStats> averagePlayersStatsMap) async {
-    print("1Average player stats map: " + averagePlayersStatsMap.toString());
     SearchPlayerMatchesEvent searchPlayerMatchesNavigationEvent =
         await getNavigator().navigate(RoutingHelper.logPlayerPageRoute, params: {
       AppConst.logParameter: log,

@@ -43,7 +43,6 @@ class PlayerSearchResultsPageBloc extends BaseBloc {
   }
 
   void getObservedPlayers() async {
-    print("Get observed players!");
     List<PlayerObserved> observedPlayersList =
         await playersObservedLocalProvider.getPlayersObserved();
     observedPlayers.addAll(observedPlayersList);

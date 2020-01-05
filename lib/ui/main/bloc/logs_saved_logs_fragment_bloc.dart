@@ -17,7 +17,6 @@ class LogsSavedLogsFragmentBloc extends BaseBloc {
   LogsSavedLogsFragmentBloc(this.logsLocalProvider) {
     StreamSubscription logSavedEventSubscription =
         RxBus.register<LogSavedEvent>().listen((event) {
-      print("Refresh saved logs!");
       clearLogs();
       getSavedLogs();
     });
@@ -25,7 +24,6 @@ class LogsSavedLogsFragmentBloc extends BaseBloc {
 
     StreamSubscription savedLogsClearEventSubscription =
         RxBus.register<SavedLogsClearEvent>().listen((event) {
-          print("Clear saved logs");
           clearLogs();
         });
     addSubscription(savedLogsClearEventSubscription);

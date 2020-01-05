@@ -1,3 +1,4 @@
+import 'package:fimber/fimber_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -65,8 +66,8 @@ class _MainViewPage extends BasePageState<MainPage>
           getNavigator().navigate(RoutingHelper.logPageRoute,
               params: {"logId": logId, "selectedPlayerSteamId": playerSteamId});
         }
-      } catch (exception) {
-        print(exception);
+      } catch (exception, stackTrace) {
+        Fimber.e("Exception on callGetDeppLinkLogId", ex: exception, stacktrace: stackTrace);
       }
     }
   }
@@ -164,7 +165,6 @@ class _MainViewPage extends BasePageState<MainPage>
       widget.appStateManager.searchData = searchData;
       widget.logsListFragmentBloc.clearFilters();
       widget.logsListFragmentBloc.searchLogsFromSearchData(searchData);
-      print("Search data set with player: " + searchData.toString());
     }
   }
 

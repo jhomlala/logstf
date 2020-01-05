@@ -55,7 +55,6 @@ class _LogPlayerPageState extends BasePageState<LogPlayerPage>
       averagePlayersStatsMap =
           Sailor.param<HashMap<String, AveragePlayerStats>>(
               context, AppConst.averagePlayersStatsMapParameter);
-      print("Average player stats map: " + averagePlayersStatsMap.toString());
       initCompleted = true;
     }
   }

@@ -8,7 +8,6 @@ class SteamRemoteRepository {
 
   Future<SteamPlayersResponse> getSteamPlayers(String steamIds) async {
     Uri uri = Uri.parse("${AppConst.steamApiUrl}$steamIds");
-    print("Uri: " + uri.toString());
     Response response = await dio.request(uri.toString());
     return SteamPlayersResponse.fromJson(response.data);
   }

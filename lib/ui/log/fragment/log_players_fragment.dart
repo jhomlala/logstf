@@ -487,7 +487,6 @@ class _LogPlayersFragmentState extends State<LogPlayersFragment> {
     columnWidgets.add(_getHeaderCell(title, rightCorner: rightCorner));
 
     int selectedPlayerIndex = _getSelectedPlayerIndex();
-    print("Selected player index: " + selectedPlayerIndex.toString());
     for (int index = 0; index < values.length; index++) {
       columnWidgets.add(_getPlayerValueCell(values[index],
           width: width, selectedPlayer: index == selectedPlayerIndex));
@@ -557,7 +556,6 @@ class _LogPlayersFragmentState extends State<LogPlayersFragment> {
   }
 
   _onHeaderClicked(String value) {
-    print("header clicked: " + value);
     _playersSorted = _orderPlayersByField(_playersSorted, value);
     _currentFilter = value;
     setState(() {});
