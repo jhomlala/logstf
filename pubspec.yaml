@@ -54,6 +54,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.7.1
+  extra_pedantic: 1.1.1
 
   inject_generator:
     git:

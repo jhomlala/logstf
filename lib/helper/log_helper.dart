@@ -958,8 +958,8 @@ class LogHelper {
     return MatchType(matchType, color);
   }
 
-  static getDamagePerMinute(Player player, int length) {
-    var damage = player.dmg;
+  static double getDamagePerMinute(Player player, int length) {
+    final damage = player.dmg;
     return damage / (length / 60);
   }
 
