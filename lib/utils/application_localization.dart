@@ -279,6 +279,7 @@ class ApplicationLocalization {
       "about_send_trade": "Send trade offer",
       "about_team_fortress_privacy":
           "Team Fortress, the Team Fortress logo, Steam, the Steam logo are trademarks and/or registered trademarks of Valve Corporation. Logs thanks to logs.tf created by zoob. Weapon images thanks to wiki.teamfortress.com.",
+      "about_page": "Page",
     },
     'pl': {
       "help_mvp_title": "Jak jest obliczane MVP",
@@ -552,6 +553,7 @@ class ApplicationLocalization {
       "about_send_trade": "Wyślij ofertę wymiany",
       "about_team_fortress_privacy":
           "Team Fortress, logo Team Fortress, Steam, logo Steam są znakami towarowymi i / lub zastrzeżonymi znakami towarowymi Valve Corporation. Logi dzięki logs.tf utworzonemu przez zoob. Obrazy broni dzięki wiki.teamfortress.com.",
+      "about_page": "Strona",
     }
   };
 

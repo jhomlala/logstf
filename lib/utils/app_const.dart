@@ -39,5 +39,8 @@ class AppConst {
   static const String supraAvatarUrl = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/d0/d0e9e61aa2bc3ec6e3b6d5bd11de422c5d1870e9_full.jpg";
   static const String supraSteamProfileUrl = "https://steamcommunity.com/id/cosiepatrzysz";
   static const String supraWebPage = "http://supra.tf";
-
+  static const String supraName = "Supra";
+  static const String appName = "Pocket Logs";
+  static const String authorName = "Oli";
+  static const String github = "GitHub";
 }
