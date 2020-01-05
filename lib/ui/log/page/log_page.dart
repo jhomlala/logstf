@@ -28,16 +28,16 @@ import 'package:sailor/sailor.dart';
 import '../fragment/log_players_stats_matrix_fragment.dart';
 import '../fragment/log_timeline_fragment.dart';
 
-class LogPage extends BasePage {
+class LogDetailsPage extends BasePage {
   final LogDetailsBloc logDetailsBloc;
 
-  const LogPage(Sailor sailor, this.logDetailsBloc) : super(sailor: sailor);
+  const LogDetailsPage(Sailor sailor, this.logDetailsBloc) : super(sailor: sailor);
 
   @override
   _LogDetailsPageState createState() => _LogDetailsPageState();
 }
 
-class _LogDetailsPageState extends BasePageState<LogPage>
+class _LogDetailsPageState extends BasePageState<LogDetailsPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   String _appBarTitle = "";
@@ -230,7 +230,7 @@ class _LogDetailsPageState extends BasePageState<LogPage>
   }
 }
 
-class LogDetailsPageProvider extends PageProvider<LogPage> {
+class LogDetailsPageProvider extends PageProvider<LogDetailsPage> {
   final Sailor sailor;
   final LogDetailsBlocProvider logDetailsBlocProvider;
 
@@ -240,8 +240,8 @@ class LogDetailsPageProvider extends PageProvider<LogPage> {
   );
 
   @override
-  LogPage create() {
-    return LogPage(
+  LogDetailsPage create() {
+    return LogDetailsPage(
       sailor,
       logDetailsBlocProvider.create(),
     );
