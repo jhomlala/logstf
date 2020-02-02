@@ -30,94 +30,116 @@ class _AboutPageState extends BasePageState<AboutPage> {
       body: Container(
         padding: EdgeInsets.all(10),
         color: Theme.of(context).primaryColor,
-        child: ListView(children: [
-          Card(
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Column(mainAxisSize: MainAxisSize.min, children: [
-              Padding(
-                padding: EdgeInsets.only(top: 20),
+        child: ListView(
+          children: [
+            Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [_buildMainColumn(width, applicationLocalization)],
               ),
-              Text(
-                AppConst.appName,
-                style: TextStyle(fontSize: 40),
-              ),
-              AppVersionWidget(),
-              Padding(
-                padding: EdgeInsets.only(top: 30),
-              ),
-              Row(
-                children: [
-                  AuthorWidget(
-                      AppConst.authorAvatarUrl,
-                      AppConst.authorName,
-                      AppConst.github,
-                      applicationLocalization.getText("about_developer"), () {
-                    AppUtils.launchWebPage(AppConst.authorGithubUrl);
-                  }, () {
-                    AppUtils.launchWebPage(AppConst.steamProfileUrl);
-                  }),
-                  AuthorWidget(
-                      AppConst.supraAvatarUrl,
-                      AppConst.supraName,
-                      applicationLocalization.getText("about_page"),
-                      applicationLocalization.getText("about_ideas_tests"), () {
-                    AppUtils.launchWebPage(AppConst.supraWebPage);
-                  }, () {
-                    AppUtils.launchWebPage(AppConst.supraSteamProfileUrl);
-                  }),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-              ),
-              Container(
-                  width: 300,
-                  child: Text(
-                    applicationLocalization.getText("about_problems"),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14),
-                  )),
-              LogsButton(
-                  text: applicationLocalization.getText("about_project_page"),
-                  backgroundColor: Colors.grey,
-                  onPressed: () {
-                    AppUtils.launchWebPage(AppConst.projectGithubUrl);
-                  }),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-              ),
-              Container(
-                  width: 300,
-                  child: Text(
-                    applicationLocalization.getText("about_donate"),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-                  )),
-              LogsButton(
-                text: applicationLocalization.getText("about_send_trade"),
-                backgroundColor: Colors.grey,
-                onPressed: () {
-                  AppUtils.launchWebPage(AppConst.authorDonateUrl);
-                },
-              ),
-              Divider(
-                color: AppUtils.getBorderColor(context),
-              ),
-              Container(
-                  width: width * 0.9,
-                  child: Text(
-                    applicationLocalization
-                        .getText("about_team_fortress_privacy"),
-                    textAlign: TextAlign.center,
-                    maxLines: 5,
-                  )),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-              )
-            ]),
-          ])),
-        ]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column _buildMainColumn(
+      double width, ApplicationLocalization applicationLocalization) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          AppConst.appName,
+          style: TextStyle(fontSize: 40),
+        ),
+        AppVersionWidget(),
+        SizedBox(height: 30),
+        _buildAuthorsRowWidget(applicationLocalization),
+        SizedBox(height: 20),
+        Container(
+            width: 300,
+            child: Text(
+              applicationLocalization.getText("about_problems"),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14),
+            )),
+        LogsButton(
+            text: applicationLocalization.getText("about_project_page"),
+            backgroundColor: Colors.grey,
+            onPressed: () {
+              AppUtils.launchWebPage(AppConst.projectGithubUrl);
+            }),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+            width: 300,
+            child: Text(
+              applicationLocalization.getText("about_donate"),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+            )),
+        LogsButton(
+          text: applicationLocalization.getText("about_send_trade"),
+          backgroundColor: Colors.grey,
+          onPressed: () {
+            AppUtils.launchWebPage(AppConst.authorDonateUrl);
+          },
+        ),
+        Divider(
+          color: AppUtils.getBorderColor(context),
+        ),
+        _buildTrademarksWidget(width, applicationLocalization),
+        SizedBox(
+          height: 20,
+        )
+      ],
+    );
+  }
+
+  Row _buildAuthorsRowWidget(ApplicationLocalization applicationLocalization) {
+    return Row(
+      children: [
+        AuthorWidget(
+          AppConst.authorAvatarUrl,
+          AppConst.authorName,
+          AppConst.github,
+          applicationLocalization.getText("about_developer"),
+          () {
+            AppUtils.launchWebPage(AppConst.authorGithubUrl);
+          },
+          () {
+            AppUtils.launchWebPage(AppConst.steamProfileUrl);
+          },
+        ),
+        AuthorWidget(
+          AppConst.supraAvatarUrl,
+          AppConst.supraName,
+          applicationLocalization.getText("about_page"),
+          applicationLocalization.getText("about_ideas_tests"),
+          () {
+            AppUtils.launchWebPage(AppConst.supraWebPage);
+          },
+          () {
+            AppUtils.launchWebPage(AppConst.supraSteamProfileUrl);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTrademarksWidget(
+      double width, ApplicationLocalization applicationLocalization) {
+    return Container(
+      width: width * 0.9,
+      child: Text(
+        applicationLocalization.getText("about_team_fortress_privacy"),
+        textAlign: TextAlign.center,
+        maxLines: 5,
       ),
     );
   }
